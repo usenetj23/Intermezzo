@@ -37,6 +37,9 @@ for lproj in "$CONFIG_DIR"/*.lproj; do
 done
 printf 'APPL????' > "$APP/Contents/PkgInfo"
 
+# Bez symboli debugowania: zawierają ścieżki budowania (nazwę użytkownika) i nie są potrzebne do działania.
+strip -S -x "$APP/Contents/MacOS/Intermezzo"
+
 echo "==> codesign (ad-hoc)"
 # OneDrive dodaje atrybuty (Finder info) które blokują codesign: usuń je.
 xattr -cr "$APP" 2>/dev/null || true

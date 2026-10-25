@@ -59,8 +59,8 @@ The script signs the app ad hoc with a designated requirement based on the bundl
 
 ## Installation
 
-1. Build the app, then move `app/dist/Intermezzo.app` to `/Applications`.
-2. On first launch, open it with right-click › Open, or allow it in System Settings › Privacy & Security.
+1. Download `Intermezzo-<version>.zip` from [Releases](https://github.com/usenetj23/Intermezzo/releases), or build the app yourself. Move `Intermezzo.app` to `/Applications`.
+2. The app is not notarised, so macOS blocks the first launch. Open System Settings › Privacy & Security and click **Open Anyway** next to Intermezzo. In Terminal you can instead run `xattr -dr com.apple.quarantine /Applications/Intermezzo.app`.
 3. Grant only the permissions you want to use. Intermezzo works without any of them, and Settings › Advanced › Permissions shows what each one is for:
    - Calendar: meeting and holiday detection.
    - Location: weather, sun position, the saved-place work zone and the Wi-Fi network name.
