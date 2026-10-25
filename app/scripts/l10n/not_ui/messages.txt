@@ -1,0 +1,7 @@
+# Settings pane ids (SettingsPane rawValues) in BreakMessage.pane: navigation keys, not shown as text.
+Breaks
+Rules
+General
+Status
+Exercises
+Light

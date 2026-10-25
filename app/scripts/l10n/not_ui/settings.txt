@@ -1,0 +1,30 @@
+# Settings panes: literals that are not UI text (sound names, paths, currencies, brand names, user-editable defaults).
+CFBundleShortVersionString
+%@ min %@ s
+Pictures
+Glass
+Funk
+Bell
+Ping
+Tink
+Submarine
+Sosumi
+Hero
+Purr
+urlop, święto, swieto, wakacje, vacation, holiday, chorobowe, l4
+PLN
+EUR
+USD
+GBP
+CHF
+Mac
+Library/Mobile Documents/com~apple~CloudDocs
+iCloud Drive
+Library/CloudStorage
+OneDrive
+Dropbox
+OneDrive-
+OneDrive 
+LAN %@
+DNS %@
+FFFFFF

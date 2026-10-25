@@ -1,0 +1,6 @@
+# Scripts area: AppleScript header/label markers, the generated property line, the file-name fallback.
+-- Intermezzo Rule:
+-- Nastawa:
+-- Setting:
+%@property %@ : %@
+Skrypt

@@ -1,0 +1,181 @@
+# Library area: AppleScript/shell code, app and process names, ids, TCC services, parser tokens,
+# sound names, colors, currency codes and language-neutral formats. Not UI text.
+microsoft teams
+Safari
+Google Chrome
+Chrome
+Firefox
+Edge
+Arc
+Width
+Height
+Privacy_ListenEvent
+Privacy_ScreenCapture
+Privacy_Accessibility
+Privacy_Automation
+Privacy_LocationServices
+Privacy_Notifications
+Privacy_Calendars
+ListenEvent
+ScreenCapture
+AppleEvents
+FrontRepo
+System Events
+Terminal
+tell application \
+ to return tty of selected tab of front window
+ to return tty of current session of current window
+p=$(/bin/ps -t 
+ -o pid= | /usr/bin/tail -n 1 | /usr/bin/tr -d ' '); [ -n \
+ ] && /usr/sbin/lsof -a -d cwd -p \
+ -Fn | /usr/bin/sed -n 's/^n//p' | /usr/bin/head -n 1
+; while [ \
+ ]; do d=$(/usr/bin/dirname \
+); done; if [ -e \
+ ]; then /usr/bin/basename \
+; else /usr/bin/basename 
+FrontDocument
+FinderFolder
+Finder
+Sensors
+Library/Application Scripts/com.automit.Intermezzo/Rules
+ValveGame
+GameLaunchers
+PresenterMode
+MirroredDisplay
+LunchHour
+LongBuild
+FacetimeMeeting
+FaceTime
+VideoConference
+Microsoft Teams
+Teams
+Steam
+Dota 2
+ReadingDoc
+Preview
+Skim
+Books
+Keynote
+AXSlideshowRunning
+Microsoft PowerPoint
+RemoteSession
+TeamViewer
+AnyDesk
+Parsec
+Jump Desktop
+Microsoft Remote Desktop
+Windows App
+RustDesk
+Screen Sharing
+DeskVNCViewer
+pgrep -x screensharingd | wc -l | tr -d ' '
+ScreenRecording
+OBS
+ScreenFlow
+Loom
+Screen Studio
+CleanShot X
+QuickTime Player
+Nagranie ekranu
+BrowserMeeting
+Microsoft Edge
+Brave Browser
+Meet -
+Whereby
+Zoom Meeting
+Jitsi
+Webex
+ChatHuddle
+Slack
+Discord
+Huddle
+Voice Connected
+Połączono
+TerminalSession
+Ghostty
+Warp
+Alacritty
+WezTerm
+pgrep -x ssh >/dev/null || pgrep -x mosh-client >/dev/null || pgrep -x vim >/dev/null || pgrep -x nvim >/dev/null || pgrep -x htop >/dev/null
+CreativeFlow
+Logic
+GarageBand
+Ableton
+Pro Tools
+Cubase
+REAPER
+Reaper
+Final Cut
+Premiere
+DaVinci
+Blender
+Epic Games
+Battle.net
+GOG
+Heroic
+CrossOver
+Whisky
+RetroArch
+Minecraft
+system_profiler SPDisplaysDataType | grep -c 'Mirror: On'
+HandBrakeCLI
+pgrep -x 
+Glass
+FFFFFF
+no project
+PLN
+%@ h %@ min
+%@ min
+Apple
+Path
+Hardware Port:
+Device:
+Ethernet Address:
+^thunderbolt \d+$
+GoogleDrive
+Google Drive
+Box
+• intermezzo://%@ — %@
+Intermezzo keep awake
+PreventUserIdle
+PreventSystemSleep
+NoIdleSleepAssertion
+OBS, Xcode, ffmpeg
+pid (\d+)%@\):.*?\s(\w+) named: 
+Pixelmator Pro, Final Cut Pro
+Display
+IOPMrootDomain
+AppleClamshellState
+DisplayServicesClient
+AggregatedLux
+DisplayGroup
+Final Cut Pro
+DaVinci Resolve
+Adobe Premiere Pro
+Adobe Photoshop
+Adobe Lightroom
+Adobe After Effects
+Adobe Illustrator
+Pixelmator Pro
+Affinity Photo
+Affinity Designer
+Capture One
+Compressor
+IINA
+VLC
+Infuse
+Plex
+Epic Games Launcher
+GOG Galaxy
+Heroic
+Whisky
+Minecraft
+Steam
+Battle.net
+CrossOver
+Blender
+QuickTime Player
+TV
+pid %@
+MRMediaRemoteSendCommand

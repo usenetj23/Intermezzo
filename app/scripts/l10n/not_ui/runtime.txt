@@ -1,0 +1,42 @@
+# Runtime area: literals that are not UI text (AppleScript, process/file names, sounds, identifiers).
+kMDItemCFBundleIdentifier == 'com.automit.Intermezzo'
+status item back on screen — floating chip hidden
+Settings
+set volume output muted true
+set volume output volume %@
+set volume output muted %@
+set volume output volume %@ output muted false
+get volume settings
+output volume:
+output muted:true
+set volume output volume ((output volume of (get volume settings)) + %@)
+Music
+Glass
+Sosumi
+Funk
+FFFFFF
+RegisterEventHotKey
+UnregisterEventHotKey
+urlop, święto, swieto, wakacje, vacation, holiday, chorobowe, l4
+CGDisplayIsAsleep
+Width
+Height
+Intermezzo break in progress
+scheduled: %@
+Library
+Application Scripts/%@
+Application Support/%@
+) as? String ?? 
+AppleLanguages
+sleep 1; /usr/bin/open -n "$0"
+EEEE, d MMMM yyyy
+d MMM yyyy
+Mac
+Intermezzo Sync
+Library/Logs/Intermezzo
+NSScreenNumber
+Intermezzo/1.9
+User-Agent
+"coreFocusFilterState" : 1
+LAN: %@
+document.querySelectorAll('video').forEach(v => { v.muted = %@; v.volume = %@; });

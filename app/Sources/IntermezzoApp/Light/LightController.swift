@@ -1,0 +1,578 @@
+import AppKit
+import CoreGraphics
+import CoreLocation
+import IntermezzoKit
+
+enum LightKeys {
+    static let enabled = "lightEnabled"
+    static let profile = "lightProfile"
+    static let dayK = "lightDayK"
+    static let sunsetK = "lightSunsetK"
+    static let bedtimeK = "lightBedtimeK"
+    static let wakeMinutes = "lightWakeMinutes"
+    static let manualLocation = "lightLocation"
+    static let weather = "lightWeather"
+    static let fadeSeconds = "lightFadeSeconds"
+    /// This Mac only: not synchronised (see SyncPolicy).
+    static let disabledUntil = "lightDisabledUntil"
+    /// Leave a display neutral while a full-screen window (film, game) is on it.
+    static let skipFullscreen = "lightSkipFullscreen"
+    /// Comma-separated apps whose window keeps its display neutral (photo and video editors).
+    static let excludedApps = "lightExcludedApps"
+    /// Let the Mac's light sensor (lux) adjust the colour and the dimming.
+    static let ambient = "lightAmbient"
+    /// Colour of the room's lamps in kelvin, chosen by hand (the Mac cannot measure it); 0 = unknown.
+    static let roomLampK = "lightRoomK"
+    /// The hand-drawn day of the "Custom" profile: 24 hourly kelvin values ("6500,6500,…").
+    static let customCurve = "lightCustomCurve"
+}
+
+/// Writes a colour temperature to every display through its gamma table (the public CoreGraphics
+/// standard gamma-table route) and puts the system's colours back.
+@MainActor
+final class GammaDisplays {
+    private struct Table { var r: [Float]; var g: [Float]; var b: [Float] }
+    private var originals: [CGDirectDisplayID: Table] = [:]
+    private(set) var unsupported: [String] = []
+
+    private func activeDisplays() -> [CGDirectDisplayID] {
+        var ids = [CGDirectDisplayID](repeating: 0, count: 16)
+        var count: UInt32 = 0
+        guard CGGetActiveDisplayList(UInt32(ids.count), &ids, &count) == .success else { return [] }
+        return Array(ids.prefix(Int(count)))
+    }
+
+    private func name(of id: CGDirectDisplayID) -> String {
+        NSScreen.screens.first {
+            ($0.deviceDescription[NSDeviceDescriptionKey("NSScreenNumber")] as? NSNumber)?.uint32Value == id
+        }?.localizedName ?? "#\(id)"
+    }
+
+    /// Back to the system colours.
+    func restore() {
+        CGDisplayRestoreColorSyncSettings()
+    }
+
+    /// Reads the displays' own tables (calibration included) so that scaling keeps them.
+    func refreshOriginals() {
+        restore()
+        originals.removeAll()
+        unsupported.removeAll()
+        for id in activeDisplays() {
+            let capacity = CGDisplayGammaTableCapacity(id)
+            guard capacity > 0 else { unsupported.append(name(of: id)); continue }
+            var r = [Float](repeating: 0, count: Int(capacity))
+            var g = r, b = r
+            var samples: UInt32 = 0
+            guard CGGetDisplayTransferByTable(id, capacity, &r, &g, &b, &samples) == .success, samples > 0 else {
+                unsupported.append(name(of: id))
+                continue
+            }
+            let n = Int(samples)
+            originals[id] = Table(r: Array(r.prefix(n)), g: Array(g.prefix(n)), b: Array(b.prefix(n)))
+        }
+    }
+
+    var ids: [CGDirectDisplayID] { Array(originals.keys) }
+
+    /// Display frames in the global space, for matching windows to displays.
+    func frames() -> [DisplayFrame] {
+        activeDisplays().map { DisplayFrame(id: $0, bounds: CGDisplayBounds($0)) }
+    }
+
+    func apply(kelvin: (CGDirectDisplayID) -> Double) {
+        if originals.isEmpty { refreshOriginals() }
+        for (id, table) in originals {
+            let m = ColorTemperature.multipliers(kelvin: kelvin(id))
+            let r = table.r.map { $0 * Float(m.r) }
+            let g = table.g.map { $0 * Float(m.g) }
+            let b = table.b.map { $0 * Float(m.b) }
+            if CGSetDisplayTransferByTable(id, UInt32(r.count), r, g, b) != .success {
+                if !unsupported.contains(name(of: id)) { unsupported.append(name(of: id)) }
+            }
+        }
+    }
+}
+
+/// Screen colour that follows the sun, the clock and the wake-up time.
+@MainActor
+final class LightController: ObservableObject {
+    static let shared = LightController()
+
+    @Published private(set) var state: LightState?
+    /// For the UI: follows `currentKelvin` in steps of 50 K, so a fade does not redraw the pane four times a second.
+    @Published private(set) var appliedKelvin = 6500.0
+    /// What the screens show right now (changes every 0.25 s during a fade).
+    private var currentKelvin = 6500.0 {
+        didSet { if abs(currentKelvin - appliedKelvin) >= 50 { appliedKelvin = currentKelvin } }
+    }
+    @Published private(set) var nextEvent: SunEvent?
+    @Published private(set) var locationNote = ""
+    @Published private(set) var unsupportedDisplays: [String] = []
+    @Published private(set) var pausedUntil: Date?
+    @Published private(set) var previewing = false
+    @Published private(set) var lux: Double?
+    @Published private(set) var ambientNote = ""
+    @Published private(set) var point = GeoPoint(latitude: 52.2, longitude: 21.0)
+
+    private let displays = GammaDisplays()
+    private let defaults = UserDefaults.standard
+    private let locationFetcher = LocationOneShot()
+    private var tickTimer: Timer?
+    private var fadeTimer: Timer?
+    private var previewTimer: Timer?
+    private var signalSources: [DispatchSourceSignal] = []
+    private var firstTick = true
+    private var lastReapply = Date.distantPast
+    private var requestedLocation = false
+    /// What each display shows right now (kelvin); displays in `neutral` fade to 6500.
+    private var shown: [CGDirectDisplayID: Double] = [:]
+    private var neutral: Set<UInt32> = []
+    private var lastForeignFront: FrontWindow?
+    private var frontTimer: Timer?
+    /// The time zone's reference city, read from zone.tab once per zone.
+    private var zoneCache: (zone: String, point: GeoPoint?)?
+
+    // MARK: Settings
+
+    var isEnabled: Bool { defaults.bool(forKey: LightKeys.enabled) }
+
+    var profile: LightProfile {
+        LightProfile(rawValue: defaults.string(forKey: LightKeys.profile) ?? "") ?? .recommended
+    }
+
+    /// Wake-up time; until the user sets it, an hour before work starts.
+    var wakeMinutes: Int {
+        if let v = defaults.object(forKey: LightKeys.wakeMinutes) as? Int { return v }
+        let work = defaults.object(forKey: Keys.workStartMinutes) as? Int ?? 8 * 60
+        return ((work - 60) + 1440) % 1440
+    }
+
+    /// The drawn day, when the Custom profile is chosen.
+    var customCurve: CustomLightCurve? {
+        profile.isCustom ? CustomLightCurve.decode(defaults.string(forKey: LightKeys.customCurve)) : nil
+    }
+
+    var settings: LightSettings {
+        if let curve = customCurve { return curve.lightSettings(wakeMinutes: wakeMinutes, sunDriven: profile == .customSun) }
+        return profile.settings(wakeMinutes: wakeMinutes).sanitized
+    }
+
+    /// The stored drawn day, whichever profile is chosen (nil until one was started).
+    var customCurveStored: CustomLightCurve? {
+        CustomLightCurve.decode(defaults.string(forKey: LightKeys.customCurve))
+    }
+
+    func saveCustomCurve(_ curve: CustomLightCurve) {
+        defaults.set(curve.encoded, forKey: LightKeys.customCurve)
+        tick()
+    }
+
+    /// The Custom profile starts from what another profile does today, so nothing jumps when it is chosen.
+    func startCustomCurve(from base: LightProfile) {
+        let curve = CustomLightCurve.sampled(settings: base.settings(wakeMinutes: wakeMinutes),
+                                             latitude: point.latitude, longitude: point.longitude, date: Date())
+        defaults.set(curve.encoded, forKey: LightKeys.customCurve)
+        tick()
+    }
+
+    /// The schedule's colour at a moment (without the room and weather adjustments).
+    func scheduleState(at date: Date, point: GeoPoint, cloud: Double?) -> LightState {
+        if let curve = customCurve {
+            if profile == .customSun {
+                return LightSchedule.sunDrivenState(at: date, latitude: point.latitude, longitude: point.longitude,
+                                                    curve: curve, settings: settings, cloudCover: cloud)
+            }
+            return LightSchedule.state(at: date, latitude: point.latitude, longitude: point.longitude, curve: curve)
+        }
+        return LightSchedule.state(at: date, latitude: point.latitude, longitude: point.longitude,
+                                   settings: settings, cloudCover: cloud, calendar: .current)
+    }
+
+    private var fadeSeconds: Double {
+        Double(min(max(defaults.object(forKey: LightKeys.fadeSeconds) as? Int ?? 20, 1), 120))
+    }
+
+    // MARK: Lifecycle
+
+    /// Called once at launch. Always starts from the system colours, so a screen left tinted by an
+    /// earlier crash is corrected here.
+    func start() {
+        displays.restore()
+        installSignalHandlers()
+        let center = NotificationCenter.default
+        center.addObserver(forName: NSApplication.didChangeScreenParametersNotification, object: nil, queue: .main) { [weak self] _ in
+            MainActor.assumeIsolated { self?.reapply(rereadOriginals: true) }
+        }
+        let workspace = NSWorkspace.shared.notificationCenter
+        for name in [NSWorkspace.didWakeNotification, NSWorkspace.activeSpaceDidChangeNotification] {
+            workspace.addObserver(forName: name, object: nil, queue: .main) { [weak self] _ in
+                MainActor.assumeIsolated { self?.reapply(rereadOriginals: true) }
+            }
+        }
+        workspace.addObserver(forName: NSWorkspace.didActivateApplicationNotification, object: nil, queue: .main) { [weak self] _ in
+            MainActor.assumeIsolated { self?.refreshExclusions() }
+        }
+        // A window can go full screen or move to another display without an app switch.
+        // Full-screen apps live in their own Space, so a Space change is the main signal; the slow timer
+        // only catches a window moved to another display.
+        workspace.addObserver(forName: NSWorkspace.activeSpaceDidChangeNotification, object: nil, queue: .main) { [weak self] _ in
+            MainActor.assumeIsolated { self?.refreshExclusions() }
+        }
+        let front = Timer(timeInterval: 10, repeats: true) { [weak self] _ in
+            MainActor.assumeIsolated { self?.refreshExclusions() }
+        }
+        front.tolerance = 3
+        RunLoop.main.add(front, forMode: .common)
+        frontTimer = front
+        // A setting changed in the Settings window takes effect at once.
+        center.addObserver(forName: UserDefaults.didChangeNotification, object: nil, queue: .main) { [weak self] _ in
+            MainActor.assumeIsolated { self?.settingsChanged() }
+        }
+        let timer = Timer(timeInterval: 30, repeats: true) { [weak self] _ in
+            MainActor.assumeIsolated { self?.tick() }
+        }
+        timer.tolerance = 10
+        RunLoop.main.add(timer, forMode: .common)
+        tickTimer = timer
+        tick()
+    }
+
+    func shutdown() {
+        fadeTimer?.invalidate()
+        previewTimer?.invalidate()
+        displays.restore()
+    }
+
+    private func installSignalHandlers() {
+        for sig in [SIGTERM, SIGINT, SIGHUP] {
+            signal(sig, SIG_IGN)
+            let source = DispatchSource.makeSignalSource(signal: sig, queue: .main)
+            source.setEventHandler { [weak self] in
+                MainActor.assumeIsolated {
+                    self?.displays.restore()
+                    exit(0)
+                }
+            }
+            source.resume()
+            signalSources.append(source)
+        }
+    }
+
+    // MARK: Pause
+
+    func disable(forMinutes minutes: Int) {
+        defaults.set(Date().addingTimeInterval(Double(minutes) * 60).timeIntervalSince1970, forKey: LightKeys.disabledUntil)
+        tick()
+    }
+
+    /// Pauses until the next sunrise.
+    func disableUntilSunrise() {
+        var event = nextEvent
+        if event?.kind == .sunset, let sunset = event {
+            event = LightSchedule.nextSunEvent(after: sunset.date.addingTimeInterval(60),
+                                               latitude: point.latitude, longitude: point.longitude)
+        }
+        let until = event?.date ?? Date().addingTimeInterval(8 * 3600)
+        defaults.set(until.timeIntervalSince1970, forKey: LightKeys.disabledUntil)
+        tick()
+    }
+
+    func resumeNow() {
+        defaults.removeObject(forKey: LightKeys.disabledUntil)
+        tick()
+    }
+
+    func setEnabled(_ on: Bool) {
+        defaults.set(on, forKey: LightKeys.enabled)
+        if on { defaults.removeObject(forKey: LightKeys.disabledUntil) }
+        tick()
+    }
+
+    // MARK: Tick
+
+    private var lastSettingsSignature = ""
+
+    private func settingsChanged() {
+        let signature = [LightKeys.enabled, LightKeys.profile, LightKeys.dayK, LightKeys.sunsetK, LightKeys.bedtimeK,
+                         LightKeys.wakeMinutes, LightKeys.manualLocation, LightKeys.weather, LightKeys.disabledUntil,
+                         LightKeys.ambient, LightKeys.roomLampK, LightKeys.customCurve]
+            .map { "\(defaults.object(forKey: $0) ?? "")" }.joined(separator: "|")
+        guard signature != lastSettingsSignature else { return }
+        lastSettingsSignature = signature
+        tick()
+    }
+
+    func tick() {
+        let now = Date()
+        let until = defaults.double(forKey: LightKeys.disabledUntil)
+        let paused = until > now.timeIntervalSince1970 ? Date(timeIntervalSince1970: until) : nil
+        if paused != pausedUntil { pausedUntil = paused }
+
+        let (resolved, note) = resolveLocation()
+        let moved = resolved != point
+        if moved { point = resolved }
+        if locationNote != note { locationNote = note }
+        if moved || nextEvent.map({ $0.date <= now }) ?? true {
+            nextEvent = LightSchedule.nextSunEvent(after: now, latitude: resolved.latitude, longitude: resolved.longitude)
+        }
+        if profile.isCustom, customCurve == nil { startCustomCurve(from: .recommended) }
+        let schedule = scheduleState(at: now, point: resolved, cloud: cloudCover())
+        let measured = measureRoom()
+        var current = schedule
+        if let measured {
+            let lamp = defaults.integer(forKey: LightKeys.roomLampK)
+            let kelvin = AmbientLight.adjustedKelvin(schedule.kelvin, lux: measured, settings: settings,
+                                                     roomLampK: lamp > 0 ? Double(lamp) : nil)
+            current = LightState(kelvin: kelvin, phase: schedule.phase, sunElevation: schedule.sunElevation)
+        }
+        if current != state { state = current }
+
+        refreshExclusions(fade: false)
+        startFade(jump: firstTick)
+        BetterDisplayLight.shared.update(kelvin: current.kelvin, settings: settings,
+                                         active: isEnabled && pausedUntil == nil && !previewing, neutral: neutral,
+                                         lux: measured)
+        firstTick = false
+    }
+
+    /// Published only when it changed (each publish redraws the Light pane).
+    private func showAmbient(lux newLux: Double?, note: String) {
+        if lux != newLux { lux = newLux }
+        if ambientNote != note { ambientNote = note }
+    }
+
+    /// The room's brightness from the Mac's sensor, when the user asks for it and the lid is open.
+    private func measureRoom() -> Double? {
+        guard isEnabled, defaults.bool(forKey: LightKeys.ambient) else {
+            showAmbient(lux: nil, note: "")
+            return nil
+        }
+        if profile == .custom {
+            showAmbient(lux: nil, note: String(localized: "Profil „Własne (wg zegara)” nie korzysta z czujnika: wybierz „Własne (wg Słońca)” albo gotowy profil."))
+            return nil
+        }
+        if AmbientSensor.lidClosed {
+            AmbientSensor.shared.reset()
+            showAmbient(lux: nil, note: String(localized: "Klapa zamknięta: czujnik nie widzi pokoju, działa sam harmonogram."))
+            return nil
+        }
+        guard let value = AmbientSensor.shared.smoothedLux() else {
+            showAmbient(lux: nil, note: String(localized: "Ten Mac nie udostępnia czujnika światła: działa sam harmonogram."))
+            return nil
+        }
+        showAmbient(lux: value.rounded(), note: "")
+        return value
+    }
+
+    /// Cloud cover from the weather the app already fetches, only when the user asks for it.
+    private func cloudCover() -> Double? {
+        guard defaults.bool(forKey: LightKeys.weather), isEnabled else { return nil }
+        WeatherController.shared.refreshIfNeeded(ignoreSetting: true)
+        guard let snapshot = WeatherController.shared.snapshot,
+              Date().timeIntervalSince(snapshot.fetchedAt) < 3 * 3600 else { return nil }
+        return snapshot.cloudCover
+    }
+
+    private func resolveLocation() -> (GeoPoint, String) {
+        if let manual = defaults.string(forKey: LightKeys.manualLocation), !manual.isEmpty,
+           let point = LightLocation.parse(manual) {
+            return (point, String(localized: "wpisana ręcznie"))
+        }
+        func coordinate(_ key: String) -> Double? {
+            if let v = defaults.object(forKey: key) as? Double { return v }
+            if let s = defaults.string(forKey: key), let v = Double(s) { return v }
+            return nil
+        }
+        if let lat = coordinate(GlassKeys.lat), let lon = coordinate(GlassKeys.lon) {
+            return (GeoPoint(latitude: lat, longitude: lon), String(localized: "z lokalizacji Maca"))
+        }
+        requestLocationIfAllowed()
+        let zone = TimeZone.current.identifier
+        if zoneCache?.zone != zone {
+            let table = (try? String(contentsOfFile: "/usr/share/zoneinfo/zone.tab", encoding: .utf8)) ?? ""
+            zoneCache = (zone, LightLocation.fromZoneTab(zoneID: zone, table: table))
+        }
+        if let point = zoneCache?.point {
+            return (point, String(localized: "przybliżona, ze strefy czasowej \(zone)"))
+        }
+        return (GeoPoint(latitude: 0, longitude: 0), String(localized: "nieznana (wpisz współrzędne)"))
+    }
+
+    /// Only when the system already allows it: this never opens a permission prompt.
+    private func requestLocationIfAllowed() {
+        guard !requestedLocation else { return }
+        guard PermissionCenter.location(CLLocationManager().authorizationStatus) == .granted else { return }
+        requestedLocation = true
+        locationFetcher.onLocation = { [weak self] lat, lon in
+            Task { @MainActor in
+                self?.defaults.set(lat, forKey: GlassKeys.lat)
+                self?.defaults.set(lon, forKey: GlassKeys.lon)
+                self?.tick()
+            }
+        }
+        locationFetcher.requestOnce()
+    }
+
+    // MARK: Applying
+
+    /// What the screens should show when nothing is excluded.
+    private func globalGoal() -> Double {
+        (isEnabled && pausedUntil == nil) ? (state?.kelvin ?? LightSettings.maxKelvin) : LightSettings.maxKelvin
+    }
+
+    private func goal(for id: CGDirectDisplayID) -> Double {
+        neutral.contains(id) ? LightSettings.maxKelvin : globalGoal()
+    }
+
+    /// Moves every display to its goal in steps, so that the screen never jumps.
+    private func startFade(jump: Bool) {
+        if jump || displays.ids.isEmpty {
+            currentKelvin = globalGoal()
+            appliedKelvin = currentKelvin
+            displays.ids.forEach { shown[$0] = goal(for: $0) }
+            applyNow()
+            return
+        }
+        guard fadeTimer == nil else { return }
+        let step = (LightSettings.maxKelvin - LightSettings.minKelvin) / (fadeSeconds * 4)
+        let timer = Timer(timeInterval: 0.25, repeats: true) { [weak self] t in
+            MainActor.assumeIsolated {
+                guard let self else { t.invalidate(); return }
+                var moving = self.approach(&self.currentKelvin, to: self.globalGoal(), step: step)
+                for id in self.displays.ids {
+                    var value = self.shown[id] ?? self.currentKelvin
+                    if self.approach(&value, to: self.goal(for: id), step: step) { moving = true }
+                    self.shown[id] = value
+                }
+                self.applyNow()
+                if !moving {
+                    t.invalidate()
+                    self.fadeTimer = nil
+                    self.appliedKelvin = self.currentKelvin
+                }
+            }
+        }
+        RunLoop.main.add(timer, forMode: .common)
+        fadeTimer = timer
+    }
+
+    /// One step toward `target`; returns whether it is still on the way.
+    private func approach(_ value: inout Double, to target: Double, step: Double) -> Bool {
+        let delta = target - value
+        if abs(delta) <= step {
+            value = target
+            return false
+        }
+        value += delta > 0 ? step : -step
+        return true
+    }
+
+    private func applyNow() {
+        let anyTint = displays.ids.contains { (shown[$0] ?? currentKelvin) < LightSettings.maxKelvin - 0.5 }
+        if !anyTint && !isEnabled && !previewing {
+            displays.restore()
+        } else {
+            displays.apply(kelvin: { [shown, currentKelvin] in shown[$0] ?? currentKelvin })
+        }
+        if displays.unsupported != unsupportedDisplays { unsupportedDisplays = displays.unsupported }
+    }
+
+    // MARK: Exceptions
+
+    /// Looks at the active window: an excluded app, or a full-screen window, keeps its own display neutral.
+    func refreshExclusions(fade: Bool = true) {
+        guard isEnabled, pausedUntil == nil, !previewing else {
+            if !neutral.isEmpty { neutral = []; if fade { startFade(jump: false) } }
+            return
+        }
+        let excluded = KeepAwakeApps.list(fromCommaText: defaults.string(forKey: LightKeys.excludedApps) ?? "")
+        let skipFullscreen = defaults.object(forKey: LightKeys.skipFullscreen) as? Bool ?? true
+        guard skipFullscreen || !excluded.isEmpty else {
+            // Nothing to look for: no window list at all.
+            if !neutral.isEmpty { neutral = []; if fade { startFade(jump: false) } }
+            return
+        }
+        let probe = FrontWindowProbe.current()
+        if case .own = probe {} else if case .window(let window) = probe { lastForeignFront = window } else { lastForeignFront = nil }
+        let next = LightExclusion.displaysToLeaveNeutral(front: lastForeignFront, displays: displays.frames(),
+                                                         excludedApps: excluded, skipFullscreen: skipFullscreen)
+        guard next != neutral else { return }
+        neutral = next
+        Trace.log("light: neutral displays \(next.sorted())")
+        if fade { startFade(jump: false) }
+    }
+
+    /// After wake-up, a changed display set or a Space change some apps and drivers reset the tables.
+    private func reapply(rereadOriginals: Bool) {
+        guard Date().timeIntervalSince(lastReapply) > 2 else { return }
+        lastReapply = Date()
+        if rereadOriginals { displays.refreshOriginals() }
+        if isEnabled || previewing { applyNow() }
+    }
+
+    // MARK: Preview
+
+    /// A 12-second sweep through today (like Nightglow's "Preview 24 hours"), started by a click.
+    func previewDay() {
+        guard !previewing else { return }
+        let (point, _) = resolveLocation()
+        let cal = Calendar.current
+        let start = cal.startOfDay(for: Date())
+        previewing = true
+        let began = Date()
+        let timer = Timer(timeInterval: 0.1, repeats: true) { [weak self] t in
+            MainActor.assumeIsolated {
+                guard let self else { t.invalidate(); return }
+                let progress = Date().timeIntervalSince(began) / 12
+                if progress >= 1 {
+                    self.stopPreview()
+                    return
+                }
+                let moment = start.addingTimeInterval(progress * 86_400)
+                let k = self.scheduleState(at: moment, point: point, cloud: nil).kelvin
+                self.currentKelvin = k
+                self.displays.ids.forEach { self.shown[$0] = k }
+                self.displays.apply(kelvin: { _ in k })
+            }
+        }
+        RunLoop.main.add(timer, forMode: .common)
+        previewTimer = timer
+    }
+
+    func stopPreview() {
+        previewTimer?.invalidate()
+        previewTimer = nil
+        previewing = false
+        startFade(jump: true)
+    }
+}
+
+/// The active window of the frontmost app, read from the window list (no Screen Recording needed for
+/// owner and bounds).
+enum FrontWindowProbe {
+    enum Result {
+        /// Our own window is in front (Settings, break screen): keep what was known.
+        case own
+        case none
+        case window(FrontWindow)
+    }
+
+    static func current() -> Result {
+        guard let app = NSWorkspace.shared.frontmostApplication else { return .none }
+        if app.processIdentifier == ProcessInfo.processInfo.processIdentifier { return .own }
+        let options: CGWindowListOption = [.optionOnScreenOnly, .excludeDesktopElements]
+        guard let list = CGWindowListCopyWindowInfo(options, kCGNullWindowID) as? [[String: Any]] else { return .none }
+        for window in list {
+            guard (window[kCGWindowOwnerPID as String] as? Int32) == app.processIdentifier,
+                  (window[kCGWindowLayer as String] as? Int) == 0,
+                  (window[kCGWindowAlpha as String] as? Double ?? 1) > 0,
+                  let dict = window[kCGWindowBounds as String] as? NSDictionary,
+                  let rect = CGRect(dictionaryRepresentation: dict as CFDictionary) else { continue }
+            let names = [app.localizedName, app.executableURL?.lastPathComponent,
+                         app.bundleURL?.deletingPathExtension().lastPathComponent].compactMap { $0 }
+            return .window(FrontWindow(appNames: names, bounds: rect))
+        }
+        return .none
+    }
+}

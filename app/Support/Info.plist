@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>en</string>
+	<key>CFBundleExecutable</key>
+	<string>Intermezzo</string>
+	<key>CFBundleIconFile</key>
+	<string>AppIcon</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.automit.Intermezzo</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>en</string>
+		<string>pl</string>
+	</array>
+	<key>CFBundleName</key>
+	<string>Intermezzo</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.39.3</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>com.automit.Intermezzo</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>intermezzo</string>
+			</array>
+		</dict>
+	</array>
+	<key>CFBundleVersion</key>
+	<string>260</string>
+	<key>LSApplicationCategoryType</key>
+	<string>public.app-category.utilities</string>
+	<key>LSMinimumSystemVersion</key>
+	<string>14.0</string>
+	<key>LSUIElement</key>
+	<true/>
+	<key>NSAppleEventsUsageDescription</key>
+	<string>Intermezzo runs the AppleScript rules you enable (for example "pause during a screen share") and asks other apps such as System Events only what those rules need.</string>
+	<key>NSCalendarsFullAccessUsageDescription</key>
+	<string>Intermezzo checks calendar event titles only to detect meetings (e.g. "Work", "Praca") and pause breaks during them.</string>
+	<key>NSHealthShareUsageDescription</key>
+	<string>Intermezzo does not read your health data; it only writes water intake when you log a drink.</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>Intermezzo writes your logged drinks (water, tea, coffee, juice) to Health as water intake so your daily hydration total appears in the Health app. Nothing else is shared.</string>
+	<key>NSLocationUsageDescription</key>
+	<string>Intermezzo uses your location for two things only: current weather for the break background (one anonymous request to api.open-meteo.com every 15 minutes) and, if you turn on the work log, the names of nearby Wi-Fi networks, which macOS reveals only to apps with location access. Nothing is stored or sent elsewhere.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Intermezzo uses your location for two things only: current weather for the break background (one anonymous request to api.open-meteo.com every 15 minutes) and, if you turn on the work log, the names of nearby Wi-Fi networks, which macOS reveals only to apps with location access. Nothing is stored or sent elsewhere.</string>
+	<key>NSSupportsAutomaticTermination</key>
+	<false/>
+</dict>
+</plist>
