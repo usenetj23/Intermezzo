@@ -116,6 +116,10 @@ A missing translation falls back to the original text.
 - Some features use private macOS frameworks: MediaRemote for pausing media and DisplayServices for the ambient-light reading. They may stop working after a macOS update, and the app then falls back to simpler behaviour.
 - URL commands such as `intermezzo://skip` can be opened by any web page. Turn off the ones you do not need.
 
+## Support
+
+Intermezzo is free and stays free. If it helps you take better breaks and you would like to buy me a coffee, you can do it through [GitHub Sponsors](https://github.com/sponsors/usenetj23). Bug reports and ideas in [Issues](https://github.com/usenetj23/Intermezzo/issues) help just as much.
+
 ## Licence
 
 [MIT](LICENSE). Bundled music and sounds have their own licences, listed in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
