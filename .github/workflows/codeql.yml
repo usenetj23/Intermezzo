@@ -1,0 +1,44 @@
+name: CodeQL
+
+# Static security analysis of the Swift code, plus the unit tests.
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: "17 4 * * 1"   # every Monday
+
+permissions:
+  contents: read
+  security-events: write   # upload the CodeQL results
+
+jobs:
+  analyze:
+    runs-on: macos-26
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v4
+        with:
+          languages: swift
+          build-mode: manual
+          queries: security-and-quality
+
+      - name: Build
+        working-directory: app
+        run: swift build
+
+      - name: Analyze
+        uses: github/codeql-action/analyze@v4
+        with:
+          category: "/language:swift"
+
+  test:
+    runs-on: macos-26
+    steps:
+      - uses: actions/checkout@v6
+      - name: Unit tests
+        working-directory: app
+        run: swift test

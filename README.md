@@ -1,5 +1,8 @@
 # Intermezzo
 
+[![CodeQL](https://github.com/usenetj23/Intermezzo/actions/workflows/codeql.yml/badge.svg)](https://github.com/usenetj23/Intermezzo/actions/workflows/codeql.yml)
+[![Release](https://github.com/usenetj23/Intermezzo/actions/workflows/release.yml/badge.svg)](https://github.com/usenetj23/Intermezzo/actions/workflows/release.yml)
+
 A break reminder for macOS that lives in the menu bar. It reminds you to step away from the screen, covers every display at the same time when a break starts, and stays out of the way during meetings, videos and time off.
 
 The interface is available in **English** and **Polish**.
@@ -67,6 +70,20 @@ The script signs the app ad hoc with a designated requirement based on the bundl
    - Input Monitoring: detecting a natural pause in typing.
    - Screen Recording: the real desktop behind the rain and glass effects.
    - Accessibility and Automation: AppleScript rules and gallery scripts.
+
+## Verifying a download
+
+Release zips are built on GitHub's servers from the tagged source by the [Release workflow](.github/workflows/release.yml), not on a personal machine. Each zip carries a signed [build provenance attestation](https://docs.github.com/en/actions/security-for-github-actions/using-artifact-attestations) that ties it to the exact commit and workflow run. To check a download with the [GitHub CLI](https://cli.github.com):
+
+```bash
+gh attestation verify Intermezzo-1.39.3.zip -R usenetj23/Intermezzo
+```
+
+Other checks:
+- Every push is scanned by [CodeQL](https://github.com/usenetj23/Intermezzo/security/code-scanning), GitHub's static security analysis, and the unit tests run on each change.
+- Each release lists the zip's SHA-256 checksum. Compare it with `shasum -a 256 Intermezzo-1.39.3.zip`.
+- The release notes link a [VirusTotal](https://www.virustotal.com) report for the zip.
+- You can always build the app yourself from source (see [Building](#building)).
 
 ## Project layout
 

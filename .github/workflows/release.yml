@@ -1,0 +1,80 @@
+name: Release
+
+# Builds the app from this repository on GitHub's servers, signs a build
+# provenance attestation for the zip and attaches it to the GitHub release.
+on:
+  push:
+    tags: ["v*", "[0-9]*"]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Existing tag to build, e.g. 1.39.3"
+        required: true
+
+permissions:
+  contents: write       # create the release and upload the zip
+  id-token: write       # request the Sigstore signing certificate
+  attestations: write   # store the attestation
+
+jobs:
+  build:
+    runs-on: macos-26
+    env:
+      TAG: ${{ github.event.inputs.tag || github.ref_name }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ env.TAG }}
+
+      - name: Check that the tag matches the app version
+        run: |
+          VERSION=$(/usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" app/Support/Info.plist)
+          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
+          if [ "$VERSION" != "${TAG#v}" ]; then
+            echo "::error::Tag $TAG does not match app version $VERSION"
+            exit 1
+          fi
+
+      - name: Toolchain
+        run: |
+          xcodebuild -version
+          swift --version
+
+      - name: Unit tests
+        working-directory: app
+        run: swift test
+
+      - name: Build the app
+        working-directory: app
+        run: ./scripts/build_app.sh
+
+      - name: Check that the app carries no build paths
+        working-directory: app
+        run: |
+          if LC_ALL=C grep -rlaE "/Users/|$HOME" dist/Intermezzo.app; then
+            echo "::error::Build paths found in the app bundle"
+            exit 1
+          fi
+
+      - name: Zip
+        working-directory: app
+        run: |
+          ditto -c -k --sequesterRsrc --keepParent dist/Intermezzo.app "Intermezzo-$VERSION.zip"
+          shasum -a 256 "Intermezzo-$VERSION.zip" | tee "Intermezzo-$VERSION.zip.sha256"
+
+      - name: Attest build provenance
+        uses: actions/attest@v4
+        with:
+          subject-path: app/Intermezzo-${{ env.VERSION }}.zip
+
+      - name: Publish to the release
+        working-directory: app
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          FILES="Intermezzo-$VERSION.zip Intermezzo-$VERSION.zip.sha256"
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" $FILES --clobber
+          else
+            gh release create "$TAG" $FILES --title "Intermezzo $VERSION" --generate-notes
+          fi
