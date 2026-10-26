@@ -17,7 +17,7 @@ struct AboutPane: View {
             Text("Intermezzo").font(.title).bold()
             Text("Version \(version) — break reminder for macOS")
                 .foregroundStyle(.secondary)
-            Text(BreakContent.trivia.randomElement() ?? "")
+            Text(L(BreakContent.trivia.randomElement() ?? ""))
                 .font(.callout)
                 .italic()
                 .foregroundStyle(.secondary)

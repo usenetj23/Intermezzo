@@ -9,6 +9,23 @@ The interface is available in **English** and **Polish**.
 
 > Intermezzo is a personal project, built and tested on one Mac. It is not notarised and has no Developer ID signature, so macOS asks for confirmation on first launch (see [Installation](#installation)).
 
+<p align="center">
+  <img src="docs/screenshots/break-screen.png" alt="The break screen: a countdown, an exercise to do, and a trend of recent breaks over the desktop" width="860">
+</p>
+
+<!-- A short video of the break screen can go here: upload the .mp4 on github.com (drag it into the README editor or an issue comment) and paste the user-attachments URL on its own line. -->
+
+<table>
+  <tr>
+    <td align="center" valign="bottom"><img src="docs/screenshots/status-bar-popup.png" alt="The menu-bar panel: countdown, Break now, Long break, +1 and +5 minutes, Keep awake and Light shortcuts" height="360"></td>
+    <td align="center" valign="bottom"><img src="docs/screenshots/break-warning.png" alt="A pill that warns a short break is coming, with a countdown ring next to the cursor" width="420"></td>
+  </tr>
+  <tr>
+    <td align="center"><sub>The menu-bar panel</sub></td>
+    <td align="center"><sub>A warning before the break, and the countdown next to the cursor</sub></td>
+  </tr>
+</table>
+
 ## Features
 
 **Breaks**
@@ -47,6 +64,58 @@ The interface is available in **English** and **Polish**.
 - Settings sync between your Macs through any shared folder (iCloud Drive, OneDrive, Dropbox, SMB). No server and no account.
 
 Everything runs locally. Intermezzo does not collect or send usage data. The only network requests are the optional weather effect on the break screen ([Open-Meteo](https://open-meteo.com), sends approximate coordinates) and, only if you turn them on, the optional AI features described above.
+
+## Screenshots
+
+<table>
+  <tr>
+    <td align="center" valign="top"><img src="docs/screenshots/settings-status.png" alt="Status: live countdown, break trend and actions" width="440"><br><sub>Status: the countdown, the trend of recent breaks and quick actions</sub></td>
+    <td align="center" valign="top"><img src="docs/screenshots/settings-statistics.png" alt="Statistics: the last 7 days, success rate and an AI weekly summary" width="440"><br><sub>Statistics, with the optional AI weekly summary</sub></td>
+  </tr>
+  <tr>
+    <td align="center" valign="top"><img src="docs/screenshots/settings-light.png" alt="Light: the screen colour through the day, drawn as an hourly chart" width="440"><br><sub>Light: the screen colour follows the sun, or your own curve</sub></td>
+    <td align="center" valign="top"><img src="docs/screenshots/settings-light-monitors.png" alt="Light: settings per monitor model, and picking the location on a map" width="440"><br><sub>Settings per monitor, and a location picker with an offline map</sub></td>
+  </tr>
+  <tr>
+    <td align="center" valign="top"><img src="docs/screenshots/settings-ai.png" alt="AI: the Apple on-device model or a server compatible with the OpenAI API" width="440"><br><sub>Optional AI: the on-device model or your own server</sub></td>
+    <td align="center" valign="top"><img src="docs/screenshots/settings-script-gallery.png" alt="Script gallery: ready-made rules for video calls, games, presentations and more" width="440"><br><sub>Rules and a gallery of ready-made scripts</sub></td>
+  </tr>
+</table>
+
+<details>
+<summary>All settings panes</summary>
+
+<table>
+  <tr>
+    <td align="center" valign="top"><img src="docs/screenshots/settings-breaks.png" alt="Breaks: presets, strictness and micro-reminders" width="440"><br><sub>Breaks</sub></td>
+    <td align="center" valign="top"><img src="docs/screenshots/settings-general.png" alt="General: startup, idle time, working hours and the settings assistant" width="440"><br><sub>General</sub></td>
+  </tr>
+  <tr>
+    <td align="center" valign="top"><img src="docs/screenshots/settings-focus-sessions.png" alt="Focus sessions: Pomodoro, natural seam and rhythm experiment" width="440"><br><sub>Focus sessions</sub></td>
+    <td align="center" valign="top"><img src="docs/screenshots/settings-rules.png" alt="Rules: scripts that postpone or skip a break" width="440"><br><sub>Rules</sub></td>
+  </tr>
+  <tr>
+    <td align="center" valign="top"><img src="docs/screenshots/settings-end-of-day.png" alt="End of day: an evening reminder to stop working" width="440"><br><sub>End of day</sub></td>
+    <td align="center" valign="top"><img src="docs/screenshots/settings-flash-reminder.png" alt="Flash reminder: gentle flashes and a blink reminder" width="440"><br><sub>Flash reminder</sub></td>
+  </tr>
+  <tr>
+    <td align="center" valign="top"><img src="docs/screenshots/settings-keep-awake.png" alt="Keep awake: keeps the Mac awake, with safety limits" width="440"><br><sub>Keep awake</sub></td>
+    <td align="center" valign="top"><img src="docs/screenshots/settings-messages.png" alt="Messages: tips and articles shown during breaks" width="440"><br><sub>Messages</sub></td>
+  </tr>
+  <tr>
+    <td align="center" valign="top"><img src="docs/screenshots/settings-exercises.png" alt="Exercises: a library of eye, neck, wrist and back exercises" width="440"><br><sub>Exercises</sub></td>
+    <td align="center" valign="top"><img src="docs/screenshots/settings-appearance.png" alt="Appearance: surface themes, language and notifications" width="440"><br><sub>Appearance</sub></td>
+  </tr>
+  <tr>
+    <td align="center" valign="top"><img src="docs/screenshots/settings-sync.png" alt="Sync and backup through any shared folder" width="440"><br><sub>Sync and backup</sub></td>
+    <td align="center" valign="top"><img src="docs/screenshots/settings-advanced.png" alt="Advanced: natural-break detection and permissions" width="440"><br><sub>Advanced</sub></td>
+  </tr>
+  <tr>
+    <td align="center" valign="top"><img src="docs/screenshots/settings-about.png" alt="About: version and a tip of the day" width="440"><br><sub>About</sub></td>
+  </tr>
+</table>
+
+</details>
 
 ## Requirements
 

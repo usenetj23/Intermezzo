@@ -187,7 +187,9 @@ struct LightPane: View {
             Toggle("Nie zmieniaj barw w aplikacjach pełnoekranowych", isOn: $skipFullscreen)
             Text("Dotyczy tylko tego monitora, na którym okno zajmuje cały ekran (film, gra, prezentacja). Pozostałe monitory zostają ocieplone.")
                 .settingsNote()
-            TextField("Aplikacje bez zmiany barw", text: $excludedApps, prompt: Text(verbatim: "Pixelmator Pro, Final Cut Pro"))
+            // A long list wraps onto further lines instead of running off the edge.
+            TextField("Aplikacje bez zmiany barw", text: $excludedApps, prompt: Text(verbatim: "Pixelmator Pro, Final Cut Pro"), axis: .vertical)
+                .lineLimit(2...8)
                 .textFieldStyle(.editable)
             HStack {
                 Menu("Dodaj uruchomioną aplikację…") {

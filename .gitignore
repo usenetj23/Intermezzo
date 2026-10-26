@@ -4,3 +4,7 @@
 app/dist/
 __pycache__/
 *.xcuserstate
+
+# Screen recordings are uploaded to GitHub and linked from the README, not committed
+docs/screenshots/*.mov
+docs/screenshots/*.mp4
