@@ -1,0 +1,68 @@
+name: Bug report
+description: Something does not work as expected
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting. Intermezzo is built and tested on one Mac, so details about your setup help a lot.
+        **Do not post security problems here**; see SECURITY.md.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What did you do, what did you expect and what happened instead?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open Settings › ...
+        2. ...
+  - type: input
+    id: version
+    attributes:
+      label: Intermezzo version
+      description: Settings › About
+      placeholder: "1.40.0"
+    validations:
+      required: true
+  - type: input
+    id: macos
+    attributes:
+      label: macOS version and Mac
+      placeholder: "macOS 26.0, MacBook Pro M3, built-in display and two external monitors"
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Breaks and reminders
+        - Rules and scripts
+        - Light (screen colour, monitors, location map)
+        - Keep awake
+        - AI features
+        - Statistics and work log
+        - Sync
+        - Settings window
+        - Other
+  - type: textarea
+    id: logs
+    attributes:
+      label: Log or screenshot (optional)
+      description: |
+        The log is `~/Library/Logs/Intermezzo/trace.log` (Settings › About › Open logs). **Check it before you paste it**: it can contain app names, network names or other personal details. Remove them.
+      render: text
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before you send
+      options:
+        - label: I looked for an existing issue about this.
+          required: true
+        - label: I removed personal data from any log or screenshot.
+          required: true
