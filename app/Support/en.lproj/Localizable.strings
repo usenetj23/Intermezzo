@@ -8,9 +8,12 @@
 "%@ (unavailable)" = "%@ (unavailable)";
 "%@ + %@ zdalnie" = "%@ + %@ remote";
 "%@ / %@" = "%@ / %@";
+"%@ Pierwszy szkic skryptu został w edytorze." = "%@ The first draft of the script was kept in the editor.";
 "%@ zdalnie" = "%@ remote";
 "%@ – %@" = "%@ – %@";
 "%@ — %@" = "%@ — %@";
+"%@ → %@" = "%@ → %@";
+"%@: %@" = "%@: %@";
 "%@: %lld ukończone, %lld pominięte" = "%@: %lld completed, %lld skipped";
 "%@: ukończone %lld, pominięte %lld" = "%@: completed %lld, skipped %lld";
 "%@: w tej chwili i tak nie musisz patrzeć na ekran. Zrobić krótką przerwę teraz?" = "%@: you don't need to look at the screen right now anyway. Take a short break now?";
@@ -58,6 +61,7 @@
 "A pomodoro counts only when you finish it. Resetting the timer or leaving for a long time voids it." = "A pomodoro counts only when you finish it. Resetting the timer or leaving for a long time voids it.";
 "A subtle flash reminds you to check your posture. Skipped during breaks and pauses." = "A subtle flash reminds you to check your posture. Skipped during breaks and pauses.";
 "A 🍅 appears in the menu bar next to the countdown. Work one pomodoro, then take the suggested break fully. Pick a task and log interruptions from the menu-bar panel." = "A 🍅 appears in the menu bar next to the countdown. Work one pomodoro, then take the suggested break fully. Pick a task and log interruptions from the menu-bar panel.";
+"AI" = "AI";
 "AOA / Harvard Health / Kaur 2022 (konsensus; pojedyncze 20 s bywa niewystarczające)" = "AOA / Harvard Health / Kaur 2022 (consensus; a single 20 s is sometimes not enough)";
 "Access to Calendar not granted — enabling it here also requests it" = "Access to Calendar not granted — enabling it here also requests it";
 "Accessibility" = "Accessibility";
@@ -65,6 +69,8 @@
 "Add" = "Add";
 "Add Exercise" = "Add Exercise";
 "Add rule" = "Add rule";
+"Adres serwera" = "Server address";
+"Adres serwera jest niepoprawny." = "The server address is not valid.";
 "Adresy działają w Skrótach macOS, skryptach, cronie i terminalu. „Kopiuj” wkłada do schowka gotowy przykład." = "The addresses work in macOS Shortcuts, scripts, cron and the terminal. “Copy” puts a ready example on the clipboard.";
 "Adresy intermezzo:// uruchomisz z Skrótów, skryptów, crona albo terminala (open \"intermezzo://break/long\"):" = "You can run intermezzo:// addresses from Shortcuts, scripts, cron or the terminal (open \"intermezzo://break/long\"):";
 "After Any End" = "After Any End";
@@ -94,9 +100,16 @@
 "Aplikacje" = "Apps";
 "Aplikacje bez zmiany barw" = "Apps without colour change";
 "Aplikacje do rozmów i pulpitu zdalnego" = "Call and remote desktop apps";
+"Aplikacji nie ma na tym Macu: %@. Sprawdź uruchomione procesy przez System Events zamiast „tell application”." = "These applications are not installed on this Mac: %@. Check the running processes through System Events instead of “tell application”.";
+"Apple Intelligence jest wyłączona w Ustawieniach systemowych" = "Apple Intelligence is switched off in System Settings";
 "AppleScript (.applescript/.scpt) or shell scripts run at break start and after any end — e.g. mute audio on start, restore on end." = "AppleScript (.applescript/.scpt) or shell scripts run at break start and after any end — e.g. mute audio on start, restore on end.";
 "AppleScript rules that ask System Events about apps and windows" = "AppleScript rules that ask System Events about apps and windows";
 "Archive" = "Archive";
+"Asystent nie zaproponował żadnych zmian." = "The assistant did not propose any changes.";
+"Asystent ustawień" = "Settings assistant";
+"Asystent ustawień, autor skryptów i podsumowanie tygodnia" = "The settings assistant, the script author and the weekly summary";
+"Asystent ustawień, autor skryptów reguł i podsumowanie tygodnia. Funkcje działają tylko wtedy, gdy je klikniesz, a bez włączenia tego przełącznika program niczego nie wysyła." = "The settings assistant, the rule script author and the weekly summary. The features run only when you click them, and with this switch off the program sends nothing.";
+"Asystent ustawień…" = "Settings assistant…";
 "Automation (System Events)" = "Automation (System Events)";
 "Automatycznie" = "Automatically";
 "Automatycznie (jesienią liście, wiosną płatki)" = "Automatic (leaves in autumn, petals in spring)";
@@ -115,6 +128,7 @@
 "BetterDisplay" = "BetterDisplay";
 "BetterDisplay nie jest uruchomiony" = "BetterDisplay is not running";
 "BetterDisplay nie wyłączył True Tone (ta funkcja wymaga wersji Pro)." = "BetterDisplay did not turn True Tone off (this feature needs the Pro version).";
+"Bez klucza (zwykle tak jest przy lokalnym serwerze)." = "No key (usual for a local server).";
 "Bez odroczeń, bez przycisku Skip i bez Esc na ekranie przerwy. Awaryjnie przerwę kończysz z paska menu." = "No postponements, no Skip button and no Esc on the break screen. In an emergency you end the break from the menu bar.";
 "Bez wpisanych współrzędnych aplikacja używa lokalizacji Maca, a gdy jej nie ma, przybliżonego miejsca ze strefy czasowej. Wschód i zachód liczy lokalnie, bez internetu." = "Without typed coordinates the app uses the Mac's location, and without that, an approximate place from the time zone. Sunrise and sunset are calculated locally, without the internet.";
 "Bez wykresu, haseł o passie i liczników dni z rzędu. Zostaje sam numer przerwy dziś. Statystyki i mapa regularności nadal są dostępne, bez oceniania." = "No chart, streak phrases or days-in-a-row counters. Only today's break number remains. Statistics and the consistency map are still available, without judging.";
@@ -133,6 +147,7 @@
 "Brak aktywności" = "No activity";
 "Brak innych kopii na tym Macu." = "No other copies on this Mac.";
 "Brak odcinków tego dnia." = "No intervals on this day.";
+"Brak przerw z ostatnich dni." = "No breaks from the last few days.";
 "Brak uprawnień do nagrywania ekranu" = "No screen recording permission";
 "Brak wschodu lub zachodu Słońca w tym miejscu (dzień lub noc polarna)." = "The Sun neither rises nor sets here (polar day or night).";
 "Break" = "Break";
@@ -160,6 +175,7 @@
 "Button title:" = "Button title:";
 "By project" = "By project";
 "Byłeś nieobecny %lld min — zaliczyć to jako przerwę?" = "You were away for %lld min — count it as a break?";
+"Błąd połączenia: %@" = "Connection error: %@";
 "Błąd w skrypcie: %@" = "Error in the script: %@";
 "Calendar" = "Calendar";
 "Calendar: breaks only while an event title contains (replaces fixed hours)" = "Calendar: breaks only while an event title contains (replaces fixed hours)";
@@ -191,6 +207,7 @@
 "Co ma nie spać" = "What stays awake";
 "Co mówią zalecenia i badania" = "What guidelines and studies say";
 "Co synchronizować" = "What to sync";
+"Cofnij ostatnie zmiany asystenta" = "Undo the assistant’s last changes";
 "Cofnij podbródek" = "Tuck your chin";
 "Colour" = "Colour";
 "Could not create a PDF at %@." = "Could not create a PDF at %@.";
@@ -245,11 +262,13 @@
 "Dla wysokich szerokości geograficznych: długi zmierzch, łagodniejsze i dłuższe przejście, 2300 K przed snem." = "For high latitudes: a long twilight, a gentler and longer transition, 2300 K before bed.";
 "Dlaczego po zachodzie ekran powinien być cieplejszy" = "Why the screen should be warmer after sunset";
 "Dni" = "Days";
+"Dni pracy" = "Working days";
 "Do" = "To";
 "Do %@" = "Until %@";
 "Do 3 odroczeń (+1 i +5 min) na dobę. Skip i Esc działają jak w klasycznej. Po wyczerpaniu limitu przyciski odroczenia znikają." = "Up to 3 postponements (+1 and +5 min) a day. Skip and Esc work as in Classic. Once the limit is used up, the postpone buttons disappear.";
 "Do 6 odroczeń (+1 i +5 min) na dobę. Skip i Esc działają jak w klasycznej. Po wyczerpaniu limitu przyciski odroczenia znikają." = "Up to 6 postponements (+1 and +5 min) a day. Skip and Esc work as in Classic. Once the limit is used up, the postpone buttons disappear.";
 "Do godziny" = "To hour";
+"Do modelu trafia wyłącznie to, co jest potrzebne do klikniętej funkcji: Twój opis, lista ustawień z ich wartościami albo zbiorcze liczby o przerwach. Nigdy tytuły okien, nazwy sieci, projekty ani ścieżki. Odpowiedź modelu może być błędna, dlatego ustawienia i skrypty zawsze wymagają Twojego zatwierdzenia." = "The model receives only what the clicked feature needs: your description, the list of settings with their values, or summary numbers about your breaks. Never window titles, network names, projects or paths. The model’s answer can be wrong, so settings and scripts always need your approval.";
 "Do wyłączenia" = "Until I turn it off";
 "Dobra pora na przerwę" = "A good moment for a break";
 "Dodaj bieżącą sieć: %@" = "Add current network: %@";
@@ -263,7 +282,9 @@
 "Dodaj uruchomioną aplikację…" = "Add a running app…";
 "Dokładnie %@, do rozliczenia %@" = "Exactly %@, %@ billable";
 "Done" = "Done";
+"Dostawca" = "Provider";
 "Dostosowuj barwę ekranu do pory dnia" = "Adjust the screen colour to the time of day";
+"Dostępne modele" = "Available models";
 "Dotyczy tylko tego monitora, na którym okno zajmuje cały ekran (film, gra, prezentacja). Pozostałe monitory zostają ocieplone." = "This applies only to the monitor on which the window fills the whole screen (a film, a game, a presentation). The other monitors stay warmed.";
 "Drink some water" = "Drink some water";
 "Duplikowanie ekranu" = "Screen mirroring";
@@ -340,6 +361,7 @@
 "Front window: document name" = "Front window: document name";
 "Front window: document name." = "Front window: document name.";
 "Frost — mrożone szkło" = "Frosted glass";
+"Funkcje AI są wyłączone." = "The AI features are switched off.";
 "Galeria" = "Gallery";
 "Galeria skryptów" = "Script gallery";
 "Gallery scripts that read window titles through System Events" = "Gallery scripts that read window titles through System Events";
@@ -402,11 +424,14 @@
 "Key %lld" = "Key %lld";
 "Keyboard Shortcuts" = "Keyboard Shortcuts";
 "Kiedy odkładać lub pomijać przerwy" = "When to postpone or skip breaks";
+"Kiedy przerwa ma zostać odłożona lub pominięta?" = "When should a break be postponed or skipped?";
 "Klapa zamknięta: czujnik nie widzi pokoju, działa sam harmonogram." = "Lid closed: the sensor cannot see the room, the schedule alone is used.";
 "Klasyczna" = "Classic";
 "Klasyczne" = "Classic";
 "Kliknij dzień w kalendarzu, aby zobaczyć jego log i go poprawić. Nadgodziny = praca poza godzinami pracy, w dni wolne cała praca; rozliczane w dół do pełnych 15 min, za każdy dzień osobno dla biura i pracy zdalnej. ✎ = korekta ręczna." = "Click a day in the calendar to see its log and correct it. Overtime = work outside working hours, and all work on days off; it is rounded down to whole 15 minutes, separately for office and remote work on each day. ✎ = manual correction.";
 "Kliknij mapę, żeby postawić pinezkę, i przeciągnij ją, żeby ją przesunąć. Przeciągnięcie mapy przesuwa mapę, a kółko myszy, szczypanie i przyciski + i − ją przybliżają. Cień pokazuje, gdzie teraz jest dzień, zmierzch i noc." = "Click the map to drop the pin and drag the pin to move it. Dragging the map moves the map, and the mouse wheel, pinching and the + and − buttons zoom it. The shading shows where it is day, twilight and night right now.";
+"Klucz API (opcjonalny)" = "API key (optional)";
+"Klucz jest zapisany w Pęku kluczy." = "The key is stored in the Keychain.";
 "Kocie grzbiety" = "Cat backs";
 "Kod AppleScript" = "AppleScript code";
 "Kolacja" = "Dinner";
@@ -438,6 +463,7 @@
 "Liczba nad słupkiem to wszystkie rozpoczęte przerwy danego dnia. Wysokość jest względna do najlepszego dnia tygodnia." = "The number above a bar is all breaks started that day. Height is relative to the best day of the week.";
 "Limit odroczeń na dziś wykorzystany" = "Today's postpone limit used up";
 "Lista kontrolna stanowiska (30 s)" = "Workstation checklist (30 s)";
+"Lista modeli dotyczy serwera zgodnego z API OpenAI." = "The model list is for a server compatible with the OpenAI API.";
 "Listen" = "Listen";
 "Liście i płatki" = "Leaves and petals";
 "Loading your shortcuts…" = "Loading your shortcuts…";
@@ -447,6 +473,7 @@
 "Logic, GarageBand, Ableton, Pro Tools, Cubase, Reaper, Final Cut, Premiere, DaVinci Resolve lub Blender na pierwszym planie. Wejście w stan flow trudno odbudować po przerwie w środku nagrania lub renderu." = "Logic, GarageBand, Ableton, Pro Tools, Cubase, Reaper, Final Cut, Premiere, DaVinci Resolve or Blender in front. Flow is hard to rebuild after a break in the middle of a recording or render.";
 "Lokalizacja" = "Location";
 "Lokalne zostają: uprawnienia, pozycje okien, ścieżki do plików (muzyka, skrypty, obrazy), dzisiejsze liczniki. Przy konflikcie ustawień wygrywa nowsza zmiana. Mac dołączający do folderu z danymi innego Maca najpierw przejmuje jego ustawienia." = "Kept per Mac: permissions, window positions, file paths (music, scripts, images), today's counters. When a setting changed on both Macs, the newer change wins. A Mac joining a folder that already holds another Mac's data first takes over its settings.";
+"Lokalny serwer (LM Studio, Ollama i podobne) lub dowolna usługa zgodna z API OpenAI. Klucz jest przechowywany w Pęku kluczy. Zwykły adres http:// jest dozwolony tylko dla serwera w tej sieci." = "A local server (LM Studio, Ollama and similar) or any service compatible with the OpenAI API. The key is kept in the Keychain. A plain http:// address is allowed only for a server on this network.";
 "Long Break" = "Long Break";
 "Long Breaks" = "Long Breaks";
 "Long break" = "Long break";
@@ -477,6 +504,14 @@
 "Miękka przerwa: przyciemnienie przepuszcza kliknięcia" = "Soft break: the dimming lets clicks through";
 "Mleczna szyba z ziarnem" = "Milky glass with grain";
 "Mode:" = "Mode:";
+"Model" = "Model";
+"Model jest niedostępny: %@" = "The model is unavailable: %@";
+"Model napisze skrypt i podmieni nim kod poniżej. Nic nie jest zapisane ani uruchomione, dopóki sam tego nie zrobisz: sprawdź kod, kliknij „Testuj teraz” i dopiero zapisz." = "The model will write a script and replace the code below with it. Nothing is saved or run until you do it yourself: check the code, click “Test now” and only then save.";
+"Model nie odpowiedział w wyznaczonym czasie." = "The model did not answer in time.";
+"Model systemowy Apple" = "Apple system model";
+"Model wbudowany w macOS (Apple Intelligence). Działa na tym Macu, bez klucza i bez internetu. Wymaga macOS 26 lub nowszego. Jakość odpowiedzi po polsku może być słabsza niż po angielsku." = "The model built into macOS (Apple Intelligence). It runs on this Mac, with no key and no internet. It needs macOS 26 or newer. Answers in Polish may be weaker than in English.";
+"Modele na serwerze: %lld" = "Models on the server: %lld";
+"Moja reguła" = "My rule";
 "Moje przypomnienie" = "My reminder";
 "Mon" = "Mon";
 "Monitory" = "Monitors";
@@ -517,6 +552,7 @@
 "Name already used" = "Name already used";
 "Name of the repository (a folder containing .git) or folder the frontmost Terminal or iTerm window is in. Needs Automation for Terminal/iTerm and System Events." = "Name of the repository (a folder containing .git) or folder the frontmost Terminal or iTerm window is in. Needs Automation for Terminal/iTerm and System Events.";
 "Napij się wody" = "Drink some water";
+"Napisz skrypt" = "Write the script";
 "Napięcie karku po 8h pracy przy monitorze to efekt izometryczny — mięśnie pracują bez ruchu. Jedyna ucieczka: ruch." = "Neck tension after 8 h at a monitor is an isometric effect — muscles work without moving. The only escape: movement.";
 "Naprawdę przezroczyste, rozmywa pulpit" = "Truly transparent, blurs the desktop";
 "Narysowany dzień, którego siłę kontrolują wschód i zachód słońca, zachmurzenie i światło w pokoju: w dzień ekran jest neutralny, a po zmroku płynnie przechodzi do koloru z wykresu. Wykres mówi, jak ciepło może być o danej godzinie." = "A drawn day whose strength is controlled by sunrise and sunset, cloud cover and the light in the room: by day the screen is neutral and after dusk it moves smoothly to the colour on the chart. The chart says how warm it may get at a given hour.";
@@ -531,6 +567,7 @@
 "Nawilż oczy" = "Moisten your eyes";
 "Nawodnienie" = "Hydration";
 "Nazwa" = "Name";
+"Nazwa modelu" = "Model name";
 "Nazwa przerwy" = "Break name";
 "Nazwa tego Maca" = "Name of this Mac";
 "Nazwy oddzielaj przecinkami. Wielkość liter i końcówka .app nie mają znaczenia; można wpisać też nazwę programu z terminala, np. ffmpeg." = "Separate the names with commas. Capitals and the .app ending do not matter; you can also type the name of a terminal program, e.g. ffmpeg.";
@@ -547,6 +584,7 @@
 "Nie pozwól Macowi zasnąć, gdy pracuje" = "Don't let the Mac fall asleep while it works";
 "Nie pozwól uśpić Maca podczas przerwy" = "Don't let the Mac sleep during a break";
 "Nie teraz" = "Not now";
+"Nie udało się odczytać propozycji. Spróbuj opisać to inaczej." = "Could not read a proposal. Try describing it differently.";
 "Nie udało się odczytać skryptu." = "Couldn't read the script.";
 "Nie udało się zapisać pliku testowego." = "Couldn't write the test file.";
 "Nie widać jeszcze innych Maców w tym folderze." = "No other Macs in this folder yet.";
@@ -558,6 +596,7 @@
 "Nieaktywność liczy się od: %lld min" = "Inactivity counts from: %lld min";
 "Niebieskie światło i koniec dnia" = "Blue light and the end of the day";
 "Niebieskie światło: mit czy fakt?" = "Blue light: myth or fact?";
+"Nieoczekiwana odpowiedź modelu (%@)." = "Unexpected answer from the model (%@).";
 "Nigdy" = "Never";
 "No breaks recorded yet." = "No breaks recorded yet.";
 "No data for this day" = "No data for this day";
@@ -604,6 +643,7 @@
 "Odtwarzanie wideo" = "Video playback";
 "Odwróć wzrok od ekranu i patrz przez 20 sekund na obiekt oddalony o min. 6 metrów. Mrugaj powoli — nawilża oczy." = "Look away from the screen and watch an object at least 6 metres away for 20 seconds. Blink slowly — it moistens your eyes.";
 "Odśwież" = "Refresh";
+"Odśwież listę modeli" = "Refresh the model list";
 "Ogólne" = "General";
 "Ok. 4 godziny dziennie jako próg ryzyka" = "About 4 hours a day as a risk threshold";
 "Okno huddle Slacka albo połączenie głosowe na Discordzie. Rozmowa jest wtedy ważniejsza niż przypomnienie o przerwie. Wymaga uprawnienia Ułatwień dostępu." = "A Slack huddle window or a Discord voice call. The conversation matters more than a break reminder then. Requires the Accessibility permission.";
@@ -611,8 +651,10 @@
 "Okulary z filtrem nie leczą zmęczenia oczu" = "Blue-light glasses don't cure eye strain";
 "Okulary z filtrem nie zastąpią przerwy. Patrz w dal." = "Blue-light glasses won't replace a break. Look into the distance.";
 "On" = "On";
-"Open Input Monitoring settings…" = "Open Input Monitoring settings…";
 "Open Settings…" = "Open Settings…";
+"Opisz regułę (AI)" = "Describe the rule (AI)";
+"Opisz własnymi słowami, jak ma działać program, a asystent zaproponuje zmiany do zatwierdzenia." = "Describe in your own words how the program should work and the assistant will propose changes for you to approve.";
+"Opisz, jak ma działać program, np. „pracuję od poniedziałku do piątku od 8 do 16, długa przerwa w południe, nie przerywaj mi w spotkaniach”. Asystent tylko proponuje zmiany; zapisuje je dopiero po Twoim zatwierdzeniu." = "Describe how the program should work, e.g. “I work Monday to Friday from 8 to 16, a long break at noon, do not interrupt me in meetings”. The assistant only proposes changes; it saves them only after you approve them.";
 "Oprzyj dłonie o blat, wypchnij plecy w górę na wydechu, a na wdechu lekko pogłęb odcinek lędźwiowy. 6 powtórzeń." = "Rest your hands on the desk, round your back upwards as you breathe out, and on the inhale gently deepen the lower back curve. 6 repetitions.";
 "Order:" = "Order:";
 "Orientacyjny próg ryzyka: ok. 4 h dziennie (Kaur i in. 2022)." = "Rough risk threshold: about 4 h a day (Kaur et al. 2022).";
@@ -657,7 +699,10 @@
 "Plecy i tułów" = "Back and core";
 "Pn" = "Mon";
 "Po godzinie nieprzerwanej pracy przy monitorze minimum 5 minut przerwy." = "After an hour of uninterrupted work at a monitor, at least 5 minutes of break.";
+"Po kliknięciu funkcji AI program wyśle do wybranego przez Ciebie modelu Twój opis i potrzebne do niej dane o ustawieniach lub zbiorcze liczby o przerwach. Model systemowy Apple działa na tym Macu. Serwer, który wskażesz, może być na innym komputerze lub w internecie." = "After you click an AI feature the program sends to the model you chose your description and the data it needs about settings, or summary numbers about breaks. The Apple system model runs on this Mac. The server you point to can be on another computer or on the internet.";
+"Pobieram…" = "Loading…";
 "Pochmurne popołudnie ściemnia się wcześniej. Korzysta z tej samej anonimowej pogody co ekran przerwy (Open-Meteo), bez dodatkowych danych." = "A cloudy afternoon gets dark earlier. It uses the same anonymous weather as the break screen (Open-Meteo), with no extra data.";
+"Podaj nazwę modelu." = "Enter the model name.";
 "Podejdź do okna i patrz na najdalszy punkt (min. 6 m) przez 20 sekund. Rozluźnij brwi i szczękę." = "Go to a window and look at the farthest point (at least 6 m) for 20 seconds. Relax your brows and jaw.";
 "Podejście do przerw" = "Approach to breaks";
 "Podgląd doby (12 s)" = "Preview the day (12 s)";
@@ -669,6 +714,8 @@
 "Podpłóń się na biurku na prostych rękach, zaokrąglij plecy w górę na wydechu, na wdechu lekko pogłęb lordozę. 5 powtórzeń." = "Lean on the desk with straight arms, round your back upwards as you breathe out, and on the inhale gently deepen the lower back curve. 5 repetitions.";
 "Podstawowe" = "Basic";
 "Podstawowe ukrywają ustawienia eksperckie. Nic nie jest wyłączane: ukryte opcje działają dalej tak, jak je ustawiono." = "Basic hides expert settings. Nothing is switched off: hidden options keep working as set.";
+"Podsumowanie tygodnia (AI)" = "Weekly summary (AI)";
+"Podsumuj tydzień" = "Summarise the week";
 "Pokazuj" = "Show";
 "Pokazuj pogodę na szybie (Open-Meteo)" = "Show weather on the glass (Open-Meteo)";
 "Pokazuj skrócone porady na ekranie przerwy" = "Show short tips on the break screen";
@@ -680,6 +727,7 @@
 "Polski" = "Polski";
 "Polskie przepisy o stanowiskach z monitorami (za CIOP-PIB, Kamińska 2016)" = "Polish regulations on workstations with monitors (after CIOP-PIB, Kamińska 2016)";
 "Pomija bieżącą lub najbliższą przerwę" = "Skips the current or the next break";
+"Pominięte propozycje" = "Skipped proposals";
 "Pomiń" = "Skip";
 "Pomiń najbliższą" = "Skip the next one";
 "Pomiń przerwę" = "Skip the break";
@@ -693,6 +741,7 @@
 "Popraw dzisiejszy dzień…" = "Correct today…";
 "Popraw godziny, gdy praca była bez komputera (hala, awaria, laptop w domu). Ręczne zmiany są oznaczone w rejestrze i w eksporcie." = "Correct the hours when work happened away from the computer (shop floor, breakdown, laptop at home). Manual changes are flagged in the log and the export.";
 "Popraw…" = "Correct…";
+"Poprzednie zapytanie jeszcze trwa." = "The previous request is still running.";
 "Pora" = "Time of day";
 "Pora obiadu" = "Lunchtime";
 "Pora obiadu (12:00–13:00)" = "Lunch time (12:00–13:00)";
@@ -715,6 +764,7 @@
 "Poziom surowości możesz zmienić w Przerwy › Podejście do przerw." = "You can change the strictness level in Breaks › Approach to breaks.";
 "Połowa walki o zmęczone oczy" = "Half the battle against tired eyes";
 "Połączenie" = "Connection";
+"Połączenie działa." = "The connection works.";
 "Połączone VPN: %@" = "Connected VPN: %@";
 "Poświata krawędzi ekranu przed przerwą (bursztyn → czerwień)" = "Screen-edge glow before a break (amber → red)";
 "Praca" = "Worked";
@@ -722,6 +772,7 @@
 "Praca do późna" = "Working late";
 "Praca twórcza" = "Creative work";
 "Praca twórcza (DAW / montaż / 3D)" = "Creative work (DAW / editing / 3D)";
+"Pracuję…" = "Working…";
 "Prawdziwa przerwa obiadowa" = "A real lunch break";
 "Preview — 8 s, click-through" = "Preview — 8 s, click-through";
 "Prezentacja" = "Presentation";
@@ -756,6 +807,8 @@
 "Przerwa nie przejmuje myszki ani Docka, więc nie ma na niej przycisków. Zakończysz ją z paska menu albo skrótem." = "The break does not capture the mouse or the Dock, so it has no buttons. End it from the menu bar or with a shortcut.";
 "Przerwa teraz" = "Break now";
 "Przerwa wciąż czeka" = "Your break is still waiting";
+"Przerwano." = "Stopped.";
+"Przerwij" = "Stop";
 "Przerwy" = "Breaks";
 "Przerwy działają. Reszta to drobne próby — traktuj jako wskazówki." = "Breaks work. The rest comes from small trials — treat it as guidance.";
 "Przerwy naturalne (bezczynność)" = "Natural breaks (inactivity)";
@@ -776,8 +829,10 @@
 "Przypomnienie błyskiem" = "Flash reminder";
 "Przypomnienie o mruganiu" = "Blink reminder";
 "Przysiady przy biurku" = "Squats at the desk";
+"Przywrócono poprzednie ustawienia." = "The previous settings were restored.";
 "Przywróć bibliotekę" = "Restore library";
 "Przywróć domyślny" = "Reset to default";
+"Przywróć kod sprzed AI" = "Restore the code from before the AI";
 "Przywróć ogólne" = "Back to general";
 "Przywróć wersję z galerii" = "Restore the gallery version";
 "Przyznaj uprawnienia…" = "Grant permissions…";
@@ -865,6 +920,10 @@
 "Send test notification" = "Send test notification";
 "Sequential" = "Sequential";
 "Serif" = "Serif";
+"Serwer nie podał żadnych modeli." = "The server did not list any models.";
+"Serwer odrzucił dostęp. Sprawdź klucz." = "The server refused access. Check the key.";
+"Serwer ogranicza liczbę zapytań. Spróbuj za chwilę." = "The server is limiting requests. Try again in a moment.";
+"Serwer zgodny z API OpenAI" = "Server compatible with the OpenAI API";
 "Sesja Pomodoro nie zostanie przerwana przez uśpienie Maca. Działa tylko, gdy tryb Pomodoro jest włączony." = "A Pomodoro session will not be interrupted by the Mac going to sleep. It only works while Pomodoro mode is on.";
 "Sesja w terminalu" = "Terminal session";
 "Sesja w terminalu (ssh / vim / htop)" = "Terminal session (ssh / vim / htop)";
@@ -895,8 +954,11 @@
 "Skip »" = "Skip »";
 "Skip!" = "Skip!";
 "Skipped break" = "Skipped break";
+"Skopiuj" = "Copy";
 "Skrypt (AppleScript)" = "Script (AppleScript)";
 "Skrypt jest poprawny." = "The script is valid.";
+"Skrypt napisany przez AI nie jest poprawny: %@ Popraw go ręcznie." = "The script written by AI is not valid: %@ Fix it by hand.";
+"Skrypt napisany przez AI: sprawdź go, przetestuj i zapisz." = "Script written by AI: check it, test it and save it.";
 "Skrypt nie zadziałał (błąd uruchomienia, brak uprawnień albo przekroczony czas)." = "The script didn't run (launch error, missing permission or timeout).";
 "Skrypt odpowiada na pytanie „czy warunek jest teraz spełniony?”: zwraca true albo false. Gdy zwróci true, reguła robi to, co ustawisz na stronie Reguły." = "A script answers the question “is the condition true right now?”: it returns true or false. When it returns true, the rule does what you set on the Rules page.";
 "Skrót + oddech = zrobiona pauza. Sprawdź skróty w Ustawieniach → Ogólne." = "Shortcut + a breath = break done. Check the shortcuts in Settings › General.";
@@ -922,6 +984,7 @@
 "Spotkanie, film, prezentacja?" = "A meeting, a film, a presentation?";
 "Sprawdza, czy któryś klient wideokonferencji ma otwarte aktywne okno. Nie pomija przerw tylko dlatego, że aplikacja działa w tle." = "Checks whether a video-call client has an active window open. It doesn't skip breaks just because the app runs in the background.";
 "Sprawdź" = "Check";
+"Sprawdź połączenie" = "Check the connection";
 "Sprawdź, czy okno lub lampa nie odbija się w ekranie. Dopasuj jasność ekranu do jasności pokoju." = "Check that no window or lamp reflects in the screen. Match the screen brightness to the room.";
 "Spójrz na licznik czasu przy ekranie w Statusie. Dłuższa przerwa pomoże." = "Check the screen-time counter in Status. A longer break will help.";
 "Stal nierdzewna (inox)" = "Stainless steel (inox)";
@@ -983,7 +1046,9 @@
 "Tego dnia nie zarejestrowano pracy." = "No work recorded on this day.";
 "Temperatura barwowa ekranu na wieczór poniżej 3400 K poprawia zasypianie (tryb nocny istnieje nie bez powodu)." = "An evening screen colour temperature below 3400 K helps you fall asleep (Night Shift exists for a reason).";
 "Ten Mac nie udostępnia czujnika światła: działa sam harmonogram." = "This Mac does not provide a light sensor: the schedule alone is used.";
+"Ten adres jest poza Twoją siecią: wysyłane dane opuszczą ten komputer." = "This address is outside your network: the data sent will leave this computer.";
 "Ten skrypt nie ma nastaw. Dodaj na początku kodu linię „property nazwa : wartość”, a pojawi się tutaj jako pole." = "This script has no settings. Add a line “property name : value” at the top of the code and it appears here as a field.";
+"Ten skrypt zawiera: %@. Sprawdź go przed zapisaniem." = "This script contains: %@. Check it before saving.";
 "Teraz" = "Now";
 "Terminal na pierwszym planie, a w systemie działa żywy ssh, mosh, vim, nvim lub htop. Chroni długie sesje zdalne i edycję, której nie chcesz przerywać w pół zdania." = "Terminal in front with a live ssh, mosh, vim, nvim or htop running. It protects long remote sessions and editing you don't want to interrupt mid-sentence.";
 "Terminale" = "Terminals";
@@ -1161,6 +1226,7 @@
 "Wycisz dźwięk, odpal skrypt, pokaż tekst" = "Mute the sound, run a script, show a text";
 "Wyciągnij kciuk na długość ręki. Patrz na niego 5 sekund, potem na odległy punkt 5 sekund. Powtórz 5 razy, płynnie." = "Hold your thumb out at arm's length. Look at it for 5 seconds, then at a distant point for 5 seconds. Repeat 5 times, smoothly.";
 "Wygaszacz ekranu" = "Screensaver";
+"Wygenerowane przez AI, może się mylić." = "Generated by AI, it may be wrong.";
 "Wygląd" = "Appearance";
 "Wyjdź" = "Quit";
 "Wyjdź z pomieszczenia i przejdź się przez 2–5 minut: korytarz, schody lub podwórko. Każdy ruch się liczy." = "Leave the room and walk for 2–5 minutes: a corridor, stairs or the yard. Every bit of movement counts.";
@@ -1211,9 +1277,12 @@
 "Własny czas" = "Custom length";
 "Własny czas pasuje do przerwy śniadaniowej (9:00, 15 min) albo obiadu (12:30, 30 min). Startuje w podanej minucie, o ile aplikacja nie jest wstrzymana (spotkanie, poza godzinami pracy). Z opcją „Zapytaj” dostaniesz powiadomienie z przyciskiem Zacznij." = "A custom length suits a breakfast break (9:00, 15 min) or lunch (12:30, 30 min). It starts in the given minute unless the app is paused (meeting, outside working hours). With “Ask” you get a notification with a Start button.";
 "Własny limit koloru" = "Own colour limit";
+"Włącz" = "Turn on";
+"Włącz funkcje AI" = "Turn on the AI features";
 "Włącz na…" = "Turn on for…";
 "Włącza czuwanie: Mac nie zaśnie do wyłączenia" = "Turns keep awake on: the Mac will not sleep until you turn it off";
 "Włącza dopasowanie barwy ekranu do pory dnia" = "Turns on adjusting the screen colour to the time of day";
+"Włączyć funkcje AI?" = "Turn on the AI features?";
 "Włączył się tryb niskiego zużycia energii, więc Mac może już zasnąć." = "Low Power Mode came on, so the Mac may sleep now.";
 "You changed the settings today, so today is left out of the numbers." = "You changed the settings today, so today is left out of the numbers.";
 "You have no shortcuts yet. Create one in the Shortcuts app (e.g. “Set Focus”), then refresh." = "You have no shortcuts yet. Create one in the Shortcuts app (e.g. “Set Focus”), then refresh.";
@@ -1265,10 +1334,12 @@
 "Zapisz" = "Save";
 "Zapisz napój (Nawodnienie)" = "Log a drink (Hydration)";
 "Zapomnij" = "Forget";
+"Zaproponuj" = "Propose";
 "Zaproponuj przerwę teraz" = "Suggest a break now";
 "Zapytaj zamiast startować" = "Ask instead of starting";
 "Zasada 20-20-20" = "The 20-20-20 rule";
 "Zasada 20-20-20 spopularyzowali optometryści: co 20 minut patrz 20 sekund na obiekt 20 stóp dalej." = "Optometrists popularised the 20-20-20 rule: every 20 minutes look at an object 20 feet away for 20 seconds.";
+"Zastosuj zaznaczone" = "Apply the selected";
 "Zastępuje wykres barwy z sekcji „Teraz” (barwa godzina po godzinie) wartościami wybranego profilu. Rzeczy, które narysowałeś na wykresie, przepadną." = "Replaces the colour chart in the “Now” section (the colour hour by hour) with the values of the chosen profile. Anything you drew on the chart is lost.";
 "Zatrzymaj dźwięk" = "Stop the sound";
 "Zatrzymaj podgląd" = "Stop the preview";
@@ -1277,11 +1348,13 @@
 "Zdalna sesja" = "Remote session";
 "Zdalna sesja / pomoc zdalna" = "Remote session / remote help";
 "Zdalnie" = "Remote";
+"Zdalny serwer musi mieć adres zaczynający się od https://." = "A remote server needs an address that starts with https://.";
 "Zdrowie oczu" = "Eye health";
 "Zeruje cykl i liczy do następnej przerwy od nowa" = "Resets the cycle and counts to the next break from scratch";
 "Zezwól" = "Allow";
 "Zimne (ok. 5500 K)" = "Cool (about 5500 K)";
 "Zmiana działa po ponownym uruchomieniu. / Applies after a restart." = "Zmiana działa po ponownym uruchomieniu. / Applies after a restart.";
+"Zmiany zostały zastosowane. Możesz je cofnąć przyciskiem poniżej." = "The changes were applied. You can undo them with the button below.";
 "Zmieniaj pozycję, nie szukaj idealnej" = "Change position, don't hunt for the perfect one";
 "Zmień pozycję. Najlepsza postawa to ta następna." = "Change position. The best posture is the next one.";
 "Zmień…" = "Change…";
@@ -1304,6 +1377,7 @@
 "Złącz dłonie za plecami, wypchnij klatkę do przodu i unieś lekko brodę. Trzymaj 20 sekund, oddychaj głęboko." = "Clasp your hands behind your back, push your chest forward and lift your chin slightly. Hold for 20 seconds, breathe deeply.";
 "aktywnie %@" = "active %@";
 "bez zarządzania" = "not managed";
+"brak" = "none";
 "brak odczytu" = "no reading";
 "brak odpowiedzi (włącz integrację w BetterDisplay)" = "no answer (turn the integration on in BetterDisplay)";
 "breaks skipped" = "breaks skipped";
@@ -1322,6 +1396,8 @@
 "długa" = "long";
 "e.g. Water" = "e.g. Water";
 "focus time" = "focus time";
+"godziny pracy bez żadnego dnia pracy wyłączyłyby przerwy" = "working hours with no working day would switch the breaks off";
+"gotowy" = "ready";
 "herbata" = "tea";
 "holiday/vacation event today — breaks held" = "holiday/vacation event today — breaks held";
 "inne" = "other";
@@ -1333,6 +1409,7 @@
 "kolor do %lld K" = "colour down to %lld K";
 "korekta ręczna" = "manual correction";
 "krótka" = "short";
+"krótka przerwa byłaby dłuższa niż długa" = "the short break would be longer than the long one";
 "ktoś ogląda Twój ekran (usługa macOS działa tylko podczas połączenia)" = "someone is watching your screen (the macOS service only runs during a connection)";
 "lat" = "lat";
 "lon" = "lon";
@@ -1343,11 +1420,14 @@
 "matching event now — breaks active" = "matching event now — breaks active";
 "ml" = "ml";
 "mniej" = "less";
+"model Apple jest niedostępny" = "the Apple model is unavailable";
+"model Apple jeszcze się pobiera" = "the Apple model is still downloading";
 "na Twoje życzenie" = "on your request";
 "na godzinę" = "for an hour";
 "nazwa aplikacji / tekst" = "app name / text";
 "nie zainstalowany" = "not installed";
 "nieznana (wpisz współrzędne)" = "unknown (enter coordinates)";
+"nieznane ustawienie" = "unknown setting";
 "no VPN connection detected" = "no VPN connection detected";
 "no holiday event today" = "no holiday event today";
 "no matching event in calendar — breaks held" = "no matching event in calendar — breaks held";
@@ -1357,6 +1437,7 @@
 "odłożona" = "postponed";
 "ogólna krzywa" = "general curve";
 "ostatnie %lld z %lld" = "last %lld of %lld";
+"początek pracy nie byłby przed jej końcem" = "the start of work would not be before its end";
 "pominięta" = "skipped";
 "pominięta przed startem" = "skipped before it started";
 "pominięta przez regułę" = "skipped by a rule";
@@ -1375,6 +1456,7 @@
 "sok" = "juice";
 "start ręczny" = "started manually";
 "tak" = "yes";
+"ten Mac nie obsługuje Apple Intelligence" = "this Mac does not support Apple Intelligence";
 "today" = "today";
 "trwa" = "running";
 "trwa przerwa" = "a break is in progress";
@@ -1382,16 +1464,23 @@
 "trwa ≥ %lld s" = "lasts ≥ %lld s";
 "ukończone przerwy" = "completed breaks";
 "urlop, święto, wakacje, vacation, holiday" = "vacation, holiday, day off, urlop, święto";
+"ustawienie powtórzone w odpowiedzi" = "the setting was repeated in the answer";
 "voided today" = "voided today";
 "w tym zdalne" = "of it remote";
 "w tym zdalnie" = "of it remote";
 "w zasięgu: %@" = "in range: %@";
 "waiting for first GPS fix…" = "waiting for first GPS fix…";
+"wartość nie pasuje" = "the value does not fit";
 "więcej" = "more";
+"wklej klucz, jeśli serwer go wymaga" = "paste the key if the server needs one";
 "woda" = "water";
 "work, praca, meeting, spotkanie" = "work, meeting, praca, spotkanie";
 "wpisana ręcznie" = "typed in";
 "wykonana" = "completed";
+"wymaga macOS 26 lub nowszego z Apple Intelligence" = "needs macOS 26 or newer with Apple Intelligence";
+"wyłączone" = "off";
+"wyłączony" = "off";
+"włączone" = "on";
 "z lokalizacji Maca" = "from the Mac's location";
 "zapamiętane" = "remembered";
 "zdalnie, VPN: %@" = "remote, VPN: %@";
@@ -1422,6 +1511,7 @@
 "Źródło" = "Source";
 "Żaden inny program nie blokuje uśpienia." = "No other program is blocking sleep.";
 "–" = "–";
+"— wybierz —" = "— choose —";
 "„%@” zniknie z dysku razem z regułą, która go uruchamia." = "“%@” will be removed from the disk together with the rule that runs it.";
 "• Dopasuj jasność ekranu do jasności pomieszczenia — ekran jaśniejszy lub ciemniejszy od otoczenia męczy.\n• Nie siedź twarzą ani plecami do okna: jedno daje oślepienie, drugie odbicie w ekranie.\n• Błyszczący ekran? Pomoże matowy filtr.\n• Przegląd Kaur 2022: wydajność spada przy oświetleniu otoczenia powyżej ok. 1000 lx; Medical News Today: po 50. roku życia potrzeba mniej więcej dwa razy więcej światła niż w wieku 20 lat.\n• Małe badanie randomizowane (Digital J. Ophthalmol., za streszczeniem): zmniejszenie jasności ekranu obniżyło nasilenie zmęczenia oczu, a program zmieniający temperaturę barwy — nie.\n\nŹródła: Harvard Health (AAO); Kaur i in. 2022; Medical News Today; Digital Journal of Ophthalmology (streszczenie z wyszukiwarki)." = "• Match the screen brightness to the room — a screen brighter or darker than its surroundings is tiring.\n• Don't sit facing a window or with your back to one: the first dazzles you, the second reflects in the screen.\n• Glossy screen? A matte filter helps.\n• Kaur 2022 review: performance drops with ambient lighting above about 1000 lx; Medical News Today: after 50 you need roughly twice as much light as at 20.\n• A small randomised trial (Digital J. Ophthalmol., from the abstract): lowering screen brightness reduced eye strain, while software that shifts colour temperature did not.\n\nSources: Harvard Health (AAO); Kaur et al. 2022; Medical News Today; Digital Journal of Ophthalmology (abstract found via search engine).";
 "• Kontrast ok. 60–70% (Kaur 2022) i wyraźna czcionka, co najmniej 12 pkt; najlepiej ciemny tekst na jasnym tle.\n• Zwiększ kontrast na ekranie (AAO).\n• Powiększ tekst, jeśli mrużysz oczy — mały tekst obniża częstość mrugania.\n• Trzymaj ekran i okulary czyste.\n\nTo zalecenia z przeglądów, oparte w dużej mierze na konsensusie ekspertów.\n\nŹródła: Kaur i in. 2022; Harvard Health (AAO); Lapa i in. 2023." = "• Contrast about 60–70% (Kaur 2022) and a clear font of at least 12 pt; ideally dark text on a light background.\n• Increase the contrast on the screen (AAO).\n• Enlarge the text if you squint — small text lowers your blink rate.\n• Keep the screen and your glasses clean.\n\nThese are recommendations from reviews, largely based on expert consensus.\n\nSources: Kaur et al. 2022; Harvard Health (AAO); Lapa et al. 2023.";

@@ -7,6 +7,12 @@ final class SyncTests: XCTestCase {
 
     // MARK: Policy
 
+    func testAIKeysAreLocal() {
+        for key in ["aiEnabled", "aiProvider", "aiEndpoint", "aiModel", "aiAssistantUndo", "aiNoticeShown", "aiWeekly.2026-10-22.apple"] {
+            XCTAssertFalse(SyncPolicy.isSynced(key: key), key)
+        }
+    }
+
     func testDeviceLocalKeysAreNotSynced() {
         for key in ["NSWindow Frame Settings", "com_apple_SwiftUI_Settings_selectedTabIndex", "AppleLanguages",
                     "permissionAsked.accessibility", "syncFolderPath", "screenTimeSeconds", "lastDuplicateAlertDate",

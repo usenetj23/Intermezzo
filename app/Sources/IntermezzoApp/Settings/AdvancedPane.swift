@@ -33,9 +33,6 @@ struct AdvancedPane: View {
                 if idleMethod == "monitor" {
                     Text("Needs Input Monitoring permission. Without it Intermezzo falls back to Event Source automatically.")
                         .settingsNote()
-                    Button("Open Input Monitoring settings…") {
-                        permissions.openSettings(.inputMonitoring)
-                    }
                 }
                 if idleDetection && idleMethod != "none" {
                     Stepper(value: $idleThresholdSeconds, in: 30...900, step: 30) {

@@ -26,6 +26,14 @@ struct ScriptEditorSheet: View {
     @State private var resultText = ""
     @State private var resultIsError = false
     @State private var testing = false
+    @AppStorage(AIKeys.enabled) private var aiEnabled = false
+    @ObservedObject private var ai = AIService.shared
+    @State private var aiDescription = ""
+    /// The text in the editor came from the model and has not been saved yet.
+    @State private var aiGenerated = false
+    @State private var aiTask: Task<Void, Never>?
+    /// The code the editor held before the model's script replaced it.
+    @State private var sourceBeforeAI: String?
     /// Bumped when the source is replaced as a whole, so the list fields reload their text.
     @State private var revision = 0
 
@@ -49,6 +57,7 @@ struct ScriptEditorSheet: View {
                             .onChange(of: templateID) { _, _ in loadTemplate() }
                         }
                     }
+                    aiSection
                     settingsSection
                 }
                 .formStyle(.grouped)
@@ -64,6 +73,10 @@ struct ScriptEditorSheet: View {
         .frame(minWidth: 620, idealWidth: 760, minHeight: 560, idealHeight: 700)
         .themedSheet()
         .onAppear(perform: load)
+        .onDisappear {
+            aiTask?.cancel()
+            ai.cancel()
+        }
     }
 
     /// The code fills whatever height the sheet has; the divider above it can be dragged.
@@ -75,6 +88,12 @@ struct ScriptEditorSheet: View {
                 .overlay(RoundedRectangle(cornerRadius: 6).strokeBorder(.white.opacity(0.12)))
             Text("Skrypt odpowiada na pytanie „czy warunek jest teraz spełniony?”: zwraca true albo false. Gdy zwróci true, reguła robi to, co ustawisz na stronie Reguły.")
                 .settingsNote()
+            if aiGenerated, case let risks = aiRisks, !risks.isEmpty {
+                let list = risks.joined(separator: ", ")
+                Label("Ten skrypt zawiera: \(list). Sprawdź go przed zapisaniem.", systemImage: "exclamationmark.triangle.fill")
+                    .foregroundStyle(.orange)
+                    .font(.caption)
+            }
             if !resultText.isEmpty {
                 Label(resultText, systemImage: resultIsError ? "exclamationmark.triangle.fill" : "checkmark.circle.fill")
                     .foregroundStyle(resultIsError ? .orange : .green)
@@ -83,6 +102,91 @@ struct ScriptEditorSheet: View {
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 12)
+    }
+
+    private var aiRisks: [String] { RuleScriptAuthor.risks(in: source) }
+
+    /// "Describe the rule" for people who do not write AppleScript. Only shown while the AI features are on.
+    @ViewBuilder
+    private var aiSection: some View {
+        if aiEnabled {
+            Section("Opisz regułę (AI)") {
+                TextField("Kiedy przerwa ma zostać odłożona lub pominięta?", text: $aiDescription, axis: .vertical)
+                    .lineLimit(2...4)
+                HStack {
+                    Button(aiTask != nil ? "Pracuję…" : "Napisz skrypt") { generateWithAI() }
+                        .disabled(aiDescription.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || aiTask != nil
+                                  || ai.availability() != .ready)
+                    if aiTask != nil { Button("Przerwij") { aiTask?.cancel(); ai.cancel() } }
+                    if let before = sourceBeforeAI, aiTask == nil {
+                        Button("Przywróć kod sprzed AI") {
+                            replaceSource(before)
+                            aiGenerated = false
+                            sourceBeforeAI = nil
+                        }
+                    }
+                }
+                .controlSize(.small)
+                Text("Model napisze skrypt i podmieni nim kod poniżej. Nic nie jest zapisane ani uruchomione, dopóki sam tego nie zrobisz: sprawdź kod, kliknij „Testuj teraz” i dopiero zapisz.")
+                    .settingsNote()
+            }
+        }
+    }
+
+    /// What is wrong with a script for the AI path, or nil when it is fine: an application that is not installed
+    /// here (compiling it would open a "Where is …?" window) or a compiler error.
+    private func problem(with script: String) -> String? {
+        let missing = ScriptCompiler.missingApplications(in: script)
+        if !missing.isEmpty {
+            let list = missing.joined(separator: ", ")
+            return String(localized: "Aplikacji nie ma na tym Macu: \(list). Sprawdź uruchomione procesy przez System Events zamiast „tell application”.")
+        }
+        if case .failed(let message) = ScriptCompiler.compile(script) { return message }
+        return nil
+    }
+
+    /// Puts the model's script in the editor and remembers the code it replaced.
+    private func install(_ script: String, replacing previous: String) {
+        sourceBeforeAI = previous
+        replaceSource(script)
+        aiGenerated = true
+    }
+
+    private func generateWithAI() {
+        let description = aiDescription.trimmingCharacters(in: .whitespacesAndNewlines)
+        let fallbackName = trimmedName.isEmpty ? String(localized: "Moja reguła") : trimmedName
+        let language = ai.languageCode
+        let previous = sourceBeforeAI ?? source
+        let examples = ScriptGallery.catalog.filter { ["VideoConference", "FacetimeMeeting"].contains($0.id) }.map(\.source)
+        aiTask = Task {
+            defer { aiTask = nil }
+            var draft = ""
+            do {
+                draft = RuleScriptAuthor.clean(
+                    try await ai.run(RuleScriptAuthor.prompt(description: description, examples: examples, language: language)),
+                    fallbackName: fallbackName)
+                var failure = problem(with: draft)
+                if let first = failure {
+                    try Task.checkCancellation()
+                    draft = RuleScriptAuthor.clean(
+                        try await ai.run(RuleScriptAuthor.repairPrompt(description: description, script: draft,
+                                                                       compilerError: first, language: language)),
+                        fallbackName: fallbackName)
+                    failure = problem(with: draft)
+                }
+                install(draft, replacing: previous)
+                if let failure {
+                    show(String(localized: "Skrypt napisany przez AI nie jest poprawny: \(failure) Popraw go ręcznie."), error: true)
+                } else {
+                    show(String(localized: "Skrypt napisany przez AI: sprawdź go, przetestuj i zapisz."), error: false)
+                }
+            } catch {
+                // The first draft is not lost when the second request fails or is stopped.
+                if !draft.isEmpty { install(draft, replacing: previous) }
+                let reason = (error as? AIError)?.message ?? (error is CancellationError ? AIError.cancelled.message : error.localizedDescription)
+                show(draft.isEmpty ? reason : String(localized: "\(reason) Pierwszy szkic skryptu został w edytorze."), error: true)
+            }
+        }
     }
 
     @ViewBuilder
@@ -185,18 +289,17 @@ struct ScriptEditorSheet: View {
     // MARK: - Actions
 
     private func compile() -> Bool {
-        var error: NSDictionary?
-        guard let script = NSAppleScript(source: finalSource) else {
-            show(String(localized: "Nie udało się odczytać skryptu."), error: true)
-            return false
-        }
-        if script.compileAndReturnError(&error) {
+        switch ScriptCompiler.compile(finalSource) {
+        case .ok:
             show(String(localized: "Skrypt jest poprawny."), error: false)
             return true
+        case .unreadable:
+            show(String(localized: "Nie udało się odczytać skryptu."), error: true)
+            return false
+        case .failed(let message):
+            show(String(localized: "Błąd w skrypcie: \(message)"), error: true)
+            return false
         }
-        let message = error?[NSAppleScript.errorMessage] as? String ?? ""
-        show(String(localized: "Błąd w skrypcie: \(message)"), error: true)
-        return false
     }
 
     private func test() {

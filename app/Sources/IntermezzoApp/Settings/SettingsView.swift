@@ -27,6 +27,7 @@ enum SettingsPane: String, Identifiable, CaseIterable {
     case appearance = "Appearance"
     case sync = "Sync"
     case advanced = "Advanced"
+    case ai = "AI"
     case about = "About"
     var id: String { rawValue }
 
@@ -61,6 +62,7 @@ enum SettingsPane: String, Identifiable, CaseIterable {
         case .appearance: return "Wygląd"
         case .sync: return "Synchronizacja i kopia"
         case .advanced: return "Zaawansowane"
+        case .ai: return "AI"
         case .about: return "O aplikacji"
         }
     }
@@ -84,6 +86,7 @@ enum SettingsPane: String, Identifiable, CaseIterable {
         case .appearance: return "Motyw, powiadomienia i wygląd ekranu przerwy"
         case .sync: return "Ustawienia i historia na Twoich Macach i w chmurze"
         case .advanced: return "Wykrywanie nieaktywności, blokady, diagnostyka"
+        case .ai: return "Asystent ustawień, autor skryptów i podsumowanie tygodnia"
         case .about: return "Wersja i informacje"
         }
     }
@@ -107,18 +110,19 @@ enum SettingsPane: String, Identifiable, CaseIterable {
         case .appearance: return "paintpalette"
         case .sync: return "arrow.triangle.2.circlepath"
         case .advanced: return "slider.horizontal.below.rectangle"
+        case .ai: return "sparkles"
         case .about: return "info.circle"
         }
     }
 
     /// Panes for tuning and automation; hidden while the sidebar shows basic settings only.
-    var isExpert: Bool { [.rules, .flash, .gallery, .advanced].contains(self) }
+    var isExpert: Bool { [.rules, .flash, .gallery, .ai, .advanced].contains(self) }
 
     static let groups: [(title: String, panes: [SettingsPane])] = [
         ("Przegląd", [.status, .statistics, .workLog]),
         ("Rytm pracy", [.breaks, .general, .focus, .rules, .clockOut, .flash, .light, .awake]),
         ("Treść", [.messages, .exercises, .gallery]),
-        ("Aplikacja", [.appearance, .sync, .advanced, .about]),
+        ("Aplikacja", [.appearance, .sync, .ai, .advanced, .about]),
     ]
 }
 
@@ -206,6 +210,7 @@ struct SettingsView: View {
         case .appearance: AppearancePane()
         case .sync: SyncPane()
         case .advanced: AdvancedPane()
+        case .ai: AIPane()
         case .about: AboutPane()
         }
     }

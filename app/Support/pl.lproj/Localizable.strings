@@ -8,9 +8,12 @@
 "%@ (unavailable)" = "%@ (niedostępny)";
 "%@ + %@ zdalnie" = "%@ + %@ zdalnie";
 "%@ / %@" = "%@ / %@";
+"%@ Pierwszy szkic skryptu został w edytorze." = "%@ Pierwszy szkic skryptu został w edytorze.";
 "%@ zdalnie" = "%@ zdalnie";
 "%@ – %@" = "%@ – %@";
 "%@ — %@" = "%@ — %@";
+"%@ → %@" = "%@ → %@";
+"%@: %@" = "%@: %@";
 "%@: %lld ukończone, %lld pominięte" = "%@: %lld ukończone, %lld pominięte";
 "%@: ukończone %lld, pominięte %lld" = "%@: ukończone %lld, pominięte %lld";
 "%@: w tej chwili i tak nie musisz patrzeć na ekran. Zrobić krótką przerwę teraz?" = "%@: w tej chwili i tak nie musisz patrzeć na ekran. Zrobić krótką przerwę teraz?";
@@ -58,6 +61,7 @@
 "A pomodoro counts only when you finish it. Resetting the timer or leaving for a long time voids it." = "Pomodoro liczy się dopiero po ukończeniu. Reset timera albo długie wyjście je unieważnia.";
 "A subtle flash reminds you to check your posture. Skipped during breaks and pauses." = "Subtelny błysk przypomina o sprawdzeniu postawy. Nie pojawia się podczas przerw ani gdy timer jest wstrzymany.";
 "A 🍅 appears in the menu bar next to the countdown. Work one pomodoro, then take the suggested break fully. Pick a task and log interruptions from the menu-bar panel." = "W pasku menu obok odliczania pojawia się 🍅. Przepracuj jedno pomodoro, potem w pełni wykorzystaj proponowaną przerwę. Zadanie wybierzesz i rozproszenia zapiszesz w panelu paska menu.";
+"AI" = "AI";
 "AOA / Harvard Health / Kaur 2022 (konsensus; pojedyncze 20 s bywa niewystarczające)" = "AOA / Harvard Health / Kaur 2022 (konsensus; pojedyncze 20 s bywa niewystarczające)";
 "Access to Calendar not granted — enabling it here also requests it" = "Brak dostępu do Kalendarza — włączenie tej opcji poprosi o niego";
 "Accessibility" = "Dostępność";
@@ -65,6 +69,8 @@
 "Add" = "Dodaj";
 "Add Exercise" = "Dodaj ćwiczenie";
 "Add rule" = "Dodaj regułę";
+"Adres serwera" = "Adres serwera";
+"Adres serwera jest niepoprawny." = "Adres serwera jest niepoprawny.";
 "Adresy działają w Skrótach macOS, skryptach, cronie i terminalu. „Kopiuj” wkłada do schowka gotowy przykład." = "Adresy działają w Skrótach macOS, skryptach, cronie i terminalu. „Kopiuj” wkłada do schowka gotowy przykład.";
 "Adresy intermezzo:// uruchomisz z Skrótów, skryptów, crona albo terminala (open \"intermezzo://break/long\"):" = "Adresy intermezzo:// uruchomisz z Skrótów, skryptów, crona albo terminala (open \"intermezzo://break/long\"):";
 "After Any End" = "Po dowolnym zakończeniu";
@@ -94,9 +100,16 @@
 "Aplikacje" = "Aplikacje";
 "Aplikacje bez zmiany barw" = "Aplikacje bez zmiany barw";
 "Aplikacje do rozmów i pulpitu zdalnego" = "Aplikacje do rozmów i pulpitu zdalnego";
+"Aplikacji nie ma na tym Macu: %@. Sprawdź uruchomione procesy przez System Events zamiast „tell application”." = "Aplikacji nie ma na tym Macu: %@. Sprawdź uruchomione procesy przez System Events zamiast „tell application”.";
+"Apple Intelligence jest wyłączona w Ustawieniach systemowych" = "Apple Intelligence jest wyłączona w Ustawieniach systemowych";
 "AppleScript (.applescript/.scpt) or shell scripts run at break start and after any end — e.g. mute audio on start, restore on end." = "Skrypty AppleScript (.applescript/.scpt) lub powłoki uruchamiane na starcie przerwy i po dowolnym zakończeniu, np. wycisz dźwięk na starcie, przywróć na końcu.";
 "AppleScript rules that ask System Events about apps and windows" = "Reguły AppleScript pytające System Events o aplikacje i okna";
 "Archive" = "Archiwizuj";
+"Asystent nie zaproponował żadnych zmian." = "Asystent nie zaproponował żadnych zmian.";
+"Asystent ustawień" = "Asystent ustawień";
+"Asystent ustawień, autor skryptów i podsumowanie tygodnia" = "Asystent ustawień, autor skryptów i podsumowanie tygodnia";
+"Asystent ustawień, autor skryptów reguł i podsumowanie tygodnia. Funkcje działają tylko wtedy, gdy je klikniesz, a bez włączenia tego przełącznika program niczego nie wysyła." = "Asystent ustawień, autor skryptów reguł i podsumowanie tygodnia. Funkcje działają tylko wtedy, gdy je klikniesz, a bez włączenia tego przełącznika program niczego nie wysyła.";
+"Asystent ustawień…" = "Asystent ustawień…";
 "Automation (System Events)" = "Automatyzacja (System Events)";
 "Automatycznie" = "Automatycznie";
 "Automatycznie (jesienią liście, wiosną płatki)" = "Automatycznie (jesienią liście, wiosną płatki)";
@@ -115,6 +128,7 @@
 "BetterDisplay" = "BetterDisplay";
 "BetterDisplay nie jest uruchomiony" = "BetterDisplay nie jest uruchomiony";
 "BetterDisplay nie wyłączył True Tone (ta funkcja wymaga wersji Pro)." = "BetterDisplay nie wyłączył True Tone (ta funkcja wymaga wersji Pro).";
+"Bez klucza (zwykle tak jest przy lokalnym serwerze)." = "Bez klucza (zwykle tak jest przy lokalnym serwerze).";
 "Bez odroczeń, bez przycisku Skip i bez Esc na ekranie przerwy. Awaryjnie przerwę kończysz z paska menu." = "Bez odroczeń, bez przycisku „Pomiń” i bez Esc na ekranie przerwy. Awaryjnie przerwę kończysz z paska menu.";
 "Bez wpisanych współrzędnych aplikacja używa lokalizacji Maca, a gdy jej nie ma, przybliżonego miejsca ze strefy czasowej. Wschód i zachód liczy lokalnie, bez internetu." = "Bez wpisanych współrzędnych aplikacja używa lokalizacji Maca, a gdy jej nie ma, przybliżonego miejsca ze strefy czasowej. Wschód i zachód liczy lokalnie, bez internetu.";
 "Bez wykresu, haseł o passie i liczników dni z rzędu. Zostaje sam numer przerwy dziś. Statystyki i mapa regularności nadal są dostępne, bez oceniania." = "Bez wykresu, haseł o passie i liczników dni z rzędu. Zostaje sam numer przerwy dziś. Statystyki i mapa regularności nadal są dostępne, bez oceniania.";
@@ -133,6 +147,7 @@
 "Brak aktywności" = "Brak aktywności";
 "Brak innych kopii na tym Macu." = "Brak innych kopii na tym Macu.";
 "Brak odcinków tego dnia." = "Brak odcinków tego dnia.";
+"Brak przerw z ostatnich dni." = "Brak przerw z ostatnich dni.";
 "Brak uprawnień do nagrywania ekranu" = "Brak uprawnień do nagrywania ekranu";
 "Brak wschodu lub zachodu Słońca w tym miejscu (dzień lub noc polarna)." = "Brak wschodu lub zachodu Słońca w tym miejscu (dzień lub noc polarna).";
 "Break" = "Przerwa";
@@ -160,6 +175,7 @@
 "Button title:" = "Tytuł przycisku:";
 "By project" = "Według projektu";
 "Byłeś nieobecny %lld min — zaliczyć to jako przerwę?" = "Nieobecność: %lld min — zaliczyć ją jako przerwę?";
+"Błąd połączenia: %@" = "Błąd połączenia: %@";
 "Błąd w skrypcie: %@" = "Błąd w skrypcie: %@";
 "Calendar" = "Kalendarz";
 "Calendar: breaks only while an event title contains (replaces fixed hours)" = "Kalendarz: przerwy tylko gdy tytuł wydarzenia zawiera (zastępuje stałe godziny)";
@@ -191,6 +207,7 @@
 "Co ma nie spać" = "Co ma nie spać";
 "Co mówią zalecenia i badania" = "Co mówią zalecenia i badania";
 "Co synchronizować" = "Co synchronizować";
+"Cofnij ostatnie zmiany asystenta" = "Cofnij ostatnie zmiany asystenta";
 "Cofnij podbródek" = "Cofnij podbródek";
 "Colour" = "Kolor";
 "Could not create a PDF at %@." = "Nie udało się utworzyć pliku PDF w %@.";
@@ -245,11 +262,13 @@
 "Dla wysokich szerokości geograficznych: długi zmierzch, łagodniejsze i dłuższe przejście, 2300 K przed snem." = "Dla wysokich szerokości geograficznych: długi zmierzch, łagodniejsze i dłuższe przejście, 2300 K przed snem.";
 "Dlaczego po zachodzie ekran powinien być cieplejszy" = "Dlaczego po zachodzie ekran powinien być cieplejszy";
 "Dni" = "Dni";
+"Dni pracy" = "Dni pracy";
 "Do" = "Do";
 "Do %@" = "Do %@";
 "Do 3 odroczeń (+1 i +5 min) na dobę. Skip i Esc działają jak w klasycznej. Po wyczerpaniu limitu przyciski odroczenia znikają." = "Do 3 odroczeń (+1 i +5 min) na dobę. „Pomiń” i Esc działają jak w trybie klasycznym. Po wyczerpaniu limitu przyciski odroczenia znikają.";
 "Do 6 odroczeń (+1 i +5 min) na dobę. Skip i Esc działają jak w klasycznej. Po wyczerpaniu limitu przyciski odroczenia znikają." = "Do 6 odroczeń (+1 i +5 min) na dobę. „Pomiń” i Esc działają jak w trybie klasycznym. Po wyczerpaniu limitu przyciski odroczenia znikają.";
 "Do godziny" = "Do godziny";
+"Do modelu trafia wyłącznie to, co jest potrzebne do klikniętej funkcji: Twój opis, lista ustawień z ich wartościami albo zbiorcze liczby o przerwach. Nigdy tytuły okien, nazwy sieci, projekty ani ścieżki. Odpowiedź modelu może być błędna, dlatego ustawienia i skrypty zawsze wymagają Twojego zatwierdzenia." = "Do modelu trafia wyłącznie to, co jest potrzebne do klikniętej funkcji: Twój opis, lista ustawień z ich wartościami albo zbiorcze liczby o przerwach. Nigdy tytuły okien, nazwy sieci, projekty ani ścieżki. Odpowiedź modelu może być błędna, dlatego ustawienia i skrypty zawsze wymagają Twojego zatwierdzenia.";
 "Do wyłączenia" = "Do wyłączenia";
 "Dobra pora na przerwę" = "Dobra pora na przerwę";
 "Dodaj bieżącą sieć: %@" = "Dodaj bieżącą sieć: %@";
@@ -263,7 +282,9 @@
 "Dodaj uruchomioną aplikację…" = "Dodaj uruchomioną aplikację…";
 "Dokładnie %@, do rozliczenia %@" = "Dokładnie %@, do rozliczenia %@";
 "Done" = "Gotowe";
+"Dostawca" = "Dostawca";
 "Dostosowuj barwę ekranu do pory dnia" = "Dostosowuj barwę ekranu do pory dnia";
+"Dostępne modele" = "Dostępne modele";
 "Dotyczy tylko tego monitora, na którym okno zajmuje cały ekran (film, gra, prezentacja). Pozostałe monitory zostają ocieplone." = "Dotyczy tylko tego monitora, na którym okno zajmuje cały ekran (film, gra, prezentacja). Pozostałe monitory zostają ocieplone.";
 "Drink some water" = "Napij się wody";
 "Duplikowanie ekranu" = "Duplikowanie ekranu";
@@ -340,6 +361,7 @@
 "Front window: document name" = "Okno na wierzchu: nazwa dokumentu";
 "Front window: document name." = "Okno na wierzchu: nazwa dokumentu.";
 "Frost — mrożone szkło" = "Mrożone szkło";
+"Funkcje AI są wyłączone." = "Funkcje AI są wyłączone.";
 "Galeria" = "Galeria";
 "Galeria skryptów" = "Galeria skryptów";
 "Gallery scripts that read window titles through System Events" = "Skrypty z galerii czytające tytuły okien przez System Events";
@@ -402,11 +424,14 @@
 "Key %lld" = "Klawisz %lld";
 "Keyboard Shortcuts" = "Skróty klawiszowe";
 "Kiedy odkładać lub pomijać przerwy" = "Kiedy odraczać lub pomijać przerwy";
+"Kiedy przerwa ma zostać odłożona lub pominięta?" = "Kiedy przerwa ma zostać odłożona lub pominięta?";
 "Klapa zamknięta: czujnik nie widzi pokoju, działa sam harmonogram." = "Klapa zamknięta: czujnik nie widzi pokoju, działa sam harmonogram.";
 "Klasyczna" = "Klasyczna";
 "Klasyczne" = "Klasyczne";
 "Kliknij dzień w kalendarzu, aby zobaczyć jego log i go poprawić. Nadgodziny = praca poza godzinami pracy, w dni wolne cała praca; rozliczane w dół do pełnych 15 min, za każdy dzień osobno dla biura i pracy zdalnej. ✎ = korekta ręczna." = "Kliknij dzień w kalendarzu, aby zobaczyć jego rejestr i go poprawić. Nadgodziny = praca poza godzinami pracy, w dni wolne cała praca; rozliczane w dół do pełnych 15 min, za każdy dzień osobno dla biura i pracy zdalnej. ✎ = korekta ręczna.";
 "Kliknij mapę, żeby postawić pinezkę, i przeciągnij ją, żeby ją przesunąć. Przeciągnięcie mapy przesuwa mapę, a kółko myszy, szczypanie i przyciski + i − ją przybliżają. Cień pokazuje, gdzie teraz jest dzień, zmierzch i noc." = "Kliknij mapę, żeby postawić pinezkę, i przeciągnij ją, żeby ją przesunąć. Przeciągnięcie mapy przesuwa mapę, a kółko myszy, szczypanie i przyciski + i − ją przybliżają. Cień pokazuje, gdzie teraz jest dzień, zmierzch i noc.";
+"Klucz API (opcjonalny)" = "Klucz API (opcjonalny)";
+"Klucz jest zapisany w Pęku kluczy." = "Klucz jest zapisany w Pęku kluczy.";
 "Kocie grzbiety" = "Kocie grzbiety";
 "Kod AppleScript" = "Kod AppleScript";
 "Kolacja" = "Kolacja";
@@ -438,6 +463,7 @@
 "Liczba nad słupkiem to wszystkie rozpoczęte przerwy danego dnia. Wysokość jest względna do najlepszego dnia tygodnia." = "Liczba nad słupkiem to wszystkie rozpoczęte przerwy danego dnia. Wysokość jest względna do najlepszego dnia tygodnia.";
 "Limit odroczeń na dziś wykorzystany" = "Limit odroczeń na dziś wykorzystany";
 "Lista kontrolna stanowiska (30 s)" = "Lista kontrolna stanowiska (30 s)";
+"Lista modeli dotyczy serwera zgodnego z API OpenAI." = "Lista modeli dotyczy serwera zgodnego z API OpenAI.";
 "Listen" = "Odsłuchaj";
 "Liście i płatki" = "Liście i płatki";
 "Loading your shortcuts…" = "Wczytywanie Twoich skrótów…";
@@ -447,6 +473,7 @@
 "Logic, GarageBand, Ableton, Pro Tools, Cubase, Reaper, Final Cut, Premiere, DaVinci Resolve lub Blender na pierwszym planie. Wejście w stan flow trudno odbudować po przerwie w środku nagrania lub renderu." = "Logic, GarageBand, Ableton, Pro Tools, Cubase, Reaper, Final Cut, Premiere, DaVinci Resolve lub Blender na pierwszym planie. Stan flow trudno odbudować po przerwie w środku nagrania lub renderu.";
 "Lokalizacja" = "Lokalizacja";
 "Lokalne zostają: uprawnienia, pozycje okien, ścieżki do plików (muzyka, skrypty, obrazy), dzisiejsze liczniki. Przy konflikcie ustawień wygrywa nowsza zmiana. Mac dołączający do folderu z danymi innego Maca najpierw przejmuje jego ustawienia." = "Lokalne zostają: uprawnienia, pozycje okien, ścieżki do plików (muzyka, skrypty, obrazy), dzisiejsze liczniki. Przy konflikcie ustawień wygrywa nowsza zmiana. Mac dołączający do folderu z danymi innego Maca najpierw przejmuje jego ustawienia.";
+"Lokalny serwer (LM Studio, Ollama i podobne) lub dowolna usługa zgodna z API OpenAI. Klucz jest przechowywany w Pęku kluczy. Zwykły adres http:// jest dozwolony tylko dla serwera w tej sieci." = "Lokalny serwer (LM Studio, Ollama i podobne) lub dowolna usługa zgodna z API OpenAI. Klucz jest przechowywany w Pęku kluczy. Zwykły adres http:// jest dozwolony tylko dla serwera w tej sieci.";
 "Long Break" = "Długa przerwa";
 "Long Breaks" = "Długie przerwy";
 "Long break" = "Długa przerwa";
@@ -477,6 +504,14 @@
 "Miękka przerwa: przyciemnienie przepuszcza kliknięcia" = "Miękka przerwa: przyciemnienie przepuszcza kliknięcia";
 "Mleczna szyba z ziarnem" = "Mleczna szyba z ziarnem";
 "Mode:" = "Tryb:";
+"Model" = "Model";
+"Model jest niedostępny: %@" = "Model jest niedostępny: %@";
+"Model napisze skrypt i podmieni nim kod poniżej. Nic nie jest zapisane ani uruchomione, dopóki sam tego nie zrobisz: sprawdź kod, kliknij „Testuj teraz” i dopiero zapisz." = "Model napisze skrypt i podmieni nim kod poniżej. Nic nie jest zapisane ani uruchomione, dopóki sam tego nie zrobisz: sprawdź kod, kliknij „Testuj teraz” i dopiero zapisz.";
+"Model nie odpowiedział w wyznaczonym czasie." = "Model nie odpowiedział w wyznaczonym czasie.";
+"Model systemowy Apple" = "Model systemowy Apple";
+"Model wbudowany w macOS (Apple Intelligence). Działa na tym Macu, bez klucza i bez internetu. Wymaga macOS 26 lub nowszego. Jakość odpowiedzi po polsku może być słabsza niż po angielsku." = "Model wbudowany w macOS (Apple Intelligence). Działa na tym Macu, bez klucza i bez internetu. Wymaga macOS 26 lub nowszego. Jakość odpowiedzi po polsku może być słabsza niż po angielsku.";
+"Modele na serwerze: %lld" = "Modele na serwerze: %lld";
+"Moja reguła" = "Moja reguła";
 "Moje przypomnienie" = "Moje przypomnienie";
 "Mon" = "Pn";
 "Monitory" = "Monitory";
@@ -517,6 +552,7 @@
 "Name already used" = "Nazwa jest już zajęta";
 "Name of the repository (a folder containing .git) or folder the frontmost Terminal or iTerm window is in. Needs Automation for Terminal/iTerm and System Events." = "Nazwa repozytorium (folderu z .git) lub folderu, w którym pracuje okno Terminala albo iTerma na wierzchu. Wymaga Automatyzacji dla Terminala/iTerma i System Events.";
 "Napij się wody" = "Napij się wody";
+"Napisz skrypt" = "Napisz skrypt";
 "Napięcie karku po 8h pracy przy monitorze to efekt izometryczny — mięśnie pracują bez ruchu. Jedyna ucieczka: ruch." = "Napięcie karku po 8 h pracy przy monitorze to efekt izometryczny — mięśnie pracują bez ruchu. Jedyna ucieczka: ruch.";
 "Naprawdę przezroczyste, rozmywa pulpit" = "Naprawdę przezroczyste, rozmywa pulpit";
 "Narysowany dzień, którego siłę kontrolują wschód i zachód słońca, zachmurzenie i światło w pokoju: w dzień ekran jest neutralny, a po zmroku płynnie przechodzi do koloru z wykresu. Wykres mówi, jak ciepło może być o danej godzinie." = "Narysowany dzień, którego siłę kontrolują wschód i zachód słońca, zachmurzenie i światło w pokoju: w dzień ekran jest neutralny, a po zmroku płynnie przechodzi do koloru z wykresu. Wykres mówi, jak ciepło może być o danej godzinie.";
@@ -531,6 +567,7 @@
 "Nawilż oczy" = "Nawilż oczy";
 "Nawodnienie" = "Nawodnienie";
 "Nazwa" = "Nazwa";
+"Nazwa modelu" = "Nazwa modelu";
 "Nazwa przerwy" = "Nazwa przerwy";
 "Nazwa tego Maca" = "Nazwa tego Maca";
 "Nazwy oddzielaj przecinkami. Wielkość liter i końcówka .app nie mają znaczenia; można wpisać też nazwę programu z terminala, np. ffmpeg." = "Nazwy oddzielaj przecinkami. Wielkość liter i końcówka .app nie mają znaczenia; można wpisać też nazwę programu z terminala, np. ffmpeg.";
@@ -547,6 +584,7 @@
 "Nie pozwól Macowi zasnąć, gdy pracuje" = "Nie pozwól Macowi zasnąć, gdy pracuje";
 "Nie pozwól uśpić Maca podczas przerwy" = "Nie pozwól uśpić Maca podczas przerwy";
 "Nie teraz" = "Nie teraz";
+"Nie udało się odczytać propozycji. Spróbuj opisać to inaczej." = "Nie udało się odczytać propozycji. Spróbuj opisać to inaczej.";
 "Nie udało się odczytać skryptu." = "Nie udało się odczytać skryptu.";
 "Nie udało się zapisać pliku testowego." = "Nie udało się zapisać pliku testowego.";
 "Nie widać jeszcze innych Maców w tym folderze." = "Nie widać jeszcze innych Maców w tym folderze.";
@@ -558,6 +596,7 @@
 "Nieaktywność liczy się od: %lld min" = "Nieaktywność liczy się od: %lld min";
 "Niebieskie światło i koniec dnia" = "Niebieskie światło i koniec dnia";
 "Niebieskie światło: mit czy fakt?" = "Niebieskie światło: mit czy fakt?";
+"Nieoczekiwana odpowiedź modelu (%@)." = "Nieoczekiwana odpowiedź modelu (%@).";
 "Nigdy" = "Nigdy";
 "No breaks recorded yet." = "Brak zapisanych przerw.";
 "No data for this day" = "Brak danych za ten dzień";
@@ -604,6 +643,7 @@
 "Odtwarzanie wideo" = "Odtwarzanie wideo";
 "Odwróć wzrok od ekranu i patrz przez 20 sekund na obiekt oddalony o min. 6 metrów. Mrugaj powoli — nawilża oczy." = "Odwróć wzrok od ekranu i patrz przez 20 sekund na obiekt oddalony o min. 6 metrów. Mrugaj powoli — nawilża oczy.";
 "Odśwież" = "Odśwież";
+"Odśwież listę modeli" = "Odśwież listę modeli";
 "Ogólne" = "Ogólne";
 "Ok. 4 godziny dziennie jako próg ryzyka" = "Ok. 4 godziny dziennie jako próg ryzyka";
 "Okno huddle Slacka albo połączenie głosowe na Discordzie. Rozmowa jest wtedy ważniejsza niż przypomnienie o przerwie. Wymaga uprawnienia Ułatwień dostępu." = "Okno huddle Slacka albo połączenie głosowe na Discordzie. Rozmowa jest wtedy ważniejsza niż przypomnienie o przerwie. Wymaga uprawnienia „Dostępność”.";
@@ -611,8 +651,10 @@
 "Okulary z filtrem nie leczą zmęczenia oczu" = "Okulary z filtrem nie leczą zmęczenia oczu";
 "Okulary z filtrem nie zastąpią przerwy. Patrz w dal." = "Okulary z filtrem nie zastąpią przerwy. Patrz w dal.";
 "On" = "Włączona";
-"Open Input Monitoring settings…" = "Otwórz ustawienia Monitorowania wprowadzania…";
 "Open Settings…" = "Otwórz Ustawienia…";
+"Opisz regułę (AI)" = "Opisz regułę (AI)";
+"Opisz własnymi słowami, jak ma działać program, a asystent zaproponuje zmiany do zatwierdzenia." = "Opisz własnymi słowami, jak ma działać program, a asystent zaproponuje zmiany do zatwierdzenia.";
+"Opisz, jak ma działać program, np. „pracuję od poniedziałku do piątku od 8 do 16, długa przerwa w południe, nie przerywaj mi w spotkaniach”. Asystent tylko proponuje zmiany; zapisuje je dopiero po Twoim zatwierdzeniu." = "Opisz, jak ma działać program, np. „pracuję od poniedziałku do piątku od 8 do 16, długa przerwa w południe, nie przerywaj mi w spotkaniach”. Asystent tylko proponuje zmiany; zapisuje je dopiero po Twoim zatwierdzeniu.";
 "Oprzyj dłonie o blat, wypchnij plecy w górę na wydechu, a na wdechu lekko pogłęb odcinek lędźwiowy. 6 powtórzeń." = "Oprzyj dłonie o blat, wypchnij plecy w górę na wydechu, a na wdechu lekko pogłęb odcinek lędźwiowy. 6 powtórzeń.";
 "Order:" = "Kolejność:";
 "Orientacyjny próg ryzyka: ok. 4 h dziennie (Kaur i in. 2022)." = "Orientacyjny próg ryzyka: ok. 4 h dziennie (Kaur i in. 2022).";
@@ -657,7 +699,10 @@
 "Plecy i tułów" = "Plecy i tułów";
 "Pn" = "Pn";
 "Po godzinie nieprzerwanej pracy przy monitorze minimum 5 minut przerwy." = "Po godzinie nieprzerwanej pracy przy monitorze minimum 5 minut przerwy.";
+"Po kliknięciu funkcji AI program wyśle do wybranego przez Ciebie modelu Twój opis i potrzebne do niej dane o ustawieniach lub zbiorcze liczby o przerwach. Model systemowy Apple działa na tym Macu. Serwer, który wskażesz, może być na innym komputerze lub w internecie." = "Po kliknięciu funkcji AI program wyśle do wybranego przez Ciebie modelu Twój opis i potrzebne do niej dane o ustawieniach lub zbiorcze liczby o przerwach. Model systemowy Apple działa na tym Macu. Serwer, który wskażesz, może być na innym komputerze lub w internecie.";
+"Pobieram…" = "Pobieram…";
 "Pochmurne popołudnie ściemnia się wcześniej. Korzysta z tej samej anonimowej pogody co ekran przerwy (Open-Meteo), bez dodatkowych danych." = "Pochmurne popołudnie ściemnia się wcześniej. Korzysta z tej samej anonimowej pogody co ekran przerwy (Open-Meteo), bez dodatkowych danych.";
+"Podaj nazwę modelu." = "Podaj nazwę modelu.";
 "Podejdź do okna i patrz na najdalszy punkt (min. 6 m) przez 20 sekund. Rozluźnij brwi i szczękę." = "Podejdź do okna i patrz na najdalszy punkt (min. 6 m) przez 20 sekund. Rozluźnij brwi i szczękę.";
 "Podejście do przerw" = "Podejście do przerw";
 "Podgląd doby (12 s)" = "Podgląd doby (12 s)";
@@ -669,6 +714,8 @@
 "Podpłóń się na biurku na prostych rękach, zaokrąglij plecy w górę na wydechu, na wdechu lekko pogłęb lordozę. 5 powtórzeń." = "Oprzyj się o biurko na prostych rękach, zaokrąglij plecy w górę na wydechu, na wdechu lekko pogłęb lordozę. 5 powtórzeń.";
 "Podstawowe" = "Podstawowe";
 "Podstawowe ukrywają ustawienia eksperckie. Nic nie jest wyłączane: ukryte opcje działają dalej tak, jak je ustawiono." = "Podstawowe ukrywają ustawienia eksperckie. Nic nie jest wyłączane: ukryte opcje działają dalej tak, jak je ustawiono.";
+"Podsumowanie tygodnia (AI)" = "Podsumowanie tygodnia (AI)";
+"Podsumuj tydzień" = "Podsumuj tydzień";
 "Pokazuj" = "Pokazuj";
 "Pokazuj pogodę na szybie (Open-Meteo)" = "Pokazuj pogodę na szybie (Open-Meteo)";
 "Pokazuj skrócone porady na ekranie przerwy" = "Pokazuj skrócone porady na ekranie przerwy";
@@ -680,6 +727,7 @@
 "Polski" = "Polski";
 "Polskie przepisy o stanowiskach z monitorami (za CIOP-PIB, Kamińska 2016)" = "Polskie przepisy o stanowiskach z monitorami (za CIOP-PIB, Kamińska 2016)";
 "Pomija bieżącą lub najbliższą przerwę" = "Pomija bieżącą lub najbliższą przerwę";
+"Pominięte propozycje" = "Pominięte propozycje";
 "Pomiń" = "Pomiń";
 "Pomiń najbliższą" = "Pomiń najbliższą";
 "Pomiń przerwę" = "Pomiń przerwę";
@@ -693,6 +741,7 @@
 "Popraw dzisiejszy dzień…" = "Popraw dzisiejszy dzień…";
 "Popraw godziny, gdy praca była bez komputera (hala, awaria, laptop w domu). Ręczne zmiany są oznaczone w rejestrze i w eksporcie." = "Popraw godziny, gdy praca była bez komputera (hala, awaria, laptop w domu). Ręczne zmiany są oznaczone w rejestrze i w eksporcie.";
 "Popraw…" = "Popraw…";
+"Poprzednie zapytanie jeszcze trwa." = "Poprzednie zapytanie jeszcze trwa.";
 "Pora" = "Pora";
 "Pora obiadu" = "Pora obiadu";
 "Pora obiadu (12:00–13:00)" = "Pora obiadu (12:00–13:00)";
@@ -715,6 +764,7 @@
 "Poziom surowości możesz zmienić w Przerwy › Podejście do przerw." = "Poziom surowości możesz zmienić w Przerwy › Podejście do przerw.";
 "Połowa walki o zmęczone oczy" = "Połowa walki o zmęczone oczy";
 "Połączenie" = "Połączenie";
+"Połączenie działa." = "Połączenie działa.";
 "Połączone VPN: %@" = "Połączony VPN: %@";
 "Poświata krawędzi ekranu przed przerwą (bursztyn → czerwień)" = "Poświata krawędzi ekranu przed przerwą (bursztyn → czerwień)";
 "Praca" = "Praca";
@@ -722,6 +772,7 @@
 "Praca do późna" = "Praca do późna";
 "Praca twórcza" = "Praca twórcza";
 "Praca twórcza (DAW / montaż / 3D)" = "Praca twórcza (DAW / montaż / 3D)";
+"Pracuję…" = "Pracuję…";
 "Prawdziwa przerwa obiadowa" = "Prawdziwa przerwa obiadowa";
 "Preview — 8 s, click-through" = "Podgląd: 8 s, przepuszcza kliknięcia";
 "Prezentacja" = "Prezentacja";
@@ -756,6 +807,8 @@
 "Przerwa nie przejmuje myszki ani Docka, więc nie ma na niej przycisków. Zakończysz ją z paska menu albo skrótem." = "Przerwa nie przejmuje myszki ani Docka, więc nie ma na niej przycisków. Zakończysz ją z paska menu albo skrótem.";
 "Przerwa teraz" = "Przerwa teraz";
 "Przerwa wciąż czeka" = "Przerwa wciąż czeka";
+"Przerwano." = "Przerwano.";
+"Przerwij" = "Przerwij";
 "Przerwy" = "Przerwy";
 "Przerwy działają. Reszta to drobne próby — traktuj jako wskazówki." = "Przerwy działają. Reszta to drobne próby — traktuj jako wskazówki.";
 "Przerwy naturalne (bezczynność)" = "Przerwy naturalne (bezczynność)";
@@ -776,8 +829,10 @@
 "Przypomnienie błyskiem" = "Przypomnienie błyskiem";
 "Przypomnienie o mruganiu" = "Przypomnienie o mruganiu";
 "Przysiady przy biurku" = "Przysiady przy biurku";
+"Przywrócono poprzednie ustawienia." = "Przywrócono poprzednie ustawienia.";
 "Przywróć bibliotekę" = "Przywróć bibliotekę";
 "Przywróć domyślny" = "Przywróć domyślny";
+"Przywróć kod sprzed AI" = "Przywróć kod sprzed AI";
 "Przywróć ogólne" = "Przywróć ogólne";
 "Przywróć wersję z galerii" = "Przywróć wersję z galerii";
 "Przyznaj uprawnienia…" = "Przyznaj uprawnienia…";
@@ -865,6 +920,10 @@
 "Send test notification" = "Wyślij testowe powiadomienie";
 "Sequential" = "Po kolei";
 "Serif" = "Szeryfowa";
+"Serwer nie podał żadnych modeli." = "Serwer nie podał żadnych modeli.";
+"Serwer odrzucił dostęp. Sprawdź klucz." = "Serwer odrzucił dostęp. Sprawdź klucz.";
+"Serwer ogranicza liczbę zapytań. Spróbuj za chwilę." = "Serwer ogranicza liczbę zapytań. Spróbuj za chwilę.";
+"Serwer zgodny z API OpenAI" = "Serwer zgodny z API OpenAI";
 "Sesja Pomodoro nie zostanie przerwana przez uśpienie Maca. Działa tylko, gdy tryb Pomodoro jest włączony." = "Sesja Pomodoro nie zostanie przerwana przez uśpienie Maca. Działa tylko, gdy tryb Pomodoro jest włączony.";
 "Sesja w terminalu" = "Sesja w terminalu";
 "Sesja w terminalu (ssh / vim / htop)" = "Sesja w terminalu (ssh / vim / htop)";
@@ -895,8 +954,11 @@
 "Skip »" = "Pomiń »";
 "Skip!" = "Pomiń!";
 "Skipped break" = "Pominięta przerwa";
+"Skopiuj" = "Skopiuj";
 "Skrypt (AppleScript)" = "Skrypt (AppleScript)";
 "Skrypt jest poprawny." = "Skrypt jest poprawny.";
+"Skrypt napisany przez AI nie jest poprawny: %@ Popraw go ręcznie." = "Skrypt napisany przez AI nie jest poprawny: %@ Popraw go ręcznie.";
+"Skrypt napisany przez AI: sprawdź go, przetestuj i zapisz." = "Skrypt napisany przez AI: sprawdź go, przetestuj i zapisz.";
 "Skrypt nie zadziałał (błąd uruchomienia, brak uprawnień albo przekroczony czas)." = "Skrypt nie zadziałał (błąd uruchomienia, brak uprawnień albo przekroczony czas).";
 "Skrypt odpowiada na pytanie „czy warunek jest teraz spełniony?”: zwraca true albo false. Gdy zwróci true, reguła robi to, co ustawisz na stronie Reguły." = "Skrypt odpowiada na pytanie „czy warunek jest teraz spełniony?”: zwraca true albo false. Gdy zwróci true, reguła robi to, co ustawisz na stronie Reguły.";
 "Skrót + oddech = zrobiona pauza. Sprawdź skróty w Ustawieniach → Ogólne." = "Skrót + oddech = ukończona przerwa. Sprawdź skróty w Ustawieniach › Ogólne.";
@@ -922,6 +984,7 @@
 "Spotkanie, film, prezentacja?" = "Spotkanie, film, prezentacja?";
 "Sprawdza, czy któryś klient wideokonferencji ma otwarte aktywne okno. Nie pomija przerw tylko dlatego, że aplikacja działa w tle." = "Sprawdza, czy któryś klient wideokonferencji ma otwarte aktywne okno. Nie pomija przerw tylko dlatego, że aplikacja działa w tle.";
 "Sprawdź" = "Sprawdź";
+"Sprawdź połączenie" = "Sprawdź połączenie";
 "Sprawdź, czy okno lub lampa nie odbija się w ekranie. Dopasuj jasność ekranu do jasności pokoju." = "Sprawdź, czy okno lub lampa nie odbija się w ekranie. Dopasuj jasność ekranu do jasności pokoju.";
 "Spójrz na licznik czasu przy ekranie w Statusie. Dłuższa przerwa pomoże." = "Spójrz na licznik czasu przy ekranie w Statusie. Dłuższa przerwa pomoże.";
 "Stal nierdzewna (inox)" = "Stal nierdzewna (inox)";
@@ -983,7 +1046,9 @@
 "Tego dnia nie zarejestrowano pracy." = "Tego dnia nie zarejestrowano pracy.";
 "Temperatura barwowa ekranu na wieczór poniżej 3400 K poprawia zasypianie (tryb nocny istnieje nie bez powodu)." = "Temperatura barwowa ekranu na wieczór poniżej 3400 K poprawia zasypianie (Night Shift istnieje nie bez powodu).";
 "Ten Mac nie udostępnia czujnika światła: działa sam harmonogram." = "Ten Mac nie udostępnia czujnika światła: działa sam harmonogram.";
+"Ten adres jest poza Twoją siecią: wysyłane dane opuszczą ten komputer." = "Ten adres jest poza Twoją siecią: wysyłane dane opuszczą ten komputer.";
 "Ten skrypt nie ma nastaw. Dodaj na początku kodu linię „property nazwa : wartość”, a pojawi się tutaj jako pole." = "Ten skrypt nie ma nastaw. Dodaj na początku kodu linię „property nazwa : wartość”, a pojawi się tutaj jako pole.";
+"Ten skrypt zawiera: %@. Sprawdź go przed zapisaniem." = "Ten skrypt zawiera: %@. Sprawdź go przed zapisaniem.";
 "Teraz" = "Teraz";
 "Terminal na pierwszym planie, a w systemie działa żywy ssh, mosh, vim, nvim lub htop. Chroni długie sesje zdalne i edycję, której nie chcesz przerywać w pół zdania." = "Terminal na pierwszym planie, a w systemie działa aktywna sesja ssh lub mosh albo vim, nvim lub htop. Chroni długie sesje zdalne i edycję, której nie chcesz przerywać w pół zdania.";
 "Terminale" = "Terminale";
@@ -1161,6 +1226,7 @@
 "Wycisz dźwięk, odpal skrypt, pokaż tekst" = "Wycisz dźwięk, odpal skrypt, pokaż tekst";
 "Wyciągnij kciuk na długość ręki. Patrz na niego 5 sekund, potem na odległy punkt 5 sekund. Powtórz 5 razy, płynnie." = "Wyciągnij kciuk na długość ręki. Patrz na niego 5 sekund, potem na odległy punkt 5 sekund. Powtórz 5 razy, płynnie.";
 "Wygaszacz ekranu" = "Wygaszacz ekranu";
+"Wygenerowane przez AI, może się mylić." = "Wygenerowane przez AI, może się mylić.";
 "Wygląd" = "Wygląd";
 "Wyjdź" = "Zakończ";
 "Wyjdź z pomieszczenia i przejdź się przez 2–5 minut: korytarz, schody lub podwórko. Każdy ruch się liczy." = "Wyjdź z pomieszczenia i przejdź się przez 2–5 minut: korytarz, schody lub podwórko. Każdy ruch się liczy.";
@@ -1211,9 +1277,12 @@
 "Własny czas" = "Własny czas";
 "Własny czas pasuje do przerwy śniadaniowej (9:00, 15 min) albo obiadu (12:30, 30 min). Startuje w podanej minucie, o ile aplikacja nie jest wstrzymana (spotkanie, poza godzinami pracy). Z opcją „Zapytaj” dostaniesz powiadomienie z przyciskiem Zacznij." = "Własny czas pasuje do przerwy śniadaniowej (9:00, 15 min) albo obiadu (12:30, 30 min). Startuje w podanej minucie, o ile aplikacja nie jest wstrzymana (spotkanie, poza godzinami pracy). Z opcją „Zapytaj” dostaniesz powiadomienie z przyciskiem „Zacznij”.";
 "Własny limit koloru" = "Własny limit koloru";
+"Włącz" = "Włącz";
+"Włącz funkcje AI" = "Włącz funkcje AI";
 "Włącz na…" = "Włącz na…";
 "Włącza czuwanie: Mac nie zaśnie do wyłączenia" = "Włącza czuwanie: Mac nie zaśnie do wyłączenia";
 "Włącza dopasowanie barwy ekranu do pory dnia" = "Włącza dopasowanie barwy ekranu do pory dnia";
+"Włączyć funkcje AI?" = "Włączyć funkcje AI?";
 "Włączył się tryb niskiego zużycia energii, więc Mac może już zasnąć." = "Włączył się tryb niskiego zużycia energii, więc Mac może już zasnąć.";
 "You changed the settings today, so today is left out of the numbers." = "Ustawienia zmieniono dziś, więc dzisiejszy dzień nie wlicza się do wyników.";
 "You have no shortcuts yet. Create one in the Shortcuts app (e.g. “Set Focus”), then refresh." = "Nie masz jeszcze skrótów. Utwórz skrót w aplikacji Skróty (np. „Ustaw tryb Skupienia”) i odśwież listę.";
@@ -1265,10 +1334,12 @@
 "Zapisz" = "Zapisz";
 "Zapisz napój (Nawodnienie)" = "Zapisz napój (Nawodnienie)";
 "Zapomnij" = "Zapomnij";
+"Zaproponuj" = "Zaproponuj";
 "Zaproponuj przerwę teraz" = "Zaproponuj przerwę teraz";
 "Zapytaj zamiast startować" = "Zapytaj zamiast startować";
 "Zasada 20-20-20" = "Zasada 20-20-20";
 "Zasada 20-20-20 spopularyzowali optometryści: co 20 minut patrz 20 sekund na obiekt 20 stóp dalej." = "Zasadę 20-20-20 spopularyzowali optometryści: co 20 minut patrz 20 sekund na obiekt 20 stóp dalej.";
+"Zastosuj zaznaczone" = "Zastosuj zaznaczone";
 "Zastępuje wykres barwy z sekcji „Teraz” (barwa godzina po godzinie) wartościami wybranego profilu. Rzeczy, które narysowałeś na wykresie, przepadną." = "Zastępuje wykres barwy z sekcji „Teraz” (barwa godzina po godzinie) wartościami wybranego profilu. Rzeczy, które narysowałeś na wykresie, przepadną.";
 "Zatrzymaj dźwięk" = "Zatrzymaj dźwięk";
 "Zatrzymaj podgląd" = "Zatrzymaj podgląd";
@@ -1277,11 +1348,13 @@
 "Zdalna sesja" = "Zdalna sesja";
 "Zdalna sesja / pomoc zdalna" = "Zdalna sesja / pomoc zdalna";
 "Zdalnie" = "Zdalnie";
+"Zdalny serwer musi mieć adres zaczynający się od https://." = "Zdalny serwer musi mieć adres zaczynający się od https://.";
 "Zdrowie oczu" = "Zdrowie oczu";
 "Zeruje cykl i liczy do następnej przerwy od nowa" = "Zeruje cykl i liczy do następnej przerwy od nowa";
 "Zezwól" = "Zezwól";
 "Zimne (ok. 5500 K)" = "Zimne (ok. 5500 K)";
 "Zmiana działa po ponownym uruchomieniu. / Applies after a restart." = "Zmiana działa po ponownym uruchomieniu. / Applies after a restart.";
+"Zmiany zostały zastosowane. Możesz je cofnąć przyciskiem poniżej." = "Zmiany zostały zastosowane. Możesz je cofnąć przyciskiem poniżej.";
 "Zmieniaj pozycję, nie szukaj idealnej" = "Zmieniaj pozycję, nie szukaj idealnej";
 "Zmień pozycję. Najlepsza postawa to ta następna." = "Zmień pozycję. Najlepsza postawa to ta następna.";
 "Zmień…" = "Zmień…";
@@ -1304,6 +1377,7 @@
 "Złącz dłonie za plecami, wypchnij klatkę do przodu i unieś lekko brodę. Trzymaj 20 sekund, oddychaj głęboko." = "Złącz dłonie za plecami, wypchnij klatkę do przodu i unieś lekko brodę. Trzymaj 20 sekund, oddychaj głęboko.";
 "aktywnie %@" = "aktywnie %@";
 "bez zarządzania" = "bez zarządzania";
+"brak" = "brak";
 "brak odczytu" = "brak odczytu";
 "brak odpowiedzi (włącz integrację w BetterDisplay)" = "brak odpowiedzi (włącz integrację w BetterDisplay)";
 "breaks skipped" = "przerwy pominięte";
@@ -1322,6 +1396,8 @@
 "długa" = "długa";
 "e.g. Water" = "np. Woda";
 "focus time" = "czas skupienia";
+"godziny pracy bez żadnego dnia pracy wyłączyłyby przerwy" = "godziny pracy bez żadnego dnia pracy wyłączyłyby przerwy";
+"gotowy" = "gotowy";
 "herbata" = "herbata";
 "holiday/vacation event today — breaks held" = "dziś jest wydarzenie urlopowe lub świąteczne — przerwy wstrzymane";
 "inne" = "inne";
@@ -1333,6 +1409,7 @@
 "kolor do %lld K" = "kolor do %lld K";
 "korekta ręczna" = "korekta ręczna";
 "krótka" = "krótka";
+"krótka przerwa byłaby dłuższa niż długa" = "krótka przerwa byłaby dłuższa niż długa";
 "ktoś ogląda Twój ekran (usługa macOS działa tylko podczas połączenia)" = "ktoś ogląda Twój ekran (usługa macOS działa tylko podczas połączenia)";
 "lat" = "szer.";
 "lon" = "dł.";
@@ -1343,11 +1420,14 @@
 "matching event now — breaks active" = "trwa pasujące wydarzenie — przerwy aktywne";
 "ml" = "ml";
 "mniej" = "mniej";
+"model Apple jest niedostępny" = "model Apple jest niedostępny";
+"model Apple jeszcze się pobiera" = "model Apple jeszcze się pobiera";
 "na Twoje życzenie" = "na Twoje życzenie";
 "na godzinę" = "na godzinę";
 "nazwa aplikacji / tekst" = "nazwa aplikacji / tekst";
 "nie zainstalowany" = "nie zainstalowany";
 "nieznana (wpisz współrzędne)" = "nieznana (wpisz współrzędne)";
+"nieznane ustawienie" = "nieznane ustawienie";
 "no VPN connection detected" = "nie wykryto połączenia VPN";
 "no holiday event today" = "dziś brak wydarzenia urlopowego";
 "no matching event in calendar — breaks held" = "brak pasującego wydarzenia w kalendarzu — przerwy wstrzymane";
@@ -1357,6 +1437,7 @@
 "odłożona" = "odroczona";
 "ogólna krzywa" = "ogólna krzywa";
 "ostatnie %lld z %lld" = "ostatnie %lld z %lld";
+"początek pracy nie byłby przed jej końcem" = "początek pracy nie byłby przed jej końcem";
 "pominięta" = "pominięta";
 "pominięta przed startem" = "pominięta przed startem";
 "pominięta przez regułę" = "pominięta przez regułę";
@@ -1375,6 +1456,7 @@
 "sok" = "sok";
 "start ręczny" = "start ręczny";
 "tak" = "tak";
+"ten Mac nie obsługuje Apple Intelligence" = "ten Mac nie obsługuje Apple Intelligence";
 "today" = "dziś";
 "trwa" = "trwa";
 "trwa przerwa" = "trwa przerwa";
@@ -1382,16 +1464,23 @@
 "trwa ≥ %lld s" = "trwa ≥ %lld s";
 "ukończone przerwy" = "ukończone przerwy";
 "urlop, święto, wakacje, vacation, holiday" = "urlop, święto, wakacje, vacation, holiday";
+"ustawienie powtórzone w odpowiedzi" = "ustawienie powtórzone w odpowiedzi";
 "voided today" = "unieważnione dziś";
 "w tym zdalne" = "w tym zdalne";
 "w tym zdalnie" = "w tym zdalnie";
 "w zasięgu: %@" = "w zasięgu: %@";
 "waiting for first GPS fix…" = "czekam na pierwszą pozycję…";
+"wartość nie pasuje" = "wartość nie pasuje";
 "więcej" = "więcej";
+"wklej klucz, jeśli serwer go wymaga" = "wklej klucz, jeśli serwer go wymaga";
 "woda" = "woda";
 "work, praca, meeting, spotkanie" = "work, praca, meeting, spotkanie";
 "wpisana ręcznie" = "wpisana ręcznie";
 "wykonana" = "ukończona";
+"wymaga macOS 26 lub nowszego z Apple Intelligence" = "wymaga macOS 26 lub nowszego z Apple Intelligence";
+"wyłączone" = "wyłączone";
+"wyłączony" = "wyłączony";
+"włączone" = "włączone";
 "z lokalizacji Maca" = "z lokalizacji Maca";
 "zapamiętane" = "zapamiętane";
 "zdalnie, VPN: %@" = "zdalnie, VPN: %@";
@@ -1422,6 +1511,7 @@
 "Źródło" = "Źródło";
 "Żaden inny program nie blokuje uśpienia." = "Żaden inny program nie blokuje uśpienia.";
 "–" = "–";
+"— wybierz —" = "— wybierz —";
 "„%@” zniknie z dysku razem z regułą, która go uruchamia." = "„%@” zniknie z dysku razem z regułą, która go uruchamia.";
 "• Dopasuj jasność ekranu do jasności pomieszczenia — ekran jaśniejszy lub ciemniejszy od otoczenia męczy.\n• Nie siedź twarzą ani plecami do okna: jedno daje oślepienie, drugie odbicie w ekranie.\n• Błyszczący ekran? Pomoże matowy filtr.\n• Przegląd Kaur 2022: wydajność spada przy oświetleniu otoczenia powyżej ok. 1000 lx; Medical News Today: po 50. roku życia potrzeba mniej więcej dwa razy więcej światła niż w wieku 20 lat.\n• Małe badanie randomizowane (Digital J. Ophthalmol., za streszczeniem): zmniejszenie jasności ekranu obniżyło nasilenie zmęczenia oczu, a program zmieniający temperaturę barwy — nie.\n\nŹródła: Harvard Health (AAO); Kaur i in. 2022; Medical News Today; Digital Journal of Ophthalmology (streszczenie z wyszukiwarki)." = "• Dopasuj jasność ekranu do jasności pomieszczenia — ekran jaśniejszy lub ciemniejszy od otoczenia męczy.\n• Nie siedź twarzą ani plecami do okna: jedno daje oślepienie, drugie odbicie w ekranie.\n• Błyszczący ekran? Pomoże matowy filtr.\n• Przegląd Kaur 2022: wydajność spada przy oświetleniu otoczenia powyżej ok. 1000 lx; Medical News Today: po 50. roku życia potrzeba mniej więcej dwa razy więcej światła niż w wieku 20 lat.\n• Małe badanie randomizowane (Digital J. Ophthalmol., za streszczeniem): zmniejszenie jasności ekranu obniżyło nasilenie zmęczenia oczu, a program zmieniający temperaturę barwy — nie.\n\nŹródła: Harvard Health (AAO); Kaur i in. 2022; Medical News Today; Digital Journal of Ophthalmology (streszczenie z wyszukiwarki).";
 "• Kontrast ok. 60–70% (Kaur 2022) i wyraźna czcionka, co najmniej 12 pkt; najlepiej ciemny tekst na jasnym tle.\n• Zwiększ kontrast na ekranie (AAO).\n• Powiększ tekst, jeśli mrużysz oczy — mały tekst obniża częstość mrugania.\n• Trzymaj ekran i okulary czyste.\n\nTo zalecenia z przeglądów, oparte w dużej mierze na konsensusie ekspertów.\n\nŹródła: Kaur i in. 2022; Harvard Health (AAO); Lapa i in. 2023." = "• Kontrast ok. 60–70% (Kaur 2022) i wyraźna czcionka, co najmniej 12 pkt; najlepiej ciemny tekst na jasnym tle.\n• Zwiększ kontrast na ekranie (AAO).\n• Powiększ tekst, jeśli mrużysz oczy — mały tekst obniża częstość mrugania.\n• Trzymaj ekran i okulary czyste.\n\nTo zalecenia z przeglądów, oparte w dużej mierze na konsensusie ekspertów.\n\nŹródła: Kaur i in. 2022; Harvard Health (AAO); Lapa i in. 2023.";

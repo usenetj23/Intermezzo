@@ -38,11 +38,15 @@ The interface is available in **English** and **Polish**.
 - Optional [BetterDisplay](https://github.com/waydabber/BetterDisplay) integration for dimming external displays.
 - Keeps the Mac awake on request, during a focus session or while chosen apps run, with battery, Low Power Mode and heat limits.
 
+**Optional AI (off by default)**
+- A settings assistant that turns "I work Monday to Friday, 8 to 16, no breaks in meetings" into a list of changes you approve (and can undo), an author of rule scripts that writes the AppleScript for a rule from a description (you check, test and save it), and a short weekly summary of your breaks.
+- Runs on the model built into macOS (Apple Intelligence, macOS 26 or newer, on the Mac) or on a server that speaks the OpenAI API, for example a local LM Studio or Ollama. Nothing is sent unless you click one of the features; window titles, network names, projects and file paths are never sent, and the answer of the model is never run or applied without your approval. An API key, if you use one, is kept in the Keychain.
+
 **Automation and sync**
 - `intermezzo://` URL commands and a gallery of ready-made AppleScript scripts.
 - Settings sync between your Macs through any shared folder (iCloud Drive, OneDrive, Dropbox, SMB). No server and no account.
 
-Everything runs locally. Intermezzo does not collect or send usage data. The only network request is the optional weather effect on the break screen ([Open-Meteo](https://open-meteo.com), sends approximate coordinates).
+Everything runs locally. Intermezzo does not collect or send usage data. The only network requests are the optional weather effect on the break screen ([Open-Meteo](https://open-meteo.com), sends approximate coordinates) and, only if you turn them on, the optional AI features described above.
 
 ## Requirements
 

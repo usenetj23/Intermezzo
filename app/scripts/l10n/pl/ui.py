@@ -622,7 +622,6 @@ STRINGS = {
     "Natural Break": "Naturalna przerwa",
     "Needs Input Monitoring permission. Without it Intermezzo falls back to Event Source automatically.":
         "Wymaga uprawnienia „Monitorowanie wprowadzania”. Bez niego Intermezzo automatycznie wraca do Event Source.",
-    "Open Input Monitoring settings…": "Otwórz ustawienia Monitorowania wprowadzania…",
     "Permissions": "Uprawnienia",
     "Refresh": "Odśwież",
     "Send test notification": "Wyślij testowe powiadomienie",

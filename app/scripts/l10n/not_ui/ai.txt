@@ -1,0 +1,86 @@
+# AI area: text sent to the model (prompts, setting descriptions, digest lines), HTTP names and AppleScript keywords. Not UI text.
+- %@ (%@): %@. Current: %@
+%@: breaks done %@, skipped %@, completion rate %@%.
+%@: no breaks recorded.
+<one or two short sentences>
+administrator privileges
+Authorization
+Barwa ekranu według pory dnia
+Bearer %@
+Breaks done by weekday (Monday to Sunday): %@.
+Breaks only during working hours
+Co ile minut błysk (5, 10, 15 lub 30)
+Co ile minut pracy zaczyna się przerwa
+Co którą przerwa jest długa
+Colour profile: recommended, classic, farFromEquator, workingLate
+Compiler error: %@
+Content-Type
+Countdown next to the cursor before a break
+Delikatny błysk ekranu jako przypomnienie
+Długość długiej przerwy w sekundach
+Długość krótkiej przerwy w sekundach
+Dni pracy jako maska bitów: poniedziałek 1, wtorek 2, środa 4, czwartek 8, piątek 16, sobota 32, niedziela 64 
+Do not interrupt during meetings and video calls
+Do not interrupt while watching video
+do shell script
+Dźwięk przy przerwie
+End of work, minutes since midnight
+Every how many breaks one is a long break
+Example %@:
+Gentle screen flash as a reminder
+Godzina wstawania dla Światła, minuty od północy
+Ile sekund przed przerwą pokazać wyskakujące okno
+integer %@ to %@, steps of %@
+integer 0 to 1439
+key code
+Koniec pracy, minuty od północy
+Last 7 days
+Length of a long break in seconds
+Length of a short break in seconds
+Minutes between flashes (5, 10, 15 or 30)
+Minutes of work between breaks
+Nie przerywaj podczas oglądania wideo
+Nie przerywaj w spotkaniach i rozmowach wideo
+No breaks were recorded in the last 14 days.
+Odliczanie przy kursorze przed przerwą
+one of 
+open location
+Pause the timer when you are away
+Po ilu sekundach bezczynności uznać, że odszedłeś
+Początek pracy, minuty od północy
+Polish
+Pomodoro mode
+POST
+Previous 7 days
+Profil barwy: recommended (zalecany), classic, farFromEquator (daleko od równika), workingLate (praca do późna
+Przerwy tylko w godzinach pracy
+Reply with the single word OK.
+Request: %@
+Respect the macOS Focus mode
+Screen colour by the time of day
+Seconds before a break to show the popup
+Seconds of inactivity before you count as away
+Settings you may change:
+Skipped breaks by part of the day: %@.
+Sound during a break
+Start of work, minutes since midnight
+Strict mode: skipping a break needs confirmation
+true or false
+Tryb Pomodoro
+Tryb surowy: pominięcie przerwy wymaga potwierdzenia
+unknown setting
+Uwzględniaj tryb Skupienia macOS
+value does not fit
+Wake-up time for Light, minutes since midnight
+Working days as a bit mask: Monday 1, Tuesday 2, Wednesday 4, Thursday 8, Friday 16, Saturday 32, Sunday 64 (M
+Wstrzymaj odliczanie, gdy nie ma aktywności
+Dni pracy jako maska bitów: poniedziałek 1, wtorek 2, środa 4, czwartek 8, piątek 16, sobota 32, niedziela 64 (pn–pt = 31)
+Profil barwy: recommended (zalecany), classic, farFromEquator (daleko od równika), workingLate (praca do późna)
+Working days as a bit mask: Monday 1, Tuesday 2, Wednesday 4, Thursday 8, Friday 16, Saturday 32, Sunday 64 (Mon–Fri = 31)
+This script does not compile:
+Return the corrected script only.
+too large
+run script
+do javascript
+open for access
+GET

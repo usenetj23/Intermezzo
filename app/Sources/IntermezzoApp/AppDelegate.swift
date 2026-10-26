@@ -35,6 +35,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, UNUs
         // Must exist before any deeplink (openURL) event can arrive —
         // AppKit may deliver `application(_:open:)` before didFinishLaunching.
         AppDelegate.shared = self
+        // A menu-bar app starts as just its icon. Without this macOS saves the open Settings window when the app
+        // quits and brings it back at the next launch (after a login, a restart or a relaunch).
+        UserDefaults.standard.set(false, forKey: "NSQuitAlwaysKeepsWindows")
         if coordinator == nil {
             coordinator = BreakCoordinator(modelContainer: Store.container)
         }
@@ -51,6 +54,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, UNUs
     }
 
     func applicationDidFinishLaunching(_ notification: Notification) {
+        launchGuardUntil = Date().addingTimeInterval(Self.launchGuardSeconds)
         // `Intermezzo --reset-light`: put the system colours back (a way out if a screen stays tinted).
         if CommandLine.arguments.contains("--reset-light") {
             CGDisplayRestoreColorSyncSettings()
@@ -77,6 +81,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, UNUs
         self.chip = chip
         ToastCenter.shared.topInset = { [weak chip] in chip?.isVisible == true ? 40 : 0 }
         startSettingsWindowWatchdog()
+        startLaunchGuard()
         buildPanel()
 
         // Self-heal login item: if autostart is enabled, (re-)register at every
@@ -651,6 +656,25 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, UNUs
     /// watchdog enforces the invariant: Settings visible → regular app with
     /// miniaturize enabled; Settings gone → back to accessory.
     private var lastMenuBarOcclusion: Bool?
+    /// During the first seconds after launch a Settings window nobody asked for is closed again, so that starting at
+    /// login leaves only the menu-bar icon.
+    private static let launchGuardSeconds: TimeInterval = 15
+    private var launchGuardUntil = Date.distantPast
+    private var settingsRequested = false
+
+    private func startLaunchGuard() {
+        let timer = Timer(timeInterval: 0.2, repeats: true) { [weak self] timer in
+            MainActor.assumeIsolated {
+                guard let self, !self.settingsRequested, Date() < self.launchGuardUntil else { timer.invalidate(); return }
+                for window in NSApp.windows where window.identifier?.rawValue == "com.apple.SwiftUI.settingsWindow" && window.isVisible {
+                    window.close()
+                    Trace.log("launch: closed a Settings window nobody asked for")
+                }
+            }
+        }
+        RunLoop.main.add(timer, forMode: .common)
+    }
+
     private func startSettingsWindowWatchdog() {
         let watchdog = Timer.scheduledTimer(withTimeInterval: 1.5, repeats: true) { [weak self] _ in
             MainActor.assumeIsolated { self?.watchdogTick() }
@@ -740,6 +764,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, UNUs
     }
 
     func openSettingsWindow() {
+        settingsRequested = true
         dismissPanel()
         // An LSUIElement (.accessory) app cannot bring its Settings window
         // above other apps' windows. Promote → show → activate; demote back

@@ -9,32 +9,35 @@ compiler	IntermezzoApp/Settings/FocusShortcutsSection.swift:100	%@ (missing)
 compiler	IntermezzoApp/Settings/ProjectSensorsSection.swift:102	%@ (unavailable)
 compiler	IntermezzoApp/Settings/WorkLogPane.swift:315	%@ + %@ zdalnie
 compiler	IntermezzoApp/Settings/RelaxationAudioSection.swift:101	%@ / %@
+compiler	IntermezzoApp/Settings/ScriptEditorSheet.swift:187	%@ Pierwszy szkic skryptu został w edytorze.
 compiler	IntermezzoApp/Settings/WorkLogPane.swift:314	%@ zdalnie
 compiler	IntermezzoApp/Settings/WorkCalendar.swift:157	%@ – %@
 compiler	IntermezzoApp/Settings/RelaxationAudioSection.swift:83	%@ — %@
+compiler	IntermezzoApp/AI/SettingsAssistantSheet.swift:64	%@ → %@
+compiler	IntermezzoApp/AI/SettingsAssistantSheet.swift:74	%@: %@
 compiler	IntermezzoApp/Settings/ConsistencyHeatmapView.swift:59	%@: %lld ukończone, %lld pominięte
-compiler	IntermezzoApp/Settings/StatisticsPane.swift:208	%@: ukończone %lld, pominięte %lld
+compiler	IntermezzoApp/Settings/StatisticsPane.swift:209	%@: ukończone %lld, pominięte %lld
 compiler	IntermezzoApp/FocusShortcuts.swift:172	%@: “%@” failed (exit %lld) at %@
 compiler	IntermezzoApp/FocusShortcuts.swift:151	%@: “%@” ran at %@
 compiler	IntermezzoApp/FocusShortcuts.swift:175	%@: “%@” took longer than %lld s and was stopped at %@
 compiler	IntermezzoApp/FocusShortcuts.swift:170	%@: “%@” was not found in Shortcuts (%@)
 compiler	IntermezzoApp/Settings/RhythmExperimentSection.swift:85	%lld
 compiler	IntermezzoApp/Settings/PomodoroPlanSection.swift:130	%lld / %lld 🍅
-compiler	IntermezzoApp/Settings/StatisticsPane.swift:102	%lld days
+compiler	IntermezzoApp/Settings/StatisticsPane.swift:103	%lld days
 compiler	IntermezzoApp/Settings/AwakePane.swift:80	%lld h
 compiler	IntermezzoApp/Reports/DayReportPage.swift:126	%lld int · %lld sw
 compiler	IntermezzoApp/Settings/LightPane.swift:229	%lld lx
-compiler	IntermezzoApp/Settings/GeneralPane.swift:232	%lld m from saved place — inside zone
-compiler	IntermezzoApp/Settings/GeneralPane.swift:233	%lld m from saved place — outside zone
+compiler	IntermezzoApp/Settings/GeneralPane.swift:253	%lld m from saved place — inside zone
+compiler	IntermezzoApp/Settings/GeneralPane.swift:254	%lld m from saved place — outside zone
 compiler	IntermezzoApp/Settings/RulesPane.swift:41	%lld min
 compiler	IntermezzoApp/Settings/NaturalBreaksSection.swift:26	%lld min · %@
 compiler	IntermezzoApp/Settings/PomodoroPlanSection.swift:100	%lld of %lld pomodoros fit before the end of working hours (meetings and breaks included); %lld move to another day
-compiler	IntermezzoApp/Settings/StatisticsPane.swift:128	%lld s
+compiler	IntermezzoApp/Settings/StatisticsPane.swift:129	%lld s
 compiler	IntermezzoApp/Settings/PomodoroPlanSection.swift:32	%lld 🍅
 compiler	IntermezzoApp/Settings/PomodoroPlanSection.swift:233	%lld 🍅 · %@
 compiler	IntermezzoApp/Settings/BreaksPane.swift:263	%lld%%
 compiler	IntermezzoApp/Settings/NaturalBreaksSection.swift:19	%lld, razem %lld min
-compiler	IntermezzoApp/Settings/StatisticsPane.swift:124	(skipped)
+compiler	IntermezzoApp/Settings/StatisticsPane.swift:125	(skipped)
 compiler	IntermezzoApp/Reports/ReportSummaryPage.swift:92	+ %lld more projects
 compiler	IntermezzoApp/Reports/DayReportPage.swift:62	+ %lld more sessions
 compiler	IntermezzoApp/Settings/StatusPane.swift:57	+1 min
@@ -42,7 +45,7 @@ compiler	IntermezzoApp/Settings/StatusPane.swift:58	+5 min
 compiler	IntermezzoApp/Settings/BreaksPane.swift:256	/path/to/sound.mp3
 compiler	IntermezzoApp/Settings/BreaksPane.swift:202	0
 compiler	IntermezzoApp/Settings/AppearancePane.swift:141	0:42
-compiler	IntermezzoApp/Settings/StatisticsPane.swift:102	1 day
+compiler	IntermezzoApp/Settings/StatisticsPane.swift:103	1 day
 compiler	IntermezzoKit/BreakMessage.swift:229	1. Praca blokami 45–90 minut, nie maratonem 6-godzinnym.\n2. Pauza = ruch + dal + oddech. Scrollowanie telefonu to NIE pauza.\n3. Trudne zadania rano, po przerwie — uwaga wraca na szczyt.\n4. Jedno zamknięte okno > dziesięć otwartych. Powiadomienia na Focus.\n5. Jeśli nie możesz zrobić przerwy — coś w planowaniu jest nie tak,\n   nie w ciele. Napraw harmonogram, nie tabelki z rozciąganiem.
 compiler	IntermezzoKit/BreakMessage.swift:212	25 minut pracy to ile? Tyle, ile wynosi Twój cykl.
 compiler	IntermezzoKit/BreakMessage.swift:203	25 minut pracy, 5 przerwy
@@ -52,24 +55,25 @@ compiler	IntermezzoApp/Settings/ClockOutPane.swift:31	A gentle evening banner re
 compiler	IntermezzoApp/Settings/PomodoroPlanSection.swift:180	A pomodoro counts only when you finish it. Resetting the timer or leaving for a long time voids it.
 compiler	IntermezzoApp/Settings/FlashPane.swift:34	A subtle flash reminds you to check your posture. Skipped during breaks and pauses.
 compiler	IntermezzoApp/Settings/FocusPane.swift:34	A 🍅 appears in the menu bar next to the countdown. Work one pomodoro, then take the suggested break fully. Pick a task and log interruptions from the menu-bar panel.
-compiler	IntermezzoApp/Settings/GeneralPane.swift:169	Access to Calendar not granted — enabling it here also requests it
+compiler	IntermezzoApp/Settings/GeneralPane.swift:190	Access to Calendar not granted — enabling it here also requests it
 compiler	IntermezzoApp/Settings/BreaksPane.swift:111	Actions run at three points: Before Due (offset seconds before the break), After Start, and After Any End — completed, postponed or skipped.
 compiler	IntermezzoApp/Settings/PomodoroPlanSection.swift:35	Add
 compiler	IntermezzoApp/Settings/ExercisesPane.swift:52	Add Exercise
 compiler	IntermezzoApp/Settings/ProjectSensorsSection.swift:110	Add rule
+compiler	IntermezzoApp/Settings/AIPane.swift:71	Adres serwera
 compiler	IntermezzoApp/Settings/AutomationSection.swift:9	Adresy działają w Skrótach macOS, skryptach, cronie i terminalu. „Kopiuj” wkłada do schowka gotowy przykład.
 compiler	IntermezzoApp/Settings/BreaksPane.swift:194	After Any End
 compiler	IntermezzoApp/Settings/BreaksPane.swift:189	After Fade In
 compiler	IntermezzoApp/Settings/BreaksPane.swift:192	After Finish
 compiler	IntermezzoApp/Settings/BreaksPane.swift:193	After Postpone/Skip
 compiler	IntermezzoApp/Settings/BreaksPane.swift:188	After Start
-compiler	IntermezzoApp/Settings/AdvancedPane.swift:74	After you allow something in System Settings, click Restart: macOS often shows the new state only to a freshly started app. If a switch is on in System Settings but Intermezzo still shows it as denied after a restart, the app was rebuilt with a different signature: use “Reset all decisions…” and allow again.
+compiler	IntermezzoApp/Settings/AdvancedPane.swift:71	After you allow something in System Settings, click Restart: macOS often shows the new state only to a freshly started app. If a switch is on in System Settings but Intermezzo still shows it as denied after a restart, the app was rebuilt with a different signature: use “Reset all decisions…” and allow again.
 compiler	IntermezzoApp/Settings/StatusPane.swift:53	Akcje
 compiler	IntermezzoKit/BreakMessage.swift:188	Akcje i skrypty na przerwach
 compiler	IntermezzoKit/BreakMessage.swift:190	Akcje przerw: na każdym etapie przerwy (przed, po, przy kliknięciu przycisku)\nmożesz: pokazać powiadomienie, zagrać lub wygasić dźwięk, rozjaśnić ekran,\nwyciszyć system (z zapamiętaniem stanu), pauzować muzykę, uruchomić AppleScript.\n\nDo tego własne teksty na przerwie, slajdy zdjęć i filmy z YouTube\njako tapeta przerwy. Wszystko offline, wszystko Twoje.
 compiler	IntermezzoApp/Settings/WorkLogPane.swift:174	Aktywnie przy komputerze
 compiler	IntermezzoApp/Settings/StatusPane.swift:111	Aktywny czas przy ekranie dziś
-compiler	IntermezzoApp/Settings/AdvancedPane.swift:87	Alarmuj o drugiej kopii Intermezzo
+compiler	IntermezzoApp/Settings/AdvancedPane.swift:84	Alarmuj o drugiej kopii Intermezzo
 compiler	IntermezzoApp/Settings/ProjectSensorsSection.swift:22	All sensors (System Events; Terminal/iTerm or Finder for two of them).
 compiler	IntermezzoApp/Settings/SettingsComponents.swift:135	Allow…
 compiler	IntermezzoApp/Settings/RhythmExperimentSection.swift:50	Alternates the two rhythms in blocks of days. Your current settings are saved and restored when you stop.
@@ -78,8 +82,14 @@ compiler	IntermezzoApp/Reports/ReportSummaryPage.swift:95	Amounts
 compiler	IntermezzoApp/Settings/ScriptGalleryPane.swift:72	Anuluj
 compiler	IntermezzoApp/Settings/AwakePane.swift:101	Aplikacje
 compiler	IntermezzoApp/Settings/LightPane.swift:190	Aplikacje bez zmiany barw
+compiler	IntermezzoApp/Settings/ScriptEditorSheet.swift:142	Aplikacji nie ma na tym Macu: %@. Sprawdź uruchomione procesy przez System Events zamiast „tell application”.
+compiler	IntermezzoApp/AI/AppleOnDeviceProvider.swift:18	Apple Intelligence jest wyłączona w Ustawieniach systemowych
 compiler	IntermezzoApp/Settings/BreaksPane.swift:121	AppleScript (.applescript/.scpt) or shell scripts run at break start and after any end — e.g. mute audio on start, restore on end.
 compiler	IntermezzoApp/Settings/PomodoroProjectsSection.swift:56	Archive
+compiler	IntermezzoApp/AI/SettingsAssistantSheet.swift:57	Asystent nie zaproponował żadnych zmian.
+compiler	IntermezzoApp/AI/SettingsAssistantSheet.swift:20	Asystent ustawień
+compiler	IntermezzoApp/Settings/AIPane.swift:34	Asystent ustawień, autor skryptów reguł i podsumowanie tygodnia. Funkcje działają tylko wtedy, gdy je klikniesz, a bez włączenia tego przełącznika program niczego nie wysyła.
+compiler	IntermezzoApp/Settings/GeneralPane.swift:64	Asystent ustawień…
 compiler	IntermezzoApp/Settings/AwakePane.swift:95	Automatycznie
 compiler	IntermezzoApp/Settings/AppearancePane.swift:95	Automatycznie (jesienią liście, wiosną płatki)
 compiler	IntermezzoKit/BreakMessage.swift:182	Automatyzacja dla leniwych (czyli mądrych)
@@ -94,6 +104,7 @@ compiler	IntermezzoApp/Settings/BreaksPane.swift:191	Before Finish
 compiler	IntermezzoApp/Settings/LightPane.swift:252	BetterDisplay
 compiler	IntermezzoApp/Settings/LightPane.swift:281	BetterDisplay nie jest uruchomiony
 compiler	IntermezzoApp/Light/BetterDisplayLight.swift:310	BetterDisplay nie wyłączył True Tone (ta funkcja wymaga wersji Pro).
+compiler	IntermezzoApp/Settings/AIPane.swift:81	Bez klucza (zwykle tak jest przy lokalnym serwerze).
 compiler	IntermezzoApp/Settings/LightPane.swift:305	Bez wpisanych współrzędnych aplikacja używa lokalizacji Maca, a gdy jej nie ma, przybliżonego miejsca ze strefy czasowej. Wschód i zachód liczy lokalnie, bez internetu.
 compiler	IntermezzoApp/Settings/LightPane.swift:49	Bez zmiany barwy: %@
 compiler	IntermezzoApp/Settings/ExercisesPane.swift:66	Biblioteka: %lld ćwiczeń (oczy, kark i barki, nadgarstki, plecy, nogi, stanowisko).
@@ -106,22 +117,23 @@ compiler	IntermezzoApp/Settings/BreakLookSections.swift:15	Blur systemowy (tapet
 compiler	IntermezzoApp/Settings/AdvancedPane.swift:29	Brak
 compiler	IntermezzoApp/Settings/WorkLogPane.swift:107	Brak aktywnego połączenia przewodowego.
 compiler	IntermezzoApp/IntermezzoCoordinator.swift:1079	Brak aktywności
-compiler	IntermezzoApp/Settings/AdvancedPane.swift:96	Brak innych kopii na tym Macu.
+compiler	IntermezzoApp/Settings/AdvancedPane.swift:93	Brak innych kopii na tym Macu.
 compiler	IntermezzoApp/Settings/WorkDayEditor.swift:39	Brak odcinków tego dnia.
+compiler	IntermezzoApp/AI/WeeklySummaryView.swift:47	Brak przerw z ostatnich dni.
 compiler	IntermezzoApp/Settings/BreakLookSections.swift:32	Brak uprawnień do nagrywania ekranu
 compiler	IntermezzoApp/Settings/LocationMapSheet.swift:73	Brak wschodu lub zachodu Słońca w tym miejscu (dzień lub noc polarna).
 compiler	IntermezzoApp/Reports/DayReportPage.swift:107	Break
 compiler	IntermezzoApp/IntermezzoCoordinator.swift:997	Break %@
 compiler	IntermezzoApp/Settings/RhythmExperimentSection.swift:60	Break %lld min
 compiler	IntermezzoApp/Settings/BreaksPane.swift:103	Break Actions
-compiler	IntermezzoApp/Settings/StatisticsPane.swift:99	Break Activity
-compiler	IntermezzoApp/Settings/StatisticsPane.swift:139	Break History
+compiler	IntermezzoApp/Settings/StatisticsPane.swift:100	Break Activity
+compiler	IntermezzoApp/Settings/StatisticsPane.swift:140	Break History
 compiler	IntermezzoApp/Settings/BreaksPane.swift:116	Break Scripts
-compiler	IntermezzoApp/Settings/StatisticsPane.swift:106	Break Statistics
+compiler	IntermezzoApp/Settings/StatisticsPane.swift:107	Break Statistics
 compiler	IntermezzoApp/Settings/SessionAwareSection.swift:8	Break content
 compiler	IntermezzoApp/FocusShortcuts.swift:163	Break end
 compiler	IntermezzoApp/IntermezzoCoordinator.swift:999	Break ends in
-compiler	IntermezzoApp/Settings/StatisticsPane.swift:158	Break history
+compiler	IntermezzoApp/Settings/StatisticsPane.swift:159	Break history
 compiler	IntermezzoApp/Settings/BreaksPane.swift:54	Break reminder every %lld min
 compiler	IntermezzoApp/FocusShortcuts.swift:162	Break start
 compiler	IntermezzoApp/IntermezzoCoordinator.swift:1011	Breaks paused
@@ -130,9 +142,9 @@ compiler	IntermezzoApp/Settings/BreaksPane.swift:332	Browse…
 compiler	IntermezzoApp/Settings/AppearancePane.swift:31	Burza
 compiler	IntermezzoApp/Settings/BreaksPane.swift:312	Button title:
 compiler	IntermezzoApp/Reports/ReportSummaryPage.swift:77	By project
-compiler	IntermezzoApp/Settings/ScriptEditorSheet.swift:198	Błąd w skrypcie: %@
-compiler	IntermezzoApp/Settings/GeneralPane.swift:165	Calendar: breaks only while an event title contains (replaces fixed hours)
-compiler	IntermezzoApp/Settings/AdvancedPane.swift:67	Cancel
+compiler	IntermezzoApp/Settings/ScriptEditorSheet.swift:300	Błąd w skrypcie: %@
+compiler	IntermezzoApp/Settings/GeneralPane.swift:186	Calendar: breaks only while an event title contains (replaces fixed hours)
+compiler	IntermezzoApp/Settings/AdvancedPane.swift:64	Cancel
 compiler	IntermezzoApp/Settings/AppearancePane.swift:68	Centrum powiadomień macOS
 compiler	IntermezzoApp/Settings/AppearancePane.swift:30	Chmury
 compiler	IntermezzoApp/Settings/PomodoroPlanSection.swift:206	Choose PDF (summary and a day ribbon per day) or CSV (one line per pomodoro).
@@ -155,6 +167,7 @@ compiler	IntermezzoApp/Settings/FlashPane.swift:42	Co ile minut
 compiler	IntermezzoApp/Settings/AwakePane.swift:46	Co ma nie spać
 compiler	IntermezzoKit/HealthMessages.swift:35	Co mówią zalecenia i badania
 compiler	IntermezzoApp/Settings/SyncPane.swift:74	Co synchronizować
+compiler	IntermezzoApp/AI/SettingsAssistantSheet.swift:42	Cofnij ostatnie zmiany asystenta
 compiler	IntermezzoApp/Settings/PomodoroProjectsSection.swift:55	Colour
 compiler	IntermezzoApp/Reports/ReportExporter.swift:12	Could not create a PDF at %@.
 compiler	IntermezzoApp/Settings/BreakLookSections.swift:314	Could not find a video or playlist ID in that URL.
@@ -167,7 +180,7 @@ compiler	IntermezzoApp/Settings/PomodoroPlanSection.swift:46	Create
 compiler	IntermezzoApp/Settings/BreakLookSections.swift:227	Crossfade
 compiler	IntermezzoApp/Settings/BreakLookSections.swift:232	Crossfade duration: %llds
 compiler	IntermezzoApp/Settings/PomodoroProjectsSection.swift:70	Currency
-compiler	IntermezzoApp/Settings/StatisticsPane.swift:101	Current streak
+compiler	IntermezzoApp/Settings/StatisticsPane.swift:102	Current streak
 compiler	IntermezzoApp/Settings/BreaksPane.swift:252	Custom file…
 compiler	IntermezzoKit/HealthMessages.swift:192	Cyfrowe zmęczenie oczu (DES) obejmuje trzy grupy objawów:\n• powierzchnia oka: suchość, pieczenie, łzawienie, zaczerwienienie,\n• ostrość i ogniskowanie: niewyraźne widzenie, trudność z przeostrzeniem, czasem podwójne widzenie,\n• poza okiem: bóle głowy, karku, ramion i pleców.\n\nGdy objawy są uporczywe mimo przerw i poprawy stanowiska, zrób pełne badanie okulistyczne. Nieskorygowana wada wzroku to jeden z głównych czynników ryzyka; okulary do pracy przy komputerze projektuje się zwykle na ok. 63 cm.\n\nTo nie porada medyczna — przy niepokojących objawach skonsultuj się z lekarzem.\n\nŹródła: Kaur i in. 2022 (PMC9434525); Medical News Today; Harvard Health (AAO).
 compiler	IntermezzoApp/Settings/ConsistencyHeatmapView.swift:13	Cz
@@ -186,13 +199,13 @@ compiler	IntermezzoApp/Settings/WorkLogPane.swift:217	Dalej
 compiler	IntermezzoApp/Settings/LightPane.swift:132	Daleko od równika
 compiler	IntermezzoApp/Settings/LocationMapSheet.swift:34	Dane mapy: Natural Earth (domena publiczna); nazwy miast: GeoNames, licencja CC BY 4.0.
 compiler	IntermezzoApp/Settings/RhythmExperimentSection.swift:79	Days
-compiler	IntermezzoApp/Settings/GeneralPane.swift:141	Days off: %lld
+compiler	IntermezzoApp/Settings/GeneralPane.swift:162	Days off: %lld
 compiler	IntermezzoApp/PermissionCenter.swift:245	Decisions reset in macOS. Intermezzo sees the new state only after a restart: click Restart, then Allow… on each row. Location and notifications can only be changed in System Settings.
 compiler	IntermezzoApp/Settings/BreaksPane.swift:291	Decrease by %
 compiler	IntermezzoApp/Settings/FocusPane.swift:33	Deep focus 50/10
 compiler	IntermezzoApp/Settings/ClockOutPane.swift:27	Description
 compiler	IntermezzoApp/Settings/AppearancePane.swift:31	Deszcz
-compiler	IntermezzoApp/Settings/GeneralPane.swift:69	Detect inactivity
+compiler	IntermezzoApp/Settings/GeneralPane.swift:90	Detect inactivity
 compiler	IntermezzoApp/Settings/BreakLookSections.swift:311	Detected: %@
 compiler	IntermezzoApp/Settings/AdvancedPane.swift:28	Detekcja naturalnej przerwy:
 compiler	IntermezzoApp/Settings/AboutPane.swift:27	Diagnostyka
@@ -200,8 +213,10 @@ compiler	IntermezzoApp/Settings/BreaksPane.swift:160	Display Notification
 compiler	IntermezzoKit/HealthMessages.swift:288	Dla rodziców
 compiler	IntermezzoApp/Settings/LightPane.swift:176	Dla wysokich szerokości geograficznych: długi zmierzch, łagodniejsze i dłuższe przejście, 2300 K przed snem.
 compiler	IntermezzoKit/HealthMessages.swift:139	Dlaczego po zachodzie ekran powinien być cieplejszy
+compiler	IntermezzoApp/AI/SettingsAssistantSheet.swift:81	Dni pracy
 compiler	IntermezzoApp/Settings/WorkDayEditor.swift:65	Do
 compiler	IntermezzoApp/Settings/AwakePane.swift:44	Do %@
+compiler	IntermezzoApp/Settings/AIPane.swift:40	Do modelu trafia wyłącznie to, co jest potrzebne do klikniętej funkcji: Twój opis, lista ustawień z ich wartościami albo zbiorcze liczby o przerwach. Nigdy tytuły okien, nazwy sieci, projekty ani ścieżki. Odpowiedź modelu może być błędna, dlatego ustawienia i skrypty zawsze wymagają Twojego zatwierdzenia.
 compiler	IntermezzoApp/Settings/AwakePane.swift:61	Do wyłączenia
 compiler	IntermezzoApp/Settings/WorkLogPane.swift:67	Dodaj bieżącą sieć: %@
 compiler	IntermezzoApp/Settings/WorkLogPane.swift:212	Dodaj dzień ręcznie…
@@ -214,7 +229,9 @@ compiler	IntermezzoApp/Settings/RulesPane.swift:63	Dodaj regułę…
 compiler	IntermezzoApp/Settings/LightPane.swift:193	Dodaj uruchomioną aplikację…
 compiler	IntermezzoApp/Settings/WorkLogPane.swift:271	Dokładnie %@, do rozliczenia %@
 compiler	IntermezzoApp/Settings/PomodoroPlanSection.swift:134	Done
+compiler	IntermezzoApp/Settings/AIPane.swift:61	Dostawca
 compiler	IntermezzoApp/Settings/LightPane.swift:31	Dostosowuj barwę ekranu do pory dnia
+compiler	IntermezzoApp/Settings/AIPane.swift:110	Dostępne modele
 compiler	IntermezzoApp/Settings/LightPane.swift:188	Dotyczy tylko tego monitora, na którym okno zajmuje cały ekran (film, gra, prezentacja). Pozostałe monitory zostają ocieplone.
 compiler	IntermezzoApp/Settings/BreaksPane.swift:62	Duration: %@
 compiler	IntermezzoApp/Settings/AwakePane.swift:74	Działa bez uprawnień administratora. Zamknięcie klapy MacBooka i tak go uśpi: tego ta funkcja nie zmienia. Stan włączenia zostaje po ponownym uruchomieniu aplikacji.
@@ -223,7 +240,7 @@ compiler	IntermezzoKit/HealthMessages.swift:287	Dzieci, światło dzienne i kró
 compiler	IntermezzoApp/Settings/LightPane.swift:112	Dzień
 compiler	IntermezzoApp/Settings/LightPane.swift:175	Dzień 6500 K i 3400 K wieczorem, bez dalszego ocieplania przed snem.
 compiler	IntermezzoApp/Settings/LightPane.swift:174	Dzień 6500 K, po zachodzie 3400 K, przed snem do 1900 K. Ocieplanie zaczyna się 2 godziny przed porą snu.
-compiler	IntermezzoApp/Settings/GeneralPane.swift:114	Dzień bez zmian używa godzin powyżej.
+compiler	IntermezzoApp/Settings/GeneralPane.swift:135	Dzień bez zmian używa godzin powyżej.
 compiler	IntermezzoApp/Settings/NaturalBreaksSection.swift:19	Dziś
 compiler	IntermezzoApp/Settings/WorkLogPane.swift:176	Dziś nie zarejestrowano jeszcze pracy w strefie.
 compiler	IntermezzoApp/IntermezzoCoordinator.swift:1052	Dziś wykonane: %lld · następna: %@
@@ -241,7 +258,7 @@ compiler	IntermezzoApp/Settings/WorkLogPane.swift:226	Eksportuj miesiąc do CSV�
 compiler	IntermezzoApp/Settings/ClockOutPane.swift:21	Enable Clock Out
 compiler	IntermezzoApp/Settings/FocusPane.swift:30	Enable Pomodoro mode
 compiler	IntermezzoApp/Settings/FlashPane.swift:20	Enable gentle screen flashes
-compiler	IntermezzoApp/Settings/GeneralPane.swift:90	Enable working hours
+compiler	IntermezzoApp/Settings/GeneralPane.swift:111	Enable working hours
 compiler	IntermezzoApp/Settings/LanguageSection.swift:13	English
 compiler	IntermezzoApp/Settings/PomodoroPlanSection.swift:40	Estimate how many pomodoros a task needs, then compare with the real count: the statistics show how your estimates hold up.
 compiler	IntermezzoApp/Settings/AdvancedPane.swift:31	Event Monitor (tap zdarzeń)
@@ -265,9 +282,9 @@ compiler	IntermezzoApp/Settings/FlashPane.swift:22	Flash interval
 compiler	IntermezzoApp/Reports/DayReportPage.swift:106	Focus (project colour)
 compiler	IntermezzoApp/Settings/BreaksPane.swift:50	Focus Duration
 compiler	IntermezzoApp/Settings/FocusShortcutsSection.swift:23	Focus through Shortcuts
-compiler	IntermezzoApp/Settings/GeneralPane.swift:157	Focus: pause while Focus / Do Not Disturb is on
+compiler	IntermezzoApp/Settings/GeneralPane.swift:178	Focus: pause while Focus / Do Not Disturb is on
 compiler	IntermezzoApp/Settings/BreakLookSections.swift:97	Font:
-compiler	IntermezzoApp/Settings/GeneralPane.swift:48	Fri
+compiler	IntermezzoApp/AI/SettingsAssistantSheet.swift:101	Fri
 compiler	IntermezzoApp/Settings/ClockOutPane.swift:23	From %lld:00
 compiler	IntermezzoApp/Settings/ProjectSensorsSection.swift:23	Front window: document name.
 compiler	IntermezzoApp/Settings/BreakLookSections.swift:17	Frost — mrożone szkło
@@ -286,10 +303,10 @@ compiler	IntermezzoApp/Settings/BreaksPane.swift:92	Hide Delay (+1/+5) buttons i
 compiler	IntermezzoApp/Settings/BreaksPane.swift:90	Hide Skip button in reminder (strict)
 compiler	IntermezzoApp/Settings/SyncPane.swift:76	Historia przerw
 compiler	IntermezzoApp/HoldToSkipButton.swift:100	Hold to skip
-compiler	IntermezzoApp/Settings/GeneralPane.swift:122	Holiday guard: no breaks on days with events matching
-compiler	IntermezzoApp/Settings/GeneralPane.swift:120	Holidays & Vacation
+compiler	IntermezzoApp/Settings/GeneralPane.swift:143	Holiday guard: no breaks on days with events matching
+compiler	IntermezzoApp/Settings/GeneralPane.swift:141	Holidays & Vacation
 compiler	IntermezzoApp/Panel/PomodoroPanelBlock.swift:63	I interrupted myself (mail, a quick look)
-compiler	IntermezzoApp/Settings/GeneralPane.swift:68	Idle Time
+compiler	IntermezzoApp/Settings/GeneralPane.swift:89	Idle Time
 compiler	IntermezzoKit/HealthMessages.swift:210	Ile godzin przy ekranie to dużo?
 compiler	IntermezzoKit/HealthMessages.swift:34	Ile przerw i jak długich?
 compiler	IntermezzoApp/Settings/BreakLookSections.swift:175	Image Theme
@@ -298,8 +315,8 @@ compiler	IntermezzoApp/Settings/BreaksPane.swift:290	Increase by %
 compiler	IntermezzoApp/Settings/ScriptGalleryPane.swift:117	Instalacja nie powiodła się.
 compiler	IntermezzoApp/Settings/ProjectSensorsSection.swift:70	Install
 compiler	IntermezzoApp/Settings/AboutPane.swift:17	Intermezzo
-compiler	IntermezzoApp/Settings/GeneralPane.swift:151	Intermezzo Intelligence
-compiler	IntermezzoApp/Settings/AdvancedPane.swift:107	Intermezzo nic nie wysyła: zero analityki, zero powiadomień od wydawcy, zero kontaktów z siecią. Cała diagnostyka zostaje na tym Macu.
+compiler	IntermezzoApp/Settings/GeneralPane.swift:172	Intermezzo Intelligence
+compiler	IntermezzoApp/Settings/AdvancedPane.swift:104	Intermezzo nic nie wysyła: zero analityki, zero powiadomień od wydawcy, zero kontaktów z siecią. Cała diagnostyka zostaje na tym Macu.
 compiler	IntermezzoKit/BreakMessage.swift:42	Intermezzo przypomina Ci o przerwach, ale nie walczy z Tobą.\n\n• Mikropauzy co kilkanaście minut — oczy, kark, nadgarstki.\n• Długie przerwy co 45 minut — wstań, przejdź się, napij wody.\n• Reguły — pauza nie wyskoczy w środku spotkania, prezentacji czy filmu.\n• Skróty i adresy intermezzo:// — steruj pauzami z dowolnej aplikacji i automatyzacji.\n\nNajważniejsza zasada: pauza ma być odpoczynkiem od EKRANU, nie zmianą ekranu.
 compiler	IntermezzoApp/Reports/ReportSummaryPage.swift:66	Intermezzo report
 compiler	IntermezzoApp/Settings/PomodoroPlanSection.swift:205	Intermezzo report.pdf
@@ -307,17 +324,20 @@ compiler	IntermezzoKit/BreakMessage.swift:228	Jak nie wypalić się do zera
 compiler	IntermezzoApp/Settings/BreakLookSections.swift:257	Jeden obraz rozpięty na wszystkie monitory
 compiler	IntermezzoKit/BreakMessage.swift:204	Jeśli łatwo się rozpraszasz: włącz Pomodoro — krótsze cykle (25 minut),\ndługa pauza (15–20 minut) co cztery pomidorki.\n\nZasada: w trakcie pomodoro nie zmieniasz zadania. Pauza jest nagrodą\nza zamknięty cykl, nie wymówką.
 compiler	IntermezzoApp/Settings/LanguageSection.swift:10	Język / Language
-compiler	IntermezzoApp/Settings/GeneralPane.swift:154	Kalendarz: odkładaj przerwę, gdy trwa lub zaraz zacznie się spotkanie
+compiler	IntermezzoApp/Settings/GeneralPane.swift:175	Kalendarz: odkładaj przerwę, gdy trwa lub zaraz zacznie się spotkanie
 compiler	IntermezzoKit/BreakMessage.swift:74	Kark i ramiona
 compiler	IntermezzoApp/Settings/ConsistencyHeatmapView.swift:48	Każdy kwadrat to jeden dzień, każda kolumna to tydzień (od najstarszego po lewej do bieżącego po prawej, poniedziałek u góry). Im ciemniejszy, tym więcej ukończonych przerw: 1–2, 3–4, 5–7, 8 i więcej. Najedź na kwadrat, by zobaczyć dzień. %lld dni z przerwą w ostatnich %lld tygodniach; pominięte przerwy nie przyciemniają pola.
 compiler	IntermezzoApp/Hotkeys.swift:55	Key %lld
-compiler	IntermezzoApp/Settings/GeneralPane.swift:239	Keyboard Shortcuts
+compiler	IntermezzoApp/Settings/GeneralPane.swift:260	Keyboard Shortcuts
+compiler	IntermezzoApp/Settings/ScriptEditorSheet.swift:114	Kiedy przerwa ma zostać odłożona lub pominięta?
 compiler	IntermezzoApp/Light/LightController.swift:388	Klapa zamknięta: czujnik nie widzi pokoju, działa sam harmonogram.
 compiler	IntermezzoApp/Settings/BreakStyleSection.swift:16	Klasyczna
 compiler	IntermezzoApp/Settings/LightPane.swift:131	Klasyczne
 compiler	IntermezzoApp/Settings/WorkLogPane.swift:209	Kliknij dzień w kalendarzu, aby zobaczyć jego log i go poprawić. Nadgodziny = praca poza godzinami pracy, w dni wolne cała praca; rozliczane w dół do pełnych 15 min, za każdy dzień osobno dla biura i pracy zdalnej. ✎ = korekta ręczna.
 compiler	IntermezzoApp/Settings/LocationMapSheet.swift:23	Kliknij mapę, żeby postawić pinezkę, i przeciągnij ją, żeby ją przesunąć. Przeciągnięcie mapy przesuwa mapę, a kółko myszy, szczypanie i przyciski + i − ją przybliżają. Cień pokazuje, gdzie teraz jest dzień, zmierzch i noc.
-compiler	IntermezzoApp/Settings/ScriptEditorSheet.swift:72	Kod AppleScript
+compiler	IntermezzoApp/Settings/AIPane.swift:76	Klucz API (opcjonalny)
+compiler	IntermezzoApp/Settings/AIPane.swift:81	Klucz jest zapisany w Pęku kluczy.
+compiler	IntermezzoApp/Settings/ScriptEditorSheet.swift:85	Kod AppleScript
 compiler	IntermezzoApp/Settings/AppearancePane.swift:51	Kolor
 compiler	IntermezzoApp/Settings/WorkDayEditor.swift:86	Koniec musi być po początku.
 compiler	IntermezzoKit/HealthMessages.swift:105	Kontrast i rozmiar czcionki
@@ -331,20 +351,22 @@ compiler	IntermezzoApp/Settings/AwakePane.swift:138	Kto jeszcze trzyma Maca
 compiler	IntermezzoApp/BreakOverlay.swift:529	LONG BREAK
 compiler	IntermezzoApp/Settings/LightPane.swift:238	Lampy w pokoju
 compiler	IntermezzoApp/Settings/PomodoroPlanSection.swift:228	Last 7 days by project
-compiler	IntermezzoApp/Settings/GeneralPane.swift:54	Launch when Mac starts
+compiler	IntermezzoApp/Settings/GeneralPane.swift:75	Launch when Mac starts
 compiler	IntermezzoApp/Settings/WorkLogPane.swift:72	Licz także sieć w zasięgu, bez połączenia (skan co 5 min)
-compiler	IntermezzoApp/Settings/StatisticsPane.swift:220	Liczba nad słupkiem to wszystkie rozpoczęte przerwy danego dnia. Wysokość jest względna do najlepszego dnia tygodnia.
+compiler	IntermezzoApp/Settings/StatisticsPane.swift:221	Liczba nad słupkiem to wszystkie rozpoczęte przerwy danego dnia. Wysokość jest względna do najlepszego dnia tygodnia.
 compiler	IntermezzoKit/HealthMessages.swift:269	Lista kontrolna stanowiska (30 s)
+compiler	IntermezzoApp/AI/AIService.swift:73	Lista modeli dotyczy serwera zgodnego z API OpenAI.
 compiler	IntermezzoApp/Settings/RelaxationAudioSection.swift:95	Listen
 compiler	IntermezzoApp/Settings/AppearancePane.swift:94	Liście i płatki
 compiler	IntermezzoApp/Settings/FocusShortcutsSection.swift:55	Loading your shortcuts…
-compiler	IntermezzoApp/Settings/GeneralPane.swift:225	Location access not granted
-compiler	IntermezzoApp/Settings/GeneralPane.swift:204	Location: active only within radius of a saved place
+compiler	IntermezzoApp/Settings/GeneralPane.swift:246	Location access not granted
+compiler	IntermezzoApp/Settings/GeneralPane.swift:225	Location: active only within radius of a saved place
 compiler	IntermezzoApp/Settings/LightPane.swift:290	Lokalizacja
 compiler	IntermezzoApp/Settings/SyncPane.swift:79	Lokalne zostają: uprawnienia, pozycje okien, ścieżki do plików (muzyka, skrypty, obrazy), dzisiejsze liczniki. Przy konflikcie ustawień wygrywa nowsza zmiana. Mac dołączający do folderu z danymi innego Maca najpierw przejmuje jego ustawienia.
+compiler	IntermezzoApp/Settings/AIPane.swift:95	Lokalny serwer (LM Studio, Ollama i podobne) lub dowolna usługa zgodna z API OpenAI. Klucz jest przechowywany w Pęku kluczy. Zwykły adres http:// jest dozwolony tylko dla serwera w tej sieci.
 compiler	IntermezzoApp/Settings/ExercisesPane.swift:38	Long Break
-compiler	IntermezzoApp/Settings/StatisticsPane.swift:110	Long Breaks
-compiler	IntermezzoApp/Settings/StatisticsPane.swift:122	Long break
+compiler	IntermezzoApp/Settings/StatisticsPane.swift:111	Long Breaks
+compiler	IntermezzoApp/Settings/StatisticsPane.swift:123	Long break
 compiler	IntermezzoApp/IntermezzoCoordinator.swift:997	Long break %@
 compiler	IntermezzoApp/Settings/BreaksPane.swift:76	Long break after %lld short breaks
 compiler	IntermezzoApp/IntermezzoCoordinator.swift:999	Long break ends in
@@ -360,15 +382,21 @@ compiler	IntermezzoApp/Settings/SessionAwareSection.swift:9	Match the break to t
 compiler	IntermezzoApp/Settings/RhythmExperimentSection.swift:80	Mean disruptions
 compiler	IntermezzoApp/Settings/RhythmExperimentSection.swift:115	Mean disruptions per pomodoro: %@ %@, %@ %@ (difference %@)
 compiler	IntermezzoApp/Reports/DayReportPage.swift:109	Meeting
-compiler	IntermezzoApp/Settings/GeneralPane.swift:152	Meeting detection: pause when Zoom/Teams/Webex is on
+compiler	IntermezzoApp/Settings/GeneralPane.swift:173	Meeting detection: pause when Zoom/Teams/Webex is on
 compiler	IntermezzoApp/Settings/BreaksPane.swift:245	Message
 compiler	IntermezzoApp/Settings/AppearancePane.swift:32	Mgła
 compiler	IntermezzoKit/BreakMessage.swift:75	Miejsce, gdzie zbiera się cały stres
 compiler	IntermezzoApp/Settings/RemindersSection.swift:18	Mikro-przypomnienia
 compiler	IntermezzoApp/Settings/BreakStyleSection.swift:28	Miękka przerwa: przyciemnienie przepuszcza kliknięcia
 compiler	IntermezzoApp/Settings/BreaksPane.swift:286	Mode:
+compiler	IntermezzoApp/Settings/AIPane.swift:60	Model
+compiler	IntermezzoApp/Settings/ScriptEditorSheet.swift:130	Model napisze skrypt i podmieni nim kod poniżej. Nic nie jest zapisane ani uruchomione, dopóki sam tego nie zrobisz: sprawdź kod, kliknij „Testuj teraz” i dopiero zapisz.
+compiler	IntermezzoApp/Settings/AIPane.swift:62	Model systemowy Apple
+compiler	IntermezzoApp/Settings/AIPane.swift:68	Model wbudowany w macOS (Apple Intelligence). Działa na tym Macu, bez klucza i bez internetu. Wymaga macOS 26 lub nowszego. Jakość odpowiedzi po polsku może być słabsza niż po angielsku.
+compiler	IntermezzoApp/Settings/AIPane.swift:138	Modele na serwerze: %lld
+compiler	IntermezzoApp/Settings/ScriptEditorSheet.swift:157	Moja reguła
 compiler	IntermezzoApp/Settings/RemindersSection.swift:42	Moje przypomnienie
-compiler	IntermezzoApp/Settings/GeneralPane.swift:47	Mon
+compiler	IntermezzoApp/AI/SettingsAssistantSheet.swift:100	Mon
 compiler	IntermezzoApp/Settings/LightMonitorsSection.swift:10	Monitory
 compiler	IntermezzoApp/Settings/BreakLookSections.swift:101	Monospaced
 compiler	IntermezzoApp/Settings/FlashPane.swift:55	Mruganie
@@ -378,11 +406,11 @@ compiler	IntermezzoApp/Settings/BreaksPane.swift:166	Music Pause
 compiler	IntermezzoApp/Settings/BreaksPane.swift:167	Music Play
 compiler	IntermezzoApp/Settings/BreaksPane.swift:305	Music resumes only if it was playing when paused; nothing launches if Music quit.
 compiler	IntermezzoApp/Settings/BreaksPane.swift:287	Mute
-compiler	IntermezzoApp/Settings/ScriptEditorSheet.swift:150	Mój skrypt
+compiler	IntermezzoApp/Settings/ScriptEditorSheet.swift:254	Mój skrypt
 compiler	IntermezzoApp/Panel/MenuBarPanelView.swift:172	Na pewno? Kliknij ponownie
 compiler	IntermezzoApp/Settings/SyncPane.swift:39	Na tym Macu nie ma iCloud Drive ani folderu OneDrive, Dropbox czy Google Drive. Wybierz folder ręcznie, np. udział sieciowy.
 compiler	IntermezzoApp/Settings/SettingsComponents.swift:62	Naciśnij kombinację…
-compiler	IntermezzoApp/Settings/GeneralPane.swift:274	Nadaj uprawnienia…
+compiler	IntermezzoApp/Settings/GeneralPane.swift:297	Nadaj uprawnienia…
 compiler	IntermezzoKit/BreakMessage.swift:91	Nadgarstki i dłonie
 compiler	IntermezzoKit/BreakMessage.swift:93	Nadgarstki podczas pisania powinny być w jednej linii z przedramieniem —\nklawiatura niżej, nie na krawędzi biurka.\n\nNa przerwie:\n• Wyprostuj rękę, drugą dłonią delikatnie odegnij palce w dół — 15 s.\n• „Modlitwa”: złóż dłonie jak do modlitwy i opuszczaj je, aż poczujesz rozciąganie.\n• Rozcieraj dłonie o siebie przez 10 sekund — to przywraca czucie.\n\nMrowienie palców to sygnał ostrzegawczy. Nie ignoruj go.
 compiler	IntermezzoApp/Settings/WorkLogPane.swift:173	Nadgodziny
@@ -394,13 +422,15 @@ compiler	IntermezzoKit/BreakMessage.swift:57	Najważniejszy nawyk przy monitorze
 compiler	IntermezzoApp/Settings/PomodoroProjectsSection.swift:51	Name
 compiler	IntermezzoApp/Settings/ExercisesPane.swift:50	Name (e.g. Neck roll)
 compiler	IntermezzoApp/Settings/PomodoroProjectsSection.swift:60	Name already used
+compiler	IntermezzoApp/Settings/ScriptEditorSheet.swift:117	Napisz skrypt
 compiler	IntermezzoApp/Settings/LightPane.swift:179	Narysowany dzień, którego siłę kontrolują wschód i zachód słońca, zachmurzenie i światło w pokoju: w dzień ekran jest neutralny, a po zmroku płynnie przechodzi do koloru z wykresu. Wykres mówi, jak ciepło może być o danej godzinie.
 compiler	IntermezzoApp/Settings/LightPane.swift:178	Narysowany dzień: barwa o danej godzinie jest dokładnie taka, jak na wykresie, niezależnie od Słońca.
-compiler	IntermezzoApp/Settings/ScriptEditorSheet.swift:90	Nastawy
+compiler	IntermezzoApp/Settings/ScriptEditorSheet.swift:194	Nastawy
 compiler	IntermezzoApp/Settings/AdvancedPane.swift:27	Natural Break
 compiler	IntermezzoApp/Settings/SeamBreaksSection.swift:10	Natural seam
 compiler	IntermezzoKit/HealthMessages.swift:187	Nawiew w twarz? Odwróć go. Zimą nawilżaj powietrze.
-compiler	IntermezzoApp/Settings/ScriptEditorSheet.swift:41	Nazwa
+compiler	IntermezzoApp/Settings/ScriptEditorSheet.swift:49	Nazwa
+compiler	IntermezzoApp/Settings/AIPane.swift:73	Nazwa modelu
 compiler	IntermezzoApp/Settings/RemindersSection.swift:58	Nazwa przerwy
 compiler	IntermezzoApp/Settings/SyncPane.swift:69	Nazwa tego Maca
 compiler	IntermezzoApp/Settings/AwakePane.swift:109	Nazwy oddzielaj przecinkami. Wielkość liter i końcówka .app nie mają znaczenia; można wpisać też nazwę programu z terminala, np. ffmpeg.
@@ -414,20 +444,21 @@ compiler	IntermezzoApp/IntermezzoCoordinator.swift:1025	Next break in
 compiler	IntermezzoKit/BreakMessage.swift:110	Nie ma jednej „zdrowej” pozycji siedzącej — zdrowa to NASTĘPNA.\n\nWyprost w staniu: ręce na biodra, delikatne odchylenie do tyłu, 10 s.\nNa siedząco: kolano do klatki, 20 s na stronę (rozciąganie gruszkowatego).\n\nUstaw monitor na wysokość oczu. Jeśli patrzysz w dół — szyja płaci rachunek.
 compiler	IntermezzoApp/Settings/BreaksPane.swift:64	Nie może być dłuższa niż długa przerwa (%@).
 compiler	IntermezzoApp/Settings/BreaksPane.swift:74	Nie może być krótsza niż krótka przerwa (%@).
-compiler	IntermezzoApp/Settings/AdvancedPane.swift:86	Nie pozwól uśpić Maca podczas przerwy
-compiler	IntermezzoApp/Settings/ScriptEditorSheet.swift:190	Nie udało się odczytać skryptu.
-compiler	IntermezzoApp/Settings/ScriptEditorSheet.swift:207	Nie udało się zapisać pliku testowego.
+compiler	IntermezzoApp/Settings/AdvancedPane.swift:83	Nie pozwól uśpić Maca podczas przerwy
+compiler	IntermezzoApp/AI/SettingsAssistantSheet.swift:118	Nie udało się odczytać propozycji. Spróbuj opisać to inaczej.
+compiler	IntermezzoApp/Settings/ScriptEditorSheet.swift:297	Nie udało się odczytać skryptu.
+compiler	IntermezzoApp/Settings/ScriptEditorSheet.swift:310	Nie udało się zapisać pliku testowego.
 compiler	IntermezzoApp/Settings/SyncPane.swift:95	Nie widać jeszcze innych Maców w tym folderze.
 compiler	IntermezzoApp/Settings/LightPane.swift:239	Nie wiem
 compiler	IntermezzoApp/Settings/LocationMapSheet.swift:57	Nie wybrano jeszcze miejsca.
 compiler	IntermezzoApp/Settings/AwakePane.swift:128	Nie wyłączaj przy niskiej baterii
 compiler	IntermezzoApp/Settings/LightMonitorsSection.swift:57	Nie zarządzaj tym monitorem (np. telewizorem)
 compiler	IntermezzoApp/Settings/LightPane.swift:187	Nie zmieniaj barw w aplikacjach pełnoekranowych
-compiler	IntermezzoApp/Settings/AdvancedPane.swift:42	Nieaktywność liczy się od: %lld min
+compiler	IntermezzoApp/Settings/AdvancedPane.swift:39	Nieaktywność liczy się od: %lld min
 compiler	IntermezzoKit/BreakMessage.swift:215	Niebieskie światło i koniec dnia
 compiler	IntermezzoKit/HealthMessages.swift:121	Niebieskie światło: mit czy fakt?
 compiler	IntermezzoApp/Settings/AppearancePane.swift:81	Nigdy
-compiler	IntermezzoApp/Settings/StatisticsPane.swift:115	No breaks recorded yet.
+compiler	IntermezzoApp/Settings/StatisticsPane.swift:116	No breaks recorded yet.
 compiler	IntermezzoApp/Reports/DayReportPage.swift:55	No data for this day
 compiler	IntermezzoApp/Reports/ReportSummaryPage.swift:79	No data for this period
 compiler	IntermezzoApp/Reports/DayReportPage.swift:123	No project
@@ -439,7 +470,7 @@ compiler	IntermezzoApp/Settings/WorkDayEditor.swift:84	Notatka (np. awaria linii
 compiler	IntermezzoApp/Settings/LightMonitorsSection.swift:29	Nowy monitor od razu dostaje ogólną krzywą. Takie same monitory mają wspólne ustawienia. Ustawienia są pamiętane tylko na tym Macu i wracają, gdy monitor zostanie podłączony ponownie.
 compiler	IntermezzoApp/Settings/ScriptGalleryPane.swift:30	Nowy skrypt…
 compiler	IntermezzoApp/Settings/AppearancePane.swift:69	Oba
-compiler	IntermezzoApp/Settings/GeneralPane.swift:82	Obiad, kawa czy spacer to nie ta sama przerwa co przypomnienie z aplikacji. Takie wpisy są liczone osobno w Statystykach (nie zaliczają passy ani nie wchodzą do wykresu) i widać je w historii z ikoną spaceru. Nieobecność powyżej 6 godzin traktuję jako koniec dnia i jej nie zapisuję.
+compiler	IntermezzoApp/Settings/GeneralPane.swift:103	Obiad, kawa czy spacer to nie ta sama przerwa co przypomnienie z aplikacji. Takie wpisy są liczone osobno w Statystykach (nie zaliczają passy ani nie wchodzą do wykresu) i widać je w historii z ikoną spaceru. Nieobecność powyżej 6 godzin traktuję jako koniec dnia i jej nie zapisuję.
 compiler	IntermezzoKit/HealthMessages.swift:190	Objawy i kiedy do okulisty
 compiler	IntermezzoApp/Settings/WorkDayEditor.swift:64	Od
 compiler	IntermezzoApp/Settings/WorkLogPane.swift:171	Od – do
@@ -447,17 +478,20 @@ compiler	IntermezzoKit/BreakMessage.swift:119	Odchylenie do tyłu z rękami na b
 compiler	IntermezzoApp/Settings/AppearancePane.swift:57	Odcień całego okna, panelu i powiadomień. Dół jest zawsze ciemniejszy.
 compiler	IntermezzoApp/Settings/LocationMapView.swift:211	Oddal
 compiler	IntermezzoKit/BreakMessage.swift:122	Oddychanie pudełkowe 4-4-4-4
-compiler	IntermezzoApp/Settings/ScriptEditorSheet.swift:262	Oddzielaj przecinkami.
+compiler	IntermezzoApp/Settings/ScriptEditorSheet.swift:365	Oddzielaj przecinkami.
 compiler	IntermezzoKit/BreakMessage.swift:161	Odejdź od biurka. Zjedz obiad bez scrollowania.
 compiler	IntermezzoApp/Settings/ScriptGalleryPane.swift:91	Odinstaluj
 compiler	IntermezzoApp/Settings/LightPane.swift:200	Odtwarzacze wideo
-compiler	IntermezzoApp/Settings/AwakePane.swift:150	Odśwież
+compiler	IntermezzoApp/AI/WeeklySummaryView.swift:35	Odśwież
+compiler	IntermezzoApp/Settings/AIPane.swift:105	Odśwież listę modeli
 compiler	IntermezzoKit/HealthMessages.swift:211	Ok. 4 godziny dziennie jako próg ryzyka
 compiler	IntermezzoKit/HealthMessages.swift:122	Okulary z filtrem nie leczą zmęczenia oczu
 compiler	IntermezzoKit/HealthMessages.swift:135	Okulary z filtrem nie zastąpią przerwy. Patrz w dal.
 compiler	IntermezzoApp/Settings/BreaksPane.swift:214	On
-compiler	IntermezzoApp/Settings/AdvancedPane.swift:36	Open Input Monitoring settings…
 compiler	IntermezzoApp/Settings/SettingsComponents.swift:136	Open Settings…
+compiler	IntermezzoApp/Settings/ScriptEditorSheet.swift:113	Opisz regułę (AI)
+compiler	IntermezzoApp/Settings/GeneralPane.swift:65	Opisz własnymi słowami, jak ma działać program, a asystent zaproponuje zmiany do zatwierdzenia.
+compiler	IntermezzoApp/AI/SettingsAssistantSheet.swift:21	Opisz, jak ma działać program, np. „pracuję od poniedziałku do piątku od 8 do 16, długa przerwa w południe, nie przerywaj mi w spotkaniach”. Asystent tylko proponuje zmiany; zapisuje je dopiero po Twoim zatwierdzeniu.
 compiler	IntermezzoApp/Settings/BreakLookSections.swift:84	Order:
 compiler	IntermezzoApp/Settings/StatusPane.swift:50	Orientacyjny próg ryzyka: ok. 4 h dziennie (Kaur i in. 2022).
 compiler	IntermezzoApp/Settings/SyncPane.swift:86	Ostatnia synchronizacja
@@ -469,17 +503,17 @@ compiler	IntermezzoKit/BreakMessage.swift:137	Paliwo, o którym zapominasz
 compiler	IntermezzoApp/Settings/BreakStyleSection.swift:24	Passa
 compiler	IntermezzoApp/Settings/AppearancePane.swift:83	Pastylka z odliczaniem; przeciągnij ją, gdzie chcesz. Ratuje widoczność timera, gdy pasek menu jest pełny.
 compiler	IntermezzoKit/BreakMessage.swift:71	Patrz 20 sekund w dal. Zamrugaj. Wróć do pracy.
-compiler	IntermezzoApp/Settings/GeneralPane.swift:246	Pause / resume timer
-compiler	IntermezzoApp/Settings/GeneralPane.swift:244	Pause all indefinitely
-compiler	IntermezzoApp/Settings/GeneralPane.swift:72	Pause timer after %lld min
+compiler	IntermezzoApp/Settings/GeneralPane.swift:267	Pause / resume timer
+compiler	IntermezzoApp/Settings/GeneralPane.swift:265	Pause all indefinitely
+compiler	IntermezzoApp/Settings/GeneralPane.swift:93	Pause timer after %lld min
 compiler	IntermezzoApp/IntermezzoCoordinator.swift:1009	Paused
-compiler	IntermezzoApp/Settings/AdvancedPane.swift:79	Pauza
+compiler	IntermezzoApp/Settings/AdvancedPane.swift:76	Pauza
 compiler	IntermezzoApp/Settings/StatusPane.swift:55	Pauza teraz
 compiler	IntermezzoKit/BreakMessage.swift:238	Pauza to ruch + dal + oddech. Telefon to nie odpoczynek.
 compiler	IntermezzoKit/BreakMessage.swift:41	Pauzy, które naprawdę działają
 compiler	IntermezzoApp/Settings/BreakLookSections.swift:245	Percent of screen
 compiler	IntermezzoApp/Settings/BreakLookSections.swift:252	Percent: %lld%%
-compiler	IntermezzoApp/Settings/AdvancedPane.swift:47	Permissions
+compiler	IntermezzoApp/Settings/AdvancedPane.swift:44	Permissions
 compiler	IntermezzoApp/Settings/BreakLookSections.swift:214	Photos and images are only shown if you add them here — the app does not scan your library. Tip: the picker can open Photos.app → Library.photoslibrary contents.
 compiler	IntermezzoApp/Settings/PomodoroPlanSection.swift:20	Plan
 compiler	IntermezzoApp/Settings/BreaksPane.swift:161	Play Sound
@@ -489,7 +523,10 @@ compiler	IntermezzoApp/Settings/RelaxationAudioSection.swift:15	Play relaxing au
 compiler	IntermezzoApp/Settings/BreaksPane.swift:80	Play sound at break start
 compiler	IntermezzoApp/Settings/RelaxationAudioSection.swift:28	Playback volume during breaks (independent of the system volume)
 compiler	IntermezzoApp/Settings/ConsistencyHeatmapView.swift:12	Pn
+compiler	IntermezzoApp/Settings/AIPane.swift:55	Po kliknięciu funkcji AI program wyśle do wybranego przez Ciebie modelu Twój opis i potrzebne do niej dane o ustawieniach lub zbiorcze liczby o przerwach. Model systemowy Apple działa na tym Macu. Serwer, który wskażesz, może być na innym komputerze lub w internecie.
+compiler	IntermezzoApp/Settings/AIPane.swift:105	Pobieram…
 compiler	IntermezzoApp/Settings/LightPane.swift:313	Pochmurne popołudnie ściemnia się wcześniej. Korzysta z tej samej anonimowej pogody co ekran przerwy (Open-Meteo), bez dodatkowych danych.
+compiler	IntermezzoApp/AI/AIService.swift:48	Podaj nazwę modelu.
 compiler	IntermezzoApp/Settings/BreakStyleSection.swift:14	Podejście do przerw
 compiler	IntermezzoApp/Settings/LightPane.swift:102	Podgląd doby (12 s)
 compiler	IntermezzoApp/Settings/AppearancePane.swift:103	Podgląd scen pogodowych
@@ -497,6 +534,8 @@ compiler	IntermezzoApp/Settings/LightMonitorsSection.swift:64	Podgląd wieczoru
 compiler	IntermezzoApp/Settings/AppearancePane.swift:104	Podpowiedzi zależne od pogody (co trzecia przerwa)
 compiler	IntermezzoApp/Settings/SettingsLevel.swift:31	Podstawowe
 compiler	IntermezzoApp/Settings/SettingsLevel.swift:36	Podstawowe ukrywają ustawienia eksperckie. Nic nie jest wyłączane: ukryte opcje działają dalej tak, jak je ustawiono.
+compiler	IntermezzoApp/AI/WeeklySummaryView.swift:29	Podsumowanie tygodnia (AI)
+compiler	IntermezzoApp/AI/WeeklySummaryView.swift:35	Podsumuj tydzień
 compiler	IntermezzoApp/Settings/AppearancePane.swift:78	Pokazuj
 compiler	IntermezzoApp/Settings/BreakLookSections.swift:23	Pokazuj pogodę na szybie (Open-Meteo)
 compiler	IntermezzoApp/Settings/MessagesPane.swift:52	Pokazuj skrócone porady na ekranie przerwy
@@ -505,6 +544,7 @@ compiler	IntermezzoApp/Settings/FlashPane.swift:49	Pokaż przykład
 compiler	IntermezzoApp/Settings/MessagesPane.swift:120	Pokaż ustawienia
 compiler	IntermezzoApp/Settings/ScriptGalleryPane.swift:40	Pokaż w Finderze
 compiler	IntermezzoApp/Settings/LanguageSection.swift:14	Polski
+compiler	IntermezzoApp/AI/SettingsAssistantSheet.swift:72	Pominięte propozycje
 compiler	IntermezzoApp/CursorCountdown.swift:223	Pomiń
 compiler	IntermezzoApp/Settings/StatusPane.swift:59	Pomiń najbliższą
 compiler	IntermezzoApp/Panel/MenuBarPanelView.swift:85	Pomiń przerwę
@@ -521,7 +561,7 @@ compiler	IntermezzoApp/Settings/LightPane.swift:70	Pora
 compiler	IntermezzoApp/Settings/LightPane.swift:114	Pora snu
 compiler	IntermezzoApp/Settings/LightPane.swift:177	Pora snu przesunięta o 2,5 godziny: dłuższy wieczór, 2300 K przed snem.
 compiler	IntermezzoApp/Settings/AppearancePane.swift:93	Pory roku
-compiler	IntermezzoApp/Settings/GeneralPane.swift:242	Postpone next break
+compiler	IntermezzoApp/Settings/GeneralPane.swift:263	Postpone next break
 compiler	IntermezzoApp/Settings/AppearancePane.swift:65	Powiadomienia
 compiler	IntermezzoApp/Settings/AppearancePane.swift:38	Powierzchnia
 compiler	IntermezzoApp/Settings/AwakePane.swift:41	Powód: %@
@@ -529,11 +569,13 @@ compiler	IntermezzoApp/IntermezzoCoordinator.swift:1075	Poza godzinami pracy
 compiler	IntermezzoApp/IntermezzoCoordinator.swift:1076	Poza strefą pracy
 compiler	IntermezzoKit/HealthMessages.swift:84	Połowa walki o zmęczone oczy
 compiler	IntermezzoApp/Settings/LightPane.swift:253	Połączenie
+compiler	IntermezzoApp/Settings/AIPane.swift:187	Połączenie działa.
 compiler	IntermezzoApp/Settings/WorkLogPane.swift:84	Połączone VPN: %@
 compiler	IntermezzoApp/Settings/BreakStyleSection.swift:30	Poświata krawędzi ekranu przed przerwą (bursztyn → czerwień)
 compiler	IntermezzoApp/Settings/WorkLogPane.swift:172	Praca
 compiler	IntermezzoApp/Settings/WorkCalendar.swift:93	Praca %@, nadgodziny do rozliczenia %@
 compiler	IntermezzoApp/Settings/LightPane.swift:133	Praca do późna
+compiler	IntermezzoApp/AI/SettingsAssistantSheet.swift:28	Pracuję…
 compiler	IntermezzoKit/BreakMessage.swift:150	Prawdziwa przerwa obiadowa
 compiler	IntermezzoApp/Settings/BreakLookSections.swift:119	Preview — 8 s, click-through
 compiler	IntermezzoApp/Settings/LightPane.swift:122	Profil
@@ -550,9 +592,10 @@ compiler	IntermezzoKit/BreakMessage.swift:92	Przeciążenie boli dopiero po lata
 compiler	IntermezzoKit/HealthMessages.swift:289	Przegląd Kaur 2022 cytuje dane o przyspieszeniu krótkowzroczności u dzieci w pandemii: w jednym badaniu 45,9% z 133 dzieci pogorszyło wadę o co najmniej 1 dioptrię rocznie (przed pandemią 10,5%). Mniej niż godzina dziennie na słońcu wiązała się z szybszą progresją.\n\nZalecenia: ogranicz czas ekranowy dzieci, dbaj o czas na dworze i regularne badania wzroku.\n\nŹródła: Kaur i in. 2022 (PMC9434525).
 compiler	IntermezzoKit/HealthMessages.swift:270	Przejrzyj raz w tygodniu
 compiler	IntermezzoApp/Settings/RemindersSection.swift:90	Przerwa
-compiler	IntermezzoApp/Settings/StatisticsPane.swift:122	Przerwa naturalna
+compiler	IntermezzoApp/Settings/StatisticsPane.swift:123	Przerwa naturalna
 compiler	IntermezzoApp/Settings/BreakStyleSection.swift:44	Przerwa nie przejmuje myszki ani Docka, więc nie ma na niej przycisków. Zakończysz ją z paska menu albo skrótem.
 compiler	IntermezzoApp/Panel/MenuBarPanelView.swift:90	Przerwa teraz
+compiler	IntermezzoApp/AI/SettingsAssistantSheet.swift:30	Przerwij
 compiler	IntermezzoKit/HealthMessages.swift:322	Przerwy działają. Reszta to drobne próby — traktuj jako wskazówki.
 compiler	IntermezzoApp/Settings/NaturalBreaksSection.swift:18	Przerwy naturalne (bezczynność)
 compiler	IntermezzoApp/Settings/RemindersSection.swift:53	Przerwy o stałych porach
@@ -565,10 +608,12 @@ compiler	IntermezzoApp/Settings/LightMonitorsSection.swift:113	Przyciemnianie sp
 compiler	IntermezzoApp/Settings/LightPane.swift:261	Przyciemnij maksymalnie o %lld%%
 compiler	IntermezzoApp/Settings/RulesPane.swift:77	Przykład: reguła „Aplikacja z przodu = Keynote” z opcją „Automatycznie pomiń” pomija przerwy podczas prezentacji. „Odrocz” sprawdza warunek ponownie przy każdej próbie wystartowania przerwy, aż przestanie pasować.
 compiler	IntermezzoApp/Settings/FlashPane.swift:40	Przypomnienie o mruganiu
+compiler	IntermezzoApp/AI/SettingsAssistantSheet.swift:149	Przywrócono poprzednie ustawienia.
 compiler	IntermezzoApp/Settings/ExercisesPane.swift:69	Przywróć bibliotekę
 compiler	IntermezzoApp/Settings/AppearancePane.swift:53	Przywróć domyślny
+compiler	IntermezzoApp/Settings/ScriptEditorSheet.swift:122	Przywróć kod sprzed AI
 compiler	IntermezzoApp/Settings/LightMonitorsSection.swift:68	Przywróć ogólne
-compiler	IntermezzoApp/Settings/ScriptEditorSheet.swift:127	Przywróć wersję z galerii
+compiler	IntermezzoApp/Settings/ScriptEditorSheet.swift:231	Przywróć wersję z galerii
 compiler	IntermezzoApp/Settings/BreakLookSections.swift:36	Przyznaj uprawnienia…
 compiler	IntermezzoApp/Settings/ConsistencyHeatmapView.swift:13	Pt
 compiler	IntermezzoApp/Settings/LightPane.swift:315	Płynna zmiana: %lld s
@@ -577,26 +622,26 @@ compiler	IntermezzoApp/Settings/BreakLookSections.swift:86	Random
 compiler	IntermezzoKit/HealthMessages.swift:173	Rano wyjdź na światło dzienne: to najlepszy „ekran” dla zegara dobowego.
 compiler	IntermezzoApp/Settings/PomodoroProjectsSection.swift:65	Rate / h
 compiler	IntermezzoApp/Settings/ProjectSensorsSection.swift:35	Raw output of the sensor — untrusted text, shown only here.
-compiler	IntermezzoApp/Settings/AdvancedPane.swift:54	Refresh
+compiler	IntermezzoApp/Settings/AdvancedPane.swift:51	Refresh
 compiler	IntermezzoApp/Settings/FocusShortcutsSection.swift:35	Refresh list
 compiler	IntermezzoApp/Settings/FocusShortcutsSection.swift:35	Refreshing…
-compiler	IntermezzoApp/Settings/StatisticsPane.swift:95	Regularność (12 tygodni)
+compiler	IntermezzoApp/Settings/StatisticsPane.swift:96	Regularność (12 tygodni)
 compiler	IntermezzoApp/IntermezzoCoordinator.swift:1079	Reguła wstrzymuje
 compiler	IntermezzoKit/BreakMessage.swift:164	Reguły: pauza nie przeszkadza w pracy
 compiler	IntermezzoApp/Settings/WorkLogPane.swift:230	Rejestr
 compiler	IntermezzoApp/Settings/SyncPane.swift:75	Rejestr pracy (odcinki, korekty, notatki)
 compiler	IntermezzoApp/Settings/RelaxationAudioSection.swift:14	Relaxation Audio
 compiler	IntermezzoApp/Settings/PomodoroPlanSection.swift:188	Report
-compiler	IntermezzoApp/Settings/AdvancedPane.swift:66	Reset
-compiler	IntermezzoApp/Settings/GeneralPane.swift:247	Reset all breaks
-compiler	IntermezzoApp/Settings/AdvancedPane.swift:58	Reset all decisions…
-compiler	IntermezzoApp/Settings/AdvancedPane.swift:65	Reset all permission decisions?
-compiler	IntermezzoApp/Settings/GeneralPane.swift:74	Reset timer after %lld min away
+compiler	IntermezzoApp/Settings/AdvancedPane.swift:63	Reset
+compiler	IntermezzoApp/Settings/GeneralPane.swift:268	Reset all breaks
+compiler	IntermezzoApp/Settings/AdvancedPane.swift:55	Reset all decisions…
+compiler	IntermezzoApp/Settings/AdvancedPane.swift:62	Reset all permission decisions?
+compiler	IntermezzoApp/Settings/GeneralPane.swift:95	Reset timer after %lld min away
 compiler	IntermezzoKit/BreakMessage.swift:123	Reset układu nerwowego w 2 minuty
-compiler	IntermezzoApp/Settings/AdvancedPane.swift:61	Restart
+compiler	IntermezzoApp/Settings/AdvancedPane.swift:58	Restart
 compiler	IntermezzoApp/Settings/PomodoroProjectsSection.swift:56	Restore
 compiler	IntermezzoApp/Settings/BreaksPane.swift:288	Restore remembered
-compiler	IntermezzoApp/Settings/GeneralPane.swift:245	Resume all breaks
+compiler	IntermezzoApp/Settings/GeneralPane.swift:266	Resume all breaks
 compiler	IntermezzoApp/Settings/RhythmExperimentSection.swift:79	Rhythm
 compiler	IntermezzoApp/Settings/RhythmExperimentSection.swift:57	Rhythm %@
 compiler	IntermezzoApp/Settings/RhythmExperimentSection.swift:94	Rhythm %@: not enough days with data yet (%lld of %lld)
@@ -608,7 +653,7 @@ compiler	IntermezzoApp/Settings/LightPane.swift:264	Rozłączaj grupę ekranów 
 compiler	IntermezzoKit/HealthMessages.swift:229	Ruch: ile i jak
 compiler	IntermezzoApp/Settings/SessionAwareSection.swift:10	Rules of thumb, first match wins: 3 or more interruptions → a breathing exercise; mostly active typing with 50+ minutes at the screen → an eye exercise; a long break in clear, mild weather → go outside; a session of 45+ minutes → a leg exercise. Your own assigned exercises always win.
 compiler	IntermezzoApp/Settings/ProjectSensorsSection.swift:93	Rules — first match wins
-compiler	IntermezzoApp/Settings/GeneralPane.swift:53	Run Intermezzo
+compiler	IntermezzoApp/Settings/GeneralPane.swift:74	Run Intermezzo
 compiler	IntermezzoApp/Settings/BreaksPane.swift:169	Run Script
 compiler	IntermezzoApp/Settings/FocusShortcutsSection.swift:107	Run Shortcut
 compiler	IntermezzoApp/Settings/FocusShortcutsSection.swift:24	Run my Shortcuts to change Focus
@@ -618,11 +663,11 @@ compiler	IntermezzoApp/Settings/FocusShortcutsSection.swift:106	Run “%@” now
 compiler	IntermezzoApp/Settings/ProjectSensorsSection.swift:26	Running…
 compiler	IntermezzoApp/Settings/ProjectSensorsSection.swift:40	Runs once when a session starts, only if the current task has no project. You always confirm with “Use”. Nothing leaves your Mac and the text is never stored.
 compiler	IntermezzoKit/BreakMessage.swift:227	Rytm pracy przy komputerze
-compiler	IntermezzoApp/Settings/GeneralPane.swift:109	Różne godziny w poszczególne dni
+compiler	IntermezzoApp/Settings/GeneralPane.swift:130	Różne godziny w poszczególne dni
 compiler	IntermezzoKit/HealthMessages.swift:36	Różne źródła podają różne rytmy — warto znać każdy:\n\n• 20-20-20: co 20 min patrz 20 s na obiekt ok. 6 m dalej (AOA, Harvard, Medical News Today).\n• 5 min po 30 min pracy (przegląd Dyrek i in. 2024).\n• Co najmniej 5 min po godzinie nieprzerwanej pracy z monitorem — wymóg polskich przepisów, wliczany do czasu pracy (za CIOP-PIB).\n• Wytyczne instytucjonalne bywają łagodniejsze: np. 15 min na każde 2 godziny.\n\nNajświeższe badanie (Redondo i in. 2025; 24 młodych dorosłych, 40 min czytania): przerwy co 10 minut i przerwy we własnym tempie zmniejszały podrażnienie oczu, a bez przerw występowała większa przejściowa krótkowzroczność. Jedna przerwa w środku dawała mniej.\n\nUwaga: według innego badania (relacja Review of Optometry) samo 20 sekund patrzenia w dal może nie wystarczać, by wzrok w pełni „odpuścił”. Dlatego Intermezzo ma gotowe profile (Przerwy → Gotowe profile) i dłuższą przerwę co kilka krótkich.\n\nSiła dowodów: małe próby, głównie młodzi dorośli; spójny wniosek to „częściej i krócej lepiej niż rzadko”.\n\nŹródła: Redondo i in. 2025, Exp. Eye Res. 258:110463 (abstrakt); Dyrek i in. 2024, Eur. J. Clin. Exp. Med. 22(1) (abstrakt); Kamińska 2016, Bezpieczeństwo Pracy 9 (CIOP-PIB, za streszczeniem); wytyczne Univ. Bologna (VDT); Harvard Health; Medical News Today.
-compiler	IntermezzoApp/Settings/GeneralPane.swift:199	SSID unknown (not on Wi-Fi?)
-compiler	IntermezzoApp/Settings/GeneralPane.swift:192	SSIDs (comma separated), e.g. Biuro
-compiler	IntermezzoApp/Settings/GeneralPane.swift:48	Sat
+compiler	IntermezzoApp/Settings/GeneralPane.swift:220	SSID unknown (not on Wi-Fi?)
+compiler	IntermezzoApp/Settings/GeneralPane.swift:213	SSIDs (comma separated), e.g. Biuro
+compiler	IntermezzoApp/AI/SettingsAssistantSheet.swift:101	Sat
 compiler	IntermezzoApp/Settings/BreakLookSections.swift:109	Scale %lld%% — how much of the screen the text uses
 compiler	IntermezzoApp/Settings/BreaksPane.swift:326	Script:
 compiler	IntermezzoApp/Settings/BreakLookSections.swift:239	Seconds per image: %lld
@@ -632,18 +677,20 @@ compiler	IntermezzoApp/Settings/BreakLookSections.swift:93	Seconds per text: 0 (
 compiler	IntermezzoApp/Settings/ProjectSensorsSection.swift:66	Select
 compiler	IntermezzoApp/Settings/ProjectSensorsSection.swift:66	Selected
 compiler	IntermezzoApp/Panel/PomodoroPanelBlock.swift:37	Self
-compiler	IntermezzoApp/Settings/AdvancedPane.swift:85	Sen i kopia aplikacji
-compiler	IntermezzoApp/Settings/AdvancedPane.swift:55	Send test notification
+compiler	IntermezzoApp/Settings/AdvancedPane.swift:82	Sen i kopia aplikacji
+compiler	IntermezzoApp/Settings/AdvancedPane.swift:52	Send test notification
 compiler	IntermezzoApp/Settings/BreakLookSections.swift:85	Sequential
 compiler	IntermezzoApp/Settings/BreakLookSections.swift:99	Serif
+compiler	IntermezzoApp/Settings/AIPane.swift:134	Serwer nie podał żadnych modeli.
+compiler	IntermezzoApp/Settings/AIPane.swift:63	Serwer zgodny z API OpenAI
 compiler	IntermezzoApp/Settings/AwakePane.swift:97	Sesja Pomodoro nie zostanie przerwana przez uśpienie Maca. Działa tylko, gdy tryb Pomodoro jest włączony.
 compiler	IntermezzoApp/FocusShortcuts.swift:161	Session start
 compiler	IntermezzoApp/Settings/BreaksPane.swift:289	Set to %
 compiler	IntermezzoApp/Settings/ExercisesPane.swift:35	Short Break
-compiler	IntermezzoApp/Settings/StatisticsPane.swift:109	Short Breaks
-compiler	IntermezzoApp/Settings/StatisticsPane.swift:122	Short break
+compiler	IntermezzoApp/Settings/StatisticsPane.swift:110	Short Breaks
+compiler	IntermezzoApp/Settings/StatisticsPane.swift:123	Short break
 compiler	IntermezzoApp/Settings/BreakLookSections.swift:176	Show a photo slideshow during breaks
-compiler	IntermezzoApp/Settings/GeneralPane.swift:66	Show countdown text in menu bar
+compiler	IntermezzoApp/Settings/GeneralPane.swift:87	Show countdown text in menu bar
 compiler	IntermezzoApp/Settings/BreaksPane.swift:88	Show interactive popup in last %lld s
 compiler	IntermezzoApp/Settings/BreakLookSections.swift:59	Show your own texts during breaks
 compiler	IntermezzoApp/Settings/BreaksPane.swift:315	Shown as a button on the break screen.
@@ -653,16 +700,19 @@ compiler	IntermezzoApp/Settings/WorkLogPane.swift:103	Sieć LAN jest rozpoznawan
 compiler	IntermezzoApp/Settings/WorkLogPane.swift:102	Sieć przewodowa (LAN, stacja dokująca)
 compiler	IntermezzoApp/Settings/BreakStyleSection.swift:37	Silniejsze przypomnienie co %lld min
 compiler	IntermezzoApp/Settings/LocationMapSheet.swift:59	Skala mapy: ok. %@ km na punkt ekranu
-compiler	IntermezzoApp/Settings/AdvancedPane.swift:90	Skanowanie…
-compiler	IntermezzoApp/Settings/AdvancedPane.swift:89	Skanuj teraz
+compiler	IntermezzoApp/Settings/AdvancedPane.swift:87	Skanowanie…
+compiler	IntermezzoApp/Settings/AdvancedPane.swift:86	Skanuj teraz
 compiler	IntermezzoApp/Panel/MenuBarPanelView.swift:172	Skip break
-compiler	IntermezzoApp/Settings/GeneralPane.swift:243	Skip next/current break
+compiler	IntermezzoApp/Settings/GeneralPane.swift:264	Skip next/current break
 compiler	IntermezzoApp/BreakOverlay.swift:649	Skip »
 compiler	IntermezzoApp/HoldToSkipButton.swift:100	Skip!
 compiler	IntermezzoApp/Reports/DayReportPage.swift:108	Skipped break
-compiler	IntermezzoApp/Settings/ScriptEditorSheet.swift:194	Skrypt jest poprawny.
-compiler	IntermezzoApp/Settings/ScriptEditorSheet.swift:216	Skrypt nie zadziałał (błąd uruchomienia, brak uprawnień albo przekroczony czas).
-compiler	IntermezzoApp/Settings/ScriptEditorSheet.swift:76	Skrypt odpowiada na pytanie „czy warunek jest teraz spełniony?”: zwraca true albo false. Gdy zwróci true, reguła robi to, co ustawisz na stronie Reguły.
+compiler	IntermezzoApp/AI/WeeklySummaryView.swift:39	Skopiuj
+compiler	IntermezzoApp/Settings/ScriptEditorSheet.swift:294	Skrypt jest poprawny.
+compiler	IntermezzoApp/Settings/ScriptEditorSheet.swift:179	Skrypt napisany przez AI nie jest poprawny: %@ Popraw go ręcznie.
+compiler	IntermezzoApp/Settings/ScriptEditorSheet.swift:181	Skrypt napisany przez AI: sprawdź go, przetestuj i zapisz.
+compiler	IntermezzoApp/Settings/ScriptEditorSheet.swift:319	Skrypt nie zadziałał (błąd uruchomienia, brak uprawnień albo przekroczony czas).
+compiler	IntermezzoApp/Settings/ScriptEditorSheet.swift:89	Skrypt odpowiada na pytanie „czy warunek jest teraz spełniony?”: zwraca true albo false. Gdy zwróci true, reguła robi to, co ustawisz na stronie Reguły.
 compiler	IntermezzoKit/BreakMessage.swift:185	Skrót + oddech = zrobiona pauza. Sprawdź skróty w Ustawieniach → Ogólne.
 compiler	IntermezzoKit/BreakMessage.swift:181	Skróty i adresy intermezzo://
 compiler	IntermezzoApp/Settings/StatisticsPane.swift:90	Skuteczność (ukończone / rozpoczęte)
@@ -678,21 +728,22 @@ compiler	IntermezzoApp/Settings/BreakStyleSection.swift:25	Spokojny
 compiler	IntermezzoApp/IntermezzoCoordinator.swift:1077	Spotkanie
 compiler	IntermezzoKit/BreakMessage.swift:165	Spotkanie, film, prezentacja?
 compiler	IntermezzoApp/Settings/LightPane.swift:256	Sprawdź
+compiler	IntermezzoApp/Settings/AIPane.swift:85	Sprawdź połączenie
 compiler	IntermezzoKit/HealthMessages.swift:226	Spójrz na licznik czasu przy ekranie w Statusie. Dłuższa przerwa pomoże.
-compiler	IntermezzoApp/Settings/SyncPane.swift:85	Stan
+compiler	IntermezzoApp/Settings/AIPane.swift:67	Stan
 compiler	IntermezzoApp/BreakOverlay.swift:609	Stand up. Look far away. Stretch.
 compiler	IntermezzoApp/Settings/BreakLookSections.swift:299	Start at a random point
 compiler	IntermezzoApp/Settings/BreakLookSections.swift:301	Start at: %llds
 compiler	IntermezzoApp/Settings/RhythmExperimentSection.swift:42	Start experiment
-compiler	IntermezzoApp/Settings/GeneralPane.swift:241	Start long break
-compiler	IntermezzoApp/Settings/GeneralPane.swift:240	Start short break
-compiler	IntermezzoApp/Settings/GeneralPane.swift:65	Start timer automatically on app launch
+compiler	IntermezzoApp/Settings/GeneralPane.swift:262	Start long break
+compiler	IntermezzoApp/Settings/GeneralPane.swift:261	Start short break
+compiler	IntermezzoApp/Settings/GeneralPane.swift:86	Start timer automatically on app launch
 compiler	IntermezzoKit/HealthMessages.swift:249	Statyczna postawa męczy, nawet poprawna
 compiler	IntermezzoApp/Settings/WorkLogPane.swift:116	Stały adres bez DHCP: rozpoznanie tylko po routerze i masce, wiele sieci może wyglądać tak samo.
 compiler	IntermezzoApp/Settings/RelaxationAudioSection.swift:95	Stop
 compiler	IntermezzoApp/Settings/RhythmExperimentSection.swift:104	Stop and restore
 compiler	IntermezzoApp/Settings/RhythmExperimentSection.swift:102	Stop and restore my settings
-compiler	IntermezzoApp/Settings/GeneralPane.swift:248	Stop sound
+compiler	IntermezzoApp/Settings/GeneralPane.swift:269	Stop sound
 compiler	IntermezzoApp/Settings/RhythmExperimentSection.swift:103	Stop the experiment and restore your previous settings?
 compiler	IntermezzoApp/Settings/WorkLogPane.swift:63	Strefa pracy
 compiler	IntermezzoApp/Settings/BreaksPane.swift:97	Strict mode (skip needs confirmation)
@@ -700,13 +751,13 @@ compiler	IntermezzoApp/Settings/AppearancePane.swift:66	Styl
 compiler	IntermezzoApp/Settings/BreakStyleSection.swift:23	Styl motywacji
 compiler	IntermezzoKit/HealthMessages.swift:11	Suche oczy zaczynają się od mrugnięć
 compiler	IntermezzoApp/Settings/ProjectSensorsSection.swift:19	Suggest a project at session start
-compiler	IntermezzoApp/Settings/GeneralPane.swift:49	Sun
+compiler	IntermezzoApp/AI/SettingsAssistantSheet.swift:101	Sun
 compiler	IntermezzoApp/Settings/BreakStyleSection.swift:15	Surowość
 compiler	IntermezzoApp/Settings/SyncPane.swift:19	Synchronizuj i trzymaj kopię w chmurze
 compiler	IntermezzoApp/Settings/SyncPane.swift:105	Synchronizuj teraz
 compiler	IntermezzoApp/Settings/BreakLookSections.swift:98	System
 compiler	IntermezzoApp/Settings/LanguageSection.swift:12	Systemowy / System
-compiler	IntermezzoApp/Settings/ScriptEditorSheet.swift:46	Szablon
+compiler	IntermezzoApp/Settings/ScriptEditorSheet.swift:54	Szablon
 compiler	IntermezzoKit/BreakMessage.swift:138	Szklanka wody przy każdej długiej przerwie — odwodnienie objawia się\nspadkiem koncentracji i „głodem” na słodycze.\n\nKofeina: ostatnia kawa najpóźniej 8 godzin przed snem.\nKawa o 16:00 nadal krąży o północy. Alternatywa na poobiedni zjazd:\n10 minut ruchu na świeżym powietrzu działa lepiej niż drugie espresso.
 compiler	IntermezzoKit/BreakMessage.swift:147	Szklanka wody teraz. Serio. Teraz.
 compiler	IntermezzoApp/Settings/AppearancePane.swift:58	Szkło jest przezroczyste i rozmywa to, co leży za oknem. Bez wybranego koloru nie jest zabarwione.
@@ -719,10 +770,12 @@ compiler	IntermezzoApp/Settings/ExercisesPane.swift:57	Take a moment. Breathe. R
 compiler	IntermezzoKit/BreakMessage.swift:202	Technika Pomodoro
 compiler	IntermezzoApp/Settings/WorkCalendar.swift:122	Tego dnia nie zarejestrowano pracy.
 compiler	IntermezzoApp/Light/LightController.swift:392	Ten Mac nie udostępnia czujnika światła: działa sam harmonogram.
-compiler	IntermezzoApp/Settings/ScriptEditorSheet.swift:94	Ten skrypt nie ma nastaw. Dodaj na początku kodu linię „property nazwa : wartość”, a pojawi się tutaj jako pole.
+compiler	IntermezzoApp/Settings/AIPane.swift:154	Ten adres jest poza Twoją siecią: wysyłane dane opuszczą ten komputer.
+compiler	IntermezzoApp/Settings/ScriptEditorSheet.swift:198	Ten skrypt nie ma nastaw. Dodaj na początku kodu linię „property nazwa : wartość”, a pojawi się tutaj jako pole.
+compiler	IntermezzoApp/Settings/ScriptEditorSheet.swift:93	Ten skrypt zawiera: %@. Sprawdź go przed zapisaniem.
 compiler	IntermezzoApp/Settings/LightPane.swift:64	Teraz
 compiler	IntermezzoApp/Settings/ProjectSensorsSection.swift:26	Test sensor
-compiler	IntermezzoApp/Settings/ScriptEditorSheet.swift:124	Testuj teraz
+compiler	IntermezzoApp/Settings/ScriptEditorSheet.swift:228	Testuj teraz
 compiler	IntermezzoApp/Settings/BreakLookSections.swift:69	Text %lld:
 compiler	IntermezzoApp/Settings/BreakLookSections.swift:58	Text Theme
 compiler	IntermezzoApp/Settings/BreakLookSections.swift:105	Text color:
@@ -735,17 +788,17 @@ compiler	IntermezzoApp/Settings/ProjectSensorsSection.swift:123	The sensor ran a
 compiler	IntermezzoApp/Settings/RhythmExperimentSection.swift:30	These are your own numbers, not a verdict. Fewer disruptions can come from the rhythm, the week or the task.
 compiler	IntermezzoApp/Settings/PomodoroPlanSection.swift:289	This month
 compiler	IntermezzoApp/Settings/FocusShortcutsSection.swift:110	This runs your shortcut and will change your Focus — on your iPhone too if Focus is shared across devices.
-compiler	IntermezzoApp/Settings/StatisticsPane.swift:108	This week
-compiler	IntermezzoApp/Settings/GeneralPane.swift:48	Thu
+compiler	IntermezzoApp/Settings/StatisticsPane.swift:109	This week
+compiler	IntermezzoApp/AI/SettingsAssistantSheet.swift:100	Thu
 compiler	IntermezzoApp/ClockOut.swift:56	Time to Switch Off
-compiler	IntermezzoApp/Settings/GeneralPane.swift:147	Tip: with Calendar detection ON in Intermezzo Intelligence, calendar events REPLACE these fixed hours — a vacation or day off without a matching event keeps breaks asleep.
+compiler	IntermezzoApp/Settings/GeneralPane.swift:168	Tip: with Calendar detection ON in Intermezzo Intelligence, calendar events REPLACE these fixed hours — a vacation or day off without a matching event keeps breaks asleep.
 compiler	IntermezzoApp/Settings/ClockOutPane.swift:26	Title
 compiler	IntermezzoApp/Settings/ExercisesPane.swift:51	Title shown on break screen
 compiler	IntermezzoApp/Settings/ClockOutPane.swift:24	To %lld:00 (next day)
 compiler	IntermezzoKit/HealthMessages.swift:304	To nie porada medyczna. Treści w Intermezzo opieramy na przeglądach i zaleceniach; część to konsensus ekspertów, nie wyniki dużych prób.\n\nDobrze podparte: przerwy zmniejszają objawy; ergonomia stanowiska i światło mają znaczenie; ruch chroni układ mięśniowo-szkieletowy.\nUmiarkowanie: mruganie (małe badania), konkretny rytm przerw (próby po 11–24 osoby).\nSłabo / niespójnie: okulary z filtrem światła niebieskiego, programy zmieniające barwę ekranu.\n\nCzytaliśmy w całości: Kaur 2022 (PMC9434525), Lapa 2023 (PMC10001854), Moreira 2022 (PMC9778108), Harvard Health, Medical News Today, wytyczne Towson. Tylko streszczenia: Redondo 2025, Dyrek 2024, Blasioli i Baleiron, Mierczak i Garus-Pakowska 2025, Kamińska 2016, Shin 2018. Nie udało się otworzyć (blokada serwera): strony ResearchGate, ScienceDirect i MDPI.\n\nŹródła: patrz wyżej oraz plik docs/zrodla-zdrowie-oczu.md w repozytorium.
-compiler	IntermezzoApp/Settings/StatisticsPane.swift:107	Today
+compiler	IntermezzoApp/Settings/StatisticsPane.swift:108	Today
 compiler	IntermezzoApp/Settings/RhythmExperimentSection.swift:71	Today: %@ (block %lld, %lld days per block)
-compiler	IntermezzoApp/Settings/StatisticsPane.swift:104	Total breaks
+compiler	IntermezzoApp/Settings/StatisticsPane.swift:105	Total breaks
 compiler	IntermezzoApp/Settings/RelaxationAudioSection.swift:77	Track
 compiler	IntermezzoApp/Settings/RelaxationAudioSection.swift:160	Track %@ ends %@ before the break does — turn on looping
 compiler	IntermezzoApp/Settings/RelaxationAudioSection.swift:152	Track %@ fills the break; the last %@ won't be heard (fades out)
@@ -754,25 +807,25 @@ compiler	IntermezzoApp/Settings/RelaxationAudioSection.swift:156	Track %@ repeat
 compiler	IntermezzoApp/Settings/BreakLookSections.swift:225	Transition:
 compiler	IntermezzoApp/Settings/StatusPane.swift:39	Trend przerw
 compiler	IntermezzoApp/Settings/RemindersSection.swift:24	Treść przypomnienia
-compiler	IntermezzoApp/Settings/ScriptEditorSheet.swift:124	Trwa test…
+compiler	IntermezzoApp/Settings/ScriptEditorSheet.swift:228	Trwa test…
 compiler	IntermezzoApp/IntermezzoCoordinator.swift:1078	Tryb Skupienia
 compiler	IntermezzoKit/HealthMessages.swift:191	Trzy grupy dolegliwości
 compiler	IntermezzoApp/Settings/AwakePane.swift:96	Trzymaj Maca podczas sesji skupienia
 compiler	IntermezzoApp/Settings/AwakePane.swift:99	Trzymaj Maca, gdy działa wybrana aplikacja
-compiler	IntermezzoApp/Settings/GeneralPane.swift:47	Tue
+compiler	IntermezzoApp/AI/SettingsAssistantSheet.swift:100	Tue
 compiler	IntermezzoApp/Settings/BreakStyleSection.swift:19	Twarda
 compiler	IntermezzoApp/Settings/AwakePane.swift:47	Tylko Mac (ekran może zgasnąć)
 compiler	IntermezzoApp/Settings/AppearancePane.swift:79	Tylko gdy macOS schowa ikonę (auto)
 compiler	IntermezzoApp/Settings/BreakStyleSection.swift:34	Tylko przypominaj, bez przerwy na ekranie
 compiler	IntermezzoApp/Settings/BreakLookSections.swift:14	Tło przerwy
 compiler	IntermezzoKit/HealthMessages.swift:303	Uczciwie o sile dowodów
-compiler	IntermezzoApp/Settings/AdvancedPane.swift:78	Ukryj przyciski (pokusa do pomijania)
+compiler	IntermezzoApp/Settings/AdvancedPane.swift:75	Ukryj przyciski (pokusa do pomijania)
 compiler	IntermezzoApp/TextThemes.swift:68	Unieś ramiona do uszu, przytrzymaj 5 s i opuść — powtórz 5 razy.
 compiler	IntermezzoApp/Settings/ProjectSensorsSection.swift:68	Uninstall
 compiler	IntermezzoKit/HealthMessages.swift:207	Uporczywe objawy mimo przerw? Zrób badanie wzroku.
 compiler	IntermezzoApp/IntermezzoCoordinator.swift:1073	Urlop
 compiler	IntermezzoApp/Settings/LanguageSection.swift:25	Uruchom ponownie / Restart
-compiler	IntermezzoApp/Settings/GeneralPane.swift:214	Use current
+compiler	IntermezzoApp/Settings/GeneralPane.swift:235	Use current
 compiler	IntermezzoApp/Settings/PomodoroPlanSection.swift:118	Use for the next pomodoro
 compiler	IntermezzoApp/TextThemes.swift:72	Usiądź na krześle, skręć tułów w prawo, przytrzymaj 15 s. Zmień stronę.
 compiler	IntermezzoApp/Panel/MenuBarPanelView.swift:136	Ustawienia
@@ -783,19 +836,19 @@ compiler	IntermezzoApp/Settings/ScriptGalleryPane.swift:66	Usunąć skrypt?
 compiler	IntermezzoApp/Settings/LightMonitorsSection.swift:24	Usuń
 compiler	IntermezzoApp/Settings/WorkDayEditor.swift:80	Usuń odcinek
 compiler	IntermezzoApp/Settings/ScriptGalleryPane.swift:68	Usuń skrypt i jego regułę
-compiler	IntermezzoApp/Settings/ScriptEditorSheet.swift:132	Utwórz
+compiler	IntermezzoApp/Settings/ScriptEditorSheet.swift:236	Utwórz
 compiler	IntermezzoApp/Settings/LightPane.swift:225	Uwzględniaj jasność pokoju z czujnika w Macu
 compiler	IntermezzoApp/Settings/LightPane.swift:312	Uwzględniaj zachmurzenie
 compiler	IntermezzoApp/Settings/LocationMapSheet.swift:38	Użyj tego miejsca
-compiler	IntermezzoApp/Settings/GeneralPane.swift:187	VPN connected but not on the list: %@
+compiler	IntermezzoApp/Settings/GeneralPane.swift:208	VPN connected but not on the list: %@
 compiler	IntermezzoApp/Settings/WorkLogPane.swift:82	VPN do pracy zdalnej (po przecinku, fragment nazwy)
-compiler	IntermezzoApp/Settings/GeneralPane.swift:186	VPN from list connected: %@
-compiler	IntermezzoApp/Settings/GeneralPane.swift:181	VPN names (comma separated), e.g. work
-compiler	IntermezzoApp/Settings/GeneralPane.swift:179	VPN: active only while a VPN from the list is connected
-compiler	IntermezzoApp/Settings/GeneralPane.swift:133	Vacation mode — pause everything for N days
+compiler	IntermezzoApp/Settings/GeneralPane.swift:207	VPN from list connected: %@
+compiler	IntermezzoApp/Settings/GeneralPane.swift:202	VPN names (comma separated), e.g. work
+compiler	IntermezzoApp/Settings/GeneralPane.swift:200	VPN: active only while a VPN from the list is connected
+compiler	IntermezzoApp/Settings/GeneralPane.swift:154	Vacation mode — pause everything for N days
 compiler	IntermezzoApp/Settings/AboutPane.swift:18	Version %@ — break reminder for macOS
 compiler	IntermezzoApp/Settings/BreakLookSections.swift:114	Vertical offset %lld%% — positive moves text up, away from the Dock
-compiler	IntermezzoApp/Settings/GeneralPane.swift:153	Video detection: pause when watching video
+compiler	IntermezzoApp/Settings/GeneralPane.swift:174	Video detection: pause when watching video
 compiler	IntermezzoApp/Settings/RhythmExperimentSection.swift:80	Voided
 compiler	IntermezzoApp/Settings/BreakLookSections.swift:305	Volume — set to 0 to keep it muted
 compiler	IntermezzoKit/HealthMessages.swift:159	W dzień jasne, chłodniejsze światło (o wysokiej temperaturze barwowej) sprzyja czujności, a wieczorem ciepłe światło wiąże się z łagodniejszym spadkiem aktywności organizmu. Dowody pochodzą jednak głównie z małych, krótkich badań.\n\nPrzykłady: w badaniu biurowym Millsa i in. (2007) światło o wyższej temperaturze barwowej poprawiło samopoczucie i część wskaźników pracy; w laboratoryjnym badaniu Kozakiego i in. światło o barwie 6700 K przed snem osłabiło głęboki sen bardziej niż 3000 K (7 mężczyzn).\n\nRano pomaga światło dzienne: wyjdź na zewnątrz albo usiądź przy oknie. Ekran go nie zastąpi, bo na zewnątrz jest wielokrotnie jaśniej.\n\nW Intermezzo: w dzień ekran zostaje neutralny (6500 K), po zachodzie ociepla się, a przed snem robi się najcieplejszy. Profil „Zalecane” to nasz kompromis oparty na tym kierunku badań, nie zalecenie lekarskie.\n\nSiła dowodów: małe próby i różne metody; traktuj to jako wskazówkę do własnego eksperymentu, nie receptę.\n\nŹródła: Mills, Tomkins, Schlangen 2007, J. Circadian Rhythms 5:2; Kozaki i in., J. Physiol. Anthropol. (wpływ temperatury barwowej na sen wolnofalowy).
@@ -805,17 +858,17 @@ compiler	IntermezzoKit/BreakMessage.swift:166	W zakładce Reguły dodajesz regu�
 compiler	IntermezzoKit/HealthMessages.swift:231	WHO zaleca dorosłym 150–300 minut umiarkowanej aktywności tygodniowo (lub 75–150 min intensywnej). Osoby pracujące przy komputerze rzadziej spełniają te normy. Każda ilość ruchu przynosi korzyść.\n\nCzęste dolegliwości: kark, bark, odcinek lędźwiowy. Długie godziny bez przerw zwiększają ryzyko, a ćwiczenia (rozciągające, wzmacniające, aerobowe) działają ochronnie. Zmienność ruchu i pozycji zmniejsza obciążenie statyczne.\n\nIntermezzo podpowiada ćwiczenia przy każdej przerwie: oczy w krótkich, ciało w dłuższych.\n\nŹródła: Moreira i in. 2022, Healthcare 10(12):2457 (PMC9778108).
 compiler	IntermezzoApp/Settings/SeamBreaksSection.swift:14	Wait at most %lld s
 compiler	IntermezzoApp/Settings/SeamBreaksSection.swift:11	Wait for a pause in typing before a break
-compiler	IntermezzoApp/Settings/ScriptEditorSheet.swift:218	Warunek jest teraz spełniony: reguła by zadziałała.
+compiler	IntermezzoApp/Settings/ScriptEditorSheet.swift:321	Warunek jest teraz spełniony: reguła by zadziałała.
 compiler	IntermezzoApp/Settings/RulesPane.swift:47	Warunek musi być prawdziwy tak długo, zanim zaproponuję przerwę
-compiler	IntermezzoApp/Settings/ScriptEditorSheet.swift:220	Warunek nie jest teraz spełniony: reguła nic nie zrobi.
+compiler	IntermezzoApp/Settings/ScriptEditorSheet.swift:323	Warunek nie jest teraz spełniony: reguła nic nie zrobi.
 compiler	IntermezzoKit/BreakMessage.swift:124	Wdech 4 s — zatrzymanie 4 s — wydech 4 s — zatrzymanie 4 s. Pięć rund.\n\nTo technika z treningu pilotów i sportowców: obniża tętno i wycisza\ntryb „walcz albo uciekaj”, w który wpadasz przy deadline'ach.\n\nNajlepiej robić to na długiej przerwie, zanim znowu usiądziesz do pracy.
 compiler	IntermezzoKit/BreakMessage.swift:133	Wdech 4 s, zatrzymanie 4, wydech 4, zatrzymanie 4. Pięć rund.
-compiler	IntermezzoApp/Settings/GeneralPane.swift:47	Wed
+compiler	IntermezzoApp/AI/SettingsAssistantSheet.swift:100	Wed
 compiler	IntermezzoApp/Settings/PomodoroPlanSection.swift:26	What will you work on?
 compiler	IntermezzoApp/Settings/BreaksPane.swift:195	When Button Clicked
 compiler	IntermezzoApp/Settings/BreaksPane.swift:120	When break ends:
 compiler	IntermezzoApp/Settings/BreaksPane.swift:119	When break starts:
-compiler	IntermezzoApp/Settings/GeneralPane.swift:190	Wi-Fi: active only while connected to a network from the list
+compiler	IntermezzoApp/Settings/GeneralPane.swift:211	Wi-Fi: active only while connected to a network from the list
 compiler	IntermezzoApp/Settings/MessagesPane.swift:57	Wiadomości
 compiler	IntermezzoApp/IntermezzoCoordinator.swift:1077	Wideo
 compiler	IntermezzoApp/Settings/LightPane.swift:33	Wieczorem ciepła barwa zmniejsza ilość światła krótkofalowego (ok. 460–480 nm), które najsilniej hamuje melatoninę i przesuwa zegar dobowy. Badania wskazują ten kierunek, ale nie podają jednej „właściwej” temperatury, a równie ważna jest jasność ekranu i pokoju. Profile poniżej to rozsądne kompromisy, nie zalecenie lekarskie.
@@ -828,11 +881,11 @@ compiler	IntermezzoKit/HealthMessages.swift:176	Wilgotne oczy
 compiler	IntermezzoKit/BreakMessage.swift:40	Witaj w Intermezzo
 compiler	IntermezzoKit/BreakMessage.swift:136	Woda i kofeina
 compiler	IntermezzoApp/Settings/RhythmExperimentSection.swift:59	Work %lld min
-compiler	IntermezzoApp/Settings/GeneralPane.swift:105	Work ends at
-compiler	IntermezzoApp/Settings/GeneralPane.swift:249	Work from any app. You can also automate via URLs, e.g. intermezzo://break/long, intermezzo://break/short/postpone/2m, intermezzo://postpone/5m, intermezzo://skip, intermezzo://resume (s/m/h/d durations; bare number = minutes).
-compiler	IntermezzoApp/Settings/GeneralPane.swift:102	Work starts at
-compiler	IntermezzoApp/Settings/GeneralPane.swift:162	Work zone — with any option below ON, breaks only run while at least one of the enabled options matches (calendar event, VPN, Wi-Fi or place). All OFF = breaks always run.
-compiler	IntermezzoApp/Settings/GeneralPane.swift:89	Working Hours
+compiler	IntermezzoApp/Settings/GeneralPane.swift:126	Work ends at
+compiler	IntermezzoApp/Settings/GeneralPane.swift:270	Work from any app. You can also automate via URLs, e.g. intermezzo://break/long, intermezzo://break/short/postpone/2m, intermezzo://postpone/5m, intermezzo://skip, intermezzo://resume (s/m/h/d durations; bare number = minutes).
+compiler	IntermezzoApp/Settings/GeneralPane.swift:123	Work starts at
+compiler	IntermezzoApp/Settings/GeneralPane.swift:183	Work zone — with any option below ON, breaks only run while at least one of the enabled options matches (calendar event, VPN, Wi-Fi or place). All OFF = breaks always run.
+compiler	IntermezzoApp/Settings/GeneralPane.swift:110	Working Hours
 compiler	IntermezzoApp/Settings/LightPane.swift:301	Wpisz szerokość i długość oddzielone przecinkiem, np. 52.4, 22
 compiler	IntermezzoApp/Settings/LocationMapSheet.swift:77	Wschód %@, zachód %@ (czas Maca).
 compiler	IntermezzoApp/Settings/LightPane.swift:73	Wschód słońca
@@ -855,7 +908,8 @@ compiler	IntermezzoApp/Settings/SyncPane.swift:129	Wybierz
 compiler	IntermezzoApp/Settings/LocationMapSheet.swift:22	Wybierz miejsce na mapie
 compiler	IntermezzoApp/Settings/LightPane.swift:294	Wybierz na mapie…
 compiler	IntermezzoKit/BreakMessage.swift:189	Wycisz dźwięk, odpal skrypt, pokaż tekst
-compiler	IntermezzoApp/Settings/AdvancedPane.swift:82	Wyjdź
+compiler	IntermezzoApp/AI/WeeklySummaryView.swift:32	Wygenerowane przez AI, może się mylić.
+compiler	IntermezzoApp/Settings/AdvancedPane.swift:79	Wyjdź
 compiler	IntermezzoApp/Settings/LightPane.swift:186	Wyjątki
 compiler	IntermezzoApp/Settings/LightPane.swift:409	Wykres barwy ekranu w ciągu doby
 compiler	IntermezzoApp/Settings/LightPane.swift:144	Wykres barwy: zacznij od profilu…
@@ -888,7 +942,10 @@ compiler	IntermezzoApp/Settings/RemindersSection.swift:42	Własne…
 compiler	IntermezzoApp/Settings/RemindersSection.swift:68	Własny czas
 compiler	IntermezzoApp/Settings/RemindersSection.swift:95	Własny czas pasuje do przerwy śniadaniowej (9:00, 15 min) albo obiadu (12:30, 30 min). Startuje w podanej minucie, o ile aplikacja nie jest wstrzymana (spotkanie, poza godzinami pracy). Z opcją „Zapytaj” dostaniesz powiadomienie z przyciskiem Zacznij.
 compiler	IntermezzoApp/Settings/LightMonitorsSection.swift:85	Własny limit koloru
+compiler	IntermezzoApp/Settings/AIPane.swift:49	Włącz
+compiler	IntermezzoApp/Settings/AIPane.swift:28	Włącz funkcje AI
 compiler	IntermezzoApp/Settings/AwakePane.swift:52	Włącz na…
+compiler	IntermezzoApp/Settings/AIPane.swift:48	Włączyć funkcje AI?
 compiler	IntermezzoApp/Awake/KeepAwakeController.swift:175	Włączył się tryb niskiego zużycia energii, więc Mac może już zasnąć.
 compiler	IntermezzoApp/Settings/RhythmExperimentSection.swift:74	You changed the settings today, so today is left out of the numbers.
 compiler	IntermezzoApp/Settings/FocusShortcutsSection.swift:59	You have no shortcuts yet. Create one in the Shortcuts app (e.g. “Set Focus”), then refresh.
@@ -906,7 +963,7 @@ compiler	IntermezzoApp/Settings/AppearancePane.swift:51	Zabarwienie szkła
 compiler	IntermezzoApp/Settings/AwakePane.swift:126	Zabezpieczenia
 compiler	IntermezzoApp/Settings/AwakePane.swift:132	Zabezpieczenia dotyczą czuwania na życzenie, podczas sesji i dla wybranych aplikacji. Przerwa trzyma Maca zawsze.
 compiler	IntermezzoApp/Settings/LightPane.swift:73	Zachód słońca
-compiler	IntermezzoApp/Settings/ScriptEditorSheet.swift:93	Zainstalowana wersja jest starsza i nie ma nastaw. Kliknij „Przywróć wersję z galerii”.
+compiler	IntermezzoApp/Settings/ScriptEditorSheet.swift:197	Zainstalowana wersja jest starsza i nie ma nastaw. Kliknij „Przywróć wersję z galerii”.
 compiler	IntermezzoApp/Settings/ScriptGalleryPane.swift:95	Zainstaluj
 compiler	IntermezzoApp/Settings/ScriptGalleryPane.swift:26	Zainstaluj gotowe reguły-skrypty albo utwórz własne. Skrypty trafiają do Biblioteka → Application Scripts → com.automit.Intermezzo → Rules i zostają dodane jako reguła „Odrocz”. Wynik reguły zmienisz na stronie Reguły, a nastawy skryptu (np. listę aplikacji albo godziny) w edytorze.
 compiler	IntermezzoApp/Settings/SettingsLevel.swift:39	Zakończ
@@ -915,13 +972,15 @@ compiler	IntermezzoApp/Settings/LightPane.swift:130	Zalecane
 compiler	IntermezzoApp/Settings/AppearancePane.swift:98	Zależą od pory roku, nie od pogody: spadają też w słoneczny październik. Nie pojawiają się w deszczu, burzy i śniegu.
 compiler	IntermezzoApp/Settings/WorkCalendar.swift:136	Zamknij
 compiler	IntermezzoApp/Settings/LightMonitorsSection.swift:16	Zapamiętane, niepodłączone
-compiler	IntermezzoApp/Settings/ScriptEditorSheet.swift:229	Zapis nie powiódł się.
+compiler	IntermezzoApp/Settings/ScriptEditorSheet.swift:332	Zapis nie powiódł się.
 compiler	IntermezzoApp/BreakActions.swift:192	Zapisano %lld ml %@ · dziś %lld ml (%@)
-compiler	IntermezzoApp/Settings/GeneralPane.swift:76	Zapisuj dłuższą nieobecność jako przerwę naturalną
+compiler	IntermezzoApp/Settings/GeneralPane.swift:97	Zapisuj dłuższą nieobecność jako przerwę naturalną
 compiler	IntermezzoApp/Settings/WorkDayEditor.swift:50	Zapisz
 compiler	IntermezzoApp/Settings/BreaksPane.swift:168	Zapisz napój (Nawodnienie)
 compiler	IntermezzoApp/Settings/WorkLogPane.swift:141	Zapomnij
+compiler	IntermezzoApp/AI/SettingsAssistantSheet.swift:28	Zaproponuj
 compiler	IntermezzoApp/Settings/RemindersSection.swift:75	Zapytaj zamiast startować
+compiler	IntermezzoApp/AI/SettingsAssistantSheet.swift:68	Zastosuj zaznaczone
 compiler	IntermezzoApp/Settings/LightPane.swift:151	Zastępuje wykres barwy z sekcji „Teraz” (barwa godzina po godzinie) wartościami wybranego profilu. Rzeczy, które narysowałeś na wykresie, przepadną.
 compiler	IntermezzoApp/Settings/LightPane.swift:102	Zatrzymaj podgląd
 compiler	IntermezzoApp/Settings/AppearancePane.swift:80	Zawsze
@@ -930,24 +989,26 @@ compiler	IntermezzoApp/Settings/StatusPane.swift:48	Zdrowie oczu
 compiler	IntermezzoApp/Settings/WorkLogPane.swift:78	Zezwól
 compiler	IntermezzoApp/Settings/LightPane.swift:242	Zimne (ok. 5500 K)
 compiler	IntermezzoApp/Settings/LanguageSection.swift:22	Zmiana działa po ponownym uruchomieniu. / Applies after a restart.
+compiler	IntermezzoApp/AI/SettingsAssistantSheet.swift:140	Zmiany zostały zastosowane. Możesz je cofnąć przyciskiem poniżej.
 compiler	IntermezzoKit/HealthMessages.swift:248	Zmieniaj pozycję, nie szukaj idealnej
 compiler	IntermezzoKit/HealthMessages.swift:266	Zmień pozycję. Najlepsza postawa to ta następna.
 compiler	IntermezzoApp/Settings/SettingsComponents.swift:67	Zmień…
-compiler	IntermezzoApp/Settings/AdvancedPane.swift:97	Znaleziono: %@
+compiler	IntermezzoApp/Settings/AdvancedPane.swift:94	Znaleziono: %@
 compiler	IntermezzoApp/ClockOut.swift:71	Zostaję 15 minut
 compiler	IntermezzoApp/Settings/StatusPane.swift:64	Zresetuj cykl
 compiler	IntermezzoKit/HealthMessages.swift:31	Zrób 10 pełnych, wolnych mrugnięć. Przy ekranie mrugasz 3–4 razy rzadziej.
-compiler	IntermezzoApp/Settings/AdvancedPane.swift:80	Zrób przerwę teraz
+compiler	IntermezzoApp/Settings/AdvancedPane.swift:77	Zrób przerwę teraz
 compiler	IntermezzoApp/Settings/BreakStyleSection.swift:18	Zrównoważona
 compiler	IntermezzoApp/Settings/WorkCalendar.swift:164	aktywnie %@
 compiler	IntermezzoApp/Settings/LightMonitorsSection.swift:48	bez zarządzania
+compiler	IntermezzoApp/AI/SettingsAssistantSheet.swift:103	brak
 compiler	IntermezzoApp/Settings/LightPane.swift:231	brak odczytu
 compiler	IntermezzoApp/Settings/LightPane.swift:282	brak odpowiedzi (włącz integrację w BetterDisplay)
 compiler	IntermezzoApp/Reports/ReportSummaryPage.swift:73	breaks skipped
 compiler	IntermezzoApp/Reports/ReportSummaryPage.swift:72	breaks taken
 compiler	IntermezzoApp/Settings/RulesPane.swift:48	co %lld min
 compiler	IntermezzoApp/Settings/ProjectSensorsSection.swift:96	contains…
-compiler	IntermezzoApp/Settings/GeneralPane.swift:200	current network: %@
+compiler	IntermezzoApp/Settings/GeneralPane.swift:221	current network: %@
 compiler	IntermezzoApp/Settings/PomodoroPlanSection.swift:156	day streak
 compiler	IntermezzoApp/Settings/AwakePane.swift:58	do %lld:00
 compiler	IntermezzoApp/Panel/MenuBarPanelView.swift:35	do końca przerwy
@@ -958,7 +1019,8 @@ compiler	IntermezzoApp/Awake/KeepAwakeController.swift:156	działa %@
 compiler	IntermezzoApp/Settings/LightPane.swift:280	działa, ekranów: %lld
 compiler	IntermezzoApp/Settings/BreaksPane.swift:313	e.g. Water
 compiler	IntermezzoApp/Reports/ReportSummaryPage.swift:71	focus time
-compiler	IntermezzoApp/Settings/GeneralPane.swift:127	holiday/vacation event today — breaks held
+compiler	IntermezzoApp/Settings/AIPane.swift:168	gotowy
+compiler	IntermezzoApp/Settings/GeneralPane.swift:148	holiday/vacation event today — breaks held
 compiler	IntermezzoApp/Settings/StatisticsPane.swift:70	intermezzo-przerwy.csv
 compiler	IntermezzoApp/Settings/RulesPane.swift:31	isn't (odwrócone)
 compiler	IntermezzoApp/Settings/SyncPane.swift:89	jeszcze nie
@@ -966,34 +1028,36 @@ compiler	IntermezzoApp/Settings/WorkLogPane.swift:134	karta / stacja
 compiler	IntermezzoApp/Settings/LightMonitorsSection.swift:50	kolor do %lld K
 compiler	IntermezzoApp/Settings/WorkCalendar.swift:160	korekta ręczna
 compiler	IntermezzoApp/IntermezzoCoordinator.swift:1051	krótka
-compiler	IntermezzoApp/Settings/GeneralPane.swift:207	lat
-compiler	IntermezzoApp/Settings/GeneralPane.swift:209	lon
-compiler	IntermezzoApp/Settings/AdvancedPane.swift:69	macOS forgets what you allowed for Intermezzo (input monitoring, screen recording, accessibility, automation, calendar). Until you allow them again, natural-break detection, effects and script rules work in a reduced way.
+compiler	IntermezzoApp/Settings/GeneralPane.swift:228	lat
+compiler	IntermezzoApp/Settings/GeneralPane.swift:230	lon
+compiler	IntermezzoApp/Settings/AdvancedPane.swift:66	macOS forgets what you allowed for Intermezzo (input monitoring, screen recording, accessibility, automation, calendar). Until you allow them again, natural-break detection, effects and script rules work in a reduced way.
 compiler	IntermezzoApp/Settings/WorkLogPane.swift:76	macOS podaje nazwy sieci Wi-Fi tylko aplikacjom z dostępem do lokalizacji.
-compiler	IntermezzoApp/Settings/GeneralPane.swift:194	macOS reads the Wi-Fi name only with Location access
+compiler	IntermezzoApp/Settings/GeneralPane.swift:215	macOS reads the Wi-Fi name only with Location access
 compiler	IntermezzoApp/Settings/StatusPane.swift:28	macOS schował ikonę Intermezzo, bo pasek menu jest pełny (notch). Odliczanie widać w pływającej pastylce — przeciągnij ją, gdzie chcesz. Aby odzyskać ikonę, wyłącz lub przesuń inne elementy paska (System → Pasek menu).
-compiler	IntermezzoApp/Settings/GeneralPane.swift:174	matching event now — breaks active
+compiler	IntermezzoApp/Settings/GeneralPane.swift:195	matching event now — breaks active
 compiler	IntermezzoApp/Settings/BreaksPane.swift:235	ml
 compiler	IntermezzoApp/Settings/ConsistencyHeatmapView.swift:39	mniej
+compiler	IntermezzoApp/AI/AppleOnDeviceProvider.swift:20	model Apple jest niedostępny
+compiler	IntermezzoApp/AI/AppleOnDeviceProvider.swift:19	model Apple jeszcze się pobiera
 compiler	IntermezzoApp/Awake/KeepAwakeController.swift:132	na Twoje życzenie
 compiler	IntermezzoApp/Settings/LightPane.swift:96	na godzinę
 compiler	IntermezzoApp/Settings/RulesPane.swift:26	nazwa aplikacji / tekst
 compiler	IntermezzoApp/Settings/LightPane.swift:283	nie zainstalowany
 compiler	IntermezzoApp/Light/LightController.swift:430	nieznana (wpisz współrzędne)
-compiler	IntermezzoApp/Settings/GeneralPane.swift:184	no VPN connection detected
-compiler	IntermezzoApp/Settings/GeneralPane.swift:128	no holiday event today
-compiler	IntermezzoApp/Settings/GeneralPane.swift:175	no matching event in calendar — breaks held
+compiler	IntermezzoApp/Settings/GeneralPane.swift:205	no VPN connection detected
+compiler	IntermezzoApp/Settings/GeneralPane.swift:149	no holiday event today
+compiler	IntermezzoApp/Settings/GeneralPane.swift:196	no matching event in calendar — breaks held
 compiler	IntermezzoApp/Settings/WorkLogPane.swift:82	np. Biuro
 compiler	IntermezzoApp/Settings/WorkLogPane.swift:64	np. Firma, Firma-5G
-compiler	IntermezzoApp/Settings/GeneralPane.swift:79	od %lld min
+compiler	IntermezzoApp/Settings/GeneralPane.swift:100	od %lld min
 compiler	IntermezzoApp/Settings/LightMonitorsSection.swift:52	ogólna krzywa
-compiler	IntermezzoApp/Settings/StatisticsPane.swift:141	ostatnie %lld z %lld
-compiler	IntermezzoApp/Settings/StatisticsPane.swift:218	pominięte lub odroczone
+compiler	IntermezzoApp/Settings/StatisticsPane.swift:142	ostatnie %lld z %lld
+compiler	IntermezzoApp/Settings/StatisticsPane.swift:219	pominięte lub odroczone
 compiler	IntermezzoApp/Reports/ReportSummaryPage.swift:70	pomodoros
 compiler	IntermezzoApp/Settings/WorkLogPane.swift:89	poza strefą pracy
 compiler	IntermezzoApp/Light/LightController.swift:428	przybliżona, ze strefy czasowej %@
 compiler	IntermezzoApp/Settings/LightMonitorsSection.swift:51	przyciemnienie %lld%%
-compiler	IntermezzoApp/Settings/GeneralPane.swift:211	radius m
+compiler	IntermezzoApp/Settings/GeneralPane.swift:232	radius m
 compiler	IntermezzoApp/Settings/WorkLogPane.swift:159	router %@
 compiler	IntermezzoApp/Settings/BreaksPane.swift:208	s po
 compiler	IntermezzoApp/Settings/BreaksPane.swift:208	s przed
@@ -1001,19 +1065,25 @@ compiler	IntermezzoApp/Settings/PomodoroPlanSection.swift:159	self / other
 compiler	IntermezzoApp/Reports/ReportSummaryPage.swift:75	self / other interruptions
 compiler	IntermezzoApp/Settings/WorkLogPane.swift:134	sieć LAN
 compiler	IntermezzoApp/BreakTrendChart.swift:151	start ręczny
+compiler	IntermezzoApp/AI/AppleOnDeviceProvider.swift:17	ten Mac nie obsługuje Apple Intelligence
 compiler	IntermezzoApp/Settings/PomodoroPlanSection.swift:154	today
 compiler	IntermezzoApp/Settings/WorkCalendar.swift:159	trwa
 compiler	IntermezzoApp/Awake/KeepAwakeController.swift:162	trwa przerwa
 compiler	IntermezzoApp/Awake/KeepAwakeController.swift:145	trwa sesja skupienia
 compiler	IntermezzoApp/Settings/RulesPane.swift:45	trwa ≥ %lld s
-compiler	IntermezzoApp/Settings/StatisticsPane.swift:217	ukończone przerwy
-compiler	IntermezzoApp/Settings/GeneralPane.swift:124	urlop, święto, wakacje, vacation, holiday
+compiler	IntermezzoApp/Settings/StatisticsPane.swift:218	ukończone przerwy
+compiler	IntermezzoApp/Settings/GeneralPane.swift:145	urlop, święto, wakacje, vacation, holiday
 compiler	IntermezzoApp/Settings/PomodoroPlanSection.swift:158	voided today
 compiler	IntermezzoApp/WorkLog/WorkZoneProbe.swift:107	w zasięgu: %@
-compiler	IntermezzoApp/Settings/GeneralPane.swift:230	waiting for first GPS fix…
+compiler	IntermezzoApp/Settings/GeneralPane.swift:251	waiting for first GPS fix…
 compiler	IntermezzoApp/Settings/ConsistencyHeatmapView.swift:45	więcej
-compiler	IntermezzoApp/Settings/GeneralPane.swift:167	work, praca, meeting, spotkanie
+compiler	IntermezzoApp/Settings/AIPane.swift:77	wklej klucz, jeśli serwer go wymaga
+compiler	IntermezzoApp/Settings/GeneralPane.swift:188	work, praca, meeting, spotkanie
 compiler	IntermezzoApp/Light/LightController.swift:411	wpisana ręcznie
+compiler	IntermezzoApp/AI/AppleOnDeviceProvider.swift:25	wymaga macOS 26 lub nowszego z Apple Intelligence
+compiler	IntermezzoApp/AI/SettingsAssistantSheet.swift:89	wyłączone
+compiler	IntermezzoApp/Settings/AIPane.swift:169	wyłączony
+compiler	IntermezzoApp/AI/SettingsAssistantSheet.swift:89	włączone
 compiler	IntermezzoApp/Light/LightController.swift:419	z lokalizacji Maca
 compiler	IntermezzoApp/Settings/WorkLogPane.swift:149	zapamiętane
 compiler	IntermezzoApp/WorkLog/WorkZoneProbe.swift:108	zdalnie, VPN: %@
@@ -1032,7 +1102,8 @@ compiler	IntermezzoApp/Settings/RulesPane.swift:25	ścieżka skryptu (.applescri
 compiler	IntermezzoKit/HealthMessages.swift:65	Źródła podają różne zakresy — oto wspólna część
 compiler	IntermezzoApp/Settings/LightPane.swift:291	Źródło
 compiler	IntermezzoApp/Settings/AwakePane.swift:140	Żaden inny program nie blokuje uśpienia.
-compiler	IntermezzoApp/Settings/GeneralPane.swift:293	–
+compiler	IntermezzoApp/Settings/GeneralPane.swift:316	–
+compiler	IntermezzoApp/Settings/AIPane.swift:111	— wybierz —
 compiler	IntermezzoApp/Settings/ScriptGalleryPane.swift:74	„%@” zniknie z dysku razem z regułą, która go uruchamia.
 compiler	IntermezzoKit/HealthMessages.swift:85	• Dopasuj jasność ekranu do jasności pomieszczenia — ekran jaśniejszy lub ciemniejszy od otoczenia męczy.\n• Nie siedź twarzą ani plecami do okna: jedno daje oślepienie, drugie odbicie w ekranie.\n• Błyszczący ekran? Pomoże matowy filtr.\n• Przegląd Kaur 2022: wydajność spada przy oświetleniu otoczenia powyżej ok. 1000 lx; Medical News Today: po 50. roku życia potrzeba mniej więcej dwa razy więcej światła niż w wieku 20 lat.\n• Małe badanie randomizowane (Digital J. Ophthalmol., za streszczeniem): zmniejszenie jasności ekranu obniżyło nasilenie zmęczenia oczu, a program zmieniający temperaturę barwy — nie.\n\nŹródła: Harvard Health (AAO); Kaur i in. 2022; Medical News Today; Digital Journal of Ophthalmology (streszczenie z wyszukiwarki).
 compiler	IntermezzoKit/HealthMessages.swift:106	• Kontrast ok. 60–70% (Kaur 2022) i wyraźna czcionka, co najmniej 12 pkt; najlepiej ciemny tekst na jasnym tle.\n• Zwiększ kontrast na ekranie (AAO).\n• Powiększ tekst, jeśli mrużysz oczy — mały tekst obniża częstość mrugania.\n• Trzymaj ekran i okulary czyste.\n\nTo zalecenia z przeglądów, oparte w dużej mierze na konsensusie ekspertów.\n\nŹródła: Kaur i in. 2022; Harvard Health (AAO); Lapa i in. 2023.
@@ -1049,8 +1120,10 @@ runtime	-	20-20-20
 runtime	-	4 godziny przy ekranie
 runtime	-	45 min pracy, 5 min przerwy, co czwarta 15 min.
 runtime	-	5 min po 30 min
+runtime	-	AI
 runtime	-	AOA / Harvard Health / Kaur 2022 (konsensus; pojedyncze 20 s bywa niewystarczające)
 runtime	-	Accessibility
+runtime	-	Adres serwera jest niepoprawny.
 runtime	-	Adresy intermezzo:// uruchomisz z Skrótów, skryptów, crona albo terminala (open \"intermezzo://break/long\"):
 runtime	-	Aktywnie
 runtime	-	Animowany
@@ -1060,6 +1133,7 @@ runtime	-	Aplikacja otwarta
 runtime	-	Aplikacja z przodu
 runtime	-	Aplikacje do rozmów i pulpitu zdalnego
 runtime	-	AppleScript rules that ask System Events about apps and windows
+runtime	-	Asystent ustawień, autor skryptów i podsumowanie tygodnia
 runtime	-	Automation (System Events)
 runtime	-	Automatycznie pomiń
 runtime	-	Barki w dół
@@ -1073,6 +1147,7 @@ runtime	-	Break #%lld today · let's keep that streak going
 runtime	-	Break alert! Let's keep that streak going.
 runtime	-	Break reminders, hydration and backup alerts
 runtime	-	Byłeś nieobecny %lld min — zaliczyć to jako przerwę?
+runtime	-	Błąd połączenia: %@
 runtime	-	Calendar
 runtime	-	Check your posture
 runtime	-	Co 10 min: 30 s od ekranu. Dla intensywnej pracy wzrokowej; co trzecia przerwa dłuższa.
@@ -1112,6 +1187,7 @@ runtime	-	Folia holograficzna
 runtime	-	Front Finder window: folder
 runtime	-	Front terminal: repository
 runtime	-	Front window: document name
+runtime	-	Funkcje AI są wyłączone.
 runtime	-	Galeria skryptów
 runtime	-	Gallery scripts that read window titles through System Events
 runtime	-	Gdy ekran jest powielony na projektorze lub telewizorze (Mirror: On), to prawie na pewno ktoś na niego patrzy. Przerwa na cały ekran na czyjejś prezentacji byłaby niezręczna.
@@ -1153,6 +1229,8 @@ runtime	-	Mgła za oknem — daj oczom odpocząć, zamknij je na 20 sekund.
 runtime	-	Mieniąca się tęczowa folia
 runtime	-	Minęło już trochę czasu. Zrób %@ przerwę albo ją odłóż.
 runtime	-	Mleczna szyba z ziarnem
+runtime	-	Model jest niedostępny: %@
+runtime	-	Model nie odpowiedział w wyznaczonym czasie.
 runtime	-	Motyw, powiadomienia i wygląd ekranu przerwy
 runtime	-	Mrożone szkło
 runtime	-	Na ekranie przerwy wykres Twoich ostatnich przerw (rośnie po ukończonej, spada po pominiętej), hasła o passie oraz licznik dni z rzędu w Pomodoro i statystykach.
@@ -1175,6 +1253,7 @@ runtime	-	Nawilż oczy
 runtime	-	Nawodnienie
 runtime	-	Nie pozwól Macowi zasnąć, gdy pracuje
 runtime	-	Nie teraz
+runtime	-	Nieoczekiwana odpowiedź modelu (%@).
 runtime	-	Nogi i krążenie
 runtime	-	Not now
 runtime	-	Notifications
@@ -1219,6 +1298,7 @@ runtime	-	Pokazuje przypomnienie błyskiem ekranu
 runtime	-	Polskie przepisy o stanowiskach z monitorami (za CIOP-PIB, Kamińska 2016)
 runtime	-	Pomija bieżącą lub najbliższą przerwę
 runtime	-	Popatrz przez okno
+runtime	-	Poprzednie zapytanie jeszcze trwa.
 runtime	-	Pora obiadu
 runtime	-	Pora obiadu (12:00–13:00)
 runtime	-	Porady i artykuły wyświetlane w przerwach
@@ -1246,6 +1326,7 @@ runtime	-	Przeglądarki
 runtime	-	Przepisy BHP: 5 min po godzinie
 runtime	-	Przerwa %lld min
 runtime	-	Przerwa wciąż czeka
+runtime	-	Przerwano.
 runtime	-	Przerwy
 runtime	-	Przezroczysty dla myszy, zniknie sam.
 runtime	-	Przełącza czuwanie
@@ -1272,6 +1353,8 @@ runtime	-	Rozrusz kark
 runtime	-	Rytm pracy
 runtime	-	Rzutnik / duplikowanie ekranu
 runtime	-	Screen Recording
+runtime	-	Serwer odrzucił dostęp. Sprawdź klucz.
+runtime	-	Serwer ogranicza liczbę zapytań. Spróbuj za chwilę.
 runtime	-	Sesja w terminalu
 runtime	-	Sesja w terminalu (ssh / vim / htop)
 runtime	-	Siad – wstań
@@ -1394,6 +1477,7 @@ runtime	-	Zatrzymaj dźwięk
 runtime	-	Zatrzymuje dźwięk przerwy lub muzykę relaksacyjną (także: stopSound)
 runtime	-	Zdalna sesja
 runtime	-	Zdalna sesja / pomoc zdalna
+runtime	-	Zdalny serwer musi mieć adres zaczynający się od https://.
 runtime	-	Zeruje cykl i liczy do następnej przerwy od nowa
 runtime	-	Znajdź za oknem trzy obiekty: bliski, średni i daleki. Patrz na każdy po 7 sekund, bez mrużenia oczu.
 runtime	-	Znaleziono drugą kopię Intermezzo
@@ -1407,18 +1491,24 @@ runtime	-	Zrównoważony (domyślny)
 runtime	-	Zwróć true, gdy warunek jest spełniony (wtedy reguła działa), w przeciwnym razie false.
 runtime	-	Złącz dłonie za plecami, wypchnij klatkę do przodu i unieś lekko brodę. Trzymaj 20 sekund, oddychaj głęboko.
 runtime	-	długa
+runtime	-	godziny pracy bez żadnego dnia pracy wyłączyłyby przerwy
 runtime	-	herbata
 runtime	-	inne
 runtime	-	kawa
+runtime	-	krótka przerwa byłaby dłuższa niż długa
 runtime	-	ktoś ogląda Twój ekran (usługa macOS działa tylko podczas połączenia)
+runtime	-	nieznane ustawienie
 runtime	-	odłożona
+runtime	-	początek pracy nie byłby przed jej końcem
 runtime	-	pominięta
 runtime	-	pominięta przed startem
 runtime	-	pominięta przez regułę
 runtime	-	sok
 runtime	-	tak
+runtime	-	ustawienie powtórzone w odpowiedzi
 runtime	-	w tym zdalne
 runtime	-	w tym zdalnie
+runtime	-	wartość nie pasuje
 runtime	-	woda
 runtime	-	wykonana
 runtime	-	Ósemka oczami

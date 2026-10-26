@@ -92,6 +92,7 @@ struct StatisticsPane: View {
                 Button("Eksportuj historię do CSV…", action: exportCSV)
                     .controlSize(.small)
             }
+            WeeklySummaryView(samples: stats.samples)
             Section("Regularność (12 tygodni)") {
                 ConsistencyHeatmapView(entries: stats.heatmap, accent: theme.accent)
             }

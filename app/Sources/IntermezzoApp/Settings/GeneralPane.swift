@@ -42,7 +42,15 @@ struct GeneralPane: View {
     @AppStorage(Keys.geoLon) private var geoLon = 0.0
     @AppStorage(Keys.geoRadiusM) private var geoRadiusM = 300.0
     @ObservedObject private var work = WorkDetector.shared
+    @AppStorage(AIKeys.enabled) private var aiEnabled = false
+    @State private var showAssistant = false
+    @State private var undoCount = SettingsHistory.count(in: .standard)
     @AppStorage(Keys.menuBarCountdown) private var menuBarCountdown = true
+
+    private func undoAssistant() {
+        SettingsHistory.popLast(from: .standard)?.restore(into: .standard)
+        undoCount = SettingsHistory.count(in: .standard)
+    }
 
     private var dayNames: [String] { [String(localized: "Mon"), String(localized: "Tue"), String(localized: "Wed"),
                              String(localized: "Thu"), String(localized: "Fri"), String(localized: "Sat"),
@@ -50,6 +58,19 @@ struct GeneralPane: View {
 
     var body: some View {
         Form {
+            if aiEnabled || undoCount > 0 {
+                Section("Asystent ustawień") {
+                    if aiEnabled {
+                        Button("Asystent ustawień…") { showAssistant = true }
+                        Text("Opisz własnymi słowami, jak ma działać program, a asystent zaproponuje zmiany do zatwierdzenia.")
+                            .settingsNote()
+                    }
+                    // Undo stays available when the AI features are switched off again.
+                    if undoCount > 0 {
+                        Button("Cofnij ostatnie zmiany asystenta") { undoAssistant() }
+                    }
+                }
+            }
             Section("Run Intermezzo") {
                 Toggle("Launch when Mac starts", isOn: Binding(
                     get: { autostart },
@@ -254,6 +275,8 @@ struct GeneralPane: View {
                 .expertOnly()
         }
         .formStyle(.grouped)
+        .sheet(isPresented: $showAssistant, onDismiss: { undoCount = SettingsHistory.count(in: .standard) }) { SettingsAssistantSheet() }
+        .onAppear { undoCount = SettingsHistory.count(in: .standard) }
     }
 }
 

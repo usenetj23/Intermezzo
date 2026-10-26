@@ -6,7 +6,14 @@ struct EditableFieldStyle: TextFieldStyle {
     func _body(configuration: TextField<Self._Label>) -> some View {
         configuration
             .textFieldStyle(.plain)
-            .padding(.horizontal, 8)
+            .editableBox()
+    }
+}
+
+extension View {
+    /// The look of `EditableFieldStyle` for a control that cannot take a text field style (a secure field).
+    func editableBox() -> some View {
+        padding(.horizontal, 8)
             .padding(.vertical, 5)
             .background(RoundedRectangle(cornerRadius: 6).fill(Color.primary.opacity(0.09)))
             .overlay(RoundedRectangle(cornerRadius: 6).stroke(Color.primary.opacity(0.22), lineWidth: 1))
