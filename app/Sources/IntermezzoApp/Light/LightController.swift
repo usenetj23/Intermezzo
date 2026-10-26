@@ -25,6 +25,8 @@ enum LightKeys {
     static let roomLampK = "lightRoomK"
     /// The hand-drawn day of the "Custom" profile: 24 hourly kelvin values ("6500,6500,…").
     static let customCurve = "lightCustomCurve"
+    /// The ready-made profile the drawn day was last started from (shown as a note; the chart is drawn above).
+    static let customBase = "lightCustomBase"
 }
 
 /// Writes a colour temperature to every display through its gamma table (the public CoreGraphics
@@ -111,6 +113,10 @@ final class LightController: ObservableObject {
     @Published private(set) var unsupportedDisplays: [String] = []
     @Published private(set) var pausedUntil: Date?
     @Published private(set) var previewing = false
+    /// The monitor whose evening look is being previewed, and the kelvin it shows meanwhile.
+    @Published private(set) var previewingDisplay: CGDirectDisplayID?
+    private var monitorPreviewKelvin = LightSettings.maxKelvin
+    private var monitorPreviewTimer: Timer?
     @Published private(set) var lux: Double?
     @Published private(set) var ambientNote = ""
     @Published private(set) var point = GeoPoint(latitude: 52.2, longitude: 21.0)
@@ -127,7 +133,10 @@ final class LightController: ObservableObject {
     private var requestedLocation = false
     /// What each display shows right now (kelvin); displays in `neutral` fade to 6500.
     private var shown: [CGDirectDisplayID: Double] = [:]
-    private var neutral: Set<UInt32> = []
+    /// Displays a full-screen window or an excluded app keeps neutral right now.
+    private var windowNeutral: Set<UInt32> = []
+    /// Neutral for any reason: that window, or the monitor's own "leave alone" switch.
+    private var neutral: Set<UInt32> { windowNeutral.union(MonitorRegistry.shared.untouchedDisplays) }
     private var lastForeignFront: FrontWindow?
     private var frontTimer: Timer?
     /// The time zone's reference city, read from zone.tab once per zone.
@@ -173,6 +182,7 @@ final class LightController: ObservableObject {
         let curve = CustomLightCurve.sampled(settings: base.settings(wakeMinutes: wakeMinutes),
                                              latitude: point.latitude, longitude: point.longitude, date: Date())
         defaults.set(curve.encoded, forKey: LightKeys.customCurve)
+        defaults.set(base.rawValue, forKey: LightKeys.customBase)
         tick()
     }
 
@@ -199,10 +209,16 @@ final class LightController: ObservableObject {
     /// earlier crash is corrected here.
     func start() {
         displays.restore()
+        MonitorRegistry.shared.refresh()
         installSignalHandlers()
         let center = NotificationCenter.default
         center.addObserver(forName: NSApplication.didChangeScreenParametersNotification, object: nil, queue: .main) { [weak self] _ in
-            MainActor.assumeIsolated { self?.reapply(rereadOriginals: true) }
+            MainActor.assumeIsolated {
+                MonitorRegistry.shared.refresh()
+                self?.reapply(rereadOriginals: true)
+                // A display that just appeared has no colour of its own yet: give it its goal, not the general one.
+                self?.startFade(jump: true)
+            }
         }
         let workspace = NSWorkspace.shared.notificationCenter
         for name in [NSWorkspace.didWakeNotification, NSWorkspace.activeSpaceDidChangeNotification] {
@@ -241,6 +257,7 @@ final class LightController: ObservableObject {
     func shutdown() {
         fadeTimer?.invalidate()
         previewTimer?.invalidate()
+        monitorPreviewTimer?.invalidate()
         displays.restore()
     }
 
@@ -257,6 +274,12 @@ final class LightController: ObservableObject {
             source.resume()
             signalSources.append(source)
         }
+    }
+
+    /// A monitor's own settings changed: show them at once (no fade) and let the dimming follow.
+    func monitorSettingsChanged() {
+        startFade(jump: true)
+        tick()
     }
 
     // MARK: Pause
@@ -296,7 +319,7 @@ final class LightController: ObservableObject {
     private func settingsChanged() {
         let signature = [LightKeys.enabled, LightKeys.profile, LightKeys.dayK, LightKeys.sunsetK, LightKeys.bedtimeK,
                          LightKeys.wakeMinutes, LightKeys.manualLocation, LightKeys.weather, LightKeys.disabledUntil,
-                         LightKeys.ambient, LightKeys.roomLampK, LightKeys.customCurve]
+                         LightKeys.ambient, LightKeys.roomLampK, LightKeys.customCurve, MonitorKeys.profiles]
             .map { "\(defaults.object(forKey: $0) ?? "")" }.joined(separator: "|")
         guard signature != lastSettingsSignature else { return }
         lastSettingsSignature = signature
@@ -330,9 +353,17 @@ final class LightController: ObservableObject {
 
         refreshExclusions(fade: false)
         startFade(jump: firstTick)
-        BetterDisplayLight.shared.update(kelvin: current.kelvin, settings: settings,
-                                         active: isEnabled && pausedUntil == nil && !previewing, neutral: neutral,
-                                         lux: measured)
+        let general = current.kelvin
+        let lightSettings = settings
+        BetterDisplayLight.shared.update(
+            active: isEnabled && pausedUntil == nil && !previewing, neutral: neutral,
+            untouched: MonitorRegistry.shared.untouchedDisplays,
+            factorFor: { id in
+                let profile = MonitorRegistry.shared.profile(forDisplay: CGDirectDisplayID(id))
+                let own = MonitorLight.dimFactor(kelvin: general, settings: lightSettings,
+                                                 globalPercent: BetterDisplayLight.shared.globalDimPercent, profile: profile)
+                return AmbientLight.scaledDimFactor(own, lux: measured)
+            })
         firstTick = false
     }
 
@@ -422,7 +453,9 @@ final class LightController: ObservableObject {
     }
 
     private func goal(for id: CGDirectDisplayID) -> Double {
-        neutral.contains(id) ? LightSettings.maxKelvin : globalGoal()
+        if id == previewingDisplay { return monitorPreviewKelvin }
+        if windowNeutral.contains(id) { return LightSettings.maxKelvin }
+        return MonitorLight.kelvin(global: globalGoal(), profile: MonitorRegistry.shared.profile(forDisplay: id))
     }
 
     /// Moves every display to its goal in steps, so that the screen never jumps.
@@ -483,22 +516,22 @@ final class LightController: ObservableObject {
     /// Looks at the active window: an excluded app, or a full-screen window, keeps its own display neutral.
     func refreshExclusions(fade: Bool = true) {
         guard isEnabled, pausedUntil == nil, !previewing else {
-            if !neutral.isEmpty { neutral = []; if fade { startFade(jump: false) } }
+            if !windowNeutral.isEmpty { windowNeutral = []; if fade { startFade(jump: false) } }
             return
         }
         let excluded = KeepAwakeApps.list(fromCommaText: defaults.string(forKey: LightKeys.excludedApps) ?? "")
         let skipFullscreen = defaults.object(forKey: LightKeys.skipFullscreen) as? Bool ?? true
         guard skipFullscreen || !excluded.isEmpty else {
             // Nothing to look for: no window list at all.
-            if !neutral.isEmpty { neutral = []; if fade { startFade(jump: false) } }
+            if !windowNeutral.isEmpty { windowNeutral = []; if fade { startFade(jump: false) } }
             return
         }
         let probe = FrontWindowProbe.current()
         if case .own = probe {} else if case .window(let window) = probe { lastForeignFront = window } else { lastForeignFront = nil }
         let next = LightExclusion.displaysToLeaveNeutral(front: lastForeignFront, displays: displays.frames(),
                                                          excludedApps: excluded, skipFullscreen: skipFullscreen)
-        guard next != neutral else { return }
-        neutral = next
+        guard next != windowNeutral else { return }
+        windowNeutral = next
         Trace.log("light: neutral displays \(next.sorted())")
         if fade { startFade(jump: false) }
     }
@@ -532,12 +565,42 @@ final class LightController: ObservableObject {
                 let moment = start.addingTimeInterval(progress * 86_400)
                 let k = self.scheduleState(at: moment, point: point, cloud: nil).kelvin
                 self.currentKelvin = k
-                self.displays.ids.forEach { self.shown[$0] = k }
-                self.displays.apply(kelvin: { _ in k })
+                let shownKelvin = { (id: CGDirectDisplayID) in
+                    MonitorLight.kelvin(global: k, profile: MonitorRegistry.shared.profile(forDisplay: id))
+                }
+                self.displays.ids.forEach { self.shown[$0] = shownKelvin($0) }
+                self.displays.apply(kelvin: shownKelvin)
             }
         }
         RunLoop.main.add(timer, forMode: .common)
         previewTimer = timer
+    }
+
+    /// Shows one monitor the way it will look at its warmest for a few seconds (colour at once, brightness
+    /// when BetterDisplay dims). A monitor that is left alone, or a running day preview, makes it a no-op.
+    func previewMonitor(displayID: CGDirectDisplayID, seconds: Double = 6) {
+        let profile = MonitorRegistry.shared.profile(forDisplay: displayID)
+        guard previewingDisplay == nil, !previewing, profile?.untouched != true, displays.ids.contains(displayID) else { return }
+        let evening = settings
+        previewingDisplay = displayID
+        monitorPreviewKelvin = MonitorLight.kelvin(global: evening.bedtimeK, profile: profile)
+        shown[displayID] = monitorPreviewKelvin
+        applyNow()
+        let factor = MonitorLight.dimFactor(kelvin: evening.bedtimeK, settings: evening,
+                                            globalPercent: BetterDisplayLight.shared.globalDimPercent, profile: profile)
+        Task { await BetterDisplayLight.shared.previewDim(displayID: Int(displayID), factor: factor, seconds: seconds) }
+        let timer = Timer(timeInterval: seconds, repeats: false) { [weak self] _ in
+            MainActor.assumeIsolated { self?.stopMonitorPreview() }
+        }
+        RunLoop.main.add(timer, forMode: .common)
+        monitorPreviewTimer = timer
+    }
+
+    private func stopMonitorPreview() {
+        monitorPreviewTimer?.invalidate()
+        monitorPreviewTimer = nil
+        previewingDisplay = nil
+        startFade(jump: true)
     }
 
     func stopPreview() {

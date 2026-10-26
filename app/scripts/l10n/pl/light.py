@@ -98,8 +98,6 @@ STRINGS = {
         "Aplikacje bez zmiany barw",
     "Gdy aplikacja z listy jest aktywnym oknem, jej monitor pokazuje normalne kolory, np. przy obróbce zdjęć i wideo. Nazwy oddzielaj przecinkami.":
         "Gdy aplikacja z listy jest aktywnym oknem, jej monitor pokazuje normalne kolory, np. przy obróbce zdjęć i wideo. Nazwy oddzielaj przecinkami.",
-    "Wyłącz…":
-        "Wyłącz…",
     "na godzinę":
         "na godzinę",
     "do wschodu słońca":
@@ -162,8 +160,6 @@ STRINGS = {
         "Rozłączaj grupę ekranów na czas wyjątku",
     "Grupa BetterDisplay (np. dwa takie same monitory) trzyma ich jasność razem. Gdy jeden monitor ma zostać nieprzyciemniony (pełny ekran, aplikacja z listy wyjątków), grupa jest wyłączana, a po wieczorze włączana z powrotem.":
         "Grupa BetterDisplay (np. dwa takie same monitory) trzyma ich jasność razem. Gdy jeden monitor ma zostać nieprzyciemniony (pełny ekran, aplikacja z listy wyjątków), grupa jest wyłączana, a po wieczorze włączana z powrotem.",
-    "Zacznij od profilu…":
-        "Zacznij od profilu…",
     "Własne (wg zegara)":
         "Własne (wg zegara)",
     "Własne (wg Słońca)":
@@ -176,4 +172,64 @@ STRINGS = {
         "Przeciągaj po wykresie jak po equalizerze: każdy słupek to jedna godzina doby, a wysokość to barwa (wyżej chłodniej, niżej cieplej). Między godzinami kolor płynnie przechodzi.",
     "Profil „Własne (wg zegara)” nie korzysta z czujnika: wybierz „Własne (wg Słońca)” albo gotowy profil.":
         "Profil „Własne (wg zegara)” nie korzysta z czujnika: wybierz „Własne (wg Słońca)” albo gotowy profil.",
+    "Monitory":
+        "Monitory",
+    "Zapamiętane, niepodłączone":
+        "Zapamiętane, niepodłączone",
+    "Nowy monitor od razu dostaje ogólną krzywą. Takie same monitory mają wspólne ustawienia. Ustawienia są pamiętane tylko na tym Macu i wracają, gdy monitor zostanie podłączony ponownie.":
+        "Nowy monitor od razu dostaje ogólną krzywą. Takie same monitory mają wspólne ustawienia. Ustawienia są pamiętane tylko na tym Macu i wracają, gdy monitor zostanie podłączony ponownie.",
+    "bez zarządzania":
+        "bez zarządzania",
+    "kolor do %lld K":
+        "kolor do %lld K",
+    "przyciemnienie %lld%%":
+        "przyciemnienie %lld%%",
+    "ogólna krzywa":
+        "ogólna krzywa",
+    "Nie zarządzaj tym monitorem (np. telewizorem)":
+        "Nie zarządzaj tym monitorem (np. telewizorem)",
+    "Podgląd wieczoru":
+        "Podgląd wieczoru",
+    "Przywróć ogólne":
+        "Przywróć ogólne",
+    "Własny limit koloru":
+        "Własny limit koloru",
+    "Najcieplejszy kolor: %lld K":
+        "Najcieplejszy kolor: %lld K",
+    "Własne przyciemnienie":
+        "Własne przyciemnienie",
+    "Przyciemnianie sprzętowe jest wyłączone (sekcja BetterDisplay), więc ten wybór na razie nic nie zmienia.":
+        "Przyciemnianie sprzętowe jest wyłączone (sekcja BetterDisplay), więc ten wybór na razie nic nie zmienia.",
+    "Wykres w sekcji „Teraz” zaczęto od profilu „%@”. Możesz go dalej poprawiać palcem po wykresie.":
+        "Wykres w sekcji „Teraz” zaczęto od profilu „%@”. Możesz go dalej poprawiać palcem po wykresie.",
+    "Wstrzymaj zmianę barwy…":
+        "Wstrzymaj zmianę barwy…",
+    "Wykres barwy: zacznij od profilu…":
+        "Wykres barwy: zacznij od profilu…",
+    "Zastępuje wykres barwy z sekcji „Teraz” (barwa godzina po godzinie) wartościami wybranego profilu. Rzeczy, które narysowałeś na wykresie, przepadną.":
+        "Zastępuje wykres barwy z sekcji „Teraz” (barwa godzina po godzinie) wartościami wybranego profilu. Rzeczy, które narysowałeś na wykresie, przepadną.",
+    "Wybierz na mapie…":
+        "Wybierz na mapie…",
+    "Wybierz miejsce na mapie":
+        "Wybierz miejsce na mapie",
+    "Kliknij mapę, żeby postawić pinezkę, i przeciągnij ją, żeby ją przesunąć. Przeciągnięcie mapy przesuwa mapę, a kółko myszy, szczypanie i przyciski + i − ją przybliżają. Cień pokazuje, gdzie teraz jest dzień, zmierzch i noc.":
+        "Kliknij mapę, żeby postawić pinezkę, i przeciągnij ją, żeby ją przesunąć. Przeciągnięcie mapy przesuwa mapę, a kółko myszy, szczypanie i przyciski + i − ją przybliżają. Cień pokazuje, gdzie teraz jest dzień, zmierzch i noc.",
+    "Mapa jest niedostępna, ale współrzędne możesz wpisać ręcznie.":
+        "Mapa jest niedostępna, ale współrzędne możesz wpisać ręcznie.",
+    "Nie wybrano jeszcze miejsca.":
+        "Nie wybrano jeszcze miejsca.",
+    "Skala mapy: ok. %@ km na punkt ekranu":
+        "Skala mapy: ok. %@ km na punkt ekranu",
+    "Brak wschodu lub zachodu Słońca w tym miejscu (dzień lub noc polarna).":
+        "Brak wschodu lub zachodu Słońca w tym miejscu (dzień lub noc polarna).",
+    "Wschód %@, zachód %@ (czas Maca).":
+        "Wschód %@, zachód %@ (czas Maca).",
+    "Użyj tego miejsca":
+        "Użyj tego miejsca",
+    "Przybliż":
+        "Przybliż",
+    "Oddal":
+        "Oddal",
+    "Dane mapy: Natural Earth (domena publiczna); nazwy miast: GeoNames, licencja CC BY 4.0.":
+        "Dane mapy: Natural Earth (domena publiczna); nazwy miast: GeoNames, licencja CC BY 4.0.",
 }

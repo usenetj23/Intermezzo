@@ -17,8 +17,10 @@ struct LightPane: View {
     @AppStorage(BetterDisplayKeys.unlinkGroup) private var bdUnlinkGroup = false
     @AppStorage(LightKeys.ambient) private var useAmbient = false
     @AppStorage(LightKeys.roomLampK) private var roomLampK = 0
+    @AppStorage(LightKeys.customBase) private var customBaseRaw = ""
     @ObservedObject private var betterDisplay = BetterDisplayLight.shared
     @State private var runningApps: [String] = []
+    @State private var showLocationMap = false
     @ObservedObject private var light = LightController.shared
 
     private var profile: LightProfile { LightProfile(rawValue: profileRaw) ?? .recommended }
@@ -35,6 +37,7 @@ struct LightPane: View {
                 nowSection
                 scheduleSection
                 exceptionsSection
+                LightMonitorsSection()
                 locationSection.expertOnly()
                 ambientSection.expertOnly()
                 advancedSection.expertOnly()
@@ -89,7 +92,7 @@ struct LightPane: View {
             }
             HStack {
                 if light.pausedUntil == nil {
-                    Menu("Wyłącz…") {
+                    Menu("Wstrzymaj zmianę barwy…") {
                         Button("na godzinę") { light.disable(forMinutes: 60) }
                         Button("do wschodu słońca") { light.disableUntilSunrise() }
                     }
@@ -138,14 +141,31 @@ struct LightPane: View {
                     set: { UserDefaults.standard.set($0, forKey: LightKeys.wakeMinutes) }))
             }
             if profile.isCustom {
-                Menu("Zacznij od profilu…") {
+                Menu("Wykres barwy: zacznij od profilu…") {
                     Button("Zalecane") { light.startCustomCurve(from: .recommended) }
                     Button("Klasyczne") { light.startCustomCurve(from: .classic) }
                     Button("Daleko od równika") { light.startCustomCurve(from: .farFromEquator) }
                     Button("Praca do późna") { light.startCustomCurve(from: .workingLate) }
                 }
                 .fixedSize()
+                Text("Zastępuje wykres barwy z sekcji „Teraz” (barwa godzina po godzinie) wartościami wybranego profilu. Rzeczy, które narysowałeś na wykresie, przepadną.")
+                    .settingsNote()
+                if let base = LightProfile(rawValue: customBaseRaw), !base.isCustom {
+                    Text("Wykres w sekcji „Teraz” zaczęto od profilu „\(profileName(base))”. Możesz go dalej poprawiać palcem po wykresie.")
+                        .settingsNote()
+                }
             }
+        }
+    }
+
+    private func profileName(_ profile: LightProfile) -> String {
+        switch profile {
+        case .recommended: return String(localized: "Zalecane")
+        case .classic: return String(localized: "Klasyczne")
+        case .farFromEquator: return String(localized: "Daleko od równika")
+        case .workingLate: return String(localized: "Praca do późna")
+        case .custom: return String(localized: "Własne (wg zegara)")
+        case .customSun: return String(localized: "Własne (wg Słońca)")
         }
     }
 
@@ -271,6 +291,12 @@ struct LightPane: View {
             LabeledContent("Źródło") { Text(light.locationNote).foregroundStyle(.secondary) }
             TextField("Współrzędne", text: $manualLocation, prompt: Text(verbatim: "52.4, 22"))
                 .textFieldStyle(.editable)
+            Button("Wybierz na mapie…") { showLocationMap = true }
+                .sheet(isPresented: $showLocationMap) {
+                    LocationMapSheet(center: light.point, pin: LightLocation.parse(manualLocation)) {
+                        manualLocation = LightLocation.format($0)
+                    }
+                }
             if !manualLocation.isEmpty, LightLocation.parse(manualLocation) == nil {
                 Label("Wpisz szerokość i długość oddzielone przecinkiem, np. 52.4, 22", systemImage: "exclamationmark.triangle.fill")
                     .foregroundStyle(.orange)

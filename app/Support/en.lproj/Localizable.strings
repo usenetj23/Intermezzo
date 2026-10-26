@@ -134,6 +134,7 @@
 "Brak innych kopii na tym Macu." = "No other copies on this Mac.";
 "Brak odcinków tego dnia." = "No intervals on this day.";
 "Brak uprawnień do nagrywania ekranu" = "No screen recording permission";
+"Brak wschodu lub zachodu Słońca w tym miejscu (dzień lub noc polarna)." = "The Sun neither rises nor sets here (polar day or night).";
 "Break" = "Break";
 "Break #%lld today" = "Break #%lld today";
 "Break #%lld today · let's keep that streak going" = "Break #%lld today · let's keep that streak going";
@@ -226,6 +227,7 @@
 "Daily goal: %lld pomodoros" = "Daily goal (pomodoros): %lld";
 "Dalej" = "Next";
 "Daleko od równika" = "Far from the equator";
+"Dane mapy: Natural Earth (domena publiczna); nazwy miast: GeoNames, licencja CC BY 4.0." = "Map data: Natural Earth (public domain); city names: GeoNames, licence CC BY 4.0.";
 "Data;Od;Do;Praca;Biuro;Zdalnie;W godzinach;Nadgodziny;Nadgodziny rozliczeniowe;Nadgodziny zdalne;Nadgodziny zdalne rozliczeniowe;Aktywnie przy komputerze;Korekta;Notatki" = "Date;From;To;Work;Office;Remote;Within hours;Overtime;Billable overtime;Remote overtime;Billable remote overtime;Active at the computer;Correction;Notes";
 "Days" = "Days";
 "Days off: %lld" = "Days off: %lld";
@@ -404,6 +406,7 @@
 "Klasyczna" = "Classic";
 "Klasyczne" = "Classic";
 "Kliknij dzień w kalendarzu, aby zobaczyć jego log i go poprawić. Nadgodziny = praca poza godzinami pracy, w dni wolne cała praca; rozliczane w dół do pełnych 15 min, za każdy dzień osobno dla biura i pracy zdalnej. ✎ = korekta ręczna." = "Click a day in the calendar to see its log and correct it. Overtime = work outside working hours, and all work on days off; it is rounded down to whole 15 minutes, separately for office and remote work on each day. ✎ = manual correction.";
+"Kliknij mapę, żeby postawić pinezkę, i przeciągnij ją, żeby ją przesunąć. Przeciągnięcie mapy przesuwa mapę, a kółko myszy, szczypanie i przyciski + i − ją przybliżają. Cień pokazuje, gdzie teraz jest dzień, zmierzch i noc." = "Click the map to drop the pin and drag the pin to move it. Dragging the map moves the map, and the mouse wheel, pinching and the + and − buttons zoom it. The shading shows where it is day, twilight and night right now.";
 "Kocie grzbiety" = "Cat backs";
 "Kod AppleScript" = "AppleScript code";
 "Kolacja" = "Dinner";
@@ -457,6 +460,7 @@
 "Mac i ekran nie zasną" = "The Mac and the screen will not sleep";
 "Mac mocno się nagrzał, więc czuwanie zostało wyłączone." = "The Mac got very hot, so keep awake was turned off.";
 "Mac nie zaśnie" = "The Mac will not sleep";
+"Mapa jest niedostępna, ale współrzędne możesz wpisać ręcznie." = "The map is unavailable, but you can type the coordinates by hand.";
 "Match the break to the session you just finished" = "Match the break to the session you just finished";
 "Mean disruptions" = "Mean disruptions";
 "Mean disruptions per pomodoro: %@ %@, %@ %@ (difference %@)" = "Mean disruptions per pomodoro: %@ %@, %@ %@ (difference %@)";
@@ -475,6 +479,7 @@
 "Mode:" = "Mode:";
 "Moje przypomnienie" = "My reminder";
 "Mon" = "Mon";
+"Monitory" = "Monitors";
 "Monospaced" = "Monospaced";
 "Motyw, powiadomienia i wygląd ekranu przerwy" = "Theme, notifications and the look of the break screen";
 "Mrożone szkło" = "Frosted glass";
@@ -502,6 +507,7 @@
 "Nagrywanie ekranu" = "Screen recording";
 "Nagrywanie ekranu / streaming" = "Screen recording / streaming";
 "Nagrywanie ekranu przyznane — Glass działa" = "Screen recording granted — the Glass effect works";
+"Najcieplejszy kolor: %lld K" = "Warmest colour: %lld K";
 "Najczęstsze odstępy między propozycjami z tej reguły" = "Shortest interval between suggestions from this rule";
 "Najgorsza pozycja to kolejna" = "The best position is the next one";
 "Najważniejszy nawyk przy monitorze" = "The most important habit at the screen";
@@ -545,7 +551,9 @@
 "Nie udało się zapisać pliku testowego." = "Couldn't write the test file.";
 "Nie widać jeszcze innych Maców w tym folderze." = "No other Macs in this folder yet.";
 "Nie wiem" = "I don't know";
+"Nie wybrano jeszcze miejsca." = "No place chosen yet.";
 "Nie wyłączaj przy niskiej baterii" = "Don't turn off on a low battery";
+"Nie zarządzaj tym monitorem (np. telewizorem)" = "Don’t manage this monitor (e.g. a TV)";
 "Nie zmieniaj barw w aplikacjach pełnoekranowych" = "Don't change colours in full-screen apps";
 "Nieaktywność liczy się od: %lld min" = "Inactivity counts from: %lld min";
 "Niebieskie światło i koniec dnia" = "Blue light and the end of the day";
@@ -563,6 +571,7 @@
 "Not run: the selected sensor is missing or invalid, or one is already running." = "Not run: the selected sensor is missing or invalid, or one is already running.";
 "Notatka (np. awaria linii 3)" = "Note (e.g. line 3 breakdown)";
 "Notifications" = "Notifications";
+"Nowy monitor od razu dostaje ogólną krzywą. Takie same monitory mają wspólne ustawienia. Ustawienia są pamiętane tylko na tym Macu i wracają, gdy monitor zostanie podłączony ponownie." = "A new monitor gets the general curve straight away. Identical monitors share their settings. The settings are kept on this Mac only and come back when the monitor is connected again.";
 "Nowy skrypt…" = "New script…";
 "O aplikacji" = "About";
 "OBS, ScreenFlow, Loom, Screen Studio, CleanShot lub nagranie ekranu w QuickTime ma otwarte okno. Wykrywa narzędzie, nie sam fakt nagrywania, więc przy otwartym OBS bez nagrywania też zadziała." = "OBS, ScreenFlow, Loom, Screen Studio, CleanShot or QuickTime screen recording has a window open. It detects the tool, not the recording itself, so it also triggers with OBS open but not recording.";
@@ -576,6 +585,7 @@
 "Od – do" = "From – to";
 "Odchylenie do tyłu z rękami na biodrach. 10 sekund. Drugie ćwiczenie: kolano do klatki." = "Lean back with your hands on your hips for 10 seconds. Then: knee to chest.";
 "Odcień całego okna, panelu i powiadomień. Dół jest zawsze ciemniejszy." = "The tint of the whole window, panel and notifications. The bottom is always darker.";
+"Oddal" = "Zoom out";
 "Oddech" = "Breathing";
 "Oddech pudełkowy 4-4-4-4" = "Box breathing 4-4-4-4";
 "Oddech w kwadracie" = "Box breathing";
@@ -653,6 +663,7 @@
 "Podgląd doby (12 s)" = "Preview the day (12 s)";
 "Podgląd scen pogodowych" = "Weather scene previews";
 "Podgląd sceny" = "Scene preview";
+"Podgląd wieczoru" = "Preview the evening";
 "Podgląd/Skim/App Books na pierwszym planie: wpatrujesz się w ekran, ale nie ruszasz myszką — Intermezzo nie powinien traktować tego jako naturalnej przerwy, a przerwy oddelegować na po przeczytaniu rozdziału." = "Preview/Skim/Books in front: you stare at the screen without moving the mouse — Intermezzo shouldn't treat that as a natural break, and should postpone breaks until you finish the chapter.";
 "Podpowiedzi zależne od pogody (co trzecia przerwa)" = "Weather-based tips (every third break)";
 "Podpłóń się na biurku na prostych rękach, zaokrąglij plecy w górę na wydechu, na wdechu lekko pogłęb lordozę. 5 powtórzeń." = "Lean on the desk with straight arms, round your back upwards as you breathe out, and on the inhale gently deepen the lower back curve. 5 repetitions.";
@@ -756,7 +767,9 @@
 "Przy ekranie mrugamy ok. 4–6 razy na minutę zamiast 15–20 (Lapa i in. 2023; Kaur i in. 2022). Krótkie okienko przypomina o kilku pełnych mrugnięciach. Tylko w trakcie aktywnej pracy." = "At a screen we blink about 4–6 times a minute instead of 15–20 (Lapa et al. 2023; Kaur et al. 2022). A short popup reminds you to blink fully a few times. Only during active work.";
 "Przy monitorze mrugamy nawet 3× rzadziej niż normalnie — stąd suchość oczu." = "At a monitor we blink up to 3× less often than normal — hence dry eyes.";
 "Przy monitorze ramiona niech opadną, a nie unoszą do uszu.\n\nĆwiczenia na przerwie (30 sekund):\n• Powolne skręty głowy — ucho do ramienia, bez szarpnięć, 5 s na stronę.\n• Krążenia ramion do tyłu — 10 powtórzeń, wydech w dół.\n• Splecione dłonie za plecami, klatka do przodu — otwarcie na 15 s.\n\nJeśli czujesz punkt bólu między łopatkami — to znak, że siedzisz za długo\nw jednej pozycji, a nie że potrzebujesz mocniejszego krzesła." = "At the screen, let your shoulders drop instead of creeping up to your ears.\n\nExercises for a break (30 seconds):\n• Slow head tilts — ear towards shoulder, no jerking, 5 s per side.\n• Shoulder rolls backwards — 10 reps, breathe out on the way down.\n• Hands clasped behind your back, chest forward — open up for 15 s.\n\nIf you feel a sore spot between your shoulder blades, it means you've been sitting too long\nin one position, not that you need a sturdier chair.";
+"Przybliż" = "Zoom in";
 "Przyciemniaj monitory wieczorem (sprzętowo)" = "Dim the monitors in the evening (hardware)";
+"Przyciemnianie sprzętowe jest wyłączone (sekcja BetterDisplay), więc ten wybór na razie nic nie zmienia." = "Hardware dimming is switched off (BetterDisplay section), so this choice changes nothing for now.";
 "Przyciemnij maksymalnie o %lld%%" = "Dim by at most %lld%%";
 "Przykład: reguła „Aplikacja z przodu = Keynote” z opcją „Automatycznie pomiń” pomija przerwy podczas prezentacji. „Odrocz” sprawdza warunek ponownie przy każdej próbie wystartowania przerwy, aż przestanie pasować." = "Example: a rule “Frontmost app = Keynote” with “Skip automatically” skips breaks during presentations. “Postpone” checks the condition again at each attempt to start a break until it stops matching.";
 "Przypomnienie" = "Reminder";
@@ -765,6 +778,7 @@
 "Przysiady przy biurku" = "Squats at the desk";
 "Przywróć bibliotekę" = "Restore library";
 "Przywróć domyślny" = "Reset to default";
+"Przywróć ogólne" = "Back to general";
 "Przywróć wersję z galerii" = "Restore the gallery version";
 "Przyznaj uprawnienia…" = "Grant permissions…";
 "Pt" = "Fri";
@@ -873,6 +887,7 @@
 "Sieć LAN jest rozpoznawana po tym, co podaje jej serwer DHCP (router, domena, DNS), niezależnie od karty. Kartę lub stację zapamiętaj tylko, jeśli nie używasz jej poza pracą." = "A LAN is recognised by what its DHCP server hands out (router, domain, DNS), whatever the adapter. Remember an adapter or dock only if you never use it outside work.";
 "Sieć przewodowa (LAN, stacja dokująca)" = "Wired network (LAN, dock)";
 "Silniejsze przypomnienie co %lld min" = "Stronger reminder every %lld min";
+"Skala mapy: ok. %@ km na punkt ekranu" = "Map scale: about %@ km per screen point";
 "Skanowanie…" = "Scanning…";
 "Skanuj teraz" = "Scan now";
 "Skip break" = "Skip break";
@@ -1056,6 +1071,7 @@
 "Utwórz" = "Create";
 "Uwzględniaj jasność pokoju z czujnika w Macu" = "Use the room's brightness from the Mac's sensor";
 "Uwzględniaj zachmurzenie" = "Take cloud cover into account";
+"Użyj tego miejsca" = "Use this place";
 "VPN connected but not on the list: %@" = "VPN connected but not on the list: %@";
 "VPN do pracy zdalnej (po przecinku, fragment nazwy)" = "Remote-work VPNs (comma-separated, part of the name)";
 "VPN from list connected: %@" = "VPN from list connected: %@";
@@ -1115,6 +1131,7 @@
 "Work zone — with any option below ON, breaks only run while at least one of the enabled options matches (calendar event, VPN, Wi-Fi or place). All OFF = breaks always run." = "Work zone — with any option below ON, breaks only run while at least one of the enabled options matches (calendar event, VPN, Wi-Fi or place). All OFF = breaks always run.";
 "Working Hours" = "Working Hours";
 "Wpisz szerokość i długość oddzielone przecinkiem, np. 52.4, 22" = "Enter the latitude and longitude separated by a comma, e.g. 52.4, 22";
+"Wschód %@, zachód %@ (czas Maca)." = "Sunrise %@, sunset %@ (the Mac’s time).";
 "Wschód słońca" = "Sunrise";
 "Wspięcia na palce" = "Calf raises";
 "Wspólny motyw dla panelu paska menu, powiadomień, pastylki i tego okna." = "One theme for the menu-bar panel, notifications, the pill and this window.";
@@ -1128,6 +1145,7 @@
 "Wstrzymaj lub wznów timer" = "Pause or resume the timer";
 "Wstrzymaj timer" = "Pause timer";
 "Wstrzymaj wszystko na stałe" = "Pause everything indefinitely";
+"Wstrzymaj zmianę barwy…" = "Pause the colour change…";
 "Wstrzymane" = "Paused";
 "Wstrzymane do %@" = "Paused until %@";
 "Wstrzymane ręcznie" = "Paused manually";
@@ -1137,6 +1155,8 @@
 "Wszystkie" = "All";
 "Wt" = "Tue";
 "Wybierz" = "Choose";
+"Wybierz miejsce na mapie" = "Pick a place on the map";
+"Wybierz na mapie…" = "Pick on the map…";
 "Wybierz punkt na podłodze ok. 2,5 m przed sobą. Rysuj wzrokiem leżącą ósemkę przez 30 sekund w jedną stronę i 30 w drugą." = "Pick a point on the floor about 2.5 m in front of you. Trace a sideways figure eight with your eyes for 30 seconds one way and 30 the other.";
 "Wycisz dźwięk, odpal skrypt, pokaż tekst" = "Mute the sound, run a script, show a text";
 "Wyciągnij kciuk na długość ręki. Patrz na niego 5 sekund, potem na odległy punkt 5 sekund. Powtórz 5 razy, płynnie." = "Hold your thumb out at arm's length. Look at it for 5 seconds, then at a distant point for 5 seconds. Repeat 5 times, smoothly.";
@@ -1146,6 +1166,8 @@
 "Wyjdź z pomieszczenia i przejdź się przez 2–5 minut: korytarz, schody lub podwórko. Każdy ruch się liczy." = "Leave the room and walk for 2–5 minutes: a corridor, stairs or the yard. Every bit of movement counts.";
 "Wyjątki" = "Exceptions";
 "Wykres barwy ekranu w ciągu doby" = "Chart of the screen colour over the day";
+"Wykres barwy: zacznij od profilu…" = "Colour chart: start from a profile…";
+"Wykres w sekcji „Teraz” zaczęto od profilu „%@”. Możesz go dalej poprawiać palcem po wykresie." = "The chart in the “Now” section was started from the “%@” profile. You can keep adjusting it by dragging across the chart.";
 "Wykrok – biodra" = "Lunge for the hips";
 "Wykrywa tryb slajdów Keynote lub PowerPointa — publiczność patrzy na Ciebie, nie na Twój nadgarstek. Przerwa poczeka do końca prezentacji." = "Detects Keynote or PowerPoint slideshow mode — the audience is looking at you, not at your wrist. The break waits until the presentation ends.";
 "Wykrywa, gdy aktywnie prowadzisz lub odbierasz rozmowę FaceTime. Przerwa zostanie odroczona do końca spotkania." = "Detects when you are actively in a FaceTime call. The break is postponed until the meeting ends.";
@@ -1171,7 +1193,6 @@
 "Wyłączone, bo Mac się nagrzał." = "Turned off because the Mac got hot.";
 "Wyłączone, bo bateria spadła poniżej progu." = "Turned off because the battery fell below the limit.";
 "Wyłączone, bo włączył się tryb niskiego zużycia energii." = "Turned off because Low Power Mode came on.";
-"Wyłącz…" = "Turn off…";
 "Wyślij testowe powiadomienie" = "Send test notification";
 "Wznawia timer przerw" = "Resumes the break timer";
 "Wznawiaj odtwarzanie po przerwie" = "Resume playback after the break";
@@ -1184,10 +1205,12 @@
 "Własne (wg Słońca)" = "Custom (by the Sun)";
 "Własne (wg zegara)" = "Custom (by the clock)";
 "Własne okienko (motyw)" = "Own popup (themed)";
+"Własne przyciemnienie" = "Own dimming";
 "Własne skrypty" = "Your scripts";
 "Własne…" = "Custom…";
 "Własny czas" = "Custom length";
 "Własny czas pasuje do przerwy śniadaniowej (9:00, 15 min) albo obiadu (12:30, 30 min). Startuje w podanej minucie, o ile aplikacja nie jest wstrzymana (spotkanie, poza godzinami pracy). Z opcją „Zapytaj” dostaniesz powiadomienie z przyciskiem Zacznij." = "A custom length suits a breakfast break (9:00, 15 min) or lunch (12:30, 30 min). It starts in the given minute unless the app is paused (meeting, outside working hours). With “Ask” you get a notification with a Start button.";
+"Własny limit koloru" = "Own colour limit";
 "Włącz na…" = "Turn on for…";
 "Włącza czuwanie: Mac nie zaśnie do wyłączenia" = "Turns keep awake on: the Mac will not sleep until you turn it off";
 "Włącza dopasowanie barwy ekranu do pory dnia" = "Turns on adjusting the screen colour to the time of day";
@@ -1213,7 +1236,6 @@
 "Zaciśnij pięści na 3 sekundy, potem rozsuń palce szeroko na 3 sekundy. Powtórz 10 razy. Strząśnij dłonie." = "Clench your fists for 3 seconds, then spread your fingers wide for 3 seconds. Repeat 10 times. Shake out your hands.";
 "Zaciśnięte szczęki i uniesione ramiona to najczęstsze 'niewidoczne' napięcia pracy przy biurku." = "Clenched jaws and raised shoulders are the most common “invisible” tensions of desk work.";
 "Zacznij" = "Start";
-"Zacznij od profilu…" = "Start from a profile…";
 "Zacznij przerwę" = "Start break";
 "Zadanie: wyjdź na korytarz" = "Task: step into the corridor";
 "Zainstalowana wersja jest starsza i nie ma nastaw. Kliknij „Przywróć wersję z galerii”." = "The installed version is older and has no settings. Click “Restore the gallery version”.";
@@ -1236,6 +1258,7 @@
 "Zamrugaj" = "Blink";
 "Zamrugaj 10 razy i napij się wody. Sprawdź, czy nawiew lub klimatyzacja nie dmucha prosto w twarz." = "Blink 10 times and drink some water. Check that a vent or air conditioning isn't blowing straight into your face.";
 "Zamyka panel z paska menu" = "Closes the menu-bar panel";
+"Zapamiętane, niepodłączone" = "Remembered, not connected";
 "Zapis nie powiódł się." = "Saving failed.";
 "Zapisano %lld ml %@ · dziś %lld ml (%@)" = "Logged %lld ml of %@ · today %lld ml (%@)";
 "Zapisuj dłuższą nieobecność jako przerwę naturalną" = "Record longer absences as natural breaks";
@@ -1246,6 +1269,7 @@
 "Zapytaj zamiast startować" = "Ask instead of starting";
 "Zasada 20-20-20" = "The 20-20-20 rule";
 "Zasada 20-20-20 spopularyzowali optometryści: co 20 minut patrz 20 sekund na obiekt 20 stóp dalej." = "Optometrists popularised the 20-20-20 rule: every 20 minutes look at an object 20 feet away for 20 seconds.";
+"Zastępuje wykres barwy z sekcji „Teraz” (barwa godzina po godzinie) wartościami wybranego profilu. Rzeczy, które narysowałeś na wykresie, przepadną." = "Replaces the colour chart in the “Now” section (the colour hour by hour) with the values of the chosen profile. Anything you drew on the chart is lost.";
 "Zatrzymaj dźwięk" = "Stop the sound";
 "Zatrzymaj podgląd" = "Stop the preview";
 "Zatrzymuje dźwięk przerwy lub muzykę relaksacyjną (także: stopSound)" = "Stops the break sound or relaxation music (also: stopSound)";
@@ -1279,6 +1303,7 @@
 "Zwróć true, gdy warunek jest spełniony (wtedy reguła działa), w przeciwnym razie false." = "Return true when the condition is met (then the rule acts), otherwise false.";
 "Złącz dłonie za plecami, wypchnij klatkę do przodu i unieś lekko brodę. Trzymaj 20 sekund, oddychaj głęboko." = "Clasp your hands behind your back, push your chest forward and lift your chin slightly. Hold for 20 seconds, breathe deeply.";
 "aktywnie %@" = "active %@";
+"bez zarządzania" = "not managed";
 "brak odczytu" = "no reading";
 "brak odpowiedzi (włącz integrację w BetterDisplay)" = "no answer (turn the integration on in BetterDisplay)";
 "breaks skipped" = "breaks skipped";
@@ -1305,6 +1330,7 @@
 "jeszcze nie" = "not yet";
 "karta / stacja" = "adapter / dock";
 "kawa" = "coffee";
+"kolor do %lld K" = "colour down to %lld K";
 "korekta ręczna" = "manual correction";
 "krótka" = "short";
 "ktoś ogląda Twój ekran (usługa macOS działa tylko podczas połączenia)" = "someone is watching your screen (the macOS service only runs during a connection)";
@@ -1329,6 +1355,7 @@
 "np. Firma, Firma-5G" = "e.g. Office, Office-5G";
 "od %lld min" = "from %lld min";
 "odłożona" = "postponed";
+"ogólna krzywa" = "general curve";
 "ostatnie %lld z %lld" = "last %lld of %lld";
 "pominięta" = "skipped";
 "pominięta przed startem" = "skipped before it started";
@@ -1337,6 +1364,7 @@
 "pomodoros" = "pomodoros";
 "poza strefą pracy" = "outside the work zone";
 "przybliżona, ze strefy czasowej %@" = "approximate, from the time zone %@";
+"przyciemnienie %lld%%" = "dimming %lld%%";
 "radius m" = "radius m";
 "router %@" = "router %@";
 "s po" = "s after";

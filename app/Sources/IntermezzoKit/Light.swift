@@ -206,6 +206,13 @@ public enum LightLocation {
         return GeoPoint(latitude: lat, longitude: lon)
     }
 
+    /// The text `parse` reads back: "52.40, 22.00" (decimal points whatever the region, values kept in range).
+    public static func format(_ point: GeoPoint) -> String {
+        let lat = min(max(point.latitude, -90), 90)
+        let lon = min(max(point.longitude, -180), 180)
+        return String(format: "%.2f, %.2f", locale: Locale(identifier: "en_US_POSIX"), lat, lon)
+    }
+
     /// The reference city of a time zone from /usr/share/zoneinfo/zone.tab (ISO 6709 coordinates).
     public static func fromZoneTab(zoneID: String, table: String) -> GeoPoint? {
         for line in table.split(separator: "\n") where !line.hasPrefix("#") {

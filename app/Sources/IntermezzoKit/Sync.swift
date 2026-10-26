@@ -9,7 +9,7 @@ import Foundation
 /// on one machine: window geometry, permissions, migrations, file paths, daily counters, debug flags.
 public enum SyncPolicy {
     private static let localPrefixes = ["NS", "com_apple_", "Apple", "permissionAsked", "sync", "fx",
-                                        "screenTime", "last", "legacy", "betterDisplay"]
+                                        "screenTime", "last", "legacy", "betterDisplay", "lightMonitors"]
     private static let localKeys: Set<String> = [
         "pomodoroLedger",      // merged separately (see PomodoroLedger.merged)
         "autostart",           // the login item is registered per Mac

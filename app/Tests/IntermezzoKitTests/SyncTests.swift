@@ -13,7 +13,7 @@ final class SyncTests: XCTestCase {
                     "relaxAudioPath.long", "breakStartScriptPath", "imageThemeItems",
                     "pomodoroLedger", "snoozeBudget", "tickProfile", "fxNoImg", "hydrationLog", "autostart",
                     "lightDisabledUntil", "weatherLat", "weatherLon", "awakeMode", "awakeUntil",
-                    "betterDisplayDim", "betterDisplayDimPercent", "betterDisplayTrueTone", "betterDisplayState", "betterDisplayUnlinkGroup"] {
+                    "lightMonitors", "betterDisplayDim", "betterDisplayDimPercent", "betterDisplayTrueTone", "betterDisplayState", "betterDisplayUnlinkGroup"] {
             XCTAssertFalse(SyncPolicy.isSynced(key: key), key)
         }
     }

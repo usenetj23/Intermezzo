@@ -134,6 +134,7 @@
 "Brak innych kopii na tym Macu." = "Brak innych kopii na tym Macu.";
 "Brak odcinków tego dnia." = "Brak odcinków tego dnia.";
 "Brak uprawnień do nagrywania ekranu" = "Brak uprawnień do nagrywania ekranu";
+"Brak wschodu lub zachodu Słońca w tym miejscu (dzień lub noc polarna)." = "Brak wschodu lub zachodu Słońca w tym miejscu (dzień lub noc polarna).";
 "Break" = "Przerwa";
 "Break #%lld today" = "Dziś przerwa nr %lld";
 "Break #%lld today · let's keep that streak going" = "Dziś przerwa nr %lld · utrzymajmy tę passę";
@@ -226,6 +227,7 @@
 "Daily goal: %lld pomodoros" = "Cel dzienny: %lld pomodoro";
 "Dalej" = "Dalej";
 "Daleko od równika" = "Daleko od równika";
+"Dane mapy: Natural Earth (domena publiczna); nazwy miast: GeoNames, licencja CC BY 4.0." = "Dane mapy: Natural Earth (domena publiczna); nazwy miast: GeoNames, licencja CC BY 4.0.";
 "Data;Od;Do;Praca;Biuro;Zdalnie;W godzinach;Nadgodziny;Nadgodziny rozliczeniowe;Nadgodziny zdalne;Nadgodziny zdalne rozliczeniowe;Aktywnie przy komputerze;Korekta;Notatki" = "Data;Od;Do;Praca;Biuro;Zdalnie;W godzinach;Nadgodziny;Nadgodziny rozliczeniowe;Nadgodziny zdalne;Nadgodziny zdalne rozliczeniowe;Aktywnie przy komputerze;Korekta;Notatki";
 "Days" = "Dni";
 "Days off: %lld" = "Dni wolne: %lld";
@@ -404,6 +406,7 @@
 "Klasyczna" = "Klasyczna";
 "Klasyczne" = "Klasyczne";
 "Kliknij dzień w kalendarzu, aby zobaczyć jego log i go poprawić. Nadgodziny = praca poza godzinami pracy, w dni wolne cała praca; rozliczane w dół do pełnych 15 min, za każdy dzień osobno dla biura i pracy zdalnej. ✎ = korekta ręczna." = "Kliknij dzień w kalendarzu, aby zobaczyć jego rejestr i go poprawić. Nadgodziny = praca poza godzinami pracy, w dni wolne cała praca; rozliczane w dół do pełnych 15 min, za każdy dzień osobno dla biura i pracy zdalnej. ✎ = korekta ręczna.";
+"Kliknij mapę, żeby postawić pinezkę, i przeciągnij ją, żeby ją przesunąć. Przeciągnięcie mapy przesuwa mapę, a kółko myszy, szczypanie i przyciski + i − ją przybliżają. Cień pokazuje, gdzie teraz jest dzień, zmierzch i noc." = "Kliknij mapę, żeby postawić pinezkę, i przeciągnij ją, żeby ją przesunąć. Przeciągnięcie mapy przesuwa mapę, a kółko myszy, szczypanie i przyciski + i − ją przybliżają. Cień pokazuje, gdzie teraz jest dzień, zmierzch i noc.";
 "Kocie grzbiety" = "Kocie grzbiety";
 "Kod AppleScript" = "Kod AppleScript";
 "Kolacja" = "Kolacja";
@@ -457,6 +460,7 @@
 "Mac i ekran nie zasną" = "Mac i ekran nie zasną";
 "Mac mocno się nagrzał, więc czuwanie zostało wyłączone." = "Mac mocno się nagrzał, więc czuwanie zostało wyłączone.";
 "Mac nie zaśnie" = "Mac nie zaśnie";
+"Mapa jest niedostępna, ale współrzędne możesz wpisać ręcznie." = "Mapa jest niedostępna, ale współrzędne możesz wpisać ręcznie.";
 "Match the break to the session you just finished" = "Dopasuj przerwę do właśnie zakończonej sesji";
 "Mean disruptions" = "Średnia zakłóceń";
 "Mean disruptions per pomodoro: %@ %@, %@ %@ (difference %@)" = "Średnia liczba zakłóceń na pomodoro: %@ %@, %@ %@ (różnica %@)";
@@ -475,6 +479,7 @@
 "Mode:" = "Tryb:";
 "Moje przypomnienie" = "Moje przypomnienie";
 "Mon" = "Pn";
+"Monitory" = "Monitory";
 "Monospaced" = "Stałej szerokości";
 "Motyw, powiadomienia i wygląd ekranu przerwy" = "Motyw, powiadomienia i wygląd ekranu przerwy";
 "Mrożone szkło" = "Mrożone szkło";
@@ -502,6 +507,7 @@
 "Nagrywanie ekranu" = "Nagrywanie ekranu";
 "Nagrywanie ekranu / streaming" = "Nagrywanie ekranu / streaming";
 "Nagrywanie ekranu przyznane — Glass działa" = "Nagrywanie ekranu przyznane — efekt Szkło działa";
+"Najcieplejszy kolor: %lld K" = "Najcieplejszy kolor: %lld K";
 "Najczęstsze odstępy między propozycjami z tej reguły" = "Minimalny odstęp między propozycjami z tej reguły";
 "Najgorsza pozycja to kolejna" = "Najlepsza pozycja to następna";
 "Najważniejszy nawyk przy monitorze" = "Najważniejszy nawyk przy monitorze";
@@ -545,7 +551,9 @@
 "Nie udało się zapisać pliku testowego." = "Nie udało się zapisać pliku testowego.";
 "Nie widać jeszcze innych Maców w tym folderze." = "Nie widać jeszcze innych Maców w tym folderze.";
 "Nie wiem" = "Nie wiem";
+"Nie wybrano jeszcze miejsca." = "Nie wybrano jeszcze miejsca.";
 "Nie wyłączaj przy niskiej baterii" = "Nie wyłączaj przy niskiej baterii";
+"Nie zarządzaj tym monitorem (np. telewizorem)" = "Nie zarządzaj tym monitorem (np. telewizorem)";
 "Nie zmieniaj barw w aplikacjach pełnoekranowych" = "Nie zmieniaj barw w aplikacjach pełnoekranowych";
 "Nieaktywność liczy się od: %lld min" = "Nieaktywność liczy się od: %lld min";
 "Niebieskie światło i koniec dnia" = "Niebieskie światło i koniec dnia";
@@ -563,6 +571,7 @@
 "Not run: the selected sensor is missing or invalid, or one is already running." = "Nie uruchomiono: wybrany czujnik nie istnieje lub jest nieprawidłowy albo inny czujnik już działa.";
 "Notatka (np. awaria linii 3)" = "Notatka (np. awaria linii 3)";
 "Notifications" = "Powiadomienia";
+"Nowy monitor od razu dostaje ogólną krzywą. Takie same monitory mają wspólne ustawienia. Ustawienia są pamiętane tylko na tym Macu i wracają, gdy monitor zostanie podłączony ponownie." = "Nowy monitor od razu dostaje ogólną krzywą. Takie same monitory mają wspólne ustawienia. Ustawienia są pamiętane tylko na tym Macu i wracają, gdy monitor zostanie podłączony ponownie.";
 "Nowy skrypt…" = "Nowy skrypt…";
 "O aplikacji" = "O aplikacji";
 "OBS, ScreenFlow, Loom, Screen Studio, CleanShot lub nagranie ekranu w QuickTime ma otwarte okno. Wykrywa narzędzie, nie sam fakt nagrywania, więc przy otwartym OBS bez nagrywania też zadziała." = "OBS, ScreenFlow, Loom, Screen Studio, CleanShot lub nagranie ekranu w QuickTime ma otwarte okno. Wykrywa narzędzie, nie sam fakt nagrywania, więc przy otwartym OBS bez nagrywania też zadziała.";
@@ -576,6 +585,7 @@
 "Od – do" = "Od – do";
 "Odchylenie do tyłu z rękami na biodrach. 10 sekund. Drugie ćwiczenie: kolano do klatki." = "Odchylenie do tyłu z rękami na biodrach. 10 sekund. Drugie ćwiczenie: kolano do klatki.";
 "Odcień całego okna, panelu i powiadomień. Dół jest zawsze ciemniejszy." = "Odcień całego okna, panelu i powiadomień. Dół jest zawsze ciemniejszy.";
+"Oddal" = "Oddal";
 "Oddech" = "Oddech";
 "Oddech pudełkowy 4-4-4-4" = "Oddech pudełkowy 4-4-4-4";
 "Oddech w kwadracie" = "Oddech pudełkowy";
@@ -653,6 +663,7 @@
 "Podgląd doby (12 s)" = "Podgląd doby (12 s)";
 "Podgląd scen pogodowych" = "Podgląd scen pogodowych";
 "Podgląd sceny" = "Podgląd sceny";
+"Podgląd wieczoru" = "Podgląd wieczoru";
 "Podgląd/Skim/App Books na pierwszym planie: wpatrujesz się w ekran, ale nie ruszasz myszką — Intermezzo nie powinien traktować tego jako naturalnej przerwy, a przerwy oddelegować na po przeczytaniu rozdziału." = "Podgląd/Skim/Książki na pierwszym planie: wpatrujesz się w ekran, ale nie ruszasz myszką — Intermezzo nie powinno traktować tego jako naturalnej przerwy, a przerwy powinno odroczyć do końca rozdziału.";
 "Podpowiedzi zależne od pogody (co trzecia przerwa)" = "Podpowiedzi zależne od pogody (co trzecia przerwa)";
 "Podpłóń się na biurku na prostych rękach, zaokrąglij plecy w górę na wydechu, na wdechu lekko pogłęb lordozę. 5 powtórzeń." = "Oprzyj się o biurko na prostych rękach, zaokrąglij plecy w górę na wydechu, na wdechu lekko pogłęb lordozę. 5 powtórzeń.";
@@ -756,7 +767,9 @@
 "Przy ekranie mrugamy ok. 4–6 razy na minutę zamiast 15–20 (Lapa i in. 2023; Kaur i in. 2022). Krótkie okienko przypomina o kilku pełnych mrugnięciach. Tylko w trakcie aktywnej pracy." = "Przy ekranie mrugamy ok. 4–6 razy na minutę zamiast 15–20 (Lapa i in. 2023; Kaur i in. 2022). Krótkie okienko przypomina o kilku pełnych mrugnięciach. Tylko w trakcie aktywnej pracy.";
 "Przy monitorze mrugamy nawet 3× rzadziej niż normalnie — stąd suchość oczu." = "Przy monitorze mrugamy nawet 3× rzadziej niż normalnie — stąd suchość oczu.";
 "Przy monitorze ramiona niech opadną, a nie unoszą do uszu.\n\nĆwiczenia na przerwie (30 sekund):\n• Powolne skręty głowy — ucho do ramienia, bez szarpnięć, 5 s na stronę.\n• Krążenia ramion do tyłu — 10 powtórzeń, wydech w dół.\n• Splecione dłonie za plecami, klatka do przodu — otwarcie na 15 s.\n\nJeśli czujesz punkt bólu między łopatkami — to znak, że siedzisz za długo\nw jednej pozycji, a nie że potrzebujesz mocniejszego krzesła." = "Przy monitorze ramiona niech opadną, a nie unoszą się do uszu.\n\nĆwiczenia na przerwie (30 sekund):\n• Powolne skłony głowy — ucho do ramienia, bez szarpnięć, 5 s na stronę.\n• Krążenia ramion do tyłu — 10 powtórzeń, wydech w dół.\n• Splecione dłonie za plecami, klatka do przodu — otwarcie na 15 s.\n\nJeśli czujesz punkt bólu między łopatkami — to znak, że siedzisz za długo\nw jednej pozycji, a nie że potrzebujesz mocniejszego krzesła.";
+"Przybliż" = "Przybliż";
 "Przyciemniaj monitory wieczorem (sprzętowo)" = "Przyciemniaj monitory wieczorem (sprzętowo)";
+"Przyciemnianie sprzętowe jest wyłączone (sekcja BetterDisplay), więc ten wybór na razie nic nie zmienia." = "Przyciemnianie sprzętowe jest wyłączone (sekcja BetterDisplay), więc ten wybór na razie nic nie zmienia.";
 "Przyciemnij maksymalnie o %lld%%" = "Przyciemnij maksymalnie o %lld%%";
 "Przykład: reguła „Aplikacja z przodu = Keynote” z opcją „Automatycznie pomiń” pomija przerwy podczas prezentacji. „Odrocz” sprawdza warunek ponownie przy każdej próbie wystartowania przerwy, aż przestanie pasować." = "Przykład: reguła „Aplikacja z przodu = Keynote” z opcją „Automatycznie pomiń” pomija przerwy podczas prezentacji. „Odrocz” sprawdza warunek ponownie przy każdej próbie wystartowania przerwy, aż przestanie pasować.";
 "Przypomnienie" = "Przypomnienie";
@@ -765,6 +778,7 @@
 "Przysiady przy biurku" = "Przysiady przy biurku";
 "Przywróć bibliotekę" = "Przywróć bibliotekę";
 "Przywróć domyślny" = "Przywróć domyślny";
+"Przywróć ogólne" = "Przywróć ogólne";
 "Przywróć wersję z galerii" = "Przywróć wersję z galerii";
 "Przyznaj uprawnienia…" = "Przyznaj uprawnienia…";
 "Pt" = "Pt";
@@ -873,6 +887,7 @@
 "Sieć LAN jest rozpoznawana po tym, co podaje jej serwer DHCP (router, domena, DNS), niezależnie od karty. Kartę lub stację zapamiętaj tylko, jeśli nie używasz jej poza pracą." = "Sieć LAN jest rozpoznawana po tym, co podaje jej serwer DHCP (router, domena, DNS), niezależnie od karty. Kartę lub stację zapamiętaj tylko, jeśli nie używasz jej poza pracą.";
 "Sieć przewodowa (LAN, stacja dokująca)" = "Sieć przewodowa (LAN, stacja dokująca)";
 "Silniejsze przypomnienie co %lld min" = "Silniejsze przypomnienie co %lld min";
+"Skala mapy: ok. %@ km na punkt ekranu" = "Skala mapy: ok. %@ km na punkt ekranu";
 "Skanowanie…" = "Skanowanie…";
 "Skanuj teraz" = "Skanuj teraz";
 "Skip break" = "Pomiń przerwę";
@@ -1056,6 +1071,7 @@
 "Utwórz" = "Utwórz";
 "Uwzględniaj jasność pokoju z czujnika w Macu" = "Uwzględniaj jasność pokoju z czujnika w Macu";
 "Uwzględniaj zachmurzenie" = "Uwzględniaj zachmurzenie";
+"Użyj tego miejsca" = "Użyj tego miejsca";
 "VPN connected but not on the list: %@" = "VPN połączony, ale spoza listy: %@";
 "VPN do pracy zdalnej (po przecinku, fragment nazwy)" = "VPN do pracy zdalnej (po przecinku, fragment nazwy)";
 "VPN from list connected: %@" = "połączony VPN z listy: %@";
@@ -1115,6 +1131,7 @@
 "Work zone — with any option below ON, breaks only run while at least one of the enabled options matches (calendar event, VPN, Wi-Fi or place). All OFF = breaks always run." = "Strefa pracy: gdy włączona jest dowolna opcja poniżej, przerwy działają tylko wtedy, gdy pasuje co najmniej jedna z nich (wydarzenie w kalendarzu, VPN, Wi-Fi lub miejsce). Wszystkie wyłączone = przerwy działają zawsze.";
 "Working Hours" = "Godziny pracy";
 "Wpisz szerokość i długość oddzielone przecinkiem, np. 52.4, 22" = "Wpisz szerokość i długość oddzielone przecinkiem, np. 52.4, 22";
+"Wschód %@, zachód %@ (czas Maca)." = "Wschód %@, zachód %@ (czas Maca).";
 "Wschód słońca" = "Wschód słońca";
 "Wspięcia na palce" = "Wspięcia na palce";
 "Wspólny motyw dla panelu paska menu, powiadomień, pastylki i tego okna." = "Wspólny motyw dla panelu paska menu, powiadomień, pastylki i tego okna.";
@@ -1128,6 +1145,7 @@
 "Wstrzymaj lub wznów timer" = "Wstrzymaj lub wznów timer";
 "Wstrzymaj timer" = "Wstrzymaj timer";
 "Wstrzymaj wszystko na stałe" = "Wstrzymaj wszystko na stałe";
+"Wstrzymaj zmianę barwy…" = "Wstrzymaj zmianę barwy…";
 "Wstrzymane" = "Wstrzymane";
 "Wstrzymane do %@" = "Wstrzymane do %@";
 "Wstrzymane ręcznie" = "Wstrzymane ręcznie";
@@ -1137,6 +1155,8 @@
 "Wszystkie" = "Wszystkie";
 "Wt" = "Wt";
 "Wybierz" = "Wybierz";
+"Wybierz miejsce na mapie" = "Wybierz miejsce na mapie";
+"Wybierz na mapie…" = "Wybierz na mapie…";
 "Wybierz punkt na podłodze ok. 2,5 m przed sobą. Rysuj wzrokiem leżącą ósemkę przez 30 sekund w jedną stronę i 30 w drugą." = "Wybierz punkt na podłodze ok. 2,5 m przed sobą. Rysuj wzrokiem leżącą ósemkę przez 30 sekund w jedną stronę i 30 w drugą.";
 "Wycisz dźwięk, odpal skrypt, pokaż tekst" = "Wycisz dźwięk, odpal skrypt, pokaż tekst";
 "Wyciągnij kciuk na długość ręki. Patrz na niego 5 sekund, potem na odległy punkt 5 sekund. Powtórz 5 razy, płynnie." = "Wyciągnij kciuk na długość ręki. Patrz na niego 5 sekund, potem na odległy punkt 5 sekund. Powtórz 5 razy, płynnie.";
@@ -1146,6 +1166,8 @@
 "Wyjdź z pomieszczenia i przejdź się przez 2–5 minut: korytarz, schody lub podwórko. Każdy ruch się liczy." = "Wyjdź z pomieszczenia i przejdź się przez 2–5 minut: korytarz, schody lub podwórko. Każdy ruch się liczy.";
 "Wyjątki" = "Wyjątki";
 "Wykres barwy ekranu w ciągu doby" = "Wykres barwy ekranu w ciągu doby";
+"Wykres barwy: zacznij od profilu…" = "Wykres barwy: zacznij od profilu…";
+"Wykres w sekcji „Teraz” zaczęto od profilu „%@”. Możesz go dalej poprawiać palcem po wykresie." = "Wykres w sekcji „Teraz” zaczęto od profilu „%@”. Możesz go dalej poprawiać palcem po wykresie.";
 "Wykrok – biodra" = "Wykrok – biodra";
 "Wykrywa tryb slajdów Keynote lub PowerPointa — publiczność patrzy na Ciebie, nie na Twój nadgarstek. Przerwa poczeka do końca prezentacji." = "Wykrywa tryb slajdów Keynote lub PowerPointa — publiczność patrzy na Ciebie, nie na Twój nadgarstek. Przerwa poczeka do końca prezentacji.";
 "Wykrywa, gdy aktywnie prowadzisz lub odbierasz rozmowę FaceTime. Przerwa zostanie odroczona do końca spotkania." = "Wykrywa, gdy aktywnie prowadzisz lub odbierasz rozmowę FaceTime. Przerwa zostanie odroczona do końca spotkania.";
@@ -1171,7 +1193,6 @@
 "Wyłączone, bo Mac się nagrzał." = "Wyłączone, bo Mac się nagrzał.";
 "Wyłączone, bo bateria spadła poniżej progu." = "Wyłączone, bo bateria spadła poniżej progu.";
 "Wyłączone, bo włączył się tryb niskiego zużycia energii." = "Wyłączone, bo włączył się tryb niskiego zużycia energii.";
-"Wyłącz…" = "Wyłącz…";
 "Wyślij testowe powiadomienie" = "Wyślij testowe powiadomienie";
 "Wznawia timer przerw" = "Wznawia timer przerw";
 "Wznawiaj odtwarzanie po przerwie" = "Wznawiaj odtwarzanie po przerwie";
@@ -1184,10 +1205,12 @@
 "Własne (wg Słońca)" = "Własne (wg Słońca)";
 "Własne (wg zegara)" = "Własne (wg zegara)";
 "Własne okienko (motyw)" = "Własne okienko (motyw)";
+"Własne przyciemnienie" = "Własne przyciemnienie";
 "Własne skrypty" = "Własne skrypty";
 "Własne…" = "Własne…";
 "Własny czas" = "Własny czas";
 "Własny czas pasuje do przerwy śniadaniowej (9:00, 15 min) albo obiadu (12:30, 30 min). Startuje w podanej minucie, o ile aplikacja nie jest wstrzymana (spotkanie, poza godzinami pracy). Z opcją „Zapytaj” dostaniesz powiadomienie z przyciskiem Zacznij." = "Własny czas pasuje do przerwy śniadaniowej (9:00, 15 min) albo obiadu (12:30, 30 min). Startuje w podanej minucie, o ile aplikacja nie jest wstrzymana (spotkanie, poza godzinami pracy). Z opcją „Zapytaj” dostaniesz powiadomienie z przyciskiem „Zacznij”.";
+"Własny limit koloru" = "Własny limit koloru";
 "Włącz na…" = "Włącz na…";
 "Włącza czuwanie: Mac nie zaśnie do wyłączenia" = "Włącza czuwanie: Mac nie zaśnie do wyłączenia";
 "Włącza dopasowanie barwy ekranu do pory dnia" = "Włącza dopasowanie barwy ekranu do pory dnia";
@@ -1213,7 +1236,6 @@
 "Zaciśnij pięści na 3 sekundy, potem rozsuń palce szeroko na 3 sekundy. Powtórz 10 razy. Strząśnij dłonie." = "Zaciśnij pięści na 3 sekundy, potem rozsuń palce szeroko na 3 sekundy. Powtórz 10 razy. Strząśnij dłonie.";
 "Zaciśnięte szczęki i uniesione ramiona to najczęstsze 'niewidoczne' napięcia pracy przy biurku." = "Zaciśnięte szczęki i uniesione ramiona to najczęstsze „niewidoczne” napięcia pracy przy biurku.";
 "Zacznij" = "Zacznij";
-"Zacznij od profilu…" = "Zacznij od profilu…";
 "Zacznij przerwę" = "Zacznij przerwę";
 "Zadanie: wyjdź na korytarz" = "Zadanie: wyjdź na korytarz";
 "Zainstalowana wersja jest starsza i nie ma nastaw. Kliknij „Przywróć wersję z galerii”." = "Zainstalowana wersja jest starsza i nie ma nastaw. Kliknij „Przywróć wersję z galerii”.";
@@ -1236,6 +1258,7 @@
 "Zamrugaj" = "Zamrugaj";
 "Zamrugaj 10 razy i napij się wody. Sprawdź, czy nawiew lub klimatyzacja nie dmucha prosto w twarz." = "Zamrugaj 10 razy i napij się wody. Sprawdź, czy nawiew lub klimatyzacja nie dmucha prosto w twarz.";
 "Zamyka panel z paska menu" = "Zamyka panel z paska menu";
+"Zapamiętane, niepodłączone" = "Zapamiętane, niepodłączone";
 "Zapis nie powiódł się." = "Zapis nie powiódł się.";
 "Zapisano %lld ml %@ · dziś %lld ml (%@)" = "Zapisano %lld ml (%@) · dziś %lld ml (%@)";
 "Zapisuj dłuższą nieobecność jako przerwę naturalną" = "Zapisuj dłuższą nieobecność jako przerwę naturalną";
@@ -1246,6 +1269,7 @@
 "Zapytaj zamiast startować" = "Zapytaj zamiast startować";
 "Zasada 20-20-20" = "Zasada 20-20-20";
 "Zasada 20-20-20 spopularyzowali optometryści: co 20 minut patrz 20 sekund na obiekt 20 stóp dalej." = "Zasadę 20-20-20 spopularyzowali optometryści: co 20 minut patrz 20 sekund na obiekt 20 stóp dalej.";
+"Zastępuje wykres barwy z sekcji „Teraz” (barwa godzina po godzinie) wartościami wybranego profilu. Rzeczy, które narysowałeś na wykresie, przepadną." = "Zastępuje wykres barwy z sekcji „Teraz” (barwa godzina po godzinie) wartościami wybranego profilu. Rzeczy, które narysowałeś na wykresie, przepadną.";
 "Zatrzymaj dźwięk" = "Zatrzymaj dźwięk";
 "Zatrzymaj podgląd" = "Zatrzymaj podgląd";
 "Zatrzymuje dźwięk przerwy lub muzykę relaksacyjną (także: stopSound)" = "Zatrzymuje dźwięk przerwy lub muzykę relaksacyjną (także: stopSound)";
@@ -1279,6 +1303,7 @@
 "Zwróć true, gdy warunek jest spełniony (wtedy reguła działa), w przeciwnym razie false." = "Zwróć true, gdy warunek jest spełniony (wtedy reguła działa), w przeciwnym razie false.";
 "Złącz dłonie za plecami, wypchnij klatkę do przodu i unieś lekko brodę. Trzymaj 20 sekund, oddychaj głęboko." = "Złącz dłonie za plecami, wypchnij klatkę do przodu i unieś lekko brodę. Trzymaj 20 sekund, oddychaj głęboko.";
 "aktywnie %@" = "aktywnie %@";
+"bez zarządzania" = "bez zarządzania";
 "brak odczytu" = "brak odczytu";
 "brak odpowiedzi (włącz integrację w BetterDisplay)" = "brak odpowiedzi (włącz integrację w BetterDisplay)";
 "breaks skipped" = "przerwy pominięte";
@@ -1305,6 +1330,7 @@
 "jeszcze nie" = "jeszcze nie";
 "karta / stacja" = "karta / stacja";
 "kawa" = "kawa";
+"kolor do %lld K" = "kolor do %lld K";
 "korekta ręczna" = "korekta ręczna";
 "krótka" = "krótka";
 "ktoś ogląda Twój ekran (usługa macOS działa tylko podczas połączenia)" = "ktoś ogląda Twój ekran (usługa macOS działa tylko podczas połączenia)";
@@ -1329,6 +1355,7 @@
 "np. Firma, Firma-5G" = "np. Firma, Firma-5G";
 "od %lld min" = "od %lld min";
 "odłożona" = "odroczona";
+"ogólna krzywa" = "ogólna krzywa";
 "ostatnie %lld z %lld" = "ostatnie %lld z %lld";
 "pominięta" = "pominięta";
 "pominięta przed startem" = "pominięta przed startem";
@@ -1337,6 +1364,7 @@
 "pomodoros" = "pomodoro";
 "poza strefą pracy" = "poza strefą pracy";
 "przybliżona, ze strefy czasowej %@" = "przybliżona, ze strefy czasowej %@";
+"przyciemnienie %lld%%" = "przyciemnienie %lld%%";
 "radius m" = "promień m";
 "router %@" = "router %@";
 "s po" = "s po";

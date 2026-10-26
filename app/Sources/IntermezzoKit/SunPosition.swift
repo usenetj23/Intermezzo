@@ -11,6 +11,20 @@ public struct SunPosition: Equatable {
 public enum Sun {
     public static func position(date: Date, latitude: Double, longitude: Double) -> SunPosition {
         let rad = Double.pi / 180
+        let sun = equatorial(date: date)
+        let hourAngle = (normalize(sun.greenwichSiderealDegrees + longitude) * rad) - sun.rightAscension
+
+        let lat = latitude * rad
+        let altitude = asin(sin(lat) * sin(sun.declination) + cos(lat) * cos(sun.declination) * cos(hourAngle))
+        let azimuth = atan2(sin(hourAngle), cos(hourAngle) * sin(lat) - tan(sun.declination) * cos(lat))
+
+        return SunPosition(azimuthDegrees: normalize(azimuth / rad + 180),
+                           altitudeDegrees: altitude / rad)
+    }
+
+    /// Where the Sun is on the celestial sphere (radians) and the Earth's turn (Greenwich sidereal time, degrees).
+    static func equatorial(date: Date) -> (rightAscension: Double, declination: Double, greenwichSiderealDegrees: Double) {
+        let rad = Double.pi / 180
         let jd = date.timeIntervalSince1970 / 86_400 + 2_440_587.5
         let n = jd - 2_451_545.0
 
@@ -19,18 +33,9 @@ public enum Sun {
         let eclipticLongitude = (meanLongitude + 1.915 * sin(meanAnomaly) + 0.020 * sin(2 * meanAnomaly)) * rad
         let obliquity = (23.439 - 0.0000004 * n) * rad
 
-        let rightAscension = atan2(cos(obliquity) * sin(eclipticLongitude), cos(eclipticLongitude))
-        let declination = asin(sin(obliquity) * sin(eclipticLongitude))
-
-        let gmst = normalize(280.46061837 + 360.98564736629 * n)
-        let hourAngle = (normalize(gmst + longitude) * rad) - rightAscension
-
-        let lat = latitude * rad
-        let altitude = asin(sin(lat) * sin(declination) + cos(lat) * cos(declination) * cos(hourAngle))
-        let azimuth = atan2(sin(hourAngle), cos(hourAngle) * sin(lat) - tan(declination) * cos(lat))
-
-        return SunPosition(azimuthDegrees: normalize(azimuth / rad + 180),
-                           altitudeDegrees: altitude / rad)
+        return (atan2(cos(obliquity) * sin(eclipticLongitude), cos(eclipticLongitude)),
+                asin(sin(obliquity) * sin(eclipticLongitude)),
+                normalize(280.46061837 + 360.98564736629 * n))
     }
 
     private static func normalize(_ degrees: Double) -> Double {

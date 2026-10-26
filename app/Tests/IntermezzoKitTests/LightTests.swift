@@ -234,4 +234,25 @@ final class LightExclusionTests: XCTestCase {
         let off = front(["x"], CGRect(x: 9000, y: 9000, width: 100, height: 100))
         XCTAssertTrue(LightExclusion.displaysToLeaveNeutral(front: off, displays: [left], excludedApps: ["x"], skipFullscreen: true).isEmpty)
     }
+
+    // MARK: location text
+
+    func testFormatUsesDotsAndTwoDecimals() {
+        XCTAssertEqual(LightLocation.format(GeoPoint(latitude: 52.4, longitude: 22)), "52.40, 22.00")
+    }
+
+    func testFormatRoundTripsThroughParse() {
+        for p in [GeoPoint(latitude: 0, longitude: 0), GeoPoint(latitude: -33.9, longitude: 151.2),
+                  GeoPoint(latitude: 90, longitude: 180), GeoPoint(latitude: -90, longitude: -180)] {
+            let back = LightLocation.parse(LightLocation.format(p))
+            XCTAssertEqual(back?.latitude ?? .nan, p.latitude, accuracy: 0.005)
+            XCTAssertEqual(back?.longitude ?? .nan, p.longitude, accuracy: 0.005)
+        }
+    }
+
+    func testFormatClampsOutOfRange() {
+        let text = LightLocation.format(GeoPoint(latitude: 95, longitude: 190))
+        XCTAssertEqual(text, "90.00, 180.00")
+        XCTAssertNotNil(LightLocation.parse(text))
+    }
 }

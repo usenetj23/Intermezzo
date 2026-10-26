@@ -99,8 +99,6 @@ STRINGS = {
         "Apps without colour change",
     "Gdy aplikacja z listy jest aktywnym oknem, jej monitor pokazuje normalne kolory, np. przy obróbce zdjęć i wideo. Nazwy oddzielaj przecinkami.":
         "While an app from the list is the active window, its monitor shows normal colours, e.g. when editing photos and video. Separate the names with commas.",
-    "Wyłącz…":
-        "Turn off…",
     "na godzinę":
         "for an hour",
     "do wschodu słońca":
@@ -163,8 +161,6 @@ STRINGS = {
         "Switch the display group off during an exception",
     "Grupa BetterDisplay (np. dwa takie same monitory) trzyma ich jasność razem. Gdy jeden monitor ma zostać nieprzyciemniony (pełny ekran, aplikacja z listy wyjątków), grupa jest wyłączana, a po wieczorze włączana z powrotem.":
         "A BetterDisplay group (e.g. two identical monitors) keeps their brightness together. When one monitor is to stay undimmed (a full-screen app, an app from the exceptions list), the group is switched off and switched on again after the evening.",
-    "Zacznij od profilu…":
-        "Start from a profile…",
     "Własne (wg zegara)":
         "Custom (by the clock)",
     "Własne (wg Słońca)":
@@ -177,4 +173,64 @@ STRINGS = {
         "Drag across the chart like on an equaliser: each bar is one hour of the day and its height is the colour (higher is cooler, lower is warmer). Between the hours the colour blends smoothly.",
     "Profil „Własne (wg zegara)” nie korzysta z czujnika: wybierz „Własne (wg Słońca)” albo gotowy profil.":
         "The “Custom (by the clock)” profile does not use the sensor: choose “Custom (by the Sun)” or a ready-made profile.",
+    "Monitory":
+        "Monitors",
+    "Zapamiętane, niepodłączone":
+        "Remembered, not connected",
+    "Nowy monitor od razu dostaje ogólną krzywą. Takie same monitory mają wspólne ustawienia. Ustawienia są pamiętane tylko na tym Macu i wracają, gdy monitor zostanie podłączony ponownie.":
+        "A new monitor gets the general curve straight away. Identical monitors share their settings. The settings are kept on this Mac only and come back when the monitor is connected again.",
+    "bez zarządzania":
+        "not managed",
+    "kolor do %lld K":
+        "colour down to %lld K",
+    "przyciemnienie %lld%%":
+        "dimming %lld%%",
+    "ogólna krzywa":
+        "general curve",
+    "Nie zarządzaj tym monitorem (np. telewizorem)":
+        "Don’t manage this monitor (e.g. a TV)",
+    "Podgląd wieczoru":
+        "Preview the evening",
+    "Przywróć ogólne":
+        "Back to general",
+    "Własny limit koloru":
+        "Own colour limit",
+    "Najcieplejszy kolor: %lld K":
+        "Warmest colour: %lld K",
+    "Własne przyciemnienie":
+        "Own dimming",
+    "Przyciemnianie sprzętowe jest wyłączone (sekcja BetterDisplay), więc ten wybór na razie nic nie zmienia.":
+        "Hardware dimming is switched off (BetterDisplay section), so this choice changes nothing for now.",
+    "Wykres w sekcji „Teraz” zaczęto od profilu „%@”. Możesz go dalej poprawiać palcem po wykresie.":
+        "The chart in the “Now” section was started from the “%@” profile. You can keep adjusting it by dragging across the chart.",
+    "Wstrzymaj zmianę barwy…":
+        "Pause the colour change…",
+    "Wykres barwy: zacznij od profilu…":
+        "Colour chart: start from a profile…",
+    "Zastępuje wykres barwy z sekcji „Teraz” (barwa godzina po godzinie) wartościami wybranego profilu. Rzeczy, które narysowałeś na wykresie, przepadną.":
+        "Replaces the colour chart in the “Now” section (the colour hour by hour) with the values of the chosen profile. Anything you drew on the chart is lost.",
+    "Wybierz na mapie…":
+        "Pick on the map…",
+    "Wybierz miejsce na mapie":
+        "Pick a place on the map",
+    "Kliknij mapę, żeby postawić pinezkę, i przeciągnij ją, żeby ją przesunąć. Przeciągnięcie mapy przesuwa mapę, a kółko myszy, szczypanie i przyciski + i − ją przybliżają. Cień pokazuje, gdzie teraz jest dzień, zmierzch i noc.":
+        "Click the map to drop the pin and drag the pin to move it. Dragging the map moves the map, and the mouse wheel, pinching and the + and − buttons zoom it. The shading shows where it is day, twilight and night right now.",
+    "Mapa jest niedostępna, ale współrzędne możesz wpisać ręcznie.":
+        "The map is unavailable, but you can type the coordinates by hand.",
+    "Nie wybrano jeszcze miejsca.":
+        "No place chosen yet.",
+    "Skala mapy: ok. %@ km na punkt ekranu":
+        "Map scale: about %@ km per screen point",
+    "Brak wschodu lub zachodu Słońca w tym miejscu (dzień lub noc polarna).":
+        "The Sun neither rises nor sets here (polar day or night).",
+    "Wschód %@, zachód %@ (czas Maca).":
+        "Sunrise %@, sunset %@ (the Mac’s time).",
+    "Użyj tego miejsca":
+        "Use this place",
+    "Przybliż":
+        "Zoom in",
+    "Oddal":
+        "Zoom out",
+    "Dane mapy: Natural Earth (domena publiczna); nazwy miast: GeoNames, licencja CC BY 4.0.":
+        "Map data: Natural Earth (public domain); city names: GeoNames, licence CC BY 4.0.",
 }

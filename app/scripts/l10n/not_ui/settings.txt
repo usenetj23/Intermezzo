@@ -28,3 +28,4 @@ OneDrive
 LAN %@
 DNS %@
 FFFFFF
+WMAP

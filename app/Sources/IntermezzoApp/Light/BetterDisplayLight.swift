@@ -37,6 +37,8 @@ final class BetterDisplayLight: ObservableObject {
     private var lastPassAt = Date.distantPast
     private static let recheckInterval: TimeInterval = 3 * 60
     private var lastSaved: Data?
+    /// A display whose evening look is being previewed: the regular pass leaves it alone until it is back.
+    private var previewed: (id: Int, original: Double)?
     /// True Tone was looked at during this active spell (asked once, not every 30 s).
     private var trueToneChecked = false
 
@@ -55,7 +57,8 @@ final class BetterDisplayLight: ObservableObject {
     private var dimEnabled: Bool { defaults.bool(forKey: BetterDisplayKeys.dim) }
     private var trueToneEnabled: Bool { defaults.bool(forKey: BetterDisplayKeys.trueTone) }
     private var unlinkEnabled: Bool { defaults.bool(forKey: BetterDisplayKeys.unlinkGroup) }
-    private var dimPercent: Int { defaults.object(forKey: BetterDisplayKeys.dimPercent) as? Int ?? 20 }
+    /// The general maximum dimming; a monitor's own setting replaces it for that monitor.
+    var globalDimPercent: Int { defaults.object(forKey: BetterDisplayKeys.dimPercent) as? Int ?? 20 }
 
     // MARK: Messages
 
@@ -111,16 +114,16 @@ final class BetterDisplayLight: ObservableObject {
     // MARK: Driving
 
     /// Called from the light schedule every 30 s. `active` is false while Light is off or paused.
-    /// `lux` is the room's brightness when the sensor is used: a bright room needs less dimming.
-    func update(kelvin: Double, settings: LightSettings, active: Bool, neutral: Set<UInt32>, lux: Double? = nil) {
+    /// `neutral` are displays an exception keeps untouched for now; `untouched` the ones the user left alone for good.
+    /// `factorFor` gives each display's brightness factor (1 = no dimming), the room's light included.
+    func update(active: Bool, neutral: Set<UInt32>, untouched: Set<UInt32>, factorFor: @escaping (UInt32) -> Double) {
         guard Self.isInstalled, !busy else { return }
         let wantsDim = dimEnabled && active
         let wantsTrueTone = trueToneEnabled && active
         guard wantsDim || wantsTrueTone || !state.isEmpty else { return }
         guard isRunning else { return }
-        let base = EveningDimming.factor(kelvin: kelvin, settings: settings, maxDimPercent: dimPercent)
-        let factor = AmbientLight.scaledDimFactor(base, lux: lux)
-        let key = "\(wantsDim)|\(wantsTrueTone)|\(Int((factor * 100).rounded()))|\(neutral.sorted())"
+        let factors = devices.map { "\($0.displayID):\(Int((factorFor(UInt32($0.displayID)) * 100).rounded()))" }
+        let key = "\(wantsDim)|\(wantsTrueTone)|\(factors)|\(neutral.sorted())|\(untouched.sorted())"
         if key == lastPassKey, Date().timeIntervalSince(lastPassAt) < Self.recheckInterval { return }
         lastPassKey = key
         lastPassAt = Date()
@@ -130,9 +133,21 @@ final class BetterDisplayLight: ObservableObject {
             defer { busy = false }
             if !wantsDim, !(state.originalBrightness.isEmpty && state.disabledGroups.isEmpty) { await restoreBrightness() }
             if !wantsTrueTone, state.trueToneWasOn { await restoreTrueTone() }
-            if wantsDim { await dim(factor: factor, neutral: neutral) }
+            if wantsDim { await dim(factorFor: factorFor, neutral: neutral, untouched: untouched) }
             if wantsTrueTone { await switchTrueToneOff() }
         }
+    }
+
+    /// Shows a display's evening brightness for `seconds`, then gives the old one back. Only while the
+    /// dimming is switched on and BetterDisplay answers; otherwise nothing happens (the colour still previews).
+    func previewDim(displayID: Int, factor: Double, seconds: Double) async {
+        guard dimEnabled, Self.isInstalled, isRunning, factor < 0.995, previewed == nil,
+              let original = await brightness(of: displayID) else { return }
+        previewed = (displayID, original)
+        defer { previewed = nil }
+        guard await setBrightness(original * factor, of: displayID) else { return }
+        try? await Task.sleep(nanoseconds: UInt64(seconds * 1_000_000_000))
+        _ = await setBrightness(original, of: displayID)
     }
 
     /// Written only when it changed: every write wakes all UserDefaults observers (sync, hotkeys, light).
@@ -158,14 +173,24 @@ final class BetterDisplayLight: ObservableObject {
         return await send("set", [("displayID", String(id)), ("brightness", String(format: "%.3f", clamped))])?.result == true
     }
 
-    private func dim(factor: Double, neutral: Set<UInt32>) async {
+    private func dim(factorFor: (UInt32) -> Double, neutral: Set<UInt32>, untouched: Set<UInt32>) async {
         if devices.isEmpty { await checkConnection() }
-        if unlinkEnabled, !neutral.isEmpty, state.disabledGroups.isEmpty { await disableGroups() }
+        // Linked displays move together, so a display that must stay different needs the group switched off.
+        // Only while the evening is dimming: otherwise the group would be switched off and on every pass.
+        let evening = devices.contains { factorFor(UInt32($0.displayID)) < 0.995 }
+        let differing = Set(devices.filter { !untouched.contains(UInt32($0.displayID)) }
+            .map { Int((factorFor(UInt32($0.displayID)) * 100).rounded()) }).count > 1
+        if unlinkEnabled, evening, !neutral.isEmpty || !untouched.isEmpty || differing, state.disabledGroups.isEmpty {
+            await disableGroups()
+        }
         // Displays that BetterDisplay keeps in step with another one are left to that one.
         let managed = devices.filter { state.followerOf[String($0.displayID)] == nil }
         // Read everything first: a set on one display can move its linked partner.
         var snapshot: [Int: Double] = [:]
         for device in managed {
+            if previewed?.id == device.displayID { continue }
+            // A display left alone is not even asked, unless we dimmed it earlier and must give its brightness back.
+            if untouched.contains(UInt32(device.displayID)), state.originalBrightness[String(device.displayID)] == nil { continue }
             if let value = await brightness(of: device.displayID) { snapshot[device.displayID] = value }
         }
         var handled = Set<Int>()
@@ -173,7 +198,7 @@ final class BetterDisplayLight: ObservableObject {
             let id = device.displayID
             let key = String(id)
             guard !handled.contains(id), let current = snapshot[id] else { continue }
-            let target = neutral.contains(UInt32(id)) ? 1 : factor
+            let target = neutral.contains(UInt32(id)) || untouched.contains(UInt32(id)) ? 1 : factorFor(UInt32(id))
 
             if target >= 0.995 {
                 yielded.remove(key)
@@ -204,7 +229,8 @@ final class BetterDisplayLight: ObservableObject {
 
             // Did another display move with it?
             var after: [Int: Double] = [:]
-            for other in managed where other.displayID != id && !handled.contains(other.displayID) {
+            for other in managed where other.displayID != id && !handled.contains(other.displayID)
+                && !untouched.contains(UInt32(other.displayID)) {
                 if let value = await brightness(of: other.displayID) { after[other.displayID] = value }
             }
             for follower in BetterDisplayLinks.followers(leader: id, wanted: wanted, before: snapshot, after: after) {
@@ -295,6 +321,7 @@ final class BetterDisplayLight: ObservableObject {
     /// At quit: put things back without waiting for answers.
     func shutdown() {
         guard Self.isInstalled, isRunning else { return }
+        if let previewed { post("set", [("displayID", String(previewed.id)), ("brightness", String(format: "%.3f", min(max(previewed.original, 0.05), 1)))]) }
         for (key, original) in state.originalBrightness {
             guard let id = Int(key) else { continue }
             post("set", [("displayID", String(id)), ("brightness", String(format: "%.3f", min(max(original, 0.05), 1)))])

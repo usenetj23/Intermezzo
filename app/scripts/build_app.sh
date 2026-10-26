@@ -31,6 +31,12 @@ if ! ls "$APP/Contents/Resources/tracks/"* >/dev/null 2>&1; then
   echo "BŁĄD: brak Support/tracks — picker audio byłby pusty" >&2
   exit 1
 fi
+# Mapa offline do wyboru lokalizacji (Support/worldmap, generowana przez scripts/gen_world_map.py).
+if [[ ! -f "$CONFIG_DIR/worldmap/worldmap.bin" ]]; then
+  echo "BŁĄD: brak Support/worldmap/worldmap.bin — uruchom scripts/gen_world_map.py" >&2
+  exit 1
+fi
+cp "$CONFIG_DIR/worldmap/worldmap.bin" "$APP/Contents/Resources/worldmap.bin"
 # Tłumaczenia interfejsu (Support/en.lproj, pl.lproj; generowane przez scripts/gen_localization.py).
 for lproj in "$CONFIG_DIR"/*.lproj; do
   [[ -d "$lproj" ]] && cp -R "$lproj" "$APP/Contents/Resources/"

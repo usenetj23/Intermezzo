@@ -33,6 +33,8 @@ The interface is available in **English** and **Polish**.
 **Light and keep awake**
 - Warmer screen colour in the evening, following the clock or the sun, with your own 24-hour curve.
 - Ambient-light awareness and per-app or full-screen exceptions.
+- Settings per monitor model: a limit for how warm the colour may get, its own evening dimming and a leave-alone switch (a TV). They are remembered, so the monitors at home and at work get their own settings again when you plug them in.
+- Pick your location on an offline world map with day and night shading, or type the coordinates.
 - Optional [BetterDisplay](https://github.com/waydabber/BetterDisplay) integration for dimming external displays.
 - Keeps the Mac awake on request, during a focus session or while chosen apps run, with battery, Low Power Mode and heat limits.
 
