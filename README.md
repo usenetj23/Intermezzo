@@ -67,7 +67,7 @@ The interface is available in **English** and **Polish**.
 - `intermezzo://` URL commands and a gallery of ready-made AppleScript scripts.
 - Settings sync between your Macs through any shared folder (iCloud Drive, OneDrive, Dropbox, SMB). No server and no account.
 
-Everything runs locally. Intermezzo does not collect or send usage data. The only network requests are the optional weather effect on the break screen ([Open-Meteo](https://open-meteo.com), sends approximate coordinates) and, only if you turn them on, the optional AI features described above.
+Everything runs locally. Intermezzo does not collect or send usage data. The only network requests are the optional weather effect on the break screen ([Open-Meteo](https://open-meteo.com), receives the coordinates of your location), the optional YouTube background for the break screen and, only if you turn them on, the optional AI features described above. See the [privacy policy](PRIVACY.md).
 
 ## Screenshots
 
