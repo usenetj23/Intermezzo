@@ -63,6 +63,35 @@ final class ReminderScheduleTests: XCTestCase {
         XCTAssertEqual(ReminderSchedule.dueScheduled([b], lastFired: fired, now: date(21, 12, 0, 10), calendar: cal).count, 1)
     }
 
+    // MARK: meal windows
+
+    private func breakfast() -> ScheduledBreak {
+        ScheduledBreak(label: "Śniadanie", minuteOfDay: 9 * 60, weekdays: [2, 3, 4, 5, 6], isLong: false, customMinutes: 15)
+    }
+
+    func testMealDoesNotFireAtItsStartMinute() {
+        XCTAssertTrue(ReminderSchedule.dueScheduled([breakfast()], lastFired: [:], now: date(20, 9, 0, 30), calendar: cal).isEmpty)
+    }
+
+    func testMealWindowIsOpenOnlyBetweenStartAndEnd() {
+        let b = breakfast()
+        XCTAssertNil(ReminderSchedule.mealInWindow([b], lastFired: [:], now: date(20, 8, 59, 59), calendar: cal))
+        XCTAssertNotNil(ReminderSchedule.mealInWindow([b], lastFired: [:], now: date(20, 9, 12), calendar: cal))
+        XCTAssertNil(ReminderSchedule.mealInWindow([b], lastFired: [:], now: date(20, 9, 15), calendar: cal))
+    }
+
+    func testMealFallsBackToTheEndOfItsWindow() {
+        let b = breakfast()
+        XCTAssertEqual(ReminderSchedule.dueScheduled([b], lastFired: [:], now: date(20, 9, 15, 5), calendar: cal).count, 1)
+    }
+
+    func testMealAlreadyStartedTodayIsNeitherInWindowNorDue() {
+        let b = breakfast()
+        let fired = [b.id: date(20, 9, 12)]
+        XCTAssertNil(ReminderSchedule.mealInWindow([b], lastFired: fired, now: date(20, 9, 13), calendar: cal))
+        XCTAssertTrue(ReminderSchedule.dueScheduled([b], lastFired: fired, now: date(20, 9, 15, 5), calendar: cal).isEmpty)
+    }
+
     // MARK: storage
 
     func testListsRoundTripAndGarbageGivesEmpty() {

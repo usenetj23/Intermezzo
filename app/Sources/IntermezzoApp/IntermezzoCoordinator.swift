@@ -381,7 +381,7 @@ final class BreakCoordinator: ObservableObject {
 
     private func tick() {
         let now = Date()
-        let config = currentConfig()
+        var config = currentConfig()
         let d = UserDefaults.standard
 
         // Working-hours gating (weekday mask + minute-accurate range, e.g. 6:30–14:30).
@@ -606,7 +606,24 @@ final class BreakCoordinator: ObservableObject {
 
         applySeamGate(now: now)
         applyReminderOnly(now: now)
+        // Meal break window open and the regular timer runs out now: this break becomes the meal.
+        var mealStarting: ScheduledBreak?
+        if !isOnBreak, !engine.isPaused, CustomBreak.active == nil,
+           let left = engine.timeUntilBreak(now: now), left <= 0,
+           let meal = reminders.mealInWindow(now: now), let minutes = meal.customMinutes {
+            CustomBreak.active = (meal.label, max(1, minutes) * 60)
+            config = currentConfig()
+            mealStarting = meal
+        }
         let events = engine.tick(now: now, config: config)
+        if let meal = mealStarting {
+            if events.contains(where: { if case .breakStarted = $0 { return true } else { return false } }) {
+                reminders.markFired(meal, now: now)
+                Trace.log("scheduled break: \(meal.label) (regular timer ran out in its window)")
+            } else {
+                CustomBreak.active = nil
+            }
+        }
         process(events: events, now: now, config: config)
 
         // Muzyka: fade-out zaczyna się 5 s PRZED końcem przerwy, tak aby

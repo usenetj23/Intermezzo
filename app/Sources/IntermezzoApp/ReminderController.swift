@@ -11,6 +11,14 @@ final class ReminderController {
     private var lastShown: [UUID: Date] = [:]
     private var lastFired: [UUID: Date] = [:]
 
+    /// The meal break whose window is open right now (the regular timer running out should start it).
+    func mealInWindow(now: Date) -> ScheduledBreak? {
+        ReminderSchedule.mealInWindow(ScheduledBreak.decodeList(UserDefaults.standard.data(forKey: Self.scheduledKey)),
+                                      lastFired: lastFired, now: now, calendar: .current)
+    }
+
+    func markFired(_ b: ScheduledBreak, now: Date) { lastFired[b.id] = now }
+
     /// `canRemind`: working, not on a break, not paused. `startBreak` is called for a due fixed-time break.
     func tick(now: Date, canRemind: Bool, startBreak: (ScheduledBreak) -> Void) {
         guard canRemind else { return }
