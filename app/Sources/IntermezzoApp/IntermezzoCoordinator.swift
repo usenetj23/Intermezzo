@@ -66,6 +66,8 @@ enum Keys {
     static let idleThresholdSeconds = "idleThresholdSeconds"
     static let idleResetAfterMinutes = "idleResetAfterMinutes"
     static let enforceWorkingHours = "enforceWorkingHours"
+    /// VPN / Wi-Fi / saved place from the work zone count as work also outside the working hours.
+    static let zoneOverridesHours = "zoneOverridesHours"
     static let workStartHour = "workStartHour"
     static let workEndHour = "workEndHour"
     static let workStartMinutes = "workStartMinutes"
@@ -156,6 +158,7 @@ func registerDefaults() {
     bind(d, Keys.idleThresholdSeconds, 60)
     bind(d, Keys.idleResetAfterMinutes, 5)
     bind(d, Keys.enforceWorkingHours, 0)
+    bind(d, Keys.zoneOverridesHours, 0)
     bind(d, Keys.workStartHour, 8)
     bind(d, Keys.workEndHour, 18)
     bind(d, Keys.workStartMinutes, 8 * 60)
@@ -405,6 +408,7 @@ final class BreakCoordinator: ObservableObject {
         // call per tick (further down) pauses/resumes accordingly, so no
         // policy can ever leave a stale pause behind.
         var desired = Set<PauseReason>()
+        var outsideHours = false
         if onVacation {
             desired.insert(.vacation)
         } else if onHoliday {
@@ -423,7 +427,7 @@ final class BreakCoordinator: ObservableObject {
                 ? WeekHours.decode(d.data(forKey: "weekHours")).window(forDay: weekdayIndex, default: general)
                 : general
             let timeOK = today.contains(minute: minuteOfDay)
-            if !(dayOK && timeOK) { desired.insert(.outsideWorkingHours) }
+            outsideHours = !(dayOK && timeOK)
         }
 
         // Intelligence — pause while in a meeting / watching video.
@@ -505,6 +509,11 @@ final class BreakCoordinator: ObservableObject {
                 lastZoneState = inZone
                 Trace.log("work-zone: \(inZone ? "IN — breaks active" : "OUT — breaks held")")
             }
+        }
+        // Outside the working hours, unless the user lets a connected work VPN / Wi-Fi / saved place
+        // stand in for them (overtime, an outage).
+        if outsideHours, !(d.integer(forKey: Keys.zoneOverridesHours) != 0 && workDetector.presencePlace != nil) {
+            desired.insert(.outsideWorkingHours)
         }
         // Focus / Do-Not-Disturb: pause while on (separate from the zone).
         if d.integer(forKey: Keys.focusDetection) != 0, focusNow(now) {
