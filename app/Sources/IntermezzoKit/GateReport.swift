@@ -1,5 +1,16 @@
 import Foundation
 
+/// The state of the timer in one word, for colouring the menu-bar icon.
+public enum StatusTint: String, Equatable, Sendable {
+    case running
+    case onBreak
+    /// Held by a situation (meeting, video, Focus, rule, idle).
+    case held
+    /// Outside the working hours or the work zone, or on vacation.
+    case outside
+    case manual
+}
+
 /// What one factor does to the break timer right now.
 public enum GateVerdict: String, Equatable, Sendable {
     /// Pauses the timer.
@@ -78,6 +89,16 @@ public struct GateReport: Equatable, Sendable {
         if own.contains(where: { $0.verdict == .blocking }) { return .blocking }
         if own.contains(where: { $0.verdict == .passing }) { return .passing }
         return .inactive
+    }
+
+    /// One word for the menu-bar icon colour.
+    public var tint: StatusTint {
+        if onBreak { return .onBreak }
+        if running { return .running }
+        let held = blockers
+        if held.isEmpty || held.allSatisfy({ $0.id == "manual" }) { return .manual }
+        if held.contains(where: { ["hours", "zone", "vacation", "holiday"].contains($0.id) }) { return .outside }
+        return .held
     }
 
     public var headline: String {

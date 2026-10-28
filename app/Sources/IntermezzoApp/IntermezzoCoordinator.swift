@@ -97,6 +97,14 @@ enum Keys {
     static let geoLon = "geoLon"
     static let geoRadiusM = "geoRadiusM"
     static let focusDetection = "focusDetection"
+    /// A Focus mode marked "work" counts as a work-zone match.
+    static let focusWorkZone = "focusWorkZone"
+    /// JSON [mode id: FocusRole].
+    static let focusRoles = "focusRoles"
+    /// Show the countdown beside the icon on notched screens too.
+    static let menuBarCountdownNotch = "menuBarCountdownNotch"
+    /// Tint the menu-bar icon by the timer state.
+    static let menuBarColoredIcon = "menuBarColoredIcon"
     static let hotkeyShort = "hotkeyShort"
     static let hotkeyLong = "hotkeyLong"
     static let hotkeySkip = "hotkeySkip"
@@ -193,6 +201,9 @@ func registerDefaults() {
     bind(d, SessionAwareKeys.enabled, 0)
     bind(d, SeamKeys.maxDelaySeconds, SeamKeys.defaultMaxDelay)
     bind(d, Keys.menuBarCountdown, 1)
+    bind(d, Keys.menuBarCountdownNotch, 0)
+    bind(d, Keys.menuBarColoredIcon, 0)
+    bind(d, Keys.focusWorkZone, 0)
     bind(d, Keys.messagesDuringBreak, 1)
     bind(d, MessagesStore.breakEveryKey, 3)
     if d.string(forKey: Keys.idleDetectionMethod) == nil {
@@ -248,6 +259,7 @@ final class BreakCoordinator: ObservableObject {
         "zone-wifi": "General#zone-wifi", "zone-geo": "General#zone-geo", "zone-lan": "Work log#lan",
         "meeting": "General#meeting", "video": "General#video", "focus": "General#focus",
         "rules": "Rules", "manual": "Status#pause", "idle": "Advanced#idle",
+        "zone-focus": "General#focus",
     ]
     private func gate(_ id: String, _ group: GateGroup, _ title: String, _ verdict: GateVerdict,
                       _ detail: String, info: Bool = false) {
@@ -560,6 +572,26 @@ final class BreakCoordinator: ObservableObject {
                     : (workDetector.geoMatch ? "w promieniu miejsca"
                        : (workDetector.geoDistanceM >= 0 ? "\(Int(workDetector.geoDistanceM)) m od miejsca" : "położenie nieznane")))
         let workLog = WorkLogController.shared
+        // Focus: which modes are on and what each is for (work, hold breaks, ignore).
+        let focusOn = d.integer(forKey: Keys.focusDetection) != 0
+        let focusWorkOn = d.integer(forKey: Keys.focusWorkZone) != 0
+        let focusRoles = (try? JSONDecoder().decode([String: FocusRole].self,
+                                                    from: d.data(forKey: Keys.focusRoles) ?? Data())) ?? [:]
+        let focusSnap = (focusOn || focusWorkOn) ? focusSnapshot(now) : nil
+        let activeFocus = focusSnap?.active ?? []
+        let focusAtWork = focusWorkOn && activeFocus.contains { FocusModes.role(for: $0.id, stored: focusRoles) == .work }
+        let activeFocusNames = activeFocus.map(\.name).joined(separator: ", ")
+        var focusZoneDetail = "wyłączone"
+        if focusWorkOn {
+            if focusSnap == nil {
+                focusZoneDetail = "brak dostępu do danych Focus (Pełny dostęp do dysku)"
+            } else if activeFocus.isEmpty {
+                focusZoneDetail = "żaden Focus nie jest włączony"
+            } else {
+                focusZoneDetail = "włączony: \(activeFocusNames)" + (focusAtWork ? " (praca)" : " (nie jako praca)")
+            }
+        }
+        gate("zone-focus", .zone, "Focus oznaczony jako praca", focusAtWork ? .passing : .inactive, focusZoneDetail)
         // The LAN, dock adapter or work Wi-Fi marked in the work log counts as a match here too, so one
         // place of work is set up once. It never switches the work zone on by itself (that stays with the four sources).
         let lanMatch = workLog.isEnabled && workLog.zone.inZone
@@ -569,6 +601,7 @@ final class BreakCoordinator: ObservableObject {
             || (wifiOn && workDetector.wifiMatch)
             || (geoOn && workDetector.geoMatch)
             || lanMatch
+            || focusAtWork
         // Working hours and the work zone are alternatives, not both required: the timer runs inside the
         // hours OR while the Mac is at work (overtime, an outage, a day off), and holds only when neither holds.
         let inHoursNow = hoursMode == 3 && !outsideHours
@@ -604,11 +637,24 @@ final class BreakCoordinator: ObservableObject {
         default: gate("hours", .schedule, "Godziny pracy", .inactive, "wyłączone: przerwy działają całą dobę")
         }
         // Focus / Do-Not-Disturb: pause while on (separate from the zone).
-        let focusOn = d.integer(forKey: Keys.focusDetection) != 0
-        let inFocus = focusOn && focusNow(now)
+        // Modes whose role is "hold breaks" pause the timer; without access to the Focus files only the
+        // coarse on/off probe is left.
+        let pausingFocus = activeFocus.filter { FocusModes.role(for: $0.id, stored: focusRoles) == .pause }
+        let inFocus = focusOn && (focusSnap != nil ? !pausingFocus.isEmpty : focusNow(now))
         if inFocus { desired.insert(.inFocusMode) }
-        gate("focus", .detection, "Focus / Nie przeszkadzać", inFocus ? .blocking : (focusOn ? .passing : .inactive),
-             inFocus ? "Focus jest włączony" : (focusOn ? "Focus wyłączony" : "wykrywanie wyłączone"))
+        var focusDetail = "wykrywanie wyłączone"
+        if focusOn {
+            if inFocus {
+                focusDetail = pausingFocus.isEmpty
+                    ? "Focus jest włączony"
+                    : "wstrzymuje: \(pausingFocus.map(\.name).joined(separator: ", "))"
+            } else if activeFocus.isEmpty {
+                focusDetail = "żaden Focus nie jest włączony"
+            } else {
+                focusDetail = "włączony: \(activeFocusNames) (nie wstrzymuje)"
+            }
+        }
+        gate("focus", .detection, "Focus / Nie przeszkadzać", inFocus ? .blocking : (focusOn ? .passing : .inactive), focusDetail)
         engine.syncReasons(desired, managed: BreakCoordinator.policyReasons, now: now)
 
     // Idle detection → auto-pause; long absence → Timer Reset Logic.
@@ -1343,6 +1389,14 @@ final class BreakCoordinator: ObservableObject {
     /// Focus/DND probe, 20 s throttled (plain JSON file read).
     private var focusState = false
     private var lastFocusProbe = Date.distantPast
+    private var focusSnapshotCache: (at: Date, value: WorkDetector.FocusSnapshot?)?
+    private func focusSnapshot(_ now: Date) -> WorkDetector.FocusSnapshot? {
+        if let cache = focusSnapshotCache, now.timeIntervalSince(cache.at) < 20 { return cache.value }
+        let value = WorkDetector.focusSnapshot()
+        focusSnapshotCache = (now, value)
+        return value
+    }
+
     private func focusNow(_ now: Date) -> Bool {
         if now.timeIntervalSince(lastFocusProbe) > 20 {
             lastFocusProbe = now

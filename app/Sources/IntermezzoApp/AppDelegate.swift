@@ -118,18 +118,28 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, UNUs
             .removeDuplicates()
             .receive(on: RunLoop.main)
             .sink { [weak self] symbol in
-                let img = NSImage(systemSymbolName: symbol, accessibilityDescription: "Intermezzo")
-                img?.isTemplate = true
-                self?.statusItem.button?.image = img
+                self?.applyStatusIcon()
                 self?.chip?.update(text: self?.coordinator.statusText ?? "", symbol: symbol)
             }
+            .store(in: &cancellables)
+
+        // The icon colour follows the timer state; the option itself is read from the defaults.
+        GateDiagnostics.shared.$report
+            .removeDuplicates()
+            .receive(on: RunLoop.main)
+            .sink { [weak self] _ in self?.applyStatusIcon() }
+            .store(in: &cancellables)
+        NotificationCenter.default.publisher(for: UserDefaults.didChangeNotification)
+            .receive(on: RunLoop.main)
+            .sink { [weak self] _ in self?.applyStatusIcon() }
             .store(in: &cancellables)
 
         coordinator.$statusText
             .receive(on: RunLoop.main)
             .sink { [weak self] text in
                 if UserDefaults.standard.integer(forKey: Keys.menuBarCountdown) != 0,
-                   !(self?.hasNotchScreen ?? false) {
+                   !(self?.hasNotchScreen ?? false)
+                       || UserDefaults.standard.integer(forKey: Keys.menuBarCountdownNotch) != 0 {
                     if self?.statusItem.button?.title != " " + text { self?.statusItem.button?.title = " " + text }
                 } else {
                     // Either the user disabled the text, or this is a notched
@@ -538,6 +548,36 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, UNUs
             if f.minX < right.minX && f.maxX > left.maxX { return true }
         }
         return false
+    }
+
+    private var lastStatusIconKey = ""
+
+    /// Sets the menu-bar icon: a template image (follows the menu bar) or, when asked, a symbol in the colour
+    /// of the timer state. Skips the work when nothing it depends on changed.
+    private func applyStatusIcon() {
+        guard let button = statusItem?.button else { return }
+        let symbol = coordinator.statusSymbol
+        let colored = UserDefaults.standard.integer(forKey: Keys.menuBarColoredIcon) != 0
+        let tint = GateDiagnostics.shared.report.tint
+        let key = "\(symbol)|\(colored ? tint.rawValue : "-")"
+        guard key != lastStatusIconKey else { return }
+        lastStatusIconKey = key
+        var image = NSImage(systemSymbolName: symbol, accessibilityDescription: "Intermezzo")
+        if colored, let base = image {
+            let color: NSColor
+            switch tint {
+            case .running: color = .systemGreen
+            case .onBreak: color = .systemBlue
+            case .held: color = .systemOrange
+            case .outside: color = .systemPurple
+            case .manual: color = .systemGray
+            }
+            image = base.withSymbolConfiguration(NSImage.SymbolConfiguration(paletteColors: [color]))
+            image?.isTemplate = false
+        } else {
+            image?.isTemplate = true
+        }
+        button.image = image
     }
 
     private func buildStatusItem() {

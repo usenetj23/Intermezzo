@@ -39,3 +39,61 @@ final class GateReportTests: XCTestCase {
         XCTAssertEqual(report.verdict(of: .schedule), .inactive)
     }
 }
+
+final class FocusModesTests: XCTestCase {
+    func testActiveModesComeOnlyFromAssertionRecords() {
+        let json = """
+        {"data":[{"storeAssertionRecords":[
+            {"assertionDetails":{"assertionDetailsModeIdentifier":"com.apple.focus.work"}},
+            {"assertionDetails":{"assertionDetailsModeIdentifier":"com.apple.sleep.sleep-mode"}}],
+          "storeInvalidationRecords":[
+            {"invalidationRecordAssertion":{"assertionDetails":{"assertionDetailsModeIdentifier":"com.apple.focus.driving"}}}]}]}
+        """
+        XCTAssertEqual(FocusModes.activeModeIDs(assertions: Data(json.utf8)),
+                       ["com.apple.focus.work", "com.apple.sleep.sleep-mode"])
+    }
+
+    func testNoActiveModeAndGarbageGiveEmpty() {
+        XCTAssertTrue(FocusModes.activeModeIDs(assertions: Data(#"{"data":[{"storeAssertionRecords":[]}]}"#.utf8)).isEmpty)
+        XCTAssertTrue(FocusModes.activeModeIDs(assertions: Data("x".utf8)).isEmpty)
+    }
+
+    func testNamesAreFoundAtAnyDepth() {
+        let json = """
+        {"data":[{"modeConfigurations":{"a":{"mode":{"modeIdentifier":"com.apple.focus.work","name":"Praca"}},
+                                         "b":{"mode":{"modeIdentifier":"ABC-1","name":"Daily"}}}}]}
+        """
+        let names = FocusModes.names(configurations: Data(json.utf8))
+        XCTAssertEqual(names["com.apple.focus.work"], "Praca")
+        XCTAssertEqual(names["ABC-1"], "Daily")
+    }
+
+    func testDisplayNameFallsBackToBuiltInThenId() {
+        XCTAssertEqual(FocusModes.displayName(for: "com.apple.sleep.sleep-mode", names: [:]), "Sen")
+        XCTAssertEqual(FocusModes.displayName(for: "XYZ", names: [:]), "XYZ")
+        XCTAssertEqual(FocusModes.displayName(for: "XYZ", names: ["XYZ": "Moj"]), "Moj")
+    }
+
+    func testRoleDefaultsWorkForWorkModeAndPauseForTheRest() {
+        XCTAssertEqual(FocusModes.role(for: FocusModes.workModeID, stored: [:]), .work)
+        XCTAssertEqual(FocusModes.role(for: "ABC", stored: [:]), .pause)
+        XCTAssertEqual(FocusModes.role(for: "ABC", stored: ["ABC": .ignore]), .ignore)
+        XCTAssertEqual(FocusModes.role(for: FocusModes.workModeID, stored: [FocusModes.workModeID: .pause]), .pause)
+    }
+}
+
+final class StatusTintTests: XCTestCase {
+    private func blocker(_ id: String) -> GateFactor {
+        GateFactor(id: id, group: .detection, title: id, verdict: .blocking, detail: "")
+    }
+
+    func testTintFollowsTheTimerState() {
+        XCTAssertEqual(GateReport(running: true).tint, .running)
+        XCTAssertEqual(GateReport(running: true, onBreak: true).tint, .onBreak)
+        XCTAssertEqual(GateReport().tint, .manual)
+        XCTAssertEqual(GateReport(factors: [blocker("manual")]).tint, .manual)
+        XCTAssertEqual(GateReport(factors: [blocker("meeting")]).tint, .held)
+        XCTAssertEqual(GateReport(factors: [blocker("meeting"), blocker("hours")]).tint, .outside)
+        XCTAssertEqual(GateReport(factors: [blocker("zone")]).tint, .outside)
+    }
+}

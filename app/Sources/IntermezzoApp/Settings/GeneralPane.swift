@@ -46,6 +46,9 @@ struct GeneralPane: View {
     @State private var showAssistant = false
     @State private var undoCount = SettingsHistory.count(in: .standard)
     @AppStorage(Keys.menuBarCountdown) private var menuBarCountdown = true
+    @AppStorage(Keys.menuBarCountdownNotch) private var menuBarCountdownNotch = false
+    @AppStorage(Keys.menuBarColoredIcon) private var menuBarColoredIcon = false
+    @AppStorage(Keys.focusWorkZone) private var focusWorkZone = false
 
     private func undoAssistant() {
         SettingsHistory.popLast(from: .standard)?.restore(into: .standard)
@@ -85,6 +88,13 @@ struct GeneralPane: View {
                     }))
                 Toggle("Start timer automatically on app launch", isOn: $autoStartTimer)
                 Toggle("Show countdown text in menu bar", isOn: $menuBarCountdown)
+                Toggle("Pokaż licznik także na ekranie z notchem", isOn: $menuBarCountdownNotch)
+                    .disabled(!menuBarCountdown)
+                Text("Na MacBooku z notchem pełny pasek menu może schować ikonę razem z licznikiem. Gdy tak się stanie, licznik widać w pływającej pastylce.")
+                    .settingsNote()
+                Toggle("Koloruj ikonę w pasku menu według stanu timera", isOn: $menuBarColoredIcon)
+                Text("Zielona: timer działa. Niebieska: trwa przerwa. Pomarańczowa: wstrzymany przez spotkanie, wideo, Focus, regułę lub brak aktywności. Fioletowa: poza godzinami i strefą pracy albo urlop. Szara: wstrzymany ręcznie.")
+                    .settingsNote()
             }
             Section("Idle Time") {
                 Toggle("Detect inactivity", isOn: $idleDetection)
@@ -185,6 +195,11 @@ struct GeneralPane: View {
                 Toggle("Focus: pause while Focus / Do Not Disturb is on", isOn: $focusDetection)
                     .settingsAnchor("focus")
                     .expertOnly()
+                Group {
+                    Toggle("Focus oznaczony jako „praca” liczy się do strefy pracy", isOn: $focusWorkZone)
+                    FocusRolesView()
+                }
+                .expertOnly()
 
                 Group {
                     Divider()

@@ -372,6 +372,25 @@ final class WorkDetector: NSObject, ObservableObject, CLLocationManagerDelegate 
             .filter { $0.duration > 0 }
     }
 
+    /// Which Focus modes exist and which are on, from the files macOS keeps for Focus.
+    /// nil when they cannot be read (macOS asks for Full Disk Access for that folder).
+    struct FocusSnapshot: Equatable {
+        var active: [FocusMode]
+        var known: [FocusMode]
+    }
+
+    static func focusSnapshot() -> FocusSnapshot? {
+        let base = NSHomeDirectory() + "/Library/DoNotDisturb/DB/"
+        guard let assertions = FileManager.default.contents(atPath: base + "Assertions.json") else { return nil }
+        let names = FileManager.default.contents(atPath: base + "ModeConfigurations.json")
+            .map(FocusModes.names(configurations:)) ?? [:]
+        func mode(_ id: String) -> FocusMode { FocusMode(id: id, name: FocusModes.displayName(for: id, names: names)) }
+        let active = FocusModes.activeModeIDs(assertions: assertions).map(mode)
+        let knownIDs = Set(names.keys).union(FocusModes.builtInNames.keys).union(active.map(\.id))
+        let known = knownIDs.map(mode).sorted { $0.name.localizedCaseInsensitiveCompare($1.name) == .orderedAscending }
+        return FocusSnapshot(active: active, known: known)
+    }
+
     /// Focus/DND live state (used by Rules engine + Focus toggle).
     static func detectFocus() -> Bool {
         let path = NSHomeDirectory() + "/Library/DoNotDisturb/DB/Assertions.json"
