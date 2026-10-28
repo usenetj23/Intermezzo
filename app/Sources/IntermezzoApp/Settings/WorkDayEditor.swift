@@ -49,7 +49,9 @@ struct WorkDayEditor: View {
                     .keyboardShortcut(.cancelAction)
                 Button("Zapisz") { save(); dismiss() }
                     .keyboardShortcut(.defaultAction)
-                    .disabled(rows.contains { !$0.deleted && $0.end <= $0.start })
+                    // The interval being recorded right now cannot be edited and is never saved here;
+                    // it starts and ends in the same minute, so it must not block the other rows.
+                    .disabled(rows.contains { !$0.deleted && !$0.isLive && $0.end <= $0.start })
             }
         }
         .padding(20)
@@ -82,7 +84,7 @@ struct WorkDayEditor: View {
             }
             .disabled(r.isLive)
             TextField("Notatka (np. awaria linii 3)", text: row.note)
-            if r.end <= r.start {
+            if !r.isLive, r.end <= r.start {
                 Text("Koniec musi być po początku.").font(.caption).foregroundStyle(.red)
             } else if r.isCorrection || r.record == nil {
                 Text("korekta ręczna").font(.caption2).foregroundStyle(.orange)
