@@ -478,8 +478,22 @@ final class LightController: ObservableObject {
     // MARK: Applying
 
     /// What the screens should show when nothing is excluded.
-    private func globalGoal() -> Double {
+    private func rawGlobalGoal() -> Double {
         (isEnabled && pausedUntil == nil) ? (state?.kelvin ?? LightSettings.maxKelvin) : LightSettings.maxKelvin
+    }
+
+    /// The goal moves only when the raw one is clearly elsewhere: the room-light sensor and the slow schedule
+    /// wobble by a few dozen kelvin, which the eye cannot see but a redraw can make blink.
+    private static let goalDeadband = 40.0
+    private var steadyGoal: Double?
+
+    private func globalGoal() -> Double {
+        let raw = rawGlobalGoal()
+        if let steady = steadyGoal, abs(raw - steady) < Self.goalDeadband, raw < LightSettings.maxKelvin - 0.5 {
+            return steady
+        }
+        steadyGoal = raw
+        return raw
     }
 
     private func goal(for id: CGDirectDisplayID) -> Double {
@@ -491,12 +505,13 @@ final class LightController: ObservableObject {
     /// Moves every display to its goal in steps, so that the screen never jumps.
     private func startFade(jump: Bool) {
         if jump || displays.ids.isEmpty {
+            steadyGoal = nil
             currentKelvin = globalGoal()
             appliedKelvin = currentKelvin
             currentVelocity = 0
             shownVelocity.removeAll()
             displays.ids.forEach { shown[$0] = goal(for: $0) }
-            applyNow()
+            applyNow(force: true)
             return
         }
         guard fadeTimer == nil else { return }
@@ -539,7 +554,16 @@ final class LightController: ObservableObject {
         return true
     }
 
-    private func applyNow() {
+    /// What was last written to the displays (kelvin in 10 K steps) and when: the same colour is not written
+    /// again (each write can make a display blink), except as a reminder every 30 s in case macOS reset it.
+    private var lastWritten: [CGDirectDisplayID: Int] = [:]
+    private var lastWriteDate = Date.distantPast
+
+    private func applyNow(force: Bool = false) {
+        let wanted = Dictionary(uniqueKeysWithValues: displays.ids.map { ($0, Int(((shown[$0] ?? currentKelvin) / 10).rounded())) })
+        if !force, wanted == lastWritten, Date().timeIntervalSince(lastWriteDate) < 30 { return }
+        lastWritten = wanted
+        lastWriteDate = Date()
         let anyTint = displays.ids.contains { (shown[$0] ?? currentKelvin) < LightSettings.maxKelvin - 0.5 }
         if !anyTint && !isEnabled && !previewing {
             displays.restore()
@@ -606,7 +630,7 @@ final class LightController: ObservableObject {
             Trace.log("light: displays changed, reading their tables again")
             displays.refreshOriginals()
         }
-        if isEnabled || previewing { applyNow() }
+        if isEnabled || previewing { applyNow(force: true) }
     }
 
     // MARK: Preview
@@ -650,7 +674,7 @@ final class LightController: ObservableObject {
         previewingDisplay = displayID
         monitorPreviewKelvin = MonitorLight.kelvin(global: evening.bedtimeK, profile: profile)
         shown[displayID] = monitorPreviewKelvin
-        applyNow()
+        applyNow(force: true)
         let factor = MonitorLight.dimFactor(kelvin: evening.bedtimeK, settings: evening,
                                             globalPercent: BetterDisplayLight.shared.globalDimPercent, profile: profile)
         Task { await BetterDisplayLight.shared.previewDim(displayID: Int(displayID), factor: factor, seconds: seconds) }
