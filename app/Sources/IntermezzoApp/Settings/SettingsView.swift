@@ -11,6 +11,7 @@ extension Notification.Name {
 /// `rawValue` stays the legacy English id: Messages deep-link into panes by it.
 enum SettingsPane: String, Identifiable, CaseIterable {
     case status = "Status"
+    case diagnostics = "Diagnostics"
     case statistics = "Statistics"
     case workLog = "Work log"
     case breaks = "Breaks"
@@ -46,6 +47,7 @@ enum SettingsPane: String, Identifiable, CaseIterable {
     var title: String {
         switch self {
         case .status: return "Status"
+        case .diagnostics: return "Diagnostyka"
         case .statistics: return "Statystyki"
         case .workLog: return "Rejestr pracy"
         case .breaks: return "Przerwy"
@@ -70,6 +72,7 @@ enum SettingsPane: String, Identifiable, CaseIterable {
     var subtitle: String {
         switch self {
         case .status: return "Odliczanie na żywo, uprawnienia i stan paska menu"
+        case .diagnostics: return "Dlaczego timer działa albo stoi: wszystkie czynniki w jednym miejscu"
         case .statistics: return "Historia przerw, passa i eksport"
         case .workLog: return "Godziny w pracy, nadgodziny i eksport do rozliczeń"
         case .breaks: return "Długość, rytm, dźwięk i akcje przerw"
@@ -94,6 +97,7 @@ enum SettingsPane: String, Identifiable, CaseIterable {
     var symbol: String {
         switch self {
         case .status: return "gauge.with.dots.needle.67percent"
+        case .diagnostics: return "stethoscope"
         case .statistics: return "chart.bar.xaxis"
         case .workLog: return "clock.badge.checkmark"
         case .breaks: return "timer"
@@ -119,7 +123,7 @@ enum SettingsPane: String, Identifiable, CaseIterable {
     var isExpert: Bool { [.rules, .flash, .gallery, .ai, .advanced].contains(self) }
 
     static let groups: [(title: String, panes: [SettingsPane])] = [
-        ("Przegląd", [.status, .statistics, .workLog]),
+        ("Przegląd", [.status, .diagnostics, .statistics, .workLog]),
         ("Rytm pracy", [.breaks, .general, .focus, .rules, .clockOut, .flash, .light, .awake]),
         ("Treść", [.messages, .exercises, .gallery]),
         ("Aplikacja", [.appearance, .sync, .ai, .advanced, .about]),
@@ -194,6 +198,7 @@ struct SettingsView: View {
     private func content(for pane: SettingsPane) -> some View {
         switch pane {
         case .status: StatusPane()
+        case .diagnostics: DiagnosticsPane()
         case .general: GeneralPane()
         case .rules: RulesPane()
         case .messages: MessagesPane(openMessageID: $openMessageID, selection: $selection)
