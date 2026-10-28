@@ -101,7 +101,7 @@ struct WorkLogPane: View {
     private var wiredRows: some View {
         VStack(alignment: .leading, spacing: 2) {
             Text("Sieć przewodowa (LAN, stacja dokująca)")
-                .id("lan")
+                .settingsAnchor("lan")
             Text("Sieć LAN jest rozpoznawana po tym, co podaje jej serwer DHCP (router, domena, DNS), niezależnie od karty. Kartę lub stację zapamiętaj tylko, jeśli nie używasz jej poza pracą.")
                 .settingsNote()
         }

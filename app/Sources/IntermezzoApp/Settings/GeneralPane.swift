@@ -109,7 +109,7 @@ struct GeneralPane: View {
             }
             Section("Working Hours") {
                 Toggle("Enable working hours", isOn: $enforceWorkingHours)
-                    .id("hours")
+                    .settingsAnchor("hours")
                 HStack(spacing: 4) {
                     ForEach(0..<7, id: \.self) { i in
                         Toggle(dayNames[i], isOn: Binding(
@@ -144,7 +144,7 @@ struct GeneralPane: View {
             Section("Holidays & Vacation") {
                 Group {
                     Toggle("Holiday guard: no breaks on days with events matching", isOn: $holidayGuard)
-                        .id("holiday")
+                        .settingsAnchor("holiday")
                     if holidayGuard {
                         TextField("urlop, święto, wakacje, vacation, holiday", text: $holidayKeywords)
                         zoneStatus(work.holidayToday ? 1 : 0,
@@ -156,7 +156,7 @@ struct GeneralPane: View {
                 }
                 .expertOnly()
                 Toggle("Vacation mode — pause everything for N days", isOn: $vacationMode)
-                    .id("vacation")
+                    .settingsAnchor("vacation")
                     .onChange(of: vacationMode) { _, on in
                         if on {
                             vacationUntil = Date().addingTimeInterval(TimeInterval(vacationDays * 86400))
@@ -176,14 +176,14 @@ struct GeneralPane: View {
             }
             Section("Intermezzo Intelligence") {
                 Toggle("Meeting detection: pause when Zoom/Teams/Webex is on", isOn: $meetingDetection)
-                    .id("meeting")
+                    .settingsAnchor("meeting")
                 Toggle("Video detection: pause when watching video", isOn: $videoDetection)
-                    .id("video")
+                    .settingsAnchor("video")
                 Toggle("Kalendarz: odkładaj przerwę, gdy trwa lub zaraz zacznie się spotkanie",
                        isOn: $calendarAwareBreaks)
                     .expertOnly()
                 Toggle("Focus: pause while Focus / Do Not Disturb is on", isOn: $focusDetection)
-                    .id("focus")
+                    .settingsAnchor("focus")
                     .expertOnly()
 
                 Group {
@@ -192,7 +192,7 @@ struct GeneralPane: View {
                         .settingsNote()
 
                     Toggle("Calendar: breaks only while an event title contains (replaces fixed hours)", isOn: $calendarWorkDetection)
-                        .id("zone-calendar")
+                        .settingsAnchor("zone-calendar")
                     if calendarWorkDetection {
                         TextField("work, praca, meeting, spotkanie", text: $calendarWorkKeywords)
                         if !work.calendarAuthorized {
@@ -207,7 +207,7 @@ struct GeneralPane: View {
                     }
 
                     Toggle("VPN: active only while a VPN from the list is connected", isOn: $vpnDetection)
-                        .id("zone-vpn")
+                        .settingsAnchor("zone-vpn")
                     if vpnDetection {
                         TextField("VPN names (comma separated), e.g. work", text: $vpnNames)
                         zoneStatus(work.vpnMatch ? 1 : 0,
@@ -219,7 +219,7 @@ struct GeneralPane: View {
                     }
 
                     Toggle("Wi-Fi: active only while connected to a network from the list", isOn: $wifiDetection)
-                        .id("zone-wifi")
+                        .settingsAnchor("zone-wifi")
                     if wifiDetection {
                         TextField("SSIDs (comma separated), e.g. Biuro", text: $wifiNames)
                         if !work.locationAuthorized {
@@ -234,7 +234,7 @@ struct GeneralPane: View {
                     }
 
                     Toggle("Location: active only within radius of a saved place", isOn: $geoDetection)
-                        .id("zone-geo")
+                        .settingsAnchor("zone-geo")
                     if geoDetection {
                         HStack(spacing: 6) {
                             TextField("lat", value: $geoLat, format: .number.precision(.fractionLength(4)))

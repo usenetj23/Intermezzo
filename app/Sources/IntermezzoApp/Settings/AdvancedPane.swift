@@ -30,7 +30,7 @@ struct AdvancedPane: View {
                     Text("Event Source (odpytywanie)").tag("source")
                     Text("Event Monitor (tap zdarzeń)").tag("monitor")
                 }
-                .id("idle")
+                .settingsAnchor("idle")
                 if idleMethod == "monitor" {
                     Text("Needs Input Monitoring permission. Without it Intermezzo falls back to Event Source automatically.")
                         .settingsNote()

@@ -9,6 +9,55 @@ extension Notification.Name {
     static let scrollToSettingsAnchor = Notification.Name("IntermezzoScrollToSettingsAnchor")
 }
 
+/// Drives the short flash that shows which row a jump from Diagnostics landed on.
+@MainActor
+final class SettingsHighlight: ObservableObject {
+    static let shared = SettingsHighlight()
+    @Published private(set) var anchor: String?
+    @Published private(set) var lit = false
+    private var generation = 0
+
+    /// Three pulses of the accent colour behind the row, then it fades away for good.
+    func flash(_ name: String) {
+        generation += 1
+        let mine = generation
+        anchor = name
+        Task { @MainActor in
+            for _ in 0..<3 {
+                guard mine == generation else { return }
+                withAnimation(.easeInOut(duration: 0.25)) { lit = true }
+                try? await Task.sleep(nanoseconds: 320_000_000)
+                withAnimation(.easeInOut(duration: 0.25)) { lit = false }
+                try? await Task.sleep(nanoseconds: 320_000_000)
+            }
+            if mine == generation { anchor = nil }
+        }
+    }
+}
+
+/// Marks a settings row as a jump target (`.id`) and lets it flash when it is the one jumped to.
+struct SettingsAnchor: ViewModifier {
+    let name: String
+    @ObservedObject private var highlight = SettingsHighlight.shared
+
+    func body(content: Content) -> some View {
+        let on = highlight.anchor == name && highlight.lit
+        content
+            .id(name)
+            .background(
+                RoundedRectangle(cornerRadius: 8, style: .continuous)
+                    .fill(Color.accentColor.opacity(on ? 0.30 : 0))
+                    .padding(-6)
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: 8, style: .continuous)
+                    .strokeBorder(Color.accentColor.opacity(on ? 0.9 : 0), lineWidth: 2)
+                    .padding(-6)
+                    .allowsHitTesting(false)
+            )
+    }
+}
+
 /// Scrolls a settings form to the row named by `SettingsPane.pendingAnchor` when the pane appears
 /// (or at once, if it is already on screen). Rows opt in with `.id("name")`.
 struct ScrollsToSettingsAnchor: ViewModifier {
@@ -26,11 +75,14 @@ struct ScrollsToSettingsAnchor: ViewModifier {
         // The form lays itself out first; scrolling at once would miss rows below the fold.
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
             withAnimation { proxy.scrollTo(anchor, anchor: .top) }
+            // Flash once the scroll has settled.
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { SettingsHighlight.shared.flash(anchor) }
         }
     }
 }
 
 extension View {
+    func settingsAnchor(_ name: String) -> some View { modifier(SettingsAnchor(name: name)) }
     func scrollsToSettingsAnchor() -> some View { modifier(ScrollsToSettingsAnchor()) }
 }
 

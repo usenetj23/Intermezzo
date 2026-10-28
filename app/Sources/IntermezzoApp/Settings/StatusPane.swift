@@ -59,7 +59,7 @@ struct StatusPane: View {
                 }
                 HStack(spacing: 10) {
                     Button("Wstrzymaj timer") { coordinator.pauseAll() }
-                        .id("pause")
+                        .settingsAnchor("pause")
                     Button("Wznów timer") { coordinator.resumeAll() }
                     Button("Zresetuj cykl") { coordinator.resetAll() }
                 }
