@@ -23,6 +23,8 @@ enum LightKeys {
     static let ambient = "lightAmbient"
     /// Colour of the room's lamps in kelvin, chosen by hand (the Mac cannot measure it); 0 = unknown.
     static let roomLampK = "lightRoomK"
+    /// Lamp colour at work (-1 = same as the other one).
+    static let roomLampKWork = "lightRoomKWork"
     /// The hand-drawn day of the "Custom" profile: 24 hourly kelvin values ("6500,6500,…").
     static let customCurve = "lightCustomCurve"
     /// The ready-made profile the drawn day was last started from (shown as a note; the chart is drawn above).
@@ -319,11 +321,22 @@ final class LightController: ObservableObject {
     private func settingsChanged() {
         let signature = [LightKeys.enabled, LightKeys.profile, LightKeys.dayK, LightKeys.sunsetK, LightKeys.bedtimeK,
                          LightKeys.wakeMinutes, LightKeys.manualLocation, LightKeys.weather, LightKeys.disabledUntil,
-                         LightKeys.ambient, LightKeys.roomLampK, LightKeys.customCurve, MonitorKeys.profiles]
+                         LightKeys.ambient, LightKeys.roomLampK, LightKeys.roomLampKWork, LightKeys.customCurve, MonitorKeys.profiles]
             .map { "\(defaults.object(forKey: $0) ?? "")" }.joined(separator: "|")
         guard signature != lastSettingsSignature else { return }
         lastSettingsSignature = signature
         tick()
+    }
+
+    /// The Mac is in the work zone: the work-log zone matched, or Wi-Fi, VPN or the saved place from the break work zone.
+    private static var atWork: Bool {
+        WorkLogController.shared.zone.inZone || WorkDetector.shared.presencePlace != nil
+    }
+
+    /// Lamp colour for the place the Mac is in; the work value applies only when it was set (not -1).
+    static func roomLampK(defaults: UserDefaults, atWork: Bool) -> Int {
+        let work = defaults.object(forKey: LightKeys.roomLampKWork) as? Int ?? -1
+        return atWork && work >= 0 ? work : defaults.integer(forKey: LightKeys.roomLampK)
     }
 
     func tick() {
@@ -344,7 +357,7 @@ final class LightController: ObservableObject {
         let measured = measureRoom()
         var current = schedule
         if let measured {
-            let lamp = defaults.integer(forKey: LightKeys.roomLampK)
+            let lamp = Self.roomLampK(defaults: defaults, atWork: Self.atWork)
             let kelvin = AmbientLight.adjustedKelvin(schedule.kelvin, lux: measured, settings: settings,
                                                      roomLampK: lamp > 0 ? Double(lamp) : nil)
             current = LightState(kelvin: kelvin, phase: schedule.phase, sunElevation: schedule.sunElevation)

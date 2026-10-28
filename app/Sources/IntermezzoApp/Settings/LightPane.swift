@@ -17,6 +17,9 @@ struct LightPane: View {
     @AppStorage(BetterDisplayKeys.unlinkGroup) private var bdUnlinkGroup = false
     @AppStorage(LightKeys.ambient) private var useAmbient = false
     @AppStorage(LightKeys.roomLampK) private var roomLampK = 0
+    @AppStorage(LightKeys.roomLampKWork) private var roomLampKWork = -1
+    @ObservedObject private var workLog = WorkLogController.shared
+    @ObservedObject private var workDetector = WorkDetector.shared
     @AppStorage(LightKeys.customBase) private var customBaseRaw = ""
     @ObservedObject private var betterDisplay = BetterDisplayLight.shared
     @State private var runningApps: [String] = []
@@ -237,12 +240,25 @@ struct LightPane: View {
                     Label(light.ambientNote, systemImage: "info.circle").font(.caption).foregroundStyle(.secondary)
                 }
             }
-            Picker("Lampy w pokoju", selection: $roomLampK) {
+            Picker("Lampy w pokoju (dom i reszta miejsc)", selection: $roomLampK) {
                 Text("Nie wiem").tag(0)
                 Text("Ciepłe (ok. 2700 K)").tag(2700)
                 Text("Neutralne (ok. 4000 K)").tag(4000)
                 Text("Zimne (ok. 5500 K)").tag(5500)
             }
+            Picker("Lampy w pracy", selection: $roomLampKWork) {
+                Text("Tak samo jak wyżej").tag(-1)
+                Text("Nie wiem").tag(0)
+                Text("Ciepłe (ok. 2700 K)").tag(2700)
+                Text("Neutralne (ok. 4000 K)").tag(4000)
+                Text("Zimne (ok. 5500 K)").tag(5500)
+            }
+            LabeledContent("Teraz stosuję") {
+                let atWork = workLog.zone.inZone || workDetector.presencePlace != nil
+                Text(atWork ? "ustawienie z pracy" : "ustawienie domowe").foregroundStyle(.secondary)
+            }
+            Text("Praca = Mac jest w strefie pracy: sieć LAN lub Wi-Fi z Rejestru pracy, albo Wi-Fi, VPN lub miejsce z Ogólne → strefa pracy. Poza nią używam ustawienia domowego. Kolor lamp wpływa tylko na barwę ekranu wieczorem i tylko gdy czujnik pokazuje oświetlony pokój (co najmniej 100 lx); jasność i przyciemnianie zależą wyłącznie od lx.")
+                .settingsNote()
             Text("W jasnym pokoju ocieplanie ekranu jest słabsze, a przyciemnianie przez BetterDisplay mniejsze; w ciemnym działa w pełni. Czujnik jest tylko w MacBooku, odczyt idzie przez prywatny interfejs macOS (może przestać działać po aktualizacji) i znika przy zamkniętej klapie, wtedy działa sam harmonogram. Mac nie mierzy barwy światła, więc kolor lamp wybierasz ręcznie: wieczorem ekran nie będzie wtedy dużo zimniejszy niż lampy.")
                 .settingsNote()
         }
