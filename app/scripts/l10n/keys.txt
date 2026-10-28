@@ -615,7 +615,7 @@ compiler	IntermezzoApp/Settings/LightMonitorsSection.swift:68	Przywróć ogólne
 compiler	IntermezzoApp/Settings/ScriptEditorSheet.swift:231	Przywróć wersję z galerii
 compiler	IntermezzoApp/Settings/BreakLookSections.swift:36	Przyznaj uprawnienia…
 compiler	IntermezzoApp/Settings/ConsistencyHeatmapView.swift:13	Pt
-compiler	IntermezzoApp/Settings/LightPane.swift:317	Płynna zmiana: %lld s
+compiler	IntermezzoApp/Settings/LightPane.swift:317	Przełączenie (włączenie Światła, pełny ekran): %lld s
 compiler	IntermezzoApp/Settings/AppearancePane.swift:77	Pływająca pastylka
 compiler	IntermezzoApp/Settings/BreakLookSections.swift:86	Random
 compiler	IntermezzoKit/HealthMessages.swift:173	Rano wyjdź na światło dzienne: to najlepszy „ekran” dla zegara dobowego.
@@ -1654,4 +1654,5 @@ runtime	-	Full Disk Access
 runtime	-	Reading Focus modes (work zone and pausing by Focus); optional
 compiler	IntermezzoApp/Settings/SettingsView.swift	Szukaj w ustawieniach
 compiler	IntermezzoApp/Settings/SettingsSearch.swift	Brak wyników
-compiler	IntermezzoApp/Settings/LightPane.swift:337	Kolor zmienia się łagodnie: powoli rusza, przyspiesza i zwalnia, a krótszy czas niż 8 s nie jest używany. Pełnoekranowe okno albo aplikacja wyjątek działają dopiero po kilku sekundach, żeby krótkie przełączenia nie migały kolorem.
+compiler	IntermezzoApp/Settings/LightPane.swift:337	Barwa podąża za porą dnia powoli, nie szybciej niż ustawione K na minutę (np. 100 K zajmie wtedy kilka minut). Włączenie Światła i okno pełnoekranowe albo aplikacja wyjątek przełączają kolor w podanym czasie, ale dopiero po kilku sekundach, żeby krótkie przełączenia nie migały.
+compiler	IntermezzoApp/Settings/LightPane.swift:336	Tempo zmiany barwy: najwyżej %lld K na minutę

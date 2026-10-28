@@ -127,6 +127,7 @@
 "Barki w dół" = "Shoulders down";
 "Barwa" = "Colour";
 "Barwa ekranu według pory dnia i godziny snu" = "Screen colour by the time of day and bedtime";
+"Barwa podąża za porą dnia powoli, nie szybciej niż ustawione K na minutę (np. 100 K zajmie wtedy kilka minut). Włączenie Światła i okno pełnoekranowe albo aplikacja wyjątek przełączają kolor w podanym czasie, ale dopiero po kilku sekundach, żeby krótkie przełączenia nie migały." = "The colour changes gently: it starts slowly, speeds up and slows down, and a time shorter than 8 s is not used. A full-screen window or an excluded app takes effect only after a few seconds, so brief switches do not flash the colour.";
 "Barwa światła w ciągu dnia" = "The colour of light through the day";
 "Bateria spadła poniżej ustawionego progu, więc Mac może już zasnąć." = "The battery fell below the set limit, so the Mac may sleep now.";
 "Before Due" = "Before Due";
@@ -461,7 +462,6 @@
 "Kod AppleScript" = "AppleScript code";
 "Kolacja" = "Dinner";
 "Kolor" = "Colour";
-"Kolor zmienia się łagodnie: powoli rusza, przyspiesza i zwalnia, a krótszy czas niż 8 s nie jest używany. Pełnoekranowe okno albo aplikacja wyjątek działają dopiero po kilku sekundach, żeby krótkie przełączenia nie migały kolorem." = "The colour changes gently: it starts slowly, speeds up and slows down, and a time shorter than 8 s is not used. A full-screen window or an excluded app takes effect only after a few seconds, so brief switches do not flash the colour.";
 "Kolorowane" = "Coloured";
 "Koloruj ikonę w pasku menu według stanu timera" = "Tint the menu bar icon by the timer state";
 "Koniec dnia" = "End of day";
@@ -864,6 +864,7 @@
 "Przetocz barki do tyłu 10 razy, potem do przodu 10 razy." = "Roll your shoulders back 10 times, then forward 10 times.";
 "Przezroczysty dla myszy, zniknie sam." = "Click-through, it disappears on its own.";
 "Przełącza czuwanie" = "Toggles keep awake";
+"Przełączenie (włączenie Światła, pełny ekran): %lld s" = "Switch (Light turning on, full screen): %lld s";
 "Przy ekranach mrugamy 3x rzadziej — oczy wysychają. Zrób 10 powolnych, pełnych mrugnięć." = "At screens we blink 3× less often, so eyes dry out. Do 10 slow, full blinks.";
 "Przy ekranie mrugamy ok. 4–6 razy na minutę zamiast 15–20 (Lapa i in. 2023; Kaur i in. 2022). Krótkie okienko przypomina o kilku pełnych mrugnięciach. Tylko w trakcie aktywnej pracy." = "At a screen we blink about 4–6 times a minute instead of 15–20 (Lapa et al. 2023; Kaur et al. 2022). A short popup reminds you to blink fully a few times. Only during active work.";
 "Przy monitorze mrugamy nawet 3× rzadziej niż normalnie — stąd suchość oczu." = "At a monitor we blink up to 3× less often than normal — hence dry eyes.";
@@ -886,7 +887,6 @@
 "Przyznaj uprawnienia…" = "Grant permissions…";
 "Pt" = "Fri";
 "Pusty skrypt" = "Empty script";
-"Płynna zmiana: %lld s" = "Smooth change: %lld s";
 "Pływająca pastylka" = "Floating pill";
 "Random" = "Random";
 "Rano wyjdź na światło dzienne: to najlepszy „ekran” dla zegara dobowego." = "In the morning go out into daylight: it is the best “screen” for your body clock.";
@@ -1102,6 +1102,7 @@
 "Tego dnia nie zarejestrowano pracy." = "No work recorded on this day.";
 "Telefon przełącza Focus po lokalizacji GPS i synchronizuje go z Makiem, więc tryb oznaczony jako praca mówi, że jesteś w pracy: liczy się do strefy przerw i do Rejestru pracy (bez sieci biura jako praca zdalna). Pozostałe tryby domyślnie wstrzymują przerwy (jeśli włączone jest wykrywanie Focus)." = "The iPhone switches Focus by GPS location and syncs it to the Mac, so a mode marked as work says you are at work: it counts toward the break work zone and the Work log (as remote work without the office network). Other modes hold breaks by default (if Focus detection is on).";
 "Temperatura barwowa ekranu na wieczór poniżej 3400 K poprawia zasypianie (tryb nocny istnieje nie bez powodu)." = "An evening screen colour temperature below 3400 K helps you fall asleep (Night Shift exists for a reason).";
+"Tempo zmiany barwy: najwyżej %lld K na minutę" = "Colour change speed: at most %lld K per minute";
 "Ten Mac nie udostępnia czujnika światła: działa sam harmonogram." = "This Mac does not provide a light sensor: the schedule alone is used.";
 "Ten adres jest poza Twoją siecią: wysyłane dane opuszczą ten komputer." = "This address is outside your network: the data sent will leave this computer.";
 "Ten skrypt nie ma nastaw. Dodaj na początku kodu linię „property nazwa : wartość”, a pojawi się tutaj jako pole." = "This script has no settings. Add a line “property name : value” at the top of the code and it appears here as a field.";

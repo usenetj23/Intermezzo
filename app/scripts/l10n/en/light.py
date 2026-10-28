@@ -63,8 +63,8 @@ STRINGS = {
         "Take cloud cover into account",
     "Pochmurne popołudnie ściemnia się wcześniej. Korzysta z tej samej anonimowej pogody co ekran przerwy (Open-Meteo), bez dodatkowych danych.":
         "A cloudy afternoon gets dark earlier. It uses the same anonymous weather as the break screen (Open-Meteo), with no extra data.",
-    "Płynna zmiana: %lld s":
-        "Smooth change: %lld s",
+    "Przełączenie (włączenie Światła, pełny ekran): %lld s":
+        "Switch (Light turning on, full screen): %lld s",
     "Wykres barwy ekranu w ciągu doby":
         "Chart of the screen colour over the day",
     "wpisana ręcznie":
@@ -231,6 +231,8 @@ STRINGS = {
         "Zoom out",
     "Dane mapy: Natural Earth (domena publiczna); nazwy miast: GeoNames, licencja CC BY 4.0.":
         "Map data: Natural Earth (public domain); city names: GeoNames, licence CC BY 4.0.",
-    "Kolor zmienia się łagodnie: powoli rusza, przyspiesza i zwalnia, a krótszy czas niż 8 s nie jest używany. Pełnoekranowe okno albo aplikacja wyjątek działają dopiero po kilku sekundach, żeby krótkie przełączenia nie migały kolorem.":
+    "Barwa podąża za porą dnia powoli, nie szybciej niż ustawione K na minutę (np. 100 K zajmie wtedy kilka minut). Włączenie Światła i okno pełnoekranowe albo aplikacja wyjątek przełączają kolor w podanym czasie, ale dopiero po kilku sekundach, żeby krótkie przełączenia nie migały.":
         "The colour changes gently: it starts slowly, speeds up and slows down, and a time shorter than 8 s is not used. A full-screen window or an excluded app takes effect only after a few seconds, so brief switches do not flash the colour.",
+    "Tempo zmiany barwy: najwyżej %lld K na minutę":
+        "Colour change speed: at most %lld K per minute",
 }

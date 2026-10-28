@@ -13,6 +13,8 @@ enum LightKeys {
     static let manualLocation = "lightLocation"
     static let weather = "lightWeather"
     static let fadeSeconds = "lightFadeSeconds"
+    /// How fast the colour may follow the day, in kelvin per minute.
+    static let followRate = "lightFollowRate"
     /// This Mac only: not synchronised (see SyncPolicy).
     static let disabledUntil = "lightDisabledUntil"
     /// Leave a display neutral while a full-screen window (film, game) is on it.
@@ -109,11 +111,11 @@ final class LightController: ObservableObject {
     static let shared = LightController()
 
     @Published private(set) var state: LightState?
-    /// For the UI: follows `currentKelvin` in steps of 50 K, so a fade does not redraw the pane four times a second.
+    /// For the UI: follows `currentKelvin` in steps of 10 K, so a fade does not redraw the pane ten times a second.
     @Published private(set) var appliedKelvin = 6500.0
     /// What the screens show right now (changes every 0.25 s during a fade).
     private var currentKelvin = 6500.0 {
-        didSet { if abs(currentKelvin - appliedKelvin) >= 50 { appliedKelvin = currentKelvin } }
+        didSet { if abs(currentKelvin - appliedKelvin) >= 10 { appliedKelvin = currentKelvin } }
     }
     @Published private(set) var nextEvent: SunEvent?
     @Published private(set) var locationNote = ""
@@ -140,6 +142,10 @@ final class LightController: ObservableObject {
     private var pendingNeutral: Set<UInt32>?
     private var pendingNeutralSince = Date.distantPast
     private var neutralRecheck: Timer?
+    /// A switch (Light on or off, an exception) fades in the set number of seconds; the drift of the day itself
+    /// follows slowly, at most `followRate` kelvin per minute.
+    private var quickFade = false
+    private var wasActive: Bool?
     private static let neutralHoldSeconds = 4.0
     private var previewTimer: Timer?
     private var signalSources: [DispatchSourceSignal] = []
@@ -216,6 +222,12 @@ final class LightController: ObservableObject {
 
     /// Even a value saved before the limit existed never gives a blink.
     static let minFadeSeconds = 8
+    static let defaultFollowRate = 30
+
+    private var followSpeed: Double {
+        let rate = defaults.object(forKey: LightKeys.followRate) as? Int ?? Self.defaultFollowRate
+        return Double(min(max(rate, 1), 600)) / 60
+    }
 
     private var fadeSeconds: Double {
         Double(min(max(defaults.object(forKey: LightKeys.fadeSeconds) as? Int ?? 20, Self.minFadeSeconds), 120))
@@ -381,6 +393,10 @@ final class LightController: ObservableObject {
         }
         if current != state { state = current }
 
+        // Turning Light on or off, or pausing it, is a switch, not a drift.
+        let active = isEnabled && pausedUntil == nil
+        if let was = wasActive, was != active { quickFade = true }
+        wasActive = active
         refreshExclusions(fade: false)
         startFade(jump: firstTick)
         let general = current.kelvin
@@ -506,6 +522,7 @@ final class LightController: ObservableObject {
     private func startFade(jump: Bool) {
         if jump || displays.ids.isEmpty {
             steadyGoal = nil
+            quickFade = false
             currentKelvin = globalGoal()
             appliedKelvin = currentKelvin
             currentVelocity = 0
@@ -517,16 +534,19 @@ final class LightController: ObservableObject {
         guard fadeTimer == nil else { return }
         let dt = 0.1
         // The spring covers most of the way in about a third of the set time and settles gently.
-        let smoothTime = fadeSeconds / 3
         let timer = Timer(timeInterval: dt, repeats: true) { [weak self] t in
             MainActor.assumeIsolated {
                 guard let self else { t.invalidate(); return }
+                // Read each step: a switch can arrive while a slow drift is under way.
+                let quick = self.quickFade
+                let smoothTime = quick ? self.fadeSeconds / 3 : 20
+                let maxSpeed = quick ? Double.infinity : self.followSpeed
                 var moving = self.glide(&self.currentKelvin, &self.currentVelocity, to: self.globalGoal(),
-                                        smoothTime: smoothTime, dt: dt)
+                                        smoothTime: smoothTime, maxSpeed: maxSpeed, dt: dt)
                 for id in self.displays.ids {
                     var value = self.shown[id] ?? self.currentKelvin
                     var velocity = self.shownVelocity[id] ?? 0
-                    if self.glide(&value, &velocity, to: self.goal(for: id), smoothTime: smoothTime, dt: dt) { moving = true }
+                    if self.glide(&value, &velocity, to: self.goal(for: id), smoothTime: smoothTime, maxSpeed: maxSpeed, dt: dt) { moving = true }
                     self.shown[id] = value
                     self.shownVelocity[id] = velocity
                 }
@@ -534,6 +554,7 @@ final class LightController: ObservableObject {
                 if !moving {
                     t.invalidate()
                     self.fadeTimer = nil
+                    self.quickFade = false
                     self.appliedKelvin = self.currentKelvin
                 }
             }
@@ -544,13 +565,14 @@ final class LightController: ObservableObject {
 
     /// One smooth step toward `target`; returns whether it is still on the way.
     private func glide(_ value: inout Double, _ velocity: inout Double, to target: Double,
-                       smoothTime: Double, dt: Double) -> Bool {
+                       smoothTime: Double, maxSpeed: Double, dt: Double) -> Bool {
         if SmoothDamp.settled(value: value, target: target, velocity: velocity) {
             value = target
             velocity = 0
             return false
         }
-        value = SmoothDamp.step(value: value, target: target, velocity: &velocity, smoothTime: smoothTime, dt: dt)
+        value = SmoothDamp.step(value: value, target: target, velocity: &velocity, smoothTime: smoothTime, dt: dt,
+                                maxSpeed: maxSpeed)
         return true
     }
 
@@ -609,6 +631,7 @@ final class LightController: ObservableObject {
         }
         pendingNeutral = nil
         windowNeutral = next
+        quickFade = true
         Trace.log("light: neutral displays \(next.sorted())")
         if fade { startFade(jump: false) }
     }

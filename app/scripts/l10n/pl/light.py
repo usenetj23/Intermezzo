@@ -62,8 +62,8 @@ STRINGS = {
         "Uwzględniaj zachmurzenie",
     "Pochmurne popołudnie ściemnia się wcześniej. Korzysta z tej samej anonimowej pogody co ekran przerwy (Open-Meteo), bez dodatkowych danych.":
         "Pochmurne popołudnie ściemnia się wcześniej. Korzysta z tej samej anonimowej pogody co ekran przerwy (Open-Meteo), bez dodatkowych danych.",
-    "Płynna zmiana: %lld s":
-        "Płynna zmiana: %lld s",
+    "Przełączenie (włączenie Światła, pełny ekran): %lld s":
+        "Przełączenie (włączenie Światła, pełny ekran): %lld s",
     "Wykres barwy ekranu w ciągu doby":
         "Wykres barwy ekranu w ciągu doby",
     "wpisana ręcznie":
@@ -230,6 +230,8 @@ STRINGS = {
         "Oddal",
     "Dane mapy: Natural Earth (domena publiczna); nazwy miast: GeoNames, licencja CC BY 4.0.":
         "Dane mapy: Natural Earth (domena publiczna); nazwy miast: GeoNames, licencja CC BY 4.0.",
-    "Kolor zmienia się łagodnie: powoli rusza, przyspiesza i zwalnia, a krótszy czas niż 8 s nie jest używany. Pełnoekranowe okno albo aplikacja wyjątek działają dopiero po kilku sekundach, żeby krótkie przełączenia nie migały kolorem.":
-        "Kolor zmienia się łagodnie: powoli rusza, przyspiesza i zwalnia, a krótszy czas niż 8 s nie jest używany. Pełnoekranowe okno albo aplikacja wyjątek działają dopiero po kilku sekundach, żeby krótkie przełączenia nie migały kolorem.",
+    "Barwa podąża za porą dnia powoli, nie szybciej niż ustawione K na minutę (np. 100 K zajmie wtedy kilka minut). Włączenie Światła i okno pełnoekranowe albo aplikacja wyjątek przełączają kolor w podanym czasie, ale dopiero po kilku sekundach, żeby krótkie przełączenia nie migały.":
+        "Barwa podąża za porą dnia powoli, nie szybciej niż ustawione K na minutę (np. 100 K zajmie wtedy kilka minut). Włączenie Światła i okno pełnoekranowe albo aplikacja wyjątek przełączają kolor w podanym czasie, ale dopiero po kilku sekundach, żeby krótkie przełączenia nie migały.",
+    "Tempo zmiany barwy: najwyżej %lld K na minutę":
+        "Tempo zmiany barwy: najwyżej %lld K na minutę",
 }

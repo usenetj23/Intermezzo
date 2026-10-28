@@ -190,6 +190,20 @@ final class SmoothDampTests: XCTestCase {
         XCTAssertLessThan(path[0] - path[1], 100)   // the first 0.1 s moves only a little
     }
 
+    func testSpeedIsCapped() {
+        var value = 6500.0, velocity = 0.0
+        let maxSpeed = 100.0 / 300   // 100 K in 5 minutes
+        var peak = 0.0
+        for _ in 0..<(60 * 10) {   // 60 s at 10 Hz
+            let next = SmoothDamp.step(value: value, target: 2700, velocity: &velocity, smoothTime: 20, dt: 0.1, maxSpeed: maxSpeed)
+            peak = max(peak, abs(next - value) / 0.1)
+            value = next
+        }
+        XCTAssertLessThanOrEqual(peak, maxSpeed * 1.05)
+        XCTAssertGreaterThan(6500 - value, 5)   // it does move
+        XCTAssertLessThan(6500 - value, 25)     // but at most about 100 K per 5 minutes
+    }
+
     func testRetargetKeepsTheSpeed() {
         var value = 6500.0, velocity = 0.0
         for _ in 0..<30 { value = SmoothDamp.step(value: value, target: 2700, velocity: &velocity, smoothTime: 7, dt: 0.1) }

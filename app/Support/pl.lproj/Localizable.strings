@@ -127,6 +127,7 @@
 "Barki w dół" = "Barki w dół";
 "Barwa" = "Barwa";
 "Barwa ekranu według pory dnia i godziny snu" = "Barwa ekranu według pory dnia i godziny snu";
+"Barwa podąża za porą dnia powoli, nie szybciej niż ustawione K na minutę (np. 100 K zajmie wtedy kilka minut). Włączenie Światła i okno pełnoekranowe albo aplikacja wyjątek przełączają kolor w podanym czasie, ale dopiero po kilku sekundach, żeby krótkie przełączenia nie migały." = "Barwa podąża za porą dnia powoli, nie szybciej niż ustawione K na minutę (np. 100 K zajmie wtedy kilka minut). Włączenie Światła i okno pełnoekranowe albo aplikacja wyjątek przełączają kolor w podanym czasie, ale dopiero po kilku sekundach, żeby krótkie przełączenia nie migały.";
 "Barwa światła w ciągu dnia" = "Barwa światła w ciągu dnia";
 "Bateria spadła poniżej ustawionego progu, więc Mac może już zasnąć." = "Bateria spadła poniżej ustawionego progu, więc Mac może już zasnąć.";
 "Before Due" = "Przed terminem";
@@ -461,7 +462,6 @@
 "Kod AppleScript" = "Kod AppleScript";
 "Kolacja" = "Kolacja";
 "Kolor" = "Kolor";
-"Kolor zmienia się łagodnie: powoli rusza, przyspiesza i zwalnia, a krótszy czas niż 8 s nie jest używany. Pełnoekranowe okno albo aplikacja wyjątek działają dopiero po kilku sekundach, żeby krótkie przełączenia nie migały kolorem." = "Kolor zmienia się łagodnie: powoli rusza, przyspiesza i zwalnia, a krótszy czas niż 8 s nie jest używany. Pełnoekranowe okno albo aplikacja wyjątek działają dopiero po kilku sekundach, żeby krótkie przełączenia nie migały kolorem.";
 "Kolorowane" = "Kolorowane";
 "Koloruj ikonę w pasku menu według stanu timera" = "Koloruj ikonę w pasku menu według stanu timera";
 "Koniec dnia" = "Koniec dnia";
@@ -864,6 +864,7 @@
 "Przetocz barki do tyłu 10 razy, potem do przodu 10 razy." = "Przetocz barki do tyłu 10 razy, potem do przodu 10 razy.";
 "Przezroczysty dla myszy, zniknie sam." = "Nie blokuje kliknięć, zniknie sam.";
 "Przełącza czuwanie" = "Przełącza czuwanie";
+"Przełączenie (włączenie Światła, pełny ekran): %lld s" = "Przełączenie (włączenie Światła, pełny ekran): %lld s";
 "Przy ekranach mrugamy 3x rzadziej — oczy wysychają. Zrób 10 powolnych, pełnych mrugnięć." = "Przy ekranach mrugamy 3× rzadziej — oczy wysychają. Zrób 10 powolnych, pełnych mrugnięć.";
 "Przy ekranie mrugamy ok. 4–6 razy na minutę zamiast 15–20 (Lapa i in. 2023; Kaur i in. 2022). Krótkie okienko przypomina o kilku pełnych mrugnięciach. Tylko w trakcie aktywnej pracy." = "Przy ekranie mrugamy ok. 4–6 razy na minutę zamiast 15–20 (Lapa i in. 2023; Kaur i in. 2022). Krótkie okienko przypomina o kilku pełnych mrugnięciach. Tylko w trakcie aktywnej pracy.";
 "Przy monitorze mrugamy nawet 3× rzadziej niż normalnie — stąd suchość oczu." = "Przy monitorze mrugamy nawet 3× rzadziej niż normalnie — stąd suchość oczu.";
@@ -886,7 +887,6 @@
 "Przyznaj uprawnienia…" = "Przyznaj uprawnienia…";
 "Pt" = "Pt";
 "Pusty skrypt" = "Pusty skrypt";
-"Płynna zmiana: %lld s" = "Płynna zmiana: %lld s";
 "Pływająca pastylka" = "Pływająca pastylka";
 "Random" = "Losowo";
 "Rano wyjdź na światło dzienne: to najlepszy „ekran” dla zegara dobowego." = "Rano wyjdź na światło dzienne: to najlepszy „ekran” dla zegara dobowego.";
@@ -1102,6 +1102,7 @@
 "Tego dnia nie zarejestrowano pracy." = "Tego dnia nie zarejestrowano pracy.";
 "Telefon przełącza Focus po lokalizacji GPS i synchronizuje go z Makiem, więc tryb oznaczony jako praca mówi, że jesteś w pracy: liczy się do strefy przerw i do Rejestru pracy (bez sieci biura jako praca zdalna). Pozostałe tryby domyślnie wstrzymują przerwy (jeśli włączone jest wykrywanie Focus)." = "Telefon przełącza tryb Skupienia po lokalizacji GPS i synchronizuje go z Makiem, więc tryb oznaczony jako praca mówi, że jesteś w pracy: liczy się do strefy przerw i do Rejestru pracy (bez sieci biura jako praca zdalna). Pozostałe tryby domyślnie wstrzymują przerwy (jeśli włączone jest wykrywanie Skupienia).";
 "Temperatura barwowa ekranu na wieczór poniżej 3400 K poprawia zasypianie (tryb nocny istnieje nie bez powodu)." = "Temperatura barwowa ekranu na wieczór poniżej 3400 K poprawia zasypianie (Night Shift istnieje nie bez powodu).";
+"Tempo zmiany barwy: najwyżej %lld K na minutę" = "Tempo zmiany barwy: najwyżej %lld K na minutę";
 "Ten Mac nie udostępnia czujnika światła: działa sam harmonogram." = "Ten Mac nie udostępnia czujnika światła: działa sam harmonogram.";
 "Ten adres jest poza Twoją siecią: wysyłane dane opuszczą ten komputer." = "Ten adres jest poza Twoją siecią: wysyłane dane opuszczą ten komputer.";
 "Ten skrypt nie ma nastaw. Dodaj na początku kodu linię „property nazwa : wartość”, a pojawi się tutaj jako pole." = "Ten skrypt nie ma nastaw. Dodaj na początku kodu linię „property nazwa : wartość”, a pojawi się tutaj jako pole.";
