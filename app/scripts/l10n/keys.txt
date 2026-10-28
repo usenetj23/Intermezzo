@@ -1654,3 +1654,4 @@ runtime	-	Full Disk Access
 runtime	-	Reading Focus modes (work zone and pausing by Focus); optional
 compiler	IntermezzoApp/Settings/SettingsView.swift	Szukaj w ustawieniach
 compiler	IntermezzoApp/Settings/SettingsSearch.swift	Brak wyników
+compiler	IntermezzoApp/Settings/LightPane.swift:337	Kolor zmienia się łagodnie: powoli rusza, przyspiesza i zwalnia, a krótszy czas niż 8 s nie jest używany. Pełnoekranowe okno albo aplikacja wyjątek działają dopiero po kilku sekundach, żeby krótkie przełączenia nie migały kolorem.
