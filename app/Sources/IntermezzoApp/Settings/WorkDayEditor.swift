@@ -61,10 +61,17 @@ struct WorkDayEditor: View {
 
     private func rowView(_ row: Binding<Row>) -> some View {
         let r = row.wrappedValue
+        // An interval that ends exactly where the live one begins keeps that end: the two are one stretch of work.
+        let liveStart = rows.first(where: \.isLive)?.start
+        let endLocked = !r.isLive && liveStart.map {
+            Calendar.current.isDate(r.end, equalTo: $0, toGranularity: .minute)
+        } ?? false
         return VStack(alignment: .leading, spacing: 6) {
             HStack(spacing: 10) {
                 DatePicker("Od", selection: row.start, displayedComponents: .hourAndMinute)
                 DatePicker("Do", selection: row.end, displayedComponents: .hourAndMinute)
+                    .disabled(endLocked)
+                    .help(endLocked ? "Koniec jest początkiem trwającego odcinka i nie można go zmienić." : "")
                 Picker("", selection: row.place) {
                     Text("Biuro").tag(WorkPlace.office)
                     Text("Zdalnie").tag(WorkPlace.remote)
@@ -84,6 +91,9 @@ struct WorkDayEditor: View {
             }
             .disabled(r.isLive)
             TextField("Notatka (np. awaria linii 3)", text: row.note)
+            if endLocked {
+                Text("Koniec zablokowany: odcinek łączy się z trwającym.").font(.caption2).foregroundStyle(.secondary)
+            }
             if !r.isLive, r.end <= r.start {
                 Text("Koniec musi być po początku.").font(.caption).foregroundStyle(.red)
             } else if r.isCorrection || r.record == nil {
