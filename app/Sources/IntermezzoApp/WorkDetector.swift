@@ -25,6 +25,8 @@ final class WorkDetector: NSObject, ObservableObject, CLLocationManagerDelegate 
 
     /// Calendar currently shows an event whose title matches a keyword.
     @Published private(set) var calendarMatch = false
+    /// The event that matched, "title (calendar)", for Diagnostics.
+    @Published private(set) var calendarMatchSummary = ""
     /// A VPN from the configured name list is connected.
     @Published private(set) var vpnMatch = false
     /// Currently connected VPN names (from scutil), for display.
@@ -43,6 +45,8 @@ final class WorkDetector: NSObject, ObservableObject, CLLocationManagerDelegate 
     // MARK: - Configuration (pushed by the coordinator from UserDefaults)
 
     var keywords: [String] = []
+    /// Which events count as work: calendar, titles and kinds of event (see CalendarRule).
+    var calendarRules: [CalendarRule] = []
     var calendarEnabled = false {
         didSet { if calendarEnabled && !accessAsked { requestAccess() } }
     }
@@ -150,12 +154,34 @@ final class WorkDetector: NSObject, ObservableObject, CLLocationManagerDelegate 
         let start = now.addingTimeInterval(-2 * 60)
         let end = now.addingTimeInterval(5 * 60)
         let predicate = store.predicateForEvents(withStart: start, end: end, calendars: nil)
-        let events = store.events(matching: predicate)
-        let hit = events.contains { ev in
-            guard let title = ev.title?.lowercased() else { return false }
-            return keywords.contains { !$0.isEmpty && title.contains($0) }
+        var summary = ""
+        for ev in store.events(matching: predicate) {
+            let declined = ev.attendees?.contains { $0.isCurrentUser && $0.participantStatus == .declined } ?? false
+            let info = CalendarEventInfo(calendarID: ev.calendar?.calendarIdentifier ?? "", title: ev.title ?? "",
+                                         isAllDay: ev.isAllDay, isBusy: ev.availability != .free, isDeclined: declined)
+            if CalendarRules.firstMatch(calendarRules, info) != nil {
+                summary = "\(info.title) (\(ev.calendar?.title ?? ""))"
+                break
+            }
         }
+        let hit = !summary.isEmpty
         if calendarMatch != hit { calendarMatch = hit }
+        if calendarMatchSummary != summary { calendarMatchSummary = summary }
+    }
+
+    /// A calendar the user can pick in a rule.
+    struct CalendarChoice: Identifiable, Hashable {
+        let id: String
+        let title: String
+        let source: String
+    }
+
+    /// Event calendars of every account; empty until Calendar access is granted.
+    func availableCalendars() -> [CalendarChoice] {
+        guard accessOK else { return [] }
+        return store.calendars(for: .event)
+            .map { CalendarChoice(id: $0.calendarIdentifier, title: $0.title, source: $0.source?.title ?? "") }
+            .sorted { $0.title.localizedCaseInsensitiveCompare($1.title) == .orderedAscending }
     }
 
     // MARK: - VPN / Wi-Fi probes (background queue)

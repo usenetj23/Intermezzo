@@ -428,10 +428,10 @@ STRINGS = {
     "Video detection: pause when watching video": "Wykrywanie wideo: wstrzymuj przerwy podczas oglądania wideo",
     "Focus: pause while Focus / Do Not Disturb is on":
         "Tryb Skupienia: wstrzymuj przerwy, gdy włączone jest Skupienie / Nie przeszkadzać",
-    "Work zone — with any option below ON, breaks only run while at least one of the enabled options matches (calendar event, VPN, Wi-Fi or place). All OFF = breaks always run.":
-        "Strefa pracy: gdy włączona jest dowolna opcja poniżej, przerwy działają tylko wtedy, gdy pasuje co najmniej jedna z nich (wydarzenie w kalendarzu, VPN, Wi-Fi lub miejsce). Wszystkie wyłączone = przerwy działają zawsze.",
-    "Calendar: breaks only while an event title contains (replaces fixed hours)":
-        "Kalendarz: przerwy tylko gdy tytuł wydarzenia zawiera (zastępuje stałe godziny)",
+    "Work zone — with any option below ON, breaks run only while at least one of the enabled options matches (calendar event, VPN, Wi-Fi or place) or it is within working hours. All OFF = breaks always run.":
+        "Strefa pracy: gdy włączona jest dowolna opcja poniżej, przerwy działają tylko wtedy, gdy pasuje co najmniej jedna z nich (wydarzenie w kalendarzu, VPN, Wi-Fi lub miejsce) albo trwają godziny pracy. Wszystkie wyłączone = przerwy działają zawsze.",
+    "Calendar: breaks also run during matching events (added to working hours)":
+        "Kalendarz: przerwy działają także podczas pasujących wydarzeń (dodane do godzin pracy)",
     "VPN: active only while a VPN from the list is connected":
         "VPN: aktywne tylko przy połączeniu z VPN z listy",
     "VPN names (comma separated), e.g. work": "Nazwy VPN (po przecinku), np. praca",

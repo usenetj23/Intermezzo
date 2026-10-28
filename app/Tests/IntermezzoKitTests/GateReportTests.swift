@@ -97,3 +97,52 @@ final class StatusTintTests: XCTestCase {
         XCTAssertEqual(GateReport(factors: [blocker("zone")]).tint, .outside)
     }
 }
+
+final class CalendarRulesTests: XCTestCase {
+    private func event(_ title: String, calendar: String = "work", allDay: Bool = false, busy: Bool = true,
+                       declined: Bool = false) -> CalendarEventInfo {
+        CalendarEventInfo(calendarID: calendar, title: title, isAllDay: allDay, isBusy: busy, isDeclined: declined)
+    }
+
+    func testEmptyKeywordsMatchAnyTitleInTheChosenCalendar() {
+        let rule = CalendarRule(calendarID: "work")
+        XCTAssertTrue(CalendarRules.matches(rule, event("Warsztaty szkoleniowe")))
+        XCTAssertFalse(CalendarRules.matches(rule, event("Kolacja", calendar: "home")))
+    }
+
+    func testKeywordsAreFragmentsOfTheTitleAnyOneIsEnough() {
+        let rule = CalendarRule(keywords: "Praca, szkolen")
+        XCTAssertTrue(CalendarRules.matches(rule, event("Warsztaty szkoleniowe")))
+        XCTAssertTrue(CalendarRules.matches(rule, event("PRACA zdalna")))
+        XCTAssertFalse(CalendarRules.matches(rule, event("Siłownia")))
+    }
+
+    func testBusyAllDayAndDeclinedFiltersApplyOnlyWhenSwitchedOn() {
+        let strict = CalendarRule()
+        XCTAssertFalse(CalendarRules.matches(strict, event("x", busy: false)))
+        XCTAssertFalse(CalendarRules.matches(strict, event("x", allDay: true)))
+        XCTAssertFalse(CalendarRules.matches(strict, event("x", declined: true)))
+        let loose = CalendarRule(onlyBusy: false, skipAllDay: false, skipDeclined: false)
+        XCTAssertTrue(CalendarRules.matches(loose, event("x", allDay: true, busy: false, declined: true)))
+    }
+
+    func testDisabledRuleNeverMatchesAndFirstMatchWins() {
+        let off = CalendarRule(enabled: false)
+        XCTAssertFalse(CalendarRules.matches(off, event("x")))
+        let a = CalendarRule(calendarID: "home"), b = CalendarRule(calendarID: "work")
+        XCTAssertEqual(CalendarRules.firstMatch([a, b], event("x"))?.id, b.id)
+    }
+
+    func testLegacyRuleKeepsTheOldBehaviour() {
+        let rule = CalendarRules.legacy(keywords: "work, praca")
+        XCTAssertTrue(CalendarRules.matches(rule, event("Praca", calendar: "anything", allDay: true, busy: false)))
+        XCTAssertFalse(CalendarRules.matches(rule, event("Szkolenie")))
+    }
+
+    func testRulesRoundTripAndGarbageGivesEmpty() {
+        let rules = [CalendarRule(calendarID: "w", calendarName: "Praca", keywords: "a")]
+        XCTAssertEqual(CalendarRules.decode(CalendarRules.encode(rules)), rules)
+        XCTAssertTrue(CalendarRules.decode(Data("x".utf8)).isEmpty)
+        XCTAssertTrue(CalendarRules.decode(nil).isEmpty)
+    }
+}

@@ -5,6 +5,7 @@
 "%@ (%lld min)" = "%@ (%lld min)";
 "%@ (do rozliczenia %@)" = "%@ (%@ billable)";
 "%@ (missing)" = "%@ (missing)";
+"%@ (niedostępny)" = "%@ (unavailable)";
 "%@ (unavailable)" = "%@ (unavailable)";
 "%@ + %@ zdalnie" = "%@ + %@ remote";
 "%@ / %@" = "%@ / %@";
@@ -186,7 +187,7 @@
 "Błąd połączenia: %@" = "Connection error: %@";
 "Błąd w skrypcie: %@" = "Error in the script: %@";
 "Calendar" = "Calendar";
-"Calendar: breaks only while an event title contains (replaces fixed hours)" = "Calendar: breaks only while an event title contains (replaces fixed hours)";
+"Calendar: breaks also run during matching events (added to working hours)" = "Calendar: breaks also run during matching events (added to working hours)";
 "Cancel" = "Cancel";
 "Centrum powiadomień macOS" = "macOS Notification Centre";
 "Check your posture" = "Check your posture";
@@ -289,6 +290,7 @@
 "Dodaj odcinek" = "Add interval";
 "Dodaj przerwę" = "Add break";
 "Dodaj przypomnienie" = "Add reminder";
+"Dodaj regułę kalendarza" = "Add calendar rule";
 "Dodaj regułę…" = "Add rule…";
 "Dodaj uruchomioną aplikację…" = "Add a running app…";
 "Dokładnie %@, do rozliczenia %@" = "Exactly %@, %@ billable";
@@ -763,6 +765,8 @@
 "Polski" = "Polski";
 "Polskie przepisy o stanowiskach z monitorami (za CIOP-PIB, Kamińska 2016)" = "Polish regulations on workstations with monitors (after CIOP-PIB, Kamińska 2016)";
 "Pomija bieżącą lub najbliższą przerwę" = "Skips the current or the next break";
+"Pomijaj całodniowe" = "Skip all-day";
+"Pomijaj odrzucone" = "Skip declined";
 "Pominięte propozycje" = "Skipped proposals";
 "Pomiń" = "Skip";
 "Pomiń najbliższą" = "Skip the next one";
@@ -849,7 +853,7 @@
 "Przerwano." = "Stopped.";
 "Przerwij" = "Stop";
 "Przerwy" = "Breaks";
-"Przerwy działają w godzinach pracy LUB gdy Mac jest w strefie pracy (VPN, Wi-Fi, miejsce albo LAN i karta z Rejestru pracy): nadgodziny, awaria, dzień wolny. Timer stoi dopiero wtedy, gdy nie zachodzi żadne z dwóch." = "Breaks run during working hours OR while the Mac is in the work zone (VPN, Wi-Fi, place, or the LAN and adapter from the Work log): overtime, an outage, a day off. The timer stops only when neither holds.";
+"Przerwy działają w godzinach pracy LUB gdy Mac jest w strefie pracy (wydarzenie w kalendarzu, VPN, Wi-Fi, miejsce albo LAN i karta z Rejestru pracy): nadgodziny, awaria, dzień wolny. Timer stoi dopiero wtedy, gdy nie zachodzi żadne z dwóch." = "Breaks run during working hours OR while the Mac is in the work zone (a calendar event, VPN, Wi-Fi, place, or the LAN and adapter from the Work log): overtime, an outage, a day off. The timer stops only when neither holds.";
 "Przerwy działają. Reszta to drobne próby — traktuj jako wskazówki." = "Breaks work. The rest comes from small trials — treat it as guidance.";
 "Przerwy naturalne (bezczynność)" = "Natural breaks (inactivity)";
 "Przerwy o stałych porach" = "Fixed-time breaks";
@@ -891,6 +895,7 @@
 "Refreshing…" = "Refreshing…";
 "Regularność (12 tygodni)" = "Consistency (12 weeks)";
 "Reguła wstrzymuje" = "Paused by a rule";
+"Reguła włączona" = "Rule enabled";
 "Reguły" = "Rules";
 "Reguły wstrzymujące" = "Rules that hold breaks";
 "Reguły: pauza nie przeszkadza w pracy" = "Rules: breaks that don't get in the way";
@@ -1156,9 +1161,11 @@
 "Ty" = "You";
 "Tylko Mac (ekran może zgasnąć)" = "The Mac only (the screen may turn off)";
 "Tylko gdy macOS schowa ikonę (auto)" = "Only when macOS hides the icon (auto)";
+"Tylko jako zajęty" = "Only as busy";
 "Tylko przypominaj, bez przerwy na ekranie" = "Only remind, no break on screen";
 "Tytuł okna zawiera" = "Window title contains";
 "Tytuł okna zawiera tekst" = "Window title contains text";
+"Tytuł zawiera (po przecinku, puste = każdy tytuł)" = "Title contains (comma-separated, empty = any title)";
 "Tło przerwy" = "Break background";
 "Ucho do ramienia" = "Ear to shoulder";
 "Uczciwie o sile dowodów" = "An honest look at the strength of evidence";
@@ -1186,6 +1193,7 @@
 "Usunąć skrypt?" = "Delete the script?";
 "Usuń" = "Delete";
 "Usuń odcinek" = "Delete interval";
+"Usuń regułę" = "Delete rule";
 "Usuń skrypt i jego regułę" = "Delete the script and its rule";
 "Utwórz" = "Create";
 "Uważność" = "Mindfulness";
@@ -1250,7 +1258,7 @@
 "Work from any app. You can also automate via URLs, e.g. intermezzo://break/long, intermezzo://break/short/postpone/2m, intermezzo://postpone/5m, intermezzo://skip, intermezzo://resume (s/m/h/d durations; bare number = minutes)." = "Work from any app. You can also automate via URLs, e.g. intermezzo://break/long, intermezzo://break/short/postpone/2m, intermezzo://postpone/5m, intermezzo://skip, intermezzo://resume (s/m/h/d durations; bare number = minutes).";
 "Work one pomodoro, then take the suggested break fully. Pick a task and log interruptions from the menu-bar panel." = "Work one pomodoro, then take the suggested break fully. Pick a task and log interruptions from the menu-bar panel.";
 "Work starts at" = "Work starts at";
-"Work zone — with any option below ON, breaks only run while at least one of the enabled options matches (calendar event, VPN, Wi-Fi or place). All OFF = breaks always run." = "Work zone — with any option below ON, breaks only run while at least one of the enabled options matches (calendar event, VPN, Wi-Fi or place). All OFF = breaks always run.";
+"Work zone — with any option below ON, breaks run only while at least one of the enabled options matches (calendar event, VPN, Wi-Fi or place) or it is within working hours. All OFF = breaks always run." = "Work zone — with any option below ON, breaks run only while at least one of the enabled options matches (calendar event, VPN, Wi-Fi or place) or it is within working hours. All OFF = breaks always run.";
 "Working Hours" = "Working Hours";
 "Wpisz szerokość i długość oddzielone przecinkiem, np. 52.4, 22" = "Enter the latitude and longitude separated by a comma, e.g. 52.4, 22";
 "Wschód %@, zachód %@ (czas Maca)." = "Sunrise %@, sunset %@ (the Mac’s time).";
@@ -1277,6 +1285,7 @@
 "Wstrzymuje timer przerw do wznowienia" = "Pauses the break timer until resumed";
 "Wstrzymuje zmianę barwy na podany czas; bez czasu na godzinę" = "Pauses the colour change for the given time; without a time, for an hour";
 "Wszystkie" = "All";
+"Wszystkie kalendarze" = "All calendars";
 "Wt" = "Tue";
 "Wybierz" = "Choose";
 "Wybierz miejsce na mapie" = "Pick a place on the map";
@@ -1284,6 +1293,7 @@
 "Wybierz punkt na podłodze ok. 2,5 m przed sobą. Rysuj wzrokiem leżącą ósemkę przez 30 sekund w jedną stronę i 30 w drugą." = "Pick a point on the floor about 2.5 m in front of you. Trace a sideways figure eight with your eyes for 30 seconds one way and 30 the other.";
 "Wycisz dźwięk, odpal skrypt, pokaż tekst" = "Mute the sound, run a script, show a text";
 "Wyciągnij kciuk na długość ręki. Patrz na niego 5 sekund, potem na odległy punkt 5 sekund. Powtórz 5 razy, płynnie." = "Hold your thumb out at arm's length. Look at it for 5 seconds, then at a distant point for 5 seconds. Repeat 5 times, smoothly.";
+"Wydarzenie liczy się jako praca, gdy pasuje do którejkolwiek włączonej reguły: kalendarz (albo wszystkie), tytuł zawiera jedno ze słów (puste = każdy tytuł) i rodzaj wydarzenia. „Zajęty” to dostępność inna niż „wolny”. Odrzucone zaproszenia pomijam." = "An event counts as work when it matches any enabled rule: the calendar (or all of them), a title containing one of the words (empty = any title) and the kind of event. “Busy” means any availability other than “free”. I skip invitations you declined.";
 "Wygaszacz ekranu" = "Screensaver";
 "Wygenerowane przez AI, może się mylić." = "Generated by AI, it may be wrong.";
 "Wygląd" = "Appearance";
@@ -1559,6 +1569,7 @@
 "trwa przerwa" = "a break is in progress";
 "trwa sesja skupienia" = "a focus session is running";
 "trwa ≥ %lld s" = "lasts ≥ %lld s";
+"trwa: %@" = "now: %@";
 "tylko informacja" = "information only";
 "ukończone przerwy" = "completed breaks";
 "urlop, święto, wakacje, vacation, holiday" = "vacation, holiday, day off, urlop, święto";
@@ -1592,7 +1603,6 @@
 "włączony: %@ (praca)" = "on: %@ (work)";
 "z lokalizacji Maca" = "from the Mac's location";
 "zapamiętane" = "remembered";
-"zastąpione przez kalendarz" = "replaced by the calendar";
 "zdalnie, VPN: %@" = "remote, VPN: %@";
 "· %@" = "· %@";
 "Ósemka oczami" = "Figure eight with your eyes";

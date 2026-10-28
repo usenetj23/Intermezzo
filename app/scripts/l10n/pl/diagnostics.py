@@ -1,4 +1,4 @@
-"""Diagnostics pane, work-zone sources, Focus roles, menu-bar options, per-place lamps."""
+"""Diagnostics pane, work-zone sources, Focus roles, menu-bar options, per-place lamps, calendar rules."""
 STRINGS = {
     'brak spotkania': 'brak spotkania',
     '%@ jest na pierwszym planie': '%@ jest na pierwszym planie',
@@ -47,7 +47,6 @@ STRINGS = {
     'żadne źródło nie pasuje i są poza godzinami pracy': 'żadne źródło nie pasuje i są poza godzinami pracy',
     'wszystkie źródła wyłączone: przerwy działają wszędzie': 'wszystkie źródła wyłączone: przerwy działają wszędzie',
     'Godziny pracy': 'Godziny pracy',
-    'zastąpione przez kalendarz': 'zastąpione przez kalendarz',
     'pominięte: urlop lub święto ma pierwszeństwo': 'pominięte: urlop lub święto ma pierwszeństwo',
     '%@ · poza godzinami i poza strefą pracy': '%@ · poza godzinami i poza strefą pracy',
     '%@ · poza godzinami, ale jesteś w strefie pracy': '%@ · poza godzinami, ale jesteś w strefie pracy',
@@ -106,7 +105,6 @@ STRINGS = {
     'Na MacBooku z notchem pełny pasek menu może schować ikonę razem z licznikiem. Gdy tak się stanie, licznik widać w pływającej pastylce.': 'Na MacBooku z notchem pełny pasek menu może schować ikonę razem z licznikiem. Gdy tak się stanie, licznik widać w pływającej pastylce.',
     'Koloruj ikonę w pasku menu według stanu timera': 'Koloruj ikonę w pasku menu według stanu timera',
     'Zielona: timer działa. Niebieska: trwa przerwa. Pomarańczowa: wstrzymany przez spotkanie, wideo, Focus, regułę lub brak aktywności. Fioletowa: poza godzinami i strefą pracy albo urlop. Szara: wstrzymany ręcznie.': 'Zielona: timer działa. Niebieska: trwa przerwa. Pomarańczowa: wstrzymany przez spotkanie, wideo, Focus, regułę lub brak aktywności. Fioletowa: poza godzinami i strefą pracy albo urlop. Szara: wstrzymany ręcznie.',
-    'Przerwy działają w godzinach pracy LUB gdy Mac jest w strefie pracy (VPN, Wi-Fi, miejsce albo LAN i karta z Rejestru pracy): nadgodziny, awaria, dzień wolny. Timer stoi dopiero wtedy, gdy nie zachodzi żadne z dwóch.': 'Przerwy działają w godzinach pracy LUB gdy Mac jest w strefie pracy (VPN, Wi-Fi, miejsce albo LAN i karta z Rejestru pracy): nadgodziny, awaria, dzień wolny. Timer stoi dopiero wtedy, gdy nie zachodzi żadne z dwóch.',
     'Focus oznaczony jako „praca” liczy się do strefy pracy': 'Focus oznaczony jako „praca” liczy się do strefy pracy',
     'Lampy w pokoju (dom i reszta miejsc)': 'Lampy w pokoju (dom i reszta miejsc)',
     'Lampy w pracy': 'Lampy w pracy',
@@ -118,4 +116,16 @@ STRINGS = {
     'Koniec jest początkiem trwającego odcinka i nie można go zmienić.': 'Koniec jest początkiem trwającego odcinka i nie można go zmienić.',
     'Koniec zablokowany: odcinek łączy się z trwającym.': 'Koniec zablokowany: odcinek łączy się z trwającym.',
     'Odroczenie działa podczas przerwy i tuż przed nią.': 'Odroczenie działa podczas przerwy i tuż przed nią.',
+    'Przerwy działają w godzinach pracy LUB gdy Mac jest w strefie pracy (wydarzenie w kalendarzu, VPN, Wi-Fi, miejsce albo LAN i karta z Rejestru pracy): nadgodziny, awaria, dzień wolny. Timer stoi dopiero wtedy, gdy nie zachodzi żadne z dwóch.': 'Przerwy działają w godzinach pracy LUB gdy Mac jest w strefie pracy (wydarzenie w kalendarzu, VPN, Wi-Fi, miejsce albo LAN i karta z Rejestru pracy): nadgodziny, awaria, dzień wolny. Timer stoi dopiero wtedy, gdy nie zachodzi żadne z dwóch.',
+    'Dodaj regułę kalendarza': 'Dodaj regułę kalendarza',
+    'Wydarzenie liczy się jako praca, gdy pasuje do którejkolwiek włączonej reguły: kalendarz (albo wszystkie), tytuł zawiera jedno ze słów (puste = każdy tytuł) i rodzaj wydarzenia. „Zajęty” to dostępność inna niż „wolny”. Odrzucone zaproszenia pomijam.': 'Wydarzenie liczy się jako praca, gdy pasuje do którejkolwiek włączonej reguły: kalendarz (albo wszystkie), tytuł zawiera jedno ze słów (puste = każdy tytuł) i rodzaj wydarzenia. „Zajęty” to dostępność inna niż „wolny”. Odrzucone zaproszenia pomijam.',
+    'Reguła włączona': 'Reguła włączona',
+    'Wszystkie kalendarze': 'Wszystkie kalendarze',
+    '%@ (niedostępny)': '%@ (niedostępny)',
+    'Usuń regułę': 'Usuń regułę',
+    'Tytuł zawiera (po przecinku, puste = każdy tytuł)': 'Tytuł zawiera (po przecinku, puste = każdy tytuł)',
+    'Tylko jako zajęty': 'Tylko jako zajęty',
+    'Pomijaj całodniowe': 'Pomijaj całodniowe',
+    'Pomijaj odrzucone': 'Pomijaj odrzucone',
+    'trwa: %@': 'trwa: %@',
 }

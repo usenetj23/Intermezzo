@@ -26,7 +26,6 @@ struct GeneralPane: View {
     @AppStorage(Keys.videoDetection) private var videoDetection = true
     @AppStorage("calendarAwareBreaks") private var calendarAwareBreaks = false
     @AppStorage(Keys.calendarWorkDetection) private var calendarWorkDetection = false
-    @AppStorage(Keys.calendarWorkKeywords) private var calendarWorkKeywords = "work, praca, meeting, spotkanie"
     @AppStorage(Keys.holidayGuard) private var holidayGuard = false
     @AppStorage(Keys.holidayKeywords) private var holidayKeywords = "urlop, święto, swieto, wakacje, vacation, holiday, chorobowe, l4"
     @AppStorage(Keys.vacationMode) private var vacationMode = false
@@ -137,7 +136,7 @@ struct GeneralPane: View {
                 LabeledContent("Work ends at") {
                     TimeInput(minutes: $workEndMinutes)
                 }
-                Text("Przerwy działają w godzinach pracy LUB gdy Mac jest w strefie pracy (VPN, Wi-Fi, miejsce albo LAN i karta z Rejestru pracy): nadgodziny, awaria, dzień wolny. Timer stoi dopiero wtedy, gdy nie zachodzi żadne z dwóch.")
+                Text("Przerwy działają w godzinach pracy LUB gdy Mac jest w strefie pracy (wydarzenie w kalendarzu, VPN, Wi-Fi, miejsce albo LAN i karta z Rejestru pracy): nadgodziny, awaria, dzień wolny. Timer stoi dopiero wtedy, gdy nie zachodzi żadne z dwóch.")
                     .settingsNote()
                 Group {
                     Toggle("Różne godziny w poszczególne dni", isOn: $perDayHours)
@@ -203,13 +202,13 @@ struct GeneralPane: View {
 
                 Group {
                     Divider()
-                    Text("Work zone — with any option below ON, breaks only run while at least one of the enabled options matches (calendar event, VPN, Wi-Fi or place). All OFF = breaks always run.")
+                    Text("Work zone — with any option below ON, breaks run only while at least one of the enabled options matches (calendar event, VPN, Wi-Fi or place) or it is within working hours. All OFF = breaks always run.")
                         .settingsNote()
 
-                    Toggle("Calendar: breaks only while an event title contains (replaces fixed hours)", isOn: $calendarWorkDetection)
+                    Toggle("Calendar: breaks also run during matching events (added to working hours)", isOn: $calendarWorkDetection)
                         .settingsAnchor("zone-calendar")
                     if calendarWorkDetection {
-                        TextField("work, praca, meeting, spotkanie", text: $calendarWorkKeywords)
+                        CalendarRulesView()
                         if !work.calendarAuthorized {
                             zoneStatus(-1, String(localized: "Access to Calendar not granted — enabling it here also requests it"),
                                        settingsURL: "x-apple.systempreferences:com.apple.preference.security?Privacy_Calendars")

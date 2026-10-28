@@ -143,7 +143,7 @@ compiler	IntermezzoApp/Settings/AppearancePane.swift:31	Burza
 compiler	IntermezzoApp/Settings/BreaksPane.swift:312	Button title:
 compiler	IntermezzoApp/Reports/ReportSummaryPage.swift:77	By project
 compiler	IntermezzoApp/Settings/ScriptEditorSheet.swift:300	Błąd w skrypcie: %@
-compiler	IntermezzoApp/Settings/GeneralPane.swift:186	Calendar: breaks only while an event title contains (replaces fixed hours)
+compiler	IntermezzoApp/Settings/GeneralPane.swift:186	Calendar: breaks also run during matching events (added to working hours)
 compiler	IntermezzoApp/Settings/AdvancedPane.swift:64	Cancel
 compiler	IntermezzoApp/Settings/AppearancePane.swift:68	Centrum powiadomień macOS
 compiler	IntermezzoApp/Settings/AppearancePane.swift:30	Chmury
@@ -883,7 +883,7 @@ compiler	IntermezzoApp/Settings/RhythmExperimentSection.swift:59	Work %lld min
 compiler	IntermezzoApp/Settings/GeneralPane.swift:126	Work ends at
 compiler	IntermezzoApp/Settings/GeneralPane.swift:270	Work from any app. You can also automate via URLs, e.g. intermezzo://break/long, intermezzo://break/short/postpone/2m, intermezzo://postpone/5m, intermezzo://skip, intermezzo://resume (s/m/h/d durations; bare number = minutes).
 compiler	IntermezzoApp/Settings/GeneralPane.swift:123	Work starts at
-compiler	IntermezzoApp/Settings/GeneralPane.swift:183	Work zone — with any option below ON, breaks only run while at least one of the enabled options matches (calendar event, VPN, Wi-Fi or place). All OFF = breaks always run.
+compiler	IntermezzoApp/Settings/GeneralPane.swift:183	Work zone — with any option below ON, breaks run only while at least one of the enabled options matches (calendar event, VPN, Wi-Fi or place) or it is within working hours. All OFF = breaks always run.
 compiler	IntermezzoApp/Settings/GeneralPane.swift:110	Working Hours
 compiler	IntermezzoApp/Settings/LightPane.swift:303	Wpisz szerokość i długość oddzielone przecinkiem, np. 52.4, 22
 compiler	IntermezzoApp/Settings/LocationMapSheet.swift:77	Wschód %@, zachód %@ (czas Maca).
@@ -1131,7 +1131,7 @@ compiler	IntermezzoApp/Settings/GeneralPane.swift:91	Pokaż licznik także na ek
 compiler	IntermezzoApp/Settings/GeneralPane.swift:93	Na MacBooku z notchem pełny pasek menu może schować ikonę razem z licznikiem. Gdy tak się stanie, licznik widać w pływającej pastylce.
 compiler	IntermezzoApp/Settings/GeneralPane.swift:95	Koloruj ikonę w pasku menu według stanu timera
 compiler	IntermezzoApp/Settings/GeneralPane.swift:96	Zielona: timer działa. Niebieska: trwa przerwa. Pomarańczowa: wstrzymany przez spotkanie, wideo, Focus, regułę lub brak aktywności. Fioletowa: poza godzinami i strefą pracy albo urlop. Szara: wstrzymany ręcznie.
-compiler	IntermezzoApp/Settings/GeneralPane.swift:140	Przerwy działają w godzinach pracy LUB gdy Mac jest w strefie pracy (VPN, Wi-Fi, miejsce albo LAN i karta z Rejestru pracy): nadgodziny, awaria, dzień wolny. Timer stoi dopiero wtedy, gdy nie zachodzi żadne z dwóch.
+compiler	IntermezzoApp/Settings/GeneralPane.swift:140	Przerwy działają w godzinach pracy LUB gdy Mac jest w strefie pracy (wydarzenie w kalendarzu, VPN, Wi-Fi, miejsce albo LAN i karta z Rejestru pracy): nadgodziny, awaria, dzień wolny. Timer stoi dopiero wtedy, gdy nie zachodzi żadne z dwóch.
 compiler	IntermezzoApp/Settings/GeneralPane.swift:199	Focus oznaczony jako „praca” liczy się do strefy pracy
 compiler	IntermezzoApp/Settings/LightPane.swift:243	Lampy w pokoju (dom i reszta miejsc)
 compiler	IntermezzoApp/Settings/LightPane.swift:249	Lampy w pracy
@@ -1143,6 +1143,16 @@ compiler	IntermezzoApp/Settings/LightPane.swift:263	Praca = Mac jest w strefie p
 compiler	IntermezzoApp/Settings/WorkDayEditor.swift:74	Koniec jest początkiem trwającego odcinka i nie można go zmienić.
 compiler	IntermezzoApp/Settings/WorkDayEditor.swift:95	Koniec zablokowany: odcinek łączy się z trwającym.
 compiler	IntermezzoApp/Settings/StatusPane.swift:91	Odroczenie działa podczas przerwy i tuż przed nią.
+compiler	IntermezzoApp/Settings/CalendarRulesView.swift:1	Dodaj regułę kalendarza
+compiler	IntermezzoApp/Settings/CalendarRulesView.swift:1	Wydarzenie liczy się jako praca, gdy pasuje do którejkolwiek włączonej reguły: kalendarz (albo wszystkie), tytuł zawiera jedno ze słów (puste = każdy tytuł) i rodzaj wydarzenia. „Zajęty” to dostępność inna niż „wolny”. Odrzucone zaproszenia pomijam.
+compiler	IntermezzoApp/Settings/CalendarRulesView.swift:1	Reguła włączona
+compiler	IntermezzoApp/Settings/CalendarRulesView.swift:1	Wszystkie kalendarze
+compiler	IntermezzoApp/Settings/CalendarRulesView.swift:1	%@ (niedostępny)
+compiler	IntermezzoApp/Settings/CalendarRulesView.swift:1	Usuń regułę
+compiler	IntermezzoApp/Settings/CalendarRulesView.swift:1	Tytuł zawiera (po przecinku, puste = każdy tytuł)
+compiler	IntermezzoApp/Settings/CalendarRulesView.swift:1	Tylko jako zajęty
+compiler	IntermezzoApp/Settings/CalendarRulesView.swift:1	Pomijaj całodniowe
+compiler	IntermezzoApp/Settings/CalendarRulesView.swift:1	Pomijaj odrzucone
 runtime	-	%@: w tej chwili i tak nie musisz patrzeć na ekran. Zrobić krótką przerwę teraz?
 runtime	-	10 pełnych, wolnych mrugnięć — powieka do powieki.
 runtime	-	10 wolnych przysiadów. Krążenie wraca, mózg dostaje tlen, biodra otwierają się po siedzeniu.
@@ -1598,7 +1608,6 @@ runtime	-	żadne źródło nie pasuje, ale trwają godziny pracy
 runtime	-	żadne źródło nie pasuje i są poza godzinami pracy
 runtime	-	wszystkie źródła wyłączone: przerwy działają wszędzie
 runtime	-	Godziny pracy
-runtime	-	zastąpione przez kalendarz
 runtime	-	pominięte: urlop lub święto ma pierwszeństwo
 runtime	-	%@ · poza godzinami i poza strefą pracy
 runtime	-	%@ · poza godzinami, ale jesteś w strefie pracy
@@ -1639,3 +1648,4 @@ runtime	-	Blokuje
 runtime	-	Przepuszcza
 runtime	-	Bez wpływu teraz
 runtime	-	Dlaczego timer działa albo stoi: wszystkie czynniki w jednym miejscu
+runtime	-	trwa: %@

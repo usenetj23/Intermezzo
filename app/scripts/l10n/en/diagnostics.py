@@ -1,4 +1,4 @@
-"""Diagnostics pane, work-zone sources, Focus roles, menu-bar options, per-place lamps."""
+"""Diagnostics pane, work-zone sources, Focus roles, menu-bar options, per-place lamps, calendar rules."""
 STRINGS = {
     'brak spotkania': 'no meeting',
     '%@ jest na pierwszym planie': '%@ is in front',
@@ -47,7 +47,6 @@ STRINGS = {
     'żadne źródło nie pasuje i są poza godzinami pracy': 'no source matches and it is outside working hours',
     'wszystkie źródła wyłączone: przerwy działają wszędzie': 'all sources are off: breaks run everywhere',
     'Godziny pracy': 'Working hours',
-    'zastąpione przez kalendarz': 'replaced by the calendar',
     'pominięte: urlop lub święto ma pierwszeństwo': 'skipped: vacation or holiday takes precedence',
     '%@ · poza godzinami i poza strefą pracy': '%@ · outside hours and outside the work zone',
     '%@ · poza godzinami, ale jesteś w strefie pracy': '%@ · outside hours, but you are in the work zone',
@@ -106,7 +105,6 @@ STRINGS = {
     'Na MacBooku z notchem pełny pasek menu może schować ikonę razem z licznikiem. Gdy tak się stanie, licznik widać w pływającej pastylce.': 'On a MacBook with a notch a full menu bar can hide the icon together with the countdown. When that happens the countdown shows in the floating chip.',
     'Koloruj ikonę w pasku menu według stanu timera': 'Tint the menu bar icon by the timer state',
     'Zielona: timer działa. Niebieska: trwa przerwa. Pomarańczowa: wstrzymany przez spotkanie, wideo, Focus, regułę lub brak aktywności. Fioletowa: poza godzinami i strefą pracy albo urlop. Szara: wstrzymany ręcznie.': 'Green: timer running. Blue: break in progress. Orange: held by a meeting, video, Focus, a rule or inactivity. Purple: outside hours and the work zone, or vacation. Gray: paused by hand.',
-    'Przerwy działają w godzinach pracy LUB gdy Mac jest w strefie pracy (VPN, Wi-Fi, miejsce albo LAN i karta z Rejestru pracy): nadgodziny, awaria, dzień wolny. Timer stoi dopiero wtedy, gdy nie zachodzi żadne z dwóch.': 'Breaks run during working hours OR while the Mac is in the work zone (VPN, Wi-Fi, place, or the LAN and adapter from the Work log): overtime, an outage, a day off. The timer stops only when neither holds.',
     'Focus oznaczony jako „praca” liczy się do strefy pracy': 'A Focus marked as “work” counts toward the work zone',
     'Lampy w pokoju (dom i reszta miejsc)': 'Room lamps (home and other places)',
     'Lampy w pracy': 'Lamps at work',
@@ -118,4 +116,16 @@ STRINGS = {
     'Koniec jest początkiem trwającego odcinka i nie można go zmienić.': 'This end is the start of the live interval and cannot be changed.',
     'Koniec zablokowany: odcinek łączy się z trwającym.': 'End locked: the interval joins the live one.',
     'Odroczenie działa podczas przerwy i tuż przed nią.': 'Postponing works during a break and just before one.',
+    'Przerwy działają w godzinach pracy LUB gdy Mac jest w strefie pracy (wydarzenie w kalendarzu, VPN, Wi-Fi, miejsce albo LAN i karta z Rejestru pracy): nadgodziny, awaria, dzień wolny. Timer stoi dopiero wtedy, gdy nie zachodzi żadne z dwóch.': 'Breaks run during working hours OR while the Mac is in the work zone (a calendar event, VPN, Wi-Fi, place, or the LAN and adapter from the Work log): overtime, an outage, a day off. The timer stops only when neither holds.',
+    'Dodaj regułę kalendarza': 'Add calendar rule',
+    'Wydarzenie liczy się jako praca, gdy pasuje do którejkolwiek włączonej reguły: kalendarz (albo wszystkie), tytuł zawiera jedno ze słów (puste = każdy tytuł) i rodzaj wydarzenia. „Zajęty” to dostępność inna niż „wolny”. Odrzucone zaproszenia pomijam.': 'An event counts as work when it matches any enabled rule: the calendar (or all of them), a title containing one of the words (empty = any title) and the kind of event. “Busy” means any availability other than “free”. I skip invitations you declined.',
+    'Reguła włączona': 'Rule enabled',
+    'Wszystkie kalendarze': 'All calendars',
+    '%@ (niedostępny)': '%@ (unavailable)',
+    'Usuń regułę': 'Delete rule',
+    'Tytuł zawiera (po przecinku, puste = każdy tytuł)': 'Title contains (comma-separated, empty = any title)',
+    'Tylko jako zajęty': 'Only as busy',
+    'Pomijaj całodniowe': 'Skip all-day',
+    'Pomijaj odrzucone': 'Skip declined',
+    'trwa: %@': 'now: %@',
 }

@@ -82,6 +82,8 @@ enum Keys {
     static let videoDetection = "videoDetection"
     static let calendarWorkDetection = "calendarWorkDetection"
     static let calendarWorkKeywords = "calendarWorkKeywords"
+    /// JSON [CalendarRule]: which calendars, titles and kinds of event count as work.
+    static let calendarRules = "calendarRules"
     /// Holiday guard + vacation override (no breaks on urlop / N-day switch).
     static let holidayGuard = "holidayGuard"
     static let holidayKeywords = "holidayKeywords"
@@ -415,10 +417,9 @@ final class BreakCoordinator: ObservableObject {
         gateFactors.removeAll(keepingCapacity: true)
 
         // Working-hours gating (weekday mask + minute-accurate range, e.g. 6:30–14:30).
-        // Priority: Vacation override > Holiday guard > Calendar-as-schedule >
-        // fixed working hours. When Calendar work-detection is ON it REPLACES
-        // the fixed hours — a holiday/urlop with no "praca" event means the
-        // mechanism stays asleep all day.
+        // Priority: Vacation override > Holiday guard > fixed working hours.
+        // A calendar event that matches the rules counts as work next to the hours
+        // (see atWorkNow), so it extends them and never replaces them.
         var onVacation = false
         if d.integer(forKey: Keys.vacationMode) != 0 {
             let until = Date(timeIntervalSince1970: d.double(forKey: Keys.vacationUntil))
@@ -430,13 +431,12 @@ final class BreakCoordinator: ObservableObject {
         }
         let onHoliday = d.integer(forKey: Keys.holidayGuard) != 0
             && workDetector.holidayToday
-        let calAsSchedule = d.integer(forKey: Keys.calendarWorkDetection) != 0
         // Every policy below only declares what it WANTS; one syncReasons()
         // call per tick (further down) pauses/resumes accordingly, so no
         // policy can ever leave a stale pause behind.
         var desired = Set<PauseReason>()
         var outsideHours = false
-        // For Diagnostics: 0 off, 1 replaced by the calendar, 2 shadowed by vacation/holiday, 3 evaluated.
+        // For Diagnostics: 0 off, 2 shadowed by vacation/holiday, 3 evaluated.
         var hoursMode = 0
         var hoursDetail = ""
         if onVacation {
@@ -445,9 +445,6 @@ final class BreakCoordinator: ObservableObject {
         } else if onHoliday {
             desired.insert(.holiday)
             hoursMode = 2
-        } else if calAsSchedule {
-            // Calendar zone block below decides; fixed hours are not consulted.
-            hoursMode = 1
         } else if config.enforceWorkingHours {
             let comp = Calendar.current.dateComponents([.hour, .minute, .weekday], from: now)
             let minuteOfDay = (comp.hour ?? 0) * 60 + (comp.minute ?? 0)
@@ -543,7 +540,10 @@ final class BreakCoordinator: ObservableObject {
         workDetector.vpnEnabled = vpnOn
         workDetector.wifiEnabled = wifiOn
         workDetector.geoEnabled = geoOn
-        workDetector.keywords = csvList(d.string(forKey: Keys.calendarWorkKeywords))
+        // Until the user opens the rules, the old keyword list works as one rule over every calendar.
+        workDetector.calendarRules = d.object(forKey: Keys.calendarRules) == nil
+            ? [CalendarRules.legacy(keywords: d.string(forKey: Keys.calendarWorkKeywords) ?? "")]
+            : CalendarRules.decode(d.data(forKey: Keys.calendarRules))
         workDetector.holidayEnabled = d.integer(forKey: Keys.holidayGuard) != 0
         workDetector.holidayKeywords = csvList(d.string(forKey: Keys.holidayKeywords))
         workDetector.vpnNames = csvList(d.string(forKey: Keys.vpnNames))
@@ -558,7 +558,8 @@ final class BreakCoordinator: ObservableObject {
         }
         workDetector.poll(now: now)
         gate("zone-calendar", .zone, "Kalendarz", calOn && workDetector.calendarMatch ? .passing : .inactive,
-             !calOn ? "wyłączone" : (workDetector.calendarMatch ? "trwa pasujące wydarzenie" : "brak pasującego wydarzenia"))
+             !calOn ? "wyłączone"
+                    : (workDetector.calendarMatch ? L("trwa: %@", workDetector.calendarMatchSummary) : "brak pasującego wydarzenia"))
         let vpnNames = workDetector.vpnConnectedNames.joined(separator: ", ")
         gate("zone-vpn", .zone, "VPN", vpnOn && workDetector.vpnMatch ? .passing : .inactive,
              !vpnOn ? "wyłączone"
@@ -630,7 +631,6 @@ final class BreakCoordinator: ObservableObject {
             gate("zone", .zone, "Strefa pracy", .inactive, "wszystkie źródła wyłączone: przerwy działają wszędzie")
         }
         switch hoursMode {
-        case 1: gate("hours", .schedule, "Godziny pracy", .inactive, "zastąpione przez kalendarz")
         case 2: gate("hours", .schedule, "Godziny pracy", .inactive, "pominięte: urlop lub święto ma pierwszeństwo")
         case 3:
             gate("hours", .schedule, "Godziny pracy", hoursBlock ? .blocking : .passing,

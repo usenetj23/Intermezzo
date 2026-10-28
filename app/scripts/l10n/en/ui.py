@@ -426,10 +426,10 @@ STRINGS = {
         "Meeting detection: pause when Zoom/Teams/Webex is on",
     "Video detection: pause when watching video": "Video detection: pause when watching video",
     "Focus: pause while Focus / Do Not Disturb is on": "Focus: pause while Focus / Do Not Disturb is on",
-    "Work zone — with any option below ON, breaks only run while at least one of the enabled options matches (calendar event, VPN, Wi-Fi or place). All OFF = breaks always run.":
-        "Work zone — with any option below ON, breaks only run while at least one of the enabled options matches (calendar event, VPN, Wi-Fi or place). All OFF = breaks always run.",
-    "Calendar: breaks only while an event title contains (replaces fixed hours)":
-        "Calendar: breaks only while an event title contains (replaces fixed hours)",
+    "Work zone — with any option below ON, breaks run only while at least one of the enabled options matches (calendar event, VPN, Wi-Fi or place) or it is within working hours. All OFF = breaks always run.":
+        "Work zone — with any option below ON, breaks run only while at least one of the enabled options matches (calendar event, VPN, Wi-Fi or place) or it is within working hours. All OFF = breaks always run.",
+    "Calendar: breaks also run during matching events (added to working hours)":
+        "Calendar: breaks also run during matching events (added to working hours)",
     "VPN: active only while a VPN from the list is connected":
         "VPN: active only while a VPN from the list is connected",
     "VPN names (comma separated), e.g. work": "VPN names (comma separated), e.g. work",
