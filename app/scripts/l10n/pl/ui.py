@@ -726,4 +726,6 @@ STRINGS = {
         "Wstrzymuj wideo i muzykę na czas przerwy",
     "Wznawiaj odtwarzanie po przerwie":
         "Wznawiaj odtwarzanie po przerwie",
+    "Szukaj w ustawieniach": "Szukaj w ustawieniach",
+    "Brak wyników": "Brak wyników",
 }

@@ -1652,3 +1652,5 @@ runtime	-	Dlaczego timer działa albo stoi: wszystkie czynniki w jednym miejscu
 runtime	-	trwa: %@
 runtime	-	Full Disk Access
 runtime	-	Reading Focus modes (work zone and pausing by Focus); optional
+compiler	IntermezzoApp/Settings/SettingsView.swift	Szukaj w ustawieniach
+compiler	IntermezzoApp/Settings/SettingsSearch.swift	Brak wyników

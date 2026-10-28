@@ -722,4 +722,6 @@ STRINGS = {
         "Pause video and music during breaks",
     "Wznawiaj odtwarzanie po przerwie":
         "Resume playback after the break",
+    "Szukaj w ustawieniach": "Search settings",
+    "Brak wyników": "No results",
 }

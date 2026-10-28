@@ -159,6 +159,7 @@
 "Brak przerw z ostatnich dni." = "No breaks from the last few days.";
 "Brak uprawnień do nagrywania ekranu" = "No screen recording permission";
 "Brak wschodu lub zachodu Słońca w tym miejscu (dzień lub noc polarna)." = "The Sun neither rises nor sets here (polar day or night).";
+"Brak wyników" = "No results";
 "Break" = "Break";
 "Break #%lld today" = "Break #%lld today";
 "Break #%lld today · let's keep that streak going" = "Break #%lld today · let's keep that streak going";
@@ -1082,6 +1083,7 @@
 "Szklanka wody teraz. Serio. Teraz." = "A glass of water now. Seriously. Now.";
 "Szkło" = "Glass";
 "Szkło jest przezroczyste i rozmywa to, co leży za oknem. Bez wybranego koloru nie jest zabarwione." = "Glass is transparent and blurs what lies behind the window. Without a chosen colour it is not tinted.";
+"Szukaj w ustawieniach" = "Search settings";
 "Szukaj wiadomości…" = "Search messages…";
 "Szyba i pogoda" = "Glass and weather";
 "Szybsze mruganie" = "Blink more";

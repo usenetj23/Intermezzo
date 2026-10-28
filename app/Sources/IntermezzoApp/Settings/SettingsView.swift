@@ -213,6 +213,7 @@ enum SettingsPane: String, Identifiable, CaseIterable {
 struct SettingsView: View {
     @State private var selection: SettingsPane? = .status
     @State private var openMessageID: String?
+    @State private var query = ""
     @AppStorage(SettingsLevel.key) private var showAll = false
     @AppStorage(SurfaceTheme.key) private var themeRaw = SurfaceTheme.navy.rawValue
     @AppStorage(SurfaceTheme.tintKey) private var tintHex = ""
@@ -222,6 +223,9 @@ struct SettingsView: View {
     var body: some View {
         NavigationSplitView {
             List(selection: $selection) {
+                if !query.trimmingCharacters(in: .whitespaces).isEmpty {
+                    SettingsSearchResults(query: query, showAll: showAll, open: openResult)
+                } else {
                 ForEach(SettingsPane.groups, id: \.title) { group in
                     Section(LocalizedStringKey(group.title)) {
                         ForEach(group.panes.filter { showAll || !$0.isExpert }) { pane in
@@ -231,7 +235,9 @@ struct SettingsView: View {
                         }
                     }
                 }
+                }
             }
+            .searchable(text: $query, placement: .sidebar, prompt: Text("Szukaj w ustawieniach"))
             .scrollContentBackground(.hidden)
             .safeAreaInset(edge: .bottom) { SettingsLevelPicker() }
             .background(SettingsBackdrop(theme: theme, tintHex: tintHex.isEmpty ? nil : tintHex))
@@ -272,6 +278,16 @@ struct SettingsView: View {
                 selection = .messages
             }
         }
+    }
+
+    /// Opens the pane of a search hit and, when the row has an anchor, scrolls to it.
+    private func openResult(_ entry: SettingsSearchEntry) {
+        let samePane = selection == entry.pane
+        SettingsPane.pendingAnchor = entry.anchor
+        selection = entry.pane
+        query = ""
+        // A pane that is already open does not re-appear, so tell it to scroll.
+        if samePane { NotificationCenter.default.post(name: .scrollToSettingsAnchor, object: nil) }
     }
 
     @ViewBuilder
