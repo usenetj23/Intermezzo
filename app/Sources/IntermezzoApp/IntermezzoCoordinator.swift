@@ -1284,10 +1284,25 @@ final class BreakCoordinator: ObservableObject {
         manualStartPending = false
     }
 
+    /// +1 / +5 postpone a break that is on screen or about to be: during the break, or inside the lead window
+    /// of the "break soon" card. Far from a break they would only push the timer by hours.
+    var canSnoozeNow: Bool {
+        if engine.activeBreakKind != nil { return true }
+        guard let left = engine.timeUntilBreak(now: Date()) else { return false }
+        return left <= TimeInterval(max(10, UserDefaults.standard.integer(forKey: Keys.breakLeadPopup)))
+    }
+
     /// +1 / +5: while working = postpone the break (snooze); while on a live
     /// break = CLOSE the popup instantly and show the next one in N minutes
     /// ("skip this one, ask me again later" — user-requested semantics).
     func snooze(minutes: Int) {
+        guard canSnoozeNow else {
+            Trace.log("snooze refused: no break on screen or about to start")
+            ToastCenter.shared.show(title: "Odroczenie działa tuż przed przerwą",
+                                    body: "Można odłożyć przerwę, która trwa albo zaraz się zacznie.",
+                                    symbol: "hourglass")
+            return
+        }
         if BreakStyleSettings.snoozesLeft() == 0 {
             Trace.log("snooze refused: daily limit used up")
             ToastCenter.shared.show(title: "Limit odroczeń na dziś wykorzystany",

@@ -54,8 +54,7 @@ struct StatusPane: View {
                 HStack(spacing: 10) {
                     Button("Pauza teraz") { coordinator.takeShortNow(source: "status-pane") }
                     Button("Długa pauza") { coordinator.takeLongNow(source: "status-pane") }
-                    Button("+1 min") { coordinator.snooze(minutes: 1) }
-                    Button("+5 min") { coordinator.snooze(minutes: 5) }
+                    StatusSnoozeButtons(coordinator: coordinator)
                     Button("Pomiń najbliższą") { coordinator.handleSkip(source: "status-pane") }
                 }
                 HStack(spacing: 10) {
@@ -74,6 +73,20 @@ struct StatusPane: View {
 
     private func refreshTrend() {
         trend = coordinator.buildTrend(now: Date())
+    }
+}
+
+/// +1 / +5, enabled only while a break is on screen or about to start (redrawn with the countdown).
+private struct StatusSnoozeButtons: View {
+    @ObservedObject var coordinator: BreakCoordinator
+
+    var body: some View {
+        Group {
+            Button("+1 min") { coordinator.snooze(minutes: 1) }
+            Button("+5 min") { coordinator.snooze(minutes: 5) }
+        }
+        .disabled(!coordinator.canSnoozeNow)
+        .help("Odroczenie działa podczas przerwy i tuż przed nią.")
     }
 }
 

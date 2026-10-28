@@ -98,11 +98,11 @@ struct MenuBarPanelView: View {
                 }
                 HStack(spacing: 8) {
                     PanelButton(title: "+1 min", symbol: "plus", kind: .tile,
-                                isEnabled: !coordinator.engineIsPaused) {
+                                isEnabled: coordinator.canSnoozeNow) {
                         coordinator.snooze(minutes: 1)
                     }
                     PanelButton(title: "+5 min", symbol: "plus.square", kind: .tile,
-                                isEnabled: !coordinator.engineIsPaused) {
+                                isEnabled: coordinator.canSnoozeNow) {
                         coordinator.snooze(minutes: 5)
                     }
                     if !hideReset {
