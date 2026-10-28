@@ -12,7 +12,7 @@ struct RelaxationAudioSection: View {
 
     var body: some View {
         Section("Relaxation Audio") {
-            Toggle("Play relaxing audio during breaks", isOn: $enabled)
+            Toggle("Play relaxing audio during breaks", isOn: $enabled).settingsAnchor("breaks-play-relaxing-audio-during-breaks")
             if enabled {
                 AudioSlotEditor(kind: .short, title: "Short break", breakSeconds: shortBreakSeconds, volume: volume)
                 AudioSlotEditor(kind: .long, title: "Long break", breakSeconds: longBreakSeconds, volume: volume)
@@ -26,7 +26,7 @@ struct RelaxationAudioSection: View {
                         .frame(width: 42, alignment: .trailing)
                 }
                 Text("Playback volume during breaks (independent of the system volume)")
-                    .settingsNote()
+                    .settingsNote().settingsAnchor("breaks-playback-volume-during-breaks-indepe")
             }
         }
         .onDisappear { AudioPreview.shared.stop() }
@@ -82,9 +82,9 @@ private struct AudioSlotEditor: View {
                     if isCustom {
                         Text("\((path as NSString).lastPathComponent) — \(durationText(path))").tag(path)
                     }
-                }
+                }.settingsAnchor("breaks-track")
                 .labelsHidden()
-                Button("Choose…", action: chooseFile).controlSize(.small)
+                Button("Choose…", action: chooseFile).settingsAnchor("breaks-choose").controlSize(.small)
                 Button {
                     preview.toggle(slot: slot, path: path, volume: volume, loop: loop)
                 } label: {
@@ -104,7 +104,7 @@ private struct AudioSlotEditor: View {
                 }
             }
             if !isNoise {
-                Toggle("Loop when shorter than the break", isOn: $loop)
+                Toggle("Loop when shorter than the break", isOn: $loop).settingsAnchor("breaks-loop-when-shorter-than-the-break")
                     .onChange(of: loop) { _, _ in if isPlaying { restartPreview() } }
             }
             fitLabel

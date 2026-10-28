@@ -12,7 +12,7 @@ struct LanguageSection: View {
                 Text("Systemowy / System").tag(AppLanguage.system)
                 Text("English").tag(AppLanguage.english)
                 Text("Polski").tag(AppLanguage.polish)
-            }
+            }.settingsAnchor("appearance-jezyk-language")
             .onChange(of: choice) { _, new in
                 LanguageSwitch.apply(new)
                 changed = true
@@ -20,9 +20,9 @@ struct LanguageSection: View {
             if changed {
                 HStack {
                     Text("Zmiana działa po ponownym uruchomieniu. / Applies after a restart.")
-                        .settingsNote()
+                        .settingsNote().settingsAnchor("appearance-zmiana-dziala-po-ponownym-uruchomien")
                     Spacer()
-                    Button("Uruchom ponownie / Restart") { LanguageSwitch.relaunch() }
+                    Button("Uruchom ponownie / Restart") { LanguageSwitch.relaunch() }.settingsAnchor("appearance-uruchom-ponownie-restart")
                 }
             }
         }

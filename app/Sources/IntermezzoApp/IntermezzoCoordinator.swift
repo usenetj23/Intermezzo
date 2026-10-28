@@ -82,6 +82,8 @@ enum Keys {
     static let videoDetection = "videoDetection"
     static let calendarWorkDetection = "calendarWorkDetection"
     static let calendarWorkKeywords = "calendarWorkKeywords"
+    /// JSON [CalendarRule]: which calendars, titles and kinds of event count as work.
+    static let calendarRules = "calendarRules"
     /// Holiday guard + vacation override (no breaks on urlop / N-day switch).
     static let holidayGuard = "holidayGuard"
     static let holidayKeywords = "holidayKeywords"
@@ -97,6 +99,14 @@ enum Keys {
     static let geoLon = "geoLon"
     static let geoRadiusM = "geoRadiusM"
     static let focusDetection = "focusDetection"
+    /// A Focus mode marked "work" counts as a work-zone match.
+    static let focusWorkZone = "focusWorkZone"
+    /// JSON [mode id: FocusRole].
+    static let focusRoles = "focusRoles"
+    /// Show the countdown beside the icon on notched screens too.
+    static let menuBarCountdownNotch = "menuBarCountdownNotch"
+    /// Tint the menu-bar icon by the timer state.
+    static let menuBarColoredIcon = "menuBarColoredIcon"
     static let hotkeyShort = "hotkeyShort"
     static let hotkeyLong = "hotkeyLong"
     static let hotkeySkip = "hotkeySkip"
@@ -193,6 +203,9 @@ func registerDefaults() {
     bind(d, SessionAwareKeys.enabled, 0)
     bind(d, SeamKeys.maxDelaySeconds, SeamKeys.defaultMaxDelay)
     bind(d, Keys.menuBarCountdown, 1)
+    bind(d, Keys.menuBarCountdownNotch, 0)
+    bind(d, Keys.menuBarColoredIcon, 0)
+    bind(d, Keys.focusWorkZone, 0)
     bind(d, Keys.messagesDuringBreak, 1)
     bind(d, MessagesStore.breakEveryKey, 3)
     if d.string(forKey: Keys.idleDetectionMethod) == nil {
@@ -239,6 +252,24 @@ func currentConfig() -> BreakConfig {
 @MainActor
 final class BreakCoordinator: ObservableObject {
     @Published private(set) var statusText: String = String(localized: "Paused")
+    /// Collected during a tick and published at its end for the Diagnostics pane.
+    private var gateFactors: [GateFactor] = []
+    /// Where each factor is set, so a card in Diagnostics can open the right pane.
+    private static let gateLinks: [String: String] = [
+        "vacation": "General#vacation", "holiday": "General#holiday", "hours": "General#hours",
+        "zone": "General#zone-calendar", "zone-calendar": "General#zone-calendar", "zone-vpn": "General#zone-vpn",
+        "zone-wifi": "General#zone-wifi", "zone-geo": "General#zone-geo", "zone-lan": "Work log#lan",
+        "meeting": "General#meeting", "video": "General#video", "focus": "General#focus",
+        "rules": "Rules", "manual": "Status#pause", "idle": "Advanced#idle",
+        "zone-focus": "General#focus",
+    ]
+    private func gate(_ id: String, _ group: GateGroup, _ title: String, _ verdict: GateVerdict,
+                      _ detail: String, info: Bool = false) {
+        // Plain texts are looked up here; texts with values arrive already built by L("… %@", value).
+        gateFactors.append(GateFactor(id: id, group: group, title: L(title), verdict: verdict,
+                                      detail: L(detail), informational: info, link: Self.gateLinks[id]))
+    }
+    private static func clock(_ minutes: Int) -> String { String(format: "%02d:%02d", minutes / 60, minutes % 60) }
     @Published private(set) var statusSymbol: String = "timer"
     @Published private(set) var headlineText: String = String(localized: "Breaks paused")
     @Published private(set) var countdownText: String = "—:—"
@@ -381,14 +412,14 @@ final class BreakCoordinator: ObservableObject {
 
     private func tick() {
         let now = Date()
-        let config = currentConfig()
+        var config = currentConfig()
         let d = UserDefaults.standard
+        gateFactors.removeAll(keepingCapacity: true)
 
         // Working-hours gating (weekday mask + minute-accurate range, e.g. 6:30–14:30).
-        // Priority: Vacation override > Holiday guard > Calendar-as-schedule >
-        // fixed working hours. When Calendar work-detection is ON it REPLACES
-        // the fixed hours — a holiday/urlop with no "praca" event means the
-        // mechanism stays asleep all day.
+        // Priority: Vacation override > Holiday guard > fixed working hours.
+        // A calendar event that matches the rules counts as work next to the hours
+        // (see atWorkNow), so it extends them and never replaces them.
         var onVacation = false
         if d.integer(forKey: Keys.vacationMode) != 0 {
             let until = Date(timeIntervalSince1970: d.double(forKey: Keys.vacationUntil))
@@ -400,17 +431,20 @@ final class BreakCoordinator: ObservableObject {
         }
         let onHoliday = d.integer(forKey: Keys.holidayGuard) != 0
             && workDetector.holidayToday
-        let calAsSchedule = d.integer(forKey: Keys.calendarWorkDetection) != 0
         // Every policy below only declares what it WANTS; one syncReasons()
         // call per tick (further down) pauses/resumes accordingly, so no
         // policy can ever leave a stale pause behind.
         var desired = Set<PauseReason>()
+        var outsideHours = false
+        // For Diagnostics: 0 off, 2 shadowed by vacation/holiday, 3 evaluated.
+        var hoursMode = 0
+        var hoursDetail = ""
         if onVacation {
             desired.insert(.vacation)
+            hoursMode = 2
         } else if onHoliday {
             desired.insert(.holiday)
-        } else if calAsSchedule {
-            // Calendar zone block below decides; fixed hours are not consulted.
+            hoursMode = 2
         } else if config.enforceWorkingHours {
             let comp = Calendar.current.dateComponents([.hour, .minute, .weekday], from: now)
             let minuteOfDay = (comp.hour ?? 0) * 60 + (comp.minute ?? 0)
@@ -423,18 +457,33 @@ final class BreakCoordinator: ObservableObject {
                 ? WeekHours.decode(d.data(forKey: "weekHours")).window(forDay: weekdayIndex, default: general)
                 : general
             let timeOK = today.contains(minute: minuteOfDay)
-            if !(dayOK && timeOK) { desired.insert(.outsideWorkingHours) }
+            outsideHours = !(dayOK && timeOK)
+            hoursMode = 3
+            hoursDetail = dayOK
+                ? L("teraz %@ · dziś %@", Self.clock(minuteOfDay), "\(Self.clock(today.start))–\(Self.clock(today.end))")
+                : L("teraz %@ · dziś dzień wolny", Self.clock(minuteOfDay))
         }
+        let vacationUntil = Date(timeIntervalSince1970: d.double(forKey: Keys.vacationUntil))
+        gate("vacation", .schedule, "Tryb urlopu", onVacation ? .blocking : .inactive,
+             onVacation ? L("do %@", vacationUntil.formatted(date: .abbreviated, time: .omitted)) : "wyłączony")
+        let holidayOn = d.integer(forKey: Keys.holidayGuard) != 0
+        gate("holiday", .schedule, "Ochrona świąt i urlopów", onHoliday ? .blocking : (holidayOn ? .passing : .inactive),
+             onHoliday ? "dziś w kalendarzu jest wydarzenie urlop/święto"
+                       : (holidayOn ? "dziś bez wydarzenia urlop/święto" : "wyłączona"))
 
         // Intelligence — pause while in a meeting / watching video.
         // (IntelligenceController caches its probes for 4 s.)
         tickCount += 1
-        if d.integer(forKey: Keys.meetingDetection) != 0, intelligence.meetingInProgress() {
-            desired.insert(.inMeeting)
-        }
-        if d.integer(forKey: Keys.videoDetection) != 0, intelligence.videoInProgress() {
-            desired.insert(.watchingVideo)
-        }
+        let meetingOn = d.integer(forKey: Keys.meetingDetection) != 0
+        let inMeeting = meetingOn && intelligence.meetingInProgress()
+        if inMeeting { desired.insert(.inMeeting) }
+        gate("meeting", .detection, "Spotkanie (Zoom, Teams, Webex)", inMeeting ? .blocking : (meetingOn ? .passing : .inactive),
+             inMeeting ? intelligence.meetingReason : (meetingOn ? "brak spotkania" : "wykrywanie wyłączone"))
+        let videoOn = d.integer(forKey: Keys.videoDetection) != 0
+        let watchingVideo = videoOn && intelligence.videoInProgress()
+        if watchingVideo { desired.insert(.watchingVideo) }
+        gate("video", .detection, "Wideo", watchingVideo ? .blocking : (videoOn ? .passing : .inactive),
+             watchingVideo ? "oglądasz wideo" : (videoOn ? "brak wideo" : "wykrywanie wyłączone"))
 
         // ── Break Rules ────────────────────────
         // Pick up live edits from the Settings pane.
@@ -455,10 +504,16 @@ final class BreakCoordinator: ObservableObject {
         // condition matches; "ignore natural break" suppresses the idle
         // auto-pause below so breaks keep coming anyway.
         var ignoreNaturalBreak = false
+        var holdRules = 0
+        var holdingRules: [String] = []
         for rule in enabledRules {
             switch rule.outcome {
             case .treatAsNaturalBreak:
-                if ruleConditionMatches(rule, now: now) { desired.insert(.ruleMatch) }
+                holdRules += 1
+                if ruleConditionMatches(rule, now: now) {
+                    desired.insert(.ruleMatch)
+                    holdingRules.append("\(rule.kind.rawValue): \(rule.text)")
+                }
             case .ignoreNaturalBreak:
                 if ruleConditionMatches(rule, now: now) { ignoreNaturalBreak = true }
             case .suggestBreak:
@@ -467,6 +522,10 @@ final class BreakCoordinator: ObservableObject {
                 break
             }
         }
+
+        gate("rules", .detection, "Reguły wstrzymujące", holdingRules.isEmpty ? (holdRules > 0 ? .passing : .inactive) : .blocking,
+             holdingRules.isEmpty ? (holdRules > 0 ? "żadna reguła nie wstrzymuje" : "brak reguł tego typu")
+                                  : holdingRules.joined(separator: "; "))
 
         // Work zone: Calendar / VPN-by-name / Wi-Fi-by-
         // SSID / GPS-location are ACTIVATORS. When any of them is enabled,
@@ -481,7 +540,10 @@ final class BreakCoordinator: ObservableObject {
         workDetector.vpnEnabled = vpnOn
         workDetector.wifiEnabled = wifiOn
         workDetector.geoEnabled = geoOn
-        workDetector.keywords = csvList(d.string(forKey: Keys.calendarWorkKeywords))
+        // Until the user opens the rules, the old keyword list works as one rule over every calendar.
+        workDetector.calendarRules = d.object(forKey: Keys.calendarRules) == nil
+            ? [CalendarRules.legacy(keywords: d.string(forKey: Keys.calendarWorkKeywords) ?? "")]
+            : CalendarRules.decode(d.data(forKey: Keys.calendarRules))
         workDetector.holidayEnabled = d.integer(forKey: Keys.holidayGuard) != 0
         workDetector.holidayKeywords = csvList(d.string(forKey: Keys.holidayKeywords))
         workDetector.vpnNames = csvList(d.string(forKey: Keys.vpnNames))
@@ -495,21 +557,108 @@ final class BreakCoordinator: ObservableObject {
             workDetector.geoRadiusMeters = rad > 0 ? rad : 300
         }
         workDetector.poll(now: now)
-        if workDetector.hasActivators {
-            let inZone = (calOn && workDetector.calendarMatch)
-                || (vpnOn && workDetector.vpnMatch)
-                || (wifiOn && workDetector.wifiMatch)
-                || (geoOn && workDetector.geoMatch)
-            if !inZone { desired.insert(.outsideWorkZone) }
-            if inZone != lastZoneState {
-                lastZoneState = inZone
-                Trace.log("work-zone: \(inZone ? "IN — breaks active" : "OUT — breaks held")")
+        gate("zone-calendar", .zone, "Kalendarz", calOn && workDetector.calendarMatch ? .passing : .inactive,
+             !calOn ? "wyłączone"
+                    : (workDetector.calendarMatch ? L("trwa: %@", workDetector.calendarMatchSummary) : "brak pasującego wydarzenia"))
+        let vpnNames = workDetector.vpnConnectedNames.joined(separator: ", ")
+        gate("zone-vpn", .zone, "VPN", vpnOn && workDetector.vpnMatch ? .passing : .inactive,
+             !vpnOn ? "wyłączone"
+                    : (workDetector.vpnMatch ? L("połączono: %@", vpnNames)
+                       : (vpnNames.isEmpty ? "brak połączenia VPN" : L("połączono (%@), ale nie z listy", vpnNames))))
+        gate("zone-wifi", .zone, "Wi-Fi", wifiOn && workDetector.wifiMatch ? .passing : .inactive,
+             !wifiOn ? "wyłączone"
+                     : (workDetector.wifiMatch ? L("sieć: %@", workDetector.currentSSID)
+                        : (workDetector.currentSSID.isEmpty ? "brak Wi-Fi albo brak zgody na Lokalizację"
+                           : L("sieć %@ nie jest z listy", workDetector.currentSSID))))
+        gate("zone-geo", .zone, "Zapisane miejsce", geoOn && workDetector.geoMatch ? .passing : .inactive,
+             !geoOn ? "wyłączone"
+                    : (workDetector.geoMatch ? "w promieniu miejsca"
+                       : (workDetector.geoDistanceM >= 0 ? L("%lld m od miejsca", Int(workDetector.geoDistanceM)) : "położenie nieznane")))
+        let workLog = WorkLogController.shared
+        // Focus: which modes are on and what each is for (work, hold breaks, ignore).
+        let focusOn = d.integer(forKey: Keys.focusDetection) != 0
+        let focusWorkOn = d.integer(forKey: Keys.focusWorkZone) != 0
+        let focusRoles = (try? JSONDecoder().decode([String: FocusRole].self,
+                                                    from: d.data(forKey: Keys.focusRoles) ?? Data())) ?? [:]
+        let focusSnap = (focusOn || focusWorkOn) ? focusSnapshot(now) : nil
+        let activeFocus = focusSnap?.active ?? []
+        let focusAtWork = focusWorkOn && activeFocus.contains { FocusModes.role(for: $0.id, stored: focusRoles) == .work }
+        workDetector.focusAtWork = focusAtWork   // also reaches the work log and the lamps through presencePlace
+        let activeFocusNames = activeFocus.map(\.name).joined(separator: ", ")
+        var focusZoneDetail = "wyłączone"
+        if focusWorkOn {
+            if focusSnap == nil {
+                focusZoneDetail = "brak dostępu do danych Focus (Pełny dostęp do dysku)"
+            } else if activeFocus.isEmpty {
+                focusZoneDetail = "żaden Focus nie jest włączony"
+            } else {
+                focusZoneDetail = focusAtWork ? L("włączony: %@ (praca)", activeFocusNames)
+                                              : L("włączony: %@ (nie jako praca)", activeFocusNames)
             }
         }
-        // Focus / Do-Not-Disturb: pause while on (separate from the zone).
-        if d.integer(forKey: Keys.focusDetection) != 0, focusNow(now) {
-            desired.insert(.inFocusMode)
+        gate("zone-focus", .zone, "Focus oznaczony jako praca", focusAtWork ? .passing : .inactive, focusZoneDetail)
+        // The LAN, dock adapter or work Wi-Fi marked in the work log counts as a match here too, so one
+        // place of work is set up once. It never switches the work zone on by itself (that stays with the four sources).
+        let lanMatch = workLog.isEnabled && workLog.zone.inZone
+        // At work in any sense: one match from any source is enough, whatever the clock says.
+        let atWorkNow = (calOn && workDetector.calendarMatch)
+            || (vpnOn && workDetector.vpnMatch)
+            || (wifiOn && workDetector.wifiMatch)
+            || (geoOn && workDetector.geoMatch)
+            || lanMatch
+            || focusAtWork
+        // Working hours and the work zone are alternatives, not both required: the timer runs inside the
+        // hours OR while the Mac is at work (overtime, an outage, a day off), and holds only when neither holds.
+        let inHoursNow = hoursMode == 3 && !outsideHours
+        gate("zone-lan", .zone, "LAN i karta z Rejestru pracy", lanMatch ? .passing : .inactive,
+             !workLog.isEnabled ? "rejestr pracy wyłączony"
+                                : (lanMatch ? L("%@: liczy się do strefy przerw", workLog.zone.reason)
+                                            : "rejestr pracy też nie widzi strefy pracy"))
+        if workDetector.hasActivators {
+            let zoneBlock = !atWorkNow && !inHoursNow
+            if zoneBlock { desired.insert(.outsideWorkZone) }
+            gate("zone", .zone, "Strefa pracy", zoneBlock ? .blocking : .passing,
+                 atWorkNow ? "co najmniej jedno źródło pasuje"
+                           : (inHoursNow ? "żadne źródło nie pasuje, ale trwają godziny pracy"
+                                         : "żadne źródło nie pasuje i są poza godzinami pracy"))
+            if atWorkNow != lastZoneState {
+                lastZoneState = atWorkNow
+                Trace.log("work-zone: \(atWorkNow ? "IN — breaks active" : "OUT — breaks held")")
+            }
         }
+        let hoursBlock = outsideHours && !atWorkNow
+        if hoursBlock { desired.insert(.outsideWorkingHours) }
+        if !workDetector.hasActivators {
+            gate("zone", .zone, "Strefa pracy", .inactive, "wszystkie źródła wyłączone: przerwy działają wszędzie")
+        }
+        switch hoursMode {
+        case 2: gate("hours", .schedule, "Godziny pracy", .inactive, "pominięte: urlop lub święto ma pierwszeństwo")
+        case 3:
+            gate("hours", .schedule, "Godziny pracy", hoursBlock ? .blocking : .passing,
+                 hoursBlock ? L("%@ · poza godzinami i poza strefą pracy", hoursDetail)
+                            : (outsideHours ? L("%@ · poza godzinami, ale jesteś w strefie pracy", hoursDetail)
+                                            : L("%@ · w godzinach pracy", hoursDetail)))
+        default: gate("hours", .schedule, "Godziny pracy", .inactive, "wyłączone: przerwy działają całą dobę")
+        }
+        // Focus / Do-Not-Disturb: pause while on (separate from the zone).
+        // Modes whose role is "hold breaks" pause the timer; without access to the Focus files only the
+        // coarse on/off probe is left.
+        let pausingFocus = activeFocus.filter { FocusModes.role(for: $0.id, stored: focusRoles) == .pause }
+        let inFocus = focusOn && (focusSnap != nil ? !pausingFocus.isEmpty : focusNow(now))
+        if inFocus { desired.insert(.inFocusMode) }
+        var focusDetail = "wykrywanie wyłączone"
+        if focusOn {
+            if inFocus {
+                focusDetail = pausingFocus.isEmpty
+                    ? "Focus jest włączony"
+                    : L("wstrzymuje: %@", pausingFocus.map(\.name).joined(separator: ", "))
+            } else if activeFocus.isEmpty {
+                focusDetail = "żaden Focus nie jest włączony"
+            } else {
+                focusDetail = L("włączony: %@ (nie wstrzymuje)", activeFocusNames)
+            }
+        }
+        gate("focus", .detection, "Focus / Nie przeszkadzać", inFocus ? .blocking : (focusOn ? .passing : .inactive), focusDetail)
         engine.syncReasons(desired, managed: BreakCoordinator.policyReasons, now: now)
 
     // Idle detection → auto-pause; long absence → Timer Reset Logic.
@@ -606,7 +755,24 @@ final class BreakCoordinator: ObservableObject {
 
         applySeamGate(now: now)
         applyReminderOnly(now: now)
+        // Meal break window open and the regular timer runs out now: this break becomes the meal.
+        var mealStarting: ScheduledBreak?
+        if !isOnBreak, !engine.isPaused, CustomBreak.active == nil,
+           let left = engine.timeUntilBreak(now: now), left <= 0,
+           let meal = reminders.mealInWindow(now: now), let minutes = meal.customMinutes {
+            CustomBreak.active = (meal.label, max(1, minutes) * 60)
+            config = currentConfig()
+            mealStarting = meal
+        }
         let events = engine.tick(now: now, config: config)
+        if let meal = mealStarting {
+            if events.contains(where: { if case .breakStarted = $0 { return true } else { return false } }) {
+                reminders.markFired(meal, now: now)
+                Trace.log("scheduled break: \(meal.label) (regular timer ran out in its window)")
+            } else {
+                CustomBreak.active = nil
+            }
+        }
         process(events: events, now: now, config: config)
 
         // Muzyka: fade-out zaczyna się 5 s PRZED końcem przerwy, tak aby
@@ -626,6 +792,7 @@ final class BreakCoordinator: ObservableObject {
             musicFadeStarted = false
         }
 
+        publishGateReport(now: now)
         refreshUI(now: now, config: config)
 
         // Break Actions — Before Due point (fires once per approaching break).
@@ -643,6 +810,30 @@ final class BreakCoordinator: ObservableObject {
         reminders.tick(now: now, canRemind: !isOnBreak && !engine.isPaused) { [weak self] scheduled in
             self?.offerOrStart(scheduled)
         }
+    }
+
+    /// Adds the factors that live in the engine state, then hands the whole report to the Diagnostics pane.
+    private func publishGateReport(now: Date) {
+        let d = UserDefaults.standard
+        var reasons: Set<PauseReason> = []
+        var running = false
+        switch engine.state {
+        case .paused(let r): reasons = r
+        case .working: running = true
+        case .onBreak: break
+        }
+        gate("manual", .user, "Wstrzymanie ręczne", reasons.contains(.manual) ? .blocking : .inactive,
+             reasons.contains(.manual) ? "timer wstrzymany przyciskiem lub skrótem" : "nie wstrzymano")
+        if d.integer(forKey: Keys.idleDetection) == 0 {
+            gate("idle", .user, "Brak aktywności", .inactive, "wykrywanie wyłączone")
+        } else if reasons.contains(.userAway) {
+            let minutes = awaySince.map { Int(now.timeIntervalSince($0) / 60) } ?? 0
+            gate("idle", .user, "Brak aktywności", .blocking, L("brak ruchu myszy i klawiatury od %lld min", minutes))
+        } else {
+            gate("idle", .user, "Brak aktywności", .passing, "pracujesz przy komputerze")
+        }
+        GateDiagnostics.shared.update(GateReport(factors: gateFactors, running: running,
+                                                 onBreak: engine.activeBreakKind != nil))
     }
 
     // MARK: - Break Rules
@@ -1016,11 +1207,9 @@ final class BreakCoordinator: ObservableObject {
             edgeGlow.hide()
         } else if let left = engine.timeUntilBreak(now: now) {
             if left < 180 { WeatherController.shared.refreshIfNeeded() }   // scene ready before the break
-            let pomodoro = UserDefaults.standard.integer(forKey: Keys.pomodoroMode) != 0
-            let tomato = pomodoro ? "🍅 " : ""
             // Compact so the item never gets hidden by menu-bar overflow/notch:
             // the button shows a state icon (timer/cup/pause) + MM:SS countdown.
-            statusText = tomato + TimeFormat.short(left)
+            statusText = TimeFormat.short(left)
             statusSymbol = "timer"
             headlineText = String(localized: "Next break in")
             countdownText = TimeFormat.short(left)
@@ -1151,10 +1340,25 @@ final class BreakCoordinator: ObservableObject {
         manualStartPending = false
     }
 
+    /// +1 / +5 postpone a break that is on screen or about to be: during the break, or inside the lead window
+    /// of the "break soon" card. Far from a break they would only push the timer by hours.
+    var canSnoozeNow: Bool {
+        if engine.activeBreakKind != nil { return true }
+        guard let left = engine.timeUntilBreak(now: Date()) else { return false }
+        return left <= TimeInterval(max(10, UserDefaults.standard.integer(forKey: Keys.breakLeadPopup)))
+    }
+
     /// +1 / +5: while working = postpone the break (snooze); while on a live
     /// break = CLOSE the popup instantly and show the next one in N minutes
     /// ("skip this one, ask me again later" — user-requested semantics).
     func snooze(minutes: Int) {
+        guard canSnoozeNow else {
+            Trace.log("snooze refused: no break on screen or about to start")
+            ToastCenter.shared.show(title: "Odroczenie działa tuż przed przerwą",
+                                    body: "Można odłożyć przerwę, która trwa albo zaraz się zacznie.",
+                                    symbol: "hourglass")
+            return
+        }
         if BreakStyleSettings.snoozesLeft() == 0 {
             Trace.log("snooze refused: daily limit used up")
             ToastCenter.shared.show(title: "Limit odroczeń na dziś wykorzystany",
@@ -1187,6 +1391,14 @@ final class BreakCoordinator: ObservableObject {
     /// Focus/DND probe, 20 s throttled (plain JSON file read).
     private var focusState = false
     private var lastFocusProbe = Date.distantPast
+    private var focusSnapshotCache: (at: Date, value: WorkDetector.FocusSnapshot?)?
+    private func focusSnapshot(_ now: Date) -> WorkDetector.FocusSnapshot? {
+        if let cache = focusSnapshotCache, now.timeIntervalSince(cache.at) < 20 { return cache.value }
+        let value = WorkDetector.focusSnapshot()
+        focusSnapshotCache = (now, value)
+        return value
+    }
+
     private func focusNow(_ now: Date) -> Bool {
         if now.timeIntervalSince(lastFocusProbe) > 20 {
             lastFocusProbe = now

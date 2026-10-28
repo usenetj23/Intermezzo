@@ -7,6 +7,7 @@ STRINGS = {
     "Automation (System Events)": "Automatyzacja (System Events)",
     "Location": "Lokalizacja",
     "Notifications": "Powiadomienia",
+    "Full Disk Access": "Pełny dostęp do dysku",
     "Calendar": "Kalendarz",
     "Natural-break detection (Event Monitor); falls back to polling without it":
         "Wykrywanie naturalnej przerwy (Event Monitor); bez tego wraca do odpytywania",
@@ -21,4 +22,6 @@ STRINGS = {
     "Break reminders, hydration and backup alerts": "Przypomnienia o przerwach, nawodnieniu i kopii zapasowej",
     "Meeting and holiday detection, calendar-aware breaks":
         "Wykrywanie spotkań i świąt, przerwy dopasowane do kalendarza",
+    "Reading Focus modes (work zone and pausing by Focus); optional":
+        "Odczyt trybów Skupienia (strefa pracy i pauza przez Skupienie); opcjonalne",
 }

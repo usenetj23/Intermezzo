@@ -6,11 +6,90 @@ import IntermezzoKit
 extension Notification.Name {
     static let openMessage = Notification.Name("IntermezzoOpenMessage")
     static let openSettingsPane = Notification.Name("IntermezzoOpenSettingsPane")
+    static let scrollToSettingsAnchor = Notification.Name("IntermezzoScrollToSettingsAnchor")
+}
+
+/// Drives the short flash that shows which row a jump from Diagnostics landed on.
+@MainActor
+final class SettingsHighlight: ObservableObject {
+    static let shared = SettingsHighlight()
+    @Published private(set) var anchor: String?
+    @Published private(set) var lit = false
+    private var generation = 0
+
+    /// Three pulses of the accent colour behind the row, then it fades away for good.
+    func flash(_ name: String) {
+        generation += 1
+        let mine = generation
+        anchor = name
+        Task { @MainActor in
+            for _ in 0..<3 {
+                guard mine == generation else { return }
+                withAnimation(.easeInOut(duration: 0.25)) { lit = true }
+                try? await Task.sleep(nanoseconds: 320_000_000)
+                withAnimation(.easeInOut(duration: 0.25)) { lit = false }
+                try? await Task.sleep(nanoseconds: 320_000_000)
+            }
+            if mine == generation { anchor = nil }
+        }
+    }
+}
+
+/// Marks a settings row as a jump target (`.id`) and lets it flash when it is the one jumped to.
+struct SettingsAnchor: ViewModifier {
+    let name: String
+    @ObservedObject private var highlight = SettingsHighlight.shared
+
+    func body(content: Content) -> some View {
+        let on = highlight.anchor == name && highlight.lit
+        content
+            .id(name)
+            .background(
+                RoundedRectangle(cornerRadius: 8, style: .continuous)
+                    .fill(Color.accentColor.opacity(on ? 0.30 : 0))
+                    .padding(-6)
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: 8, style: .continuous)
+                    .strokeBorder(Color.accentColor.opacity(on ? 0.9 : 0), lineWidth: 2)
+                    .padding(-6)
+                    .allowsHitTesting(false)
+            )
+    }
+}
+
+/// Scrolls a settings form to the row named by `SettingsPane.pendingAnchor` when the pane appears
+/// (or at once, if it is already on screen). Rows opt in with `.id("name")`.
+struct ScrollsToSettingsAnchor: ViewModifier {
+    func body(content: Content) -> some View {
+        ScrollViewReader { proxy in
+            content
+                .onAppear { scroll(proxy) }
+                .onReceive(NotificationCenter.default.publisher(for: .scrollToSettingsAnchor)) { _ in scroll(proxy) }
+        }
+    }
+
+    @MainActor private func scroll(_ proxy: ScrollViewProxy) {
+        guard let anchor = SettingsPane.pendingAnchor else { return }
+        SettingsPane.pendingAnchor = nil
+        // The form lays itself out first; scrolling at once would miss rows below the fold.
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+            withAnimation { proxy.scrollTo(anchor, anchor: .top) }
+            // Flash once the scroll has settled.
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { SettingsHighlight.shared.flash(anchor) }
+        }
+    }
+}
+
+extension View {
+    func settingsAnchor(_ name: String) -> some View { modifier(SettingsAnchor(name: name)) }
+    func scrollsToSettingsAnchor() -> some View { modifier(ScrollsToSettingsAnchor()) }
 }
 
 /// `rawValue` stays the legacy English id: Messages deep-link into panes by it.
 enum SettingsPane: String, Identifiable, CaseIterable {
     case status = "Status"
+    case diagnostics = "Diagnostics"
     case statistics = "Statistics"
     case workLog = "Work log"
     case breaks = "Breaks"
@@ -33,6 +112,8 @@ enum SettingsPane: String, Identifiable, CaseIterable {
 
     /// Set by `intermezzo://settings/<pane>` before the window exists; taken when it appears.
     @MainActor static var pending: SettingsPane?
+    /// Row to scroll to inside `pending`'s pane (a name a row carries as `.id`).
+    @MainActor static var pendingAnchor: String?
 
     /// `workLog`, `work-log` or the legacy id ("Work log"), case-insensitive.
     init?(link: String) {
@@ -46,6 +127,7 @@ enum SettingsPane: String, Identifiable, CaseIterable {
     var title: String {
         switch self {
         case .status: return "Status"
+        case .diagnostics: return "Diagnostyka"
         case .statistics: return "Statystyki"
         case .workLog: return "Rejestr pracy"
         case .breaks: return "Przerwy"
@@ -70,6 +152,7 @@ enum SettingsPane: String, Identifiable, CaseIterable {
     var subtitle: String {
         switch self {
         case .status: return "Odliczanie na żywo, uprawnienia i stan paska menu"
+        case .diagnostics: return "Dlaczego timer działa albo stoi: wszystkie czynniki w jednym miejscu"
         case .statistics: return "Historia przerw, passa i eksport"
         case .workLog: return "Godziny w pracy, nadgodziny i eksport do rozliczeń"
         case .breaks: return "Długość, rytm, dźwięk i akcje przerw"
@@ -94,6 +177,7 @@ enum SettingsPane: String, Identifiable, CaseIterable {
     var symbol: String {
         switch self {
         case .status: return "gauge.with.dots.needle.67percent"
+        case .diagnostics: return "stethoscope"
         case .statistics: return "chart.bar.xaxis"
         case .workLog: return "clock.badge.checkmark"
         case .breaks: return "timer"
@@ -119,7 +203,7 @@ enum SettingsPane: String, Identifiable, CaseIterable {
     var isExpert: Bool { [.rules, .flash, .gallery, .ai, .advanced].contains(self) }
 
     static let groups: [(title: String, panes: [SettingsPane])] = [
-        ("Przegląd", [.status, .statistics, .workLog]),
+        ("Przegląd", [.status, .diagnostics, .statistics, .workLog]),
         ("Rytm pracy", [.breaks, .general, .focus, .rules, .clockOut, .flash, .light, .awake]),
         ("Treść", [.messages, .exercises, .gallery]),
         ("Aplikacja", [.appearance, .sync, .ai, .advanced, .about]),
@@ -129,6 +213,7 @@ enum SettingsPane: String, Identifiable, CaseIterable {
 struct SettingsView: View {
     @State private var selection: SettingsPane? = .status
     @State private var openMessageID: String?
+    @State private var query = ""
     @AppStorage(SettingsLevel.key) private var showAll = false
     @AppStorage(SurfaceTheme.key) private var themeRaw = SurfaceTheme.navy.rawValue
     @AppStorage(SurfaceTheme.tintKey) private var tintHex = ""
@@ -148,6 +233,16 @@ struct SettingsView: View {
                     }
                 }
             }
+            .safeAreaInset(edge: .top, spacing: 0) {
+                SettingsSearchField(query: $query, showAll: showAll, open: openResult)
+            }
+            .overlay(alignment: .top) {
+                if !query.trimmingCharacters(in: .whitespaces).isEmpty {
+                    SettingsSearchResults(query: query, showAll: showAll, open: openResult)
+                        .padding(.horizontal, 10)
+                        .padding(.top, 46)
+                }
+            }
             .scrollContentBackground(.hidden)
             .safeAreaInset(edge: .bottom) { SettingsLevelPicker() }
             .background(SettingsBackdrop(theme: theme, tintHex: tintHex.isEmpty ? nil : tintHex))
@@ -162,6 +257,7 @@ struct SettingsView: View {
                 PaneHeader(pane: pane, accent: theme.accent)
                 content(for: pane)
                     .scrollContentBackground(.hidden)
+                    .scrollsToSettingsAnchor()
             }
             .background(SettingsBackdrop(theme: theme, tintHex: tintHex.isEmpty ? nil : tintHex))
             .toolbarBackground(.hidden, for: .windowToolbar)
@@ -190,10 +286,21 @@ struct SettingsView: View {
         }
     }
 
+    /// Opens the pane of a search hit and, when the row has an anchor, scrolls to it.
+    private func openResult(_ entry: SettingsSearchEntry) {
+        let samePane = selection == entry.pane
+        SettingsPane.pendingAnchor = entry.anchor
+        selection = entry.pane
+        query = ""
+        // A pane that is already open does not re-appear, so tell it to scroll.
+        if samePane { NotificationCenter.default.post(name: .scrollToSettingsAnchor, object: nil) }
+    }
+
     @ViewBuilder
     private func content(for pane: SettingsPane) -> some View {
         switch pane {
         case .status: StatusPane()
+        case .diagnostics: DiagnosticsPane()
         case .general: GeneralPane()
         case .rules: RulesPane()
         case .messages: MessagesPane(openMessageID: $openMessageID, selection: $selection)

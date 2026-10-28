@@ -74,7 +74,7 @@ final class WorkLogController: ObservableObject {
         if probe.reading != zone { zone = probe.reading }
 
         let closed = tracker.observe(now: now, lastInputAt: now.addingTimeInterval(-secondsSinceInput),
-                                     place: zone.place)
+                                     place: zone.place ?? WorkDetector.shared.presencePlace)
         if let closed {
             write(closed, into: openRecord)
             openRecord = nil

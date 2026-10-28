@@ -1,8 +1,9 @@
 import AppKit
+import CoreAudio
 
 /// "Intelligence": detects contexts in which a break reminder would
 /// be counter-productive and reports them so the coordinator can pause:
-///  • in a video call (Zoom / Teams / Webex / Meet / Skype running & visible)
+///  • in a video call (Zoom / Teams / Webex / Skype in front, or running while the microphone is in use)
 ///  • watching video (VLC / IINA / mpv / QuickTime, or a browser with a
 ///    fullscreen window on any display)
 /// Poll-driven (called from the heartbeat every few seconds), no private APIs.
@@ -27,6 +28,8 @@ final class IntelligenceController {
     /// fresh NSWorkspace/window-list scan per second is pure CPU burn.
     private var meetingCacheAt = Date.distantPast
     private var meetingCacheValue = false
+    /// Why the last check said what it said, for the Diagnostics pane.
+    private(set) var meetingReason = L("brak spotkania")
     private var videoCacheAt = Date.distantPast
     private var videoCacheValue = false
 
@@ -38,14 +41,46 @@ final class IntelligenceController {
         return v
     }
 
-    /// Only the active app can be "in front", so only that one is asked (walking every running app costs
-    /// a LaunchServices round trip per app).
-    private func computeMeetingInProgress() -> Bool {
-        guard let app = NSWorkspace.shared.frontmostApplication else { return false }
+    private static let meetingNames = ["zoom", "microsoft teams", "webex", "skype"]
+
+    private func isMeetingApp(_ app: NSRunningApplication) -> Bool {
         if let id = app.bundleIdentifier?.lowercased(), meetingApps.contains(id) { return true }
-        if let name = app.localizedName?.lowercased(),
-           ["zoom", "microsoft teams", "webex", "skype"].contains(name) { return true }
+        if let name = app.localizedName?.lowercased(), Self.meetingNames.contains(name) { return true }
         return false
+    }
+
+    /// A call is on when a meeting app is in front, or one is running (a call keeps going behind other
+    /// windows) while something captures from the microphone. The microphone is asked only when a meeting
+    /// app runs, and only then are the running apps listed.
+    private func computeMeetingInProgress() -> Bool {
+        if let front = NSWorkspace.shared.frontmostApplication, isMeetingApp(front) {
+            meetingReason = L("%@ jest na pierwszym planie", front.localizedName ?? L("aplikacja spotkań"))
+            return true
+        }
+        if Self.microphoneInUse(), let app = NSWorkspace.shared.runningApplications.first(where: isMeetingApp) {
+            meetingReason = L("%@ działa, a mikrofon jest w użyciu", app.localizedName ?? L("aplikacja spotkań"))
+            return true
+        }
+        meetingReason = L("brak spotkania")
+        return false
+    }
+
+    /// Something is capturing from the default input device. Asking needs no microphone permission.
+    private static func microphoneInUse() -> Bool {
+        var device = AudioObjectID(kAudioObjectUnknown)
+        var size = UInt32(MemoryLayout<AudioObjectID>.size)
+        var address = AudioObjectPropertyAddress(mSelector: kAudioHardwarePropertyDefaultInputDevice,
+                                                 mScope: kAudioObjectPropertyScopeGlobal,
+                                                 mElement: kAudioObjectPropertyElementMain)
+        guard AudioObjectGetPropertyData(AudioObjectID(kAudioObjectSystemObject), &address, 0, nil, &size, &device) == noErr,
+              device != kAudioObjectUnknown else { return false }
+        var running: UInt32 = 0
+        size = UInt32(MemoryLayout<UInt32>.size)
+        address = AudioObjectPropertyAddress(mSelector: kAudioDevicePropertyDeviceIsRunningSomewhere,
+                                             mScope: kAudioObjectPropertyScopeGlobal,
+                                             mElement: kAudioObjectPropertyElementMain)
+        guard AudioObjectGetPropertyData(device, &address, 0, nil, &size, &running) == noErr else { return false }
+        return running != 0
     }
 
     /// Video playing: dedicated video player active, or a browser owning a

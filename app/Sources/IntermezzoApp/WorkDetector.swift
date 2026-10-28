@@ -25,6 +25,8 @@ final class WorkDetector: NSObject, ObservableObject, CLLocationManagerDelegate 
 
     /// Calendar currently shows an event whose title matches a keyword.
     @Published private(set) var calendarMatch = false
+    /// The event that matched, "title (calendar)", for Diagnostics.
+    @Published private(set) var calendarMatchSummary = ""
     /// A VPN from the configured name list is connected.
     @Published private(set) var vpnMatch = false
     /// Currently connected VPN names (from scutil), for display.
@@ -43,6 +45,8 @@ final class WorkDetector: NSObject, ObservableObject, CLLocationManagerDelegate 
     // MARK: - Configuration (pushed by the coordinator from UserDefaults)
 
     var keywords: [String] = []
+    /// Which events count as work: calendar, titles and kinds of event (see CalendarRule).
+    var calendarRules: [CalendarRule] = []
     var calendarEnabled = false {
         didSet { if calendarEnabled && !accessAsked { requestAccess() } }
     }
@@ -89,6 +93,18 @@ final class WorkDetector: NSObject, ObservableObject, CLLocationManagerDelegate 
     /// Any of the whitelists actually switched on?
     var hasActivators: Bool {
         calendarEnabled || vpnEnabled || wifiEnabled || geoEnabled
+    }
+
+    /// Where the enabled work-zone options put the Mac: Wi-Fi or saved place = office, a VPN alone = remote.
+    /// nil = none of them matches. Calendar is not presence.
+    /// A Focus mode marked as work is on (set by the coordinator). It says nothing about where you are, so alone it counts as remote.
+    var focusAtWork = false
+
+    var presencePlace: WorkPlace? {
+        if (wifiEnabled && wifiMatch) || (geoEnabled && geoMatch) { return .office }
+        if vpnEnabled && vpnMatch { return .remote }
+        if focusAtWork { return .remote }
+        return nil
     }
 
     /// Called from the 1-second heartbeat; internally throttled.
@@ -142,12 +158,37 @@ final class WorkDetector: NSObject, ObservableObject, CLLocationManagerDelegate 
         let start = now.addingTimeInterval(-2 * 60)
         let end = now.addingTimeInterval(5 * 60)
         let predicate = store.predicateForEvents(withStart: start, end: end, calendars: nil)
-        let events = store.events(matching: predicate)
-        let hit = events.contains { ev in
-            guard let title = ev.title?.lowercased() else { return false }
-            return keywords.contains { !$0.isEmpty && title.contains($0) }
+        var summary = ""
+        for ev in store.events(matching: predicate) {
+            // Your answer to the invitation; an event without guests has none and counts as accepted.
+            let answer = ev.attendees?.first { $0.isCurrentUser }?.participantStatus
+            let info = CalendarEventInfo(calendarID: ev.calendar?.calendarIdentifier ?? "", title: ev.title ?? "",
+                                         isAllDay: ev.isAllDay, isBusy: ev.availability != .free,
+                                         isDeclined: answer == .declined,
+                                         isUnconfirmed: answer == .pending || answer == .tentative)
+            if CalendarRules.firstMatch(calendarRules, info) != nil {
+                summary = "\(info.title) (\(ev.calendar?.title ?? ""))"
+                break
+            }
         }
+        let hit = !summary.isEmpty
         if calendarMatch != hit { calendarMatch = hit }
+        if calendarMatchSummary != summary { calendarMatchSummary = summary }
+    }
+
+    /// A calendar the user can pick in a rule.
+    struct CalendarChoice: Identifiable, Hashable {
+        let id: String
+        let title: String
+        let source: String
+    }
+
+    /// Event calendars of every account; empty until Calendar access is granted.
+    func availableCalendars() -> [CalendarChoice] {
+        guard accessOK else { return [] }
+        return store.calendars(for: .event)
+            .map { CalendarChoice(id: $0.calendarIdentifier, title: $0.title, source: $0.source?.title ?? "") }
+            .sorted { $0.title.localizedCaseInsensitiveCompare($1.title) == .orderedAscending }
     }
 
     // MARK: - VPN / Wi-Fi probes (background queue)
@@ -362,6 +403,25 @@ final class WorkDetector: NSObject, ObservableObject, CLLocationManagerDelegate 
             .filter { !$0.isAllDay && $0.availability != .free }
             .map { DateInterval(start: max($0.startDate, from), end: min($0.endDate, to)) }
             .filter { $0.duration > 0 }
+    }
+
+    /// Which Focus modes exist and which are on, from the files macOS keeps for Focus.
+    /// nil when they cannot be read (macOS asks for Full Disk Access for that folder).
+    struct FocusSnapshot: Equatable {
+        var active: [FocusMode]
+        var known: [FocusMode]
+    }
+
+    static func focusSnapshot() -> FocusSnapshot? {
+        let base = NSHomeDirectory() + "/Library/DoNotDisturb/DB/"
+        guard let assertions = FileManager.default.contents(atPath: base + "Assertions.json") else { return nil }
+        let names = FileManager.default.contents(atPath: base + "ModeConfigurations.json")
+            .map(FocusModes.names(configurations:)) ?? [:]
+        func mode(_ id: String) -> FocusMode { FocusMode(id: id, name: FocusModes.displayName(for: id, names: names)) }
+        let active = FocusModes.activeModeIDs(assertions: assertions).map(mode)
+        let knownIDs = Set(names.keys).union(FocusModes.builtInNames.keys).union(active.map(\.id))
+        let known = knownIDs.map(mode).sorted { $0.name.localizedCaseInsensitiveCompare($1.name) == .orderedAscending }
+        return FocusSnapshot(active: active, known: known)
     }
 
     /// Focus/DND live state (used by Rules engine + Focus toggle).

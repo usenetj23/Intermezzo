@@ -29,3 +29,52 @@ LAN %@
 DNS %@
 FFFFFF
 WMAP
+# Settings search: extra search words, not UI text
+akcje
+autostart login uruchamiaj start systemu
+betterdisplay ddc
+czas pracy długość
+dni tygodnia weekdays
+duplicate
+długa przerwa
+dźwięk sound
+event monitor input monitoring
+fullscreen
+godziny pracy harmonogram schedule
+hide buttons
+idle bezczynność nieaktywność
+kalendarz strefa pracy
+kolor icon
+krótka przerwa
+lamp light room
+lamp work
+lan karta sieciowa praca
+liście pogoda seasons
+lokalizacja geofence miejsce strefa pracy
+media muzyka
+motyw theme skin szkło glass
+natural break
+night shift true tone
+notch
+notifications
+pauza pause
+pill
+pomiń skip
+pomodoro
+popup kursor
+sieć strefa pracy
+skrypty
+skróty klawiatura hotkey
+skupienie nie przeszkadzać dnd
+sleep
+spotkanie teams zoom mikrofon
+status bar pasek menu licznik
+tryb skupienia full disk
+tryb ścisły
+uprawnienia full disk access dostęp do dysku kalendarz lokalizacja
+urlop wakacje
+wideo film
+wireguard strefa pracy
+święta urlop
+Privacy_AllFiles
+SystemPolicyAllFiles

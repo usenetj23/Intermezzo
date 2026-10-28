@@ -38,7 +38,7 @@ struct WorkLogPane: View {
     var body: some View {
         Form {
             Section {
-                Toggle("Prowadź rejestr czasu pracy", isOn: Binding(get: { enabled != 0 }, set: { enabled = $0 ? 1 : 0 }))
+                Toggle("Prowadź rejestr czasu pracy", isOn: Binding(get: { enabled != 0 }, set: { enabled = $0 ? 1 : 0 })).settingsAnchor("worklog-prowadz-rejestr-czasu-pracy")
                 Text("Czas pracy to obecność w strefie pracy: od pierwszej do ostatniej aktywności przy komputerze. Sieć firmowa = biuro, VPN do pracy poza siecią firmową = praca zdalna. Odejścia do 30 min (narada, hala) nie przerywają pracy. Wszystko poza godzinami pracy (\(Self.clock(workStart))–\(Self.clock(workEnd)), ustawienia w Ogólne) to nadgodziny, rozliczane w pełnych kwadransach.")
                     .settingsNote()
             }
@@ -49,6 +49,7 @@ struct WorkLogPane: View {
             }
         }
         .formStyle(.grouped)
+        .scrollsToSettingsAnchor()
         .onChange(of: wifiNames) { _, _ in log.settingsChanged() }
         .onChange(of: vpnNames) { _, _ in log.settingsChanged() }
         .onChange(of: scanInRange) { _, _ in log.settingsChanged() }
@@ -70,12 +71,12 @@ struct WorkLogPane: View {
                 .controlSize(.small)
             }
             Toggle("Licz także sieć w zasięgu, bez połączenia (skan co 5 min)",
-                   isOn: Binding(get: { scanInRange != 0 }, set: { scanInRange = $0 ? 1 : 0 }))
+                   isOn: Binding(get: { scanInRange != 0 }, set: { scanInRange = $0 ? 1 : 0 })).settingsAnchor("worklog-licz-takze-siec-w-zasiegu-bez-polacz")
             if (scanInRange != 0 || !wifiNames.isEmpty) && !detector.locationAuthorized {
                 HStack {
                     Text("macOS podaje nazwy sieci Wi-Fi tylko aplikacjom z dostępem do lokalizacji.")
                         .font(.caption).foregroundStyle(.orange)
-                    Button("Zezwól") { WorkDetector.shared.requestLocationAuthorization() }
+                    Button("Zezwól") { WorkDetector.shared.requestLocationAuthorization() }.settingsAnchor("worklog-zezwol")
                         .controlSize(.small)
                 }
             }
@@ -100,8 +101,9 @@ struct WorkLogPane: View {
     private var wiredRows: some View {
         VStack(alignment: .leading, spacing: 2) {
             Text("Sieć przewodowa (LAN, stacja dokująca)")
+                .settingsAnchor("lan")
             Text("Sieć LAN jest rozpoznawana po tym, co podaje jej serwer DHCP (router, domena, DNS), niezależnie od karty. Kartę lub stację zapamiętaj tylko, jeśli nie używasz jej poza pracą.")
-                .settingsNote()
+                .settingsNote().settingsAnchor("worklog-siec-lan-jest-rozpoznawana-po-tym-co")
         }
         if log.zone.wiredLinks.isEmpty {
             Text("Brak aktywnego połączenia przewodowego.").foregroundStyle(.secondary)
@@ -176,7 +178,7 @@ struct WorkLogPane: View {
                 Text("Dziś nie zarejestrowano jeszcze pracy w strefie.")
                     .foregroundStyle(.secondary)
             }
-            Button("Popraw dzisiejszy dzień…") { editing = EditedDay(day: start) }
+            Button("Popraw dzisiejszy dzień…") { editing = EditedDay(day: start) }.settingsAnchor("worklog-popraw-dzisiejszy-dzien")
                 .controlSize(.small)
         }
     }
@@ -207,9 +209,9 @@ struct WorkLogPane: View {
                 DisclosureGroup("Tabela dni", isExpanded: $tableExpanded) { table(list) }
             }
             Text("Kliknij dzień w kalendarzu, aby zobaczyć jego log i go poprawić. Nadgodziny = praca poza godzinami pracy, w dni wolne cała praca; rozliczane w dół do pełnych 15 min, za każdy dzień osobno dla biura i pracy zdalnej. ✎ = korekta ręczna.")
-                .settingsNote()
+                .settingsNote().settingsAnchor("worklog-kliknij-dzien-w-kalendarzu-aby-zobac")
             HStack {
-                Button("Dodaj dzień ręcznie…") { newDay = Date(); pickingNewDay = true }
+                Button("Dodaj dzień ręcznie…") { newDay = Date(); pickingNewDay = true }.settingsAnchor("worklog-dodaj-dzien-recznie")
                     .popover(isPresented: $pickingNewDay) {
                         VStack(alignment: .leading, spacing: 10) {
                             DatePicker("Dzień", selection: $newDay, in: ...Date(), displayedComponents: .date)
@@ -217,13 +219,13 @@ struct WorkLogPane: View {
                             Button("Dalej") {
                                 pickingNewDay = false
                                 editing = EditedDay(day: Calendar.current.startOfDay(for: newDay))
-                            }
+                            }.settingsAnchor("worklog-dalej")
                             .keyboardShortcut(.defaultAction)
                         }
                         .padding(14)
                     }
                 Spacer()
-                Button("Eksportuj miesiąc do CSV…") { exportCSV(list) }
+                Button("Eksportuj miesiąc do CSV…") { exportCSV(list) }.settingsAnchor("worklog-eksportuj-miesiac-do-csv")
                     .disabled(list.isEmpty)
             }
         } header: {

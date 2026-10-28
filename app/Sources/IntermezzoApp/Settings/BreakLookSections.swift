@@ -15,12 +15,12 @@ struct BreakGlassSection: View {
                 Text("Blur systemowy (tapeta za oknem)").tag("blur")
                 Text("Glass — rozmycie obecnego ekranu").tag("glass")
                 Text("Frost — mrożone szkło").tag("frost")
-            }
+            }.settingsAnchor("appearance-tlo-przerwy")
             .onChange(of: glassEffect) { _, v in
                 UserDefaults.standard.set(v, forKey: GlassKeys.effect)
             }
             if glassEffect != "blur" {
-                Toggle("Pokazuj pogodę na szybie (Open-Meteo)", isOn: $weatherFX)
+                Toggle("Pokazuj pogodę na szybie (Open-Meteo)", isOn: $weatherFX).settingsAnchor("appearance-pokazuj-pogode-na-szybie-open-meteo")
                     .expertOnly()
                 VStack(alignment: .leading, spacing: 4) {
                     HStack(spacing: 6) {
@@ -35,7 +35,7 @@ struct BreakGlassSection: View {
                     if !ScreenGlass.hasPermission {
                         Button("Przyznaj uprawnienia…") {
                             ScreenGlass.requestPermission()
-                        }
+                        }.settingsAnchor("appearance-przyznaj-uprawnienia")
                         .controlSize(.small)
                     }
                 }
@@ -56,7 +56,7 @@ struct BreakTextThemeSection: View {
 
     var body: some View {
         Section("Text Theme") {
-            Toggle("Show your own texts during breaks", isOn: $textThemeEnabled)
+            Toggle("Show your own texts during breaks", isOn: $textThemeEnabled).settingsAnchor("appearance-show-your-own-texts-during-breaks")
                 .onChange(of: textThemeEnabled) { _, on in
                     if on {
                         textThemeSeedIfEmpty()
@@ -78,13 +78,13 @@ struct BreakTextThemeSection: View {
                 Button("＋ Add text") {
                     items.append("")
                     saveTextThemeItems(items)
-                }
+                }.settingsAnchor("appearance-add-text")
 
                 Group {
                     Picker("Order:", selection: $textThemeRandom) {
                         Text("Sequential").tag(false)
                         Text("Random").tag(true)
-                    }
+                    }.settingsAnchor("appearance-order")
                     .pickerStyle(.segmented)
                     .frame(maxWidth: 260)
 
@@ -99,7 +99,7 @@ struct BreakTextThemeSection: View {
                         Text("Serif").font(.system(size: 12, design: .serif)).tag("serif")
                         Text("Rounded").font(.system(size: 12, design: .rounded)).tag("rounded")
                         Text("Monospaced").font(.system(size: 12, design: .monospaced)).tag("mono")
-                    }
+                    }.settingsAnchor("appearance-font")
                     .frame(maxWidth: 300)
 
                     ColorPicker("Text color:", selection: hexColorBinding)
@@ -118,7 +118,7 @@ struct BreakTextThemeSection: View {
                 .expertOnly()
                 Button("Preview — 8 s, click-through") {
                     AppDelegate.shared?.coordinator.previewWeatherScene()
-                }
+                }.settingsAnchor("appearance-preview-8-s-click-through")
             }
         }
         .onAppear { items = loadTextThemeItems() }
@@ -173,7 +173,7 @@ struct BreakImageThemeSection: View {
 
     var body: some View {
         Section("Image Theme") {
-            Toggle("Show a photo slideshow during breaks", isOn: $imageThemeEnabled)
+            Toggle("Show a photo slideshow during breaks", isOn: $imageThemeEnabled).settingsAnchor("appearance-show-a-photo-slideshow-during-breaks")
             if imageThemeEnabled {
                 ForEach(items.indices, id: \.self) { i in
                     HStack(spacing: 8) {
@@ -210,22 +210,22 @@ struct BreakImageThemeSection: View {
                         items.append(contentsOf: panel.urls.map(\.path))
                         saveImageThemeItems(items)
                     }
-                }
+                }.settingsAnchor("appearance-add-images")
                 Text("Photos and images are only shown if you add them here — the app does not scan your library. Tip: the picker can open Photos.app → Library.photoslibrary contents.")
-                    .settingsNote()
+                    .settingsNote().settingsAnchor("appearance-photos-and-images-are-only-shown-if")
 
                 Group {
                     Picker("Order:", selection: $imageThemeRandom) {
                         Text("Sequential").tag(false)
                         Text("Random").tag(true)
-                    }
+                    }.settingsAnchor("appearance-order-2")
                     .pickerStyle(.segmented)
                     .frame(maxWidth: 260)
 
                     Picker("Transition:", selection: $imageThemeTransition) {
                         Text("None").tag("none")
                         Text("Crossfade").tag("crossfade")
-                    }
+                    }.settingsAnchor("appearance-transition")
                     .pickerStyle(.segmented)
                     .frame(maxWidth: 260)
                     if imageThemeTransition != "none" {
@@ -243,7 +243,7 @@ struct BreakImageThemeSection: View {
                         Text("Fit — show whole image").tag("fit")
                         Text("Fill — crop edges to cover").tag("fill")
                         Text("Percent of screen").tag("percent")
-                    }
+                    }.settingsAnchor("appearance-image-scale")
                     .pickerStyle(.segmented)
                     .frame(maxWidth: 380)
                     if imageThemeScaleMode == "percent" {
@@ -255,13 +255,13 @@ struct BreakImageThemeSection: View {
 
                     if imageThemeScaleMode == "fill" {
                         Toggle("Jeden obraz rozpięty na wszystkie monitory", isOn: Binding(
-                            get: { imageThemeSpan != 0 }, set: { imageThemeSpan = $0 ? 1 : 0 }))
+                            get: { imageThemeSpan != 0 }, set: { imageThemeSpan = $0 ? 1 : 0 })).settingsAnchor("appearance-jeden-obraz-rozpiety-na-wszystkie-mo")
                     }
                 }
                 .expertOnly()
                 Button("Preview — 8 s, click-through") {
                     AppDelegate.shared?.coordinator.previewWeatherScene()
-                }
+                }.settingsAnchor("appearance-preview-8-s-click-through-2")
             }
         }
         .onAppear { items = loadImageThemeItems() }
@@ -290,20 +290,20 @@ struct BreakYouTubeSection: View {
 
     var body: some View {
         Section("YouTube Theme") {
-            Toggle("Play a YouTube video during breaks (main screen)", isOn: $ytEnabled)
+            Toggle("Play a YouTube video during breaks (main screen)", isOn: $ytEnabled).settingsAnchor("appearance-play-a-youtube-video-during-breaks-m")
             if ytEnabled {
                 TextField("YouTube URL (video or playlist)", text: $ytUrl)
                     .textFieldStyle(.editable)
                     .frame(maxWidth: 420)
                 Group {
-                    Toggle("Start at a random point", isOn: $ytRandom)
+                    Toggle("Start at a random point", isOn: $ytRandom).settingsAnchor("appearance-start-at-a-random-point")
                     if !ytRandom {
                         Stepper("Start at: \(ytOffset)s", value: $ytOffset, in: 0...7200, step: 30)
                     }
                     Slider(value: Binding(get: { Double(ytVolume) },
                                           set: { ytVolume = Int($0) }), in: 0...100)
                     Text("Volume — set to 0 to keep it muted")
-                        .settingsNote()
+                        .settingsNote().settingsAnchor("appearance-volume-set-to-0-to-keep-it-muted")
                 }
                 .expertOnly()
                 if let parsed = youTubeIds(from: ytUrl).video ?? youTubeIds(from: ytUrl).playlist,

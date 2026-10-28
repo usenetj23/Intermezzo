@@ -17,6 +17,9 @@ struct LightPane: View {
     @AppStorage(BetterDisplayKeys.unlinkGroup) private var bdUnlinkGroup = false
     @AppStorage(LightKeys.ambient) private var useAmbient = false
     @AppStorage(LightKeys.roomLampK) private var roomLampK = 0
+    @AppStorage(LightKeys.roomLampKWork) private var roomLampKWork = -1
+    @ObservedObject private var workLog = WorkLogController.shared
+    @ObservedObject private var workDetector = WorkDetector.shared
     @AppStorage(LightKeys.customBase) private var customBaseRaw = ""
     @ObservedObject private var betterDisplay = BetterDisplayLight.shared
     @State private var runningApps: [String] = []
@@ -29,9 +32,9 @@ struct LightPane: View {
         Form {
             Section {
                 Toggle("Dostosowuj barwę ekranu do pory dnia", isOn: Binding(
-                    get: { enabled }, set: { light.setEnabled($0) }))
+                    get: { enabled }, set: { light.setEnabled($0) })).settingsAnchor("light-dostosowuj-barwe-ekranu-do-pory-dnia")
                 Text("Wieczorem ciepła barwa zmniejsza ilość światła krótkofalowego (ok. 460–480 nm), które najsilniej hamuje melatoninę i przesuwa zegar dobowy. Badania wskazują ten kierunek, ale nie podają jednej „właściwej” temperatury, a równie ważna jest jasność ekranu i pokoju. Profile poniżej to rozsądne kompromisy, nie zalecenie lekarskie.")
-                    .settingsNote()
+                    .settingsNote().settingsAnchor("light-wieczorem-ciepla-barwa-zmniejsza-ilo")
             }
             if enabled {
                 nowSection
@@ -44,7 +47,7 @@ struct LightPane: View {
                 if BetterDisplayLight.isInstalled { betterDisplaySection.expertOnly() }
                 Section {
                     Text("Wyłącz Night Shift i True Tone w Ustawieniach systemowych → Ekrany, bo nakładają się na tę funkcję. Ekrany przez DisplayLink, AirPlay i część Sidecar nie obsługują zmiany barwy, a treści HDR mogą ją częściowo omijać. Po zamknięciu aplikacji kolory wracają same; awaryjnie: Intermezzo --reset-light albo adres intermezzo://light/off.")
-                        .settingsNote()
+                        .settingsNote().settingsAnchor("light-wylacz-night-shift-i-true-tone-w-ust")
                     if !light.unsupportedDisplays.isEmpty {
                         Label("Bez zmiany barwy: \(light.unsupportedDisplays.joined(separator: ", "))",
                               systemImage: "exclamationmark.triangle.fill")
@@ -81,20 +84,20 @@ struct LightPane: View {
                 .frame(height: profile.isCustom ? 150 : 96)
             if profile.isCustom {
                 Text("Przeciągaj po wykresie jak po equalizerze: każdy słupek to jedna godzina doby, a wysokość to barwa (wyżej chłodniej, niżej cieplej). Między godzinami kolor płynnie przechodzi.")
-                    .settingsNote()
+                    .settingsNote().settingsAnchor("light-przeciagaj-po-wykresie-jak-po-equali")
             }
             if let until = light.pausedUntil {
                 HStack {
                     Label("Wstrzymane do \(until.formatted(date: .omitted, time: .shortened))", systemImage: "pause.circle")
                     Spacer()
-                    Button("Wznów") { light.resumeNow() }
+                    Button("Wznów") { light.resumeNow() }.settingsAnchor("light-wznow")
                 }
             }
             HStack {
                 if light.pausedUntil == nil {
                     Menu("Wstrzymaj zmianę barwy…") {
-                        Button("na godzinę") { light.disable(forMinutes: 60) }
-                        Button("do wschodu słońca") { light.disableUntilSunrise() }
+                        Button("na godzinę") { light.disable(forMinutes: 60) }.settingsAnchor("light-na-godzine")
+                        Button("do wschodu słońca") { light.disableUntilSunrise() }.settingsAnchor("light-do-wschodu-slonca")
                     }
                     .fixedSize()
                 }
@@ -133,7 +136,7 @@ struct LightPane: View {
                 Text("Praca do późna").tag(LightProfile.workingLate.rawValue)
                 Text("Własne (wg zegara)").tag(LightProfile.custom.rawValue)
                 Text("Własne (wg Słońca)").tag(LightProfile.customSun.rawValue)
-            }
+            }.settingsAnchor("light-profil")
             Text(profileNote).settingsNote()
             LabeledContent("Wstaję o") {
                 TimeInput(minutes: Binding(
@@ -142,14 +145,14 @@ struct LightPane: View {
             }
             if profile.isCustom {
                 Menu("Wykres barwy: zacznij od profilu…") {
-                    Button("Zalecane") { light.startCustomCurve(from: .recommended) }
-                    Button("Klasyczne") { light.startCustomCurve(from: .classic) }
-                    Button("Daleko od równika") { light.startCustomCurve(from: .farFromEquator) }
-                    Button("Praca do późna") { light.startCustomCurve(from: .workingLate) }
+                    Button("Zalecane") { light.startCustomCurve(from: .recommended) }.settingsAnchor("light-zalecane")
+                    Button("Klasyczne") { light.startCustomCurve(from: .classic) }.settingsAnchor("light-klasyczne")
+                    Button("Daleko od równika") { light.startCustomCurve(from: .farFromEquator) }.settingsAnchor("light-daleko-od-rownika")
+                    Button("Praca do późna") { light.startCustomCurve(from: .workingLate) }.settingsAnchor("light-praca-do-pozna")
                 }
                 .fixedSize()
                 Text("Zastępuje wykres barwy z sekcji „Teraz” (barwa godzina po godzinie) wartościami wybranego profilu. Rzeczy, które narysowałeś na wykresie, przepadną.")
-                    .settingsNote()
+                    .settingsNote().settingsAnchor("light-zastepuje-wykres-barwy-z-sekcji-tera")
                 if let base = LightProfile(rawValue: customBaseRaw), !base.isCustom {
                     Text("Wykres w sekcji „Teraz” zaczęto od profilu „\(profileName(base))”. Możesz go dalej poprawiać palcem po wykresie.")
                         .settingsNote()
@@ -184,9 +187,9 @@ struct LightPane: View {
 
     private var exceptionsSection: some View {
         Section("Wyjątki") {
-            Toggle("Nie zmieniaj barw w aplikacjach pełnoekranowych", isOn: $skipFullscreen)
+            Toggle("Nie zmieniaj barw w aplikacjach pełnoekranowych", isOn: $skipFullscreen).settingsAnchor("light-nie-zmieniaj-barw-w-aplikacjach-peln")
             Text("Dotyczy tylko tego monitora, na którym okno zajmuje cały ekran (film, gra, prezentacja). Pozostałe monitory zostają ocieplone.")
-                .settingsNote()
+                .settingsNote().settingsAnchor("light-dotyczy-tylko-tego-monitora-na-ktory")
             // A long list wraps onto further lines instead of running off the edge.
             TextField("Aplikacje bez zmiany barw", text: $excludedApps, prompt: Text(verbatim: "Pixelmator Pro, Final Cut Pro"), axis: .vertical)
                 .lineLimit(2...8)
@@ -198,14 +201,14 @@ struct LightPane: View {
                     }
                 }
                 Menu("Dodaj gotowy zestaw…") {
-                    Button("Edytory zdjęć, wideo i grafiki") { addPreset("creative") }
-                    Button("Odtwarzacze wideo") { addPreset("video") }
-                    Button("Gry i launchery") { addPreset("games") }
+                    Button("Edytory zdjęć, wideo i grafiki") { addPreset("creative") }.settingsAnchor("light-edytory-zdjec-wideo-i-grafiki")
+                    Button("Odtwarzacze wideo") { addPreset("video") }.settingsAnchor("light-odtwarzacze-wideo")
+                    Button("Gry i launchery") { addPreset("games") }.settingsAnchor("light-gry-i-launchery")
                 }
             }
             .fixedSize()
             Text("Gdy aplikacja z listy jest aktywnym oknem, jej monitor pokazuje normalne kolory, np. przy obróbce zdjęć i wideo. Nazwy oddzielaj przecinkami.")
-                .settingsNote()
+                .settingsNote().settingsAnchor("light-gdy-aplikacja-z-listy-jest-aktywnym")
         }
     }
 
@@ -224,7 +227,7 @@ struct LightPane: View {
 
     private var ambientSection: some View {
         Section("Światło w pokoju") {
-            Toggle("Uwzględniaj jasność pokoju z czujnika w Macu", isOn: $useAmbient)
+            Toggle("Uwzględniaj jasność pokoju z czujnika w Macu", isOn: $useAmbient).settingsAnchor("light-uwzgledniaj-jasnosc-pokoju-z-czujnik")
             if useAmbient {
                 LabeledContent("Teraz") {
                     if let lux = light.lux {
@@ -237,14 +240,30 @@ struct LightPane: View {
                     Label(light.ambientNote, systemImage: "info.circle").font(.caption).foregroundStyle(.secondary)
                 }
             }
-            Picker("Lampy w pokoju", selection: $roomLampK) {
+            Picker("Lampy w pokoju (dom i reszta miejsc)", selection: $roomLampK) {
                 Text("Nie wiem").tag(0)
                 Text("Ciepłe (ok. 2700 K)").tag(2700)
                 Text("Neutralne (ok. 4000 K)").tag(4000)
                 Text("Zimne (ok. 5500 K)").tag(5500)
+            }.settingsAnchor("light-lampy-w-pokoju-dom-i-reszta-miejsc")
+            Picker("Lampy w pracy", selection: $roomLampKWork) {
+                Text("Tak samo jak wyżej").tag(-1)
+                Text("Nie wiem").tag(0)
+                Text("Ciepłe (ok. 2700 K)").tag(2700)
+                Text("Neutralne (ok. 4000 K)").tag(4000)
+                Text("Zimne (ok. 5500 K)").tag(5500)
+            }.settingsAnchor("light-lampy-w-pracy")
+            LabeledContent("Teraz stosuję") {
+                let atWork = workLog.zone.inZone || workDetector.presencePlace != nil
+                Group {
+                    if atWork { Text("ustawienie z pracy") } else { Text("ustawienie domowe") }
+                }
+                .foregroundStyle(.secondary)
             }
+            Text("Praca = Mac jest w strefie pracy: sieć LAN lub Wi-Fi z Rejestru pracy, albo Wi-Fi, VPN lub miejsce z Ogólne → strefa pracy. Poza nią używam ustawienia domowego. Kolor lamp wpływa tylko na barwę ekranu wieczorem i tylko gdy czujnik pokazuje oświetlony pokój (co najmniej 100 lx); jasność i przyciemnianie zależą wyłącznie od lx.")
+                .settingsNote().settingsAnchor("light-praca-mac-jest-w-strefie-pracy-siec")
             Text("W jasnym pokoju ocieplanie ekranu jest słabsze, a przyciemnianie przez BetterDisplay mniejsze; w ciemnym działa w pełni. Czujnik jest tylko w MacBooku, odczyt idzie przez prywatny interfejs macOS (może przestać działać po aktualizacji) i znika przy zamkniętej klapie, wtedy działa sam harmonogram. Mac nie mierzy barwy światła, więc kolor lamp wybierasz ręcznie: wieczorem ekran nie będzie wtedy dużo zimniejszy niż lampy.")
-                .settingsNote()
+                .settingsNote().settingsAnchor("light-w-jasnym-pokoju-ocieplanie-ekranu-je")
         }
     }
 
@@ -255,24 +274,24 @@ struct LightPane: View {
             LabeledContent("Połączenie") {
                 HStack(spacing: 8) {
                     Text(linkText).foregroundStyle(betterDisplay.link == .connected ? Color.green : Color.secondary)
-                    Button("Sprawdź") { Task { await betterDisplay.checkConnection() } }.controlSize(.small)
+                    Button("Sprawdź") { Task { await betterDisplay.checkConnection() } }.settingsAnchor("light-sprawdz").controlSize(.small)
                 }
             }
-            Toggle("Przyciemniaj monitory wieczorem (sprzętowo)", isOn: $bdDim)
+            Toggle("Przyciemniaj monitory wieczorem (sprzętowo)", isOn: $bdDim).settingsAnchor("light-przyciemniaj-monitory-wieczorem-sprz")
             if bdDim {
                 Stepper("Przyciemnij maksymalnie o \(bdDimPercent)%", value: $bdDimPercent, in: 5...EveningDimming.maxDimPercent, step: 5)
             }
-            Toggle("Wyłącz True Tone na czas działania Światła", isOn: $bdTrueTone)
-            Toggle("Rozłączaj grupę ekranów na czas wyjątku", isOn: $bdUnlinkGroup)
+            Toggle("Wyłącz True Tone na czas działania Światła", isOn: $bdTrueTone).settingsAnchor("light-wylacz-true-tone-na-czas-dzialania-s")
+            Toggle("Rozłączaj grupę ekranów na czas wyjątku", isOn: $bdUnlinkGroup).settingsAnchor("light-rozlaczaj-grupe-ekranow-na-czas-wyja")
             Text("Grupa BetterDisplay (np. dwa takie same monitory) trzyma ich jasność razem. Gdy jeden monitor ma zostać nieprzyciemniony (pełny ekran, aplikacja z listy wyjątków), grupa jest wyłączana, a po wieczorze włączana z powrotem.")
-                .settingsNote()
+                .settingsNote().settingsAnchor("light-grupa-betterdisplay-np-dwa-takie-sam")
             if !betterDisplay.note.isEmpty {
                 Label(betterDisplay.note, systemImage: "exclamationmark.triangle.fill")
                     .foregroundStyle(.orange)
                     .font(.caption)
             }
             Text("Wymaga włączonego w BetterDisplay dostępu przez CLI i powiadomienia (Ustawienia → Aplikacja → Integracja). Jasność zmienia się sprzętowo (DDC), razem z ocieplaniem, a po wyłączeniu Światła wraca do pierwotnej. Gdy sam zmienisz jasność, aplikacja przestaje jej ruszać do końca wieczoru. Wyłączanie True Tone wymaga BetterDisplay Pro.")
-                .settingsNote()
+                .settingsNote().settingsAnchor("light-wymaga-wlaczonego-w-betterdisplay-do")
         }
         .task { await betterDisplay.checkConnection() }
     }
@@ -293,7 +312,7 @@ struct LightPane: View {
             LabeledContent("Źródło") { Text(light.locationNote).foregroundStyle(.secondary) }
             TextField("Współrzędne", text: $manualLocation, prompt: Text(verbatim: "52.4, 22"))
                 .textFieldStyle(.editable)
-            Button("Wybierz na mapie…") { showLocationMap = true }
+            Button("Wybierz na mapie…") { showLocationMap = true }.settingsAnchor("light-wybierz-na-mapie")
                 .sheet(isPresented: $showLocationMap) {
                     LocationMapSheet(center: light.point, pin: LightLocation.parse(manualLocation)) {
                         manualLocation = LightLocation.format($0)
@@ -305,15 +324,15 @@ struct LightPane: View {
                     .font(.caption)
             }
             Text("Bez wpisanych współrzędnych aplikacja używa lokalizacji Maca, a gdy jej nie ma, przybliżonego miejsca ze strefy czasowej. Wschód i zachód liczy lokalnie, bez internetu.")
-                .settingsNote()
+                .settingsNote().settingsAnchor("light-bez-wpisanych-wspolrzednych-aplikacj")
         }
     }
 
     private var advancedSection: some View {
         Section("Zaawansowane") {
-            Toggle("Uwzględniaj zachmurzenie", isOn: $useWeather)
+            Toggle("Uwzględniaj zachmurzenie", isOn: $useWeather).settingsAnchor("light-uwzgledniaj-zachmurzenie")
             Text("Pochmurne popołudnie ściemnia się wcześniej. Korzysta z tej samej anonimowej pogody co ekran przerwy (Open-Meteo), bez dodatkowych danych.")
-                .settingsNote()
+                .settingsNote().settingsAnchor("light-pochmurne-popoludnie-sciemnia-sie-wc")
             Stepper("Płynna zmiana: \(fadeSeconds) s", value: $fadeSeconds, in: 1...120, step: 5)
         }
     }

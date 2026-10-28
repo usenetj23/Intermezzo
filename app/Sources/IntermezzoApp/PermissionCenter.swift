@@ -15,7 +15,7 @@ enum PermissionStatus: Equatable {
 }
 
 enum PermissionKind: String, CaseIterable, Identifiable {
-    case inputMonitoring, screenRecording, accessibility, automation, location, notifications, calendar
+    case inputMonitoring, screenRecording, accessibility, automation, location, notifications, calendar, fullDiskAccess
 
     var id: String { rawValue }
 
@@ -28,6 +28,7 @@ enum PermissionKind: String, CaseIterable, Identifiable {
         case .location: return "Location"
         case .notifications: return "Notifications"
         case .calendar: return "Calendar"
+        case .fullDiskAccess: return "Full Disk Access"
         }
     }
 
@@ -41,6 +42,7 @@ enum PermissionKind: String, CaseIterable, Identifiable {
         case .location: return "Weather, sun position, geofence zone and Wi-Fi network name"
         case .notifications: return "Break reminders, hydration and backup alerts"
         case .calendar: return "Meeting and holiday detection, calendar-aware breaks"
+        case .fullDiskAccess: return "Reading Focus modes (work zone and pausing by Focus); optional"
         }
     }
 
@@ -53,6 +55,7 @@ enum PermissionKind: String, CaseIterable, Identifiable {
         case .location: return "Privacy_LocationServices"
         case .notifications: return "Privacy_Notifications"
         case .calendar: return "Privacy_Calendars"
+        case .fullDiskAccess: return "Privacy_AllFiles"
         }
     }
 
@@ -64,6 +67,7 @@ enum PermissionKind: String, CaseIterable, Identifiable {
         case .accessibility: return "Accessibility"
         case .automation: return "AppleEvents"
         case .calendar: return "Calendar"
+        case .fullDiskAccess: return "SystemPolicyAllFiles"
         case .location, .notifications: return nil
         }
     }
@@ -97,6 +101,7 @@ final class PermissionCenter: ObservableObject {
             ? .granted : (asked(.accessibility) ? .denied : .notDetermined)
         next[.location] = Self.location(CLLocationManager().authorizationStatus)
         next[.calendar] = Self.calendar(EKEventStore.authorizationStatus(for: .event))
+        next[.fullDiskAccess] = Self.fullDiskAccess()
         for kind in resetThisRun where kind != .automation { next[kind] = .notDetermined }
         statuses = next
 
@@ -118,6 +123,13 @@ final class PermissionCenter: ObservableObject {
         case kIOHIDAccessTypeDenied: return .denied
         default: return .notDetermined
         }
+    }
+
+    /// macOS has no API for Full Disk Access: it is granted when a protected file (the Focus database) can be read.
+    nonisolated static func fullDiskAccess() -> PermissionStatus {
+        let path = NSHomeDirectory() + "/Library/DoNotDisturb/DB/Assertions.json"
+        if FileManager.default.isReadableFile(atPath: path), FileManager.default.contents(atPath: path) != nil { return .granted }
+        return FileManager.default.fileExists(atPath: path) ? .denied : .notDetermined
     }
 
     nonisolated static func location(_ s: CLAuthorizationStatus) -> PermissionStatus {

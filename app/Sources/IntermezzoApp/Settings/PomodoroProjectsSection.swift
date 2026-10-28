@@ -18,13 +18,13 @@ struct PomodoroProjectsSection: View {
         Section("Projects") {
             if all.isEmpty {
                 Text("Projects appear here when you create one in the plan above (Project → New project…).")
-                    .settingsNote()
+                    .settingsNote().settingsAnchor("focus-projects-appear-here-when-you-create")
             }
             ForEach(all) { project in
                 PomodoroProjectRow(project: project)
             }
             Text("Billable projects with an hourly rate add up money per currency from the real time of finished pomodoros. Everything stays on this Mac.")
-                .settingsNote()
+                .settingsNote().settingsAnchor("focus-billable-projects-with-an-hourly-rat")
         }
     }
 }
@@ -69,9 +69,9 @@ private struct PomodoroProjectRow: View {
                     .onChange(of: rateDraft) { _, _ in commitRate() }
                 Picker("Currency", selection: Binding(get: { project.currency }, set: { v in edit { $0.currency = v } })) {
                     ForEach(Self.currencies, id: \.self) { Text($0).tag($0) }
-                }
+                }.settingsAnchor("focus-currency")
                 .labelsHidden().frame(width: 72)
-                Toggle("Billable", isOn: Binding(get: { project.billable }, set: { v in edit { $0.billable = v } }))
+                Toggle("Billable", isOn: Binding(get: { project.billable }, set: { v in edit { $0.billable = v } })).settingsAnchor("focus-billable")
                     .toggleStyle(.checkbox)
             }
         }

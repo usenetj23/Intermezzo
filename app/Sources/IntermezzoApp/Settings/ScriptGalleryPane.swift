@@ -24,10 +24,10 @@ struct ScriptGalleryPane: View {
         List {
             Section {
                 Text("Zainstaluj gotowe reguły-skrypty albo utwórz własne. Skrypty trafiają do Biblioteka → Application Scripts → com.automit.Intermezzo → Rules i zostają dodane jako reguła „Odrocz”. Wynik reguły zmienisz na stronie Reguły, a nastawy skryptu (np. listę aplikacji albo godziny) w edytorze.")
-                    .settingsNote()
+                    .settingsNote().settingsAnchor("gallery-zainstaluj-gotowe-reguly-skrypty-alb")
                 HStack {
                     Spacer()
-                    Button("Nowy skrypt…") { editing = .new() }
+                    Button("Nowy skrypt…") { editing = .new() }.settingsAnchor("gallery-nowy-skrypt")
                 }
             }
             if !custom.isEmpty {
@@ -83,18 +83,18 @@ struct ScriptGalleryPane: View {
                 if ScriptGallery.isInstalled(script) {
                     Button("Edytuj…") {
                         editing = ScriptEditorTarget(url: ScriptGallery.installedPath(for: script), gallery: script)
-                    }
+                    }.settingsAnchor("gallery-edytuj")
                     Button("Pokaż w Finderze") {
                         NSWorkspace.shared.activateFileViewerSelecting(
                             [ScriptGallery.installedPath(for: script)])
-                    }
+                    }.settingsAnchor("gallery-pokaz-w-finderze")
                     Button("Odinstaluj", role: .destructive) {
                         deleting = CustomScript(url: ScriptGallery.installedPath(for: script), name: L(script.title))
                     }
                 } else {
                     Button("Zainstaluj") {
                         install(script)
-                    }
+                    }.settingsAnchor("gallery-zainstaluj")
                     .tint(.accentColor)
                 }
             }

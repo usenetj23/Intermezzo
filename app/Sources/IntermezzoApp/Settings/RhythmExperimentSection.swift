@@ -22,13 +22,13 @@ struct RhythmExperimentSection: View {
                 running(exp)
                 if !pomodoroOn {
                     Text("Pomodoro mode is off, so the experiment is paused. Your settings stay at the last rhythm until you stop it.")
-                        .settingsNote()
+                        .settingsNote().settingsAnchor("focus-pomodoro-mode-is-off-so-the-experime")
                 }
             } else {
                 setup
             }
             Text("These are your own numbers, not a verdict. Fewer disruptions can come from the rhythm, the week or the task.")
-                .settingsNote()
+                .settingsNote().settingsAnchor("focus-these-are-your-own-numbers-not-a-ver")
         }
     }
 
@@ -41,14 +41,14 @@ struct RhythmExperimentSection: View {
             Stepper("Block length: \(daysPerBlock) days", value: $daysPerBlock, in: 2...5)
             Button("Start experiment") {
                 controller.startRhythmExperiment(arms: [armA, armB], daysPerBlock: daysPerBlock)
-            }
+            }.settingsAnchor("focus-start-experiment")
             .disabled(!RhythmExperiment.canStart(arms: [armA, armB]))
             if !RhythmExperiment.canStart(arms: [armA, armB]) {
                 Text("Rhythms A and B are the same. Change the work or break minutes of one of them.")
-                    .settingsNote()
+                    .settingsNote().settingsAnchor("focus-rhythms-a-and-b-are-the-same-change")
             }
             Text("Alternates the two rhythms in blocks of days. Your current settings are saved and restored when you stop.")
-                .settingsNote()
+                .settingsNote().settingsAnchor("focus-alternates-the-two-rhythms-in-blocks")
         }
     }
 
@@ -72,7 +72,7 @@ struct RhythmExperimentSection: View {
                 .font(.headline)
             if exp.isContaminated(Date(), calendar: cal) {
                 Text("You changed the settings today, so today is left out of the numbers.")
-                    .settingsNote()
+                    .settingsNote().settingsAnchor("focus-you-changed-the-settings-today-so-to")
             }
             Grid(alignment: .leading, horizontalSpacing: 16, verticalSpacing: 4) {
                 GridRow {

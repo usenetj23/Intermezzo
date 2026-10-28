@@ -368,8 +368,8 @@ STRINGS = {
     "Enable Pomodoro mode": "Włącz tryb Pomodoro",
     "Classic 25/5 (4 → 15 min)": "Klasyczny 25/5 (4 → 15 min)",
     "Deep focus 50/10": "Głębokie skupienie 50/10",
-    "A 🍅 appears in the menu bar next to the countdown. Work one pomodoro, then take the suggested break fully. Pick a task and log interruptions from the menu-bar panel.":
-        "W pasku menu obok odliczania pojawia się 🍅. Przepracuj jedno pomodoro, potem w pełni wykorzystaj proponowaną przerwę. Zadanie wybierzesz i rozproszenia zapiszesz w panelu paska menu.",
+    "Work one pomodoro, then take the suggested break fully. Pick a task and log interruptions from the menu-bar panel.":
+        "Przepracuj jedno pomodoro, potem w pełni wykorzystaj proponowaną przerwę. Zadanie wybierzesz i rozproszenia zapiszesz w panelu paska menu.",
     "Pomodoro structures work into focused sprints with a real break after each. Turn it on to pick a preset.":
         "Pomodoro dzieli pracę na skupione sprinty z prawdziwą przerwą po każdym. Włącz, by wybrać wzorzec.",
     "Projects": "Projekty",
@@ -428,10 +428,10 @@ STRINGS = {
     "Video detection: pause when watching video": "Wykrywanie wideo: wstrzymuj przerwy podczas oglądania wideo",
     "Focus: pause while Focus / Do Not Disturb is on":
         "Tryb Skupienia: wstrzymuj przerwy, gdy włączone jest Skupienie / Nie przeszkadzać",
-    "Work zone — with any option below ON, breaks only run while at least one of the enabled options matches (calendar event, VPN, Wi-Fi or place). All OFF = breaks always run.":
-        "Strefa pracy: gdy włączona jest dowolna opcja poniżej, przerwy działają tylko wtedy, gdy pasuje co najmniej jedna z nich (wydarzenie w kalendarzu, VPN, Wi-Fi lub miejsce). Wszystkie wyłączone = przerwy działają zawsze.",
-    "Calendar: breaks only while an event title contains (replaces fixed hours)":
-        "Kalendarz: przerwy tylko gdy tytuł wydarzenia zawiera (zastępuje stałe godziny)",
+    "Work zone — with any option below ON, breaks run only while at least one of the enabled options matches (calendar event, VPN, Wi-Fi or place) or it is within working hours. All OFF = breaks always run.":
+        "Strefa pracy: gdy włączona jest dowolna opcja poniżej, przerwy działają tylko wtedy, gdy pasuje co najmniej jedna z nich (wydarzenie w kalendarzu, VPN, Wi-Fi lub miejsce) albo trwają godziny pracy. Wszystkie wyłączone = przerwy działają zawsze.",
+    "Calendar: breaks also run during matching events (added to working hours)":
+        "Kalendarz: przerwy działają także podczas pasujących wydarzeń (dodane do godzin pracy)",
     "VPN: active only while a VPN from the list is connected":
         "VPN: aktywne tylko przy połączeniu z VPN z listy",
     "VPN names (comma separated), e.g. work": "Nazwy VPN (po przecinku), np. praca",
@@ -628,8 +628,8 @@ STRINGS = {
     "Reset all decisions…": "Zresetuj wszystkie decyzje…",
     "After you allow something in System Settings, click Restart: macOS often shows the new state only to a freshly started app. If a switch is on in System Settings but Intermezzo still shows it as denied after a restart, the app was rebuilt with a different signature: use “Reset all decisions…” and allow again.":
         "Po zezwoleniu na coś w Ustawieniach systemowych kliknij „Uruchom ponownie”: macOS często pokazuje nowy stan dopiero świeżo uruchomionej aplikacji. Jeśli przełącznik w Ustawieniach systemowych jest włączony, a Intermezzo nadal po restarcie pokazuje brak zgody, aplikacja została przebudowana z innym podpisem: użyj „Zresetuj wszystkie decyzje…” i zezwól ponownie.",
-    "Self": "Własne",
-    "Other": "Cudze",
+    "Self": "Sam sobie",
+    "Other": "Ktoś mi przerwał",
     "Intermezzo report": "Raport Intermezzo",
     "By project": "Według projektu",
     "No data for this period": "Brak danych za ten okres",
@@ -726,4 +726,6 @@ STRINGS = {
         "Wstrzymuj wideo i muzykę na czas przerwy",
     "Wznawiaj odtwarzanie po przerwie":
         "Wznawiaj odtwarzanie po przerwie",
+    "Szukaj w ustawieniach": "Szukaj w ustawieniach",
+    "Brak wyników": "Brak wyników",
 }

@@ -8,7 +8,7 @@ struct SeamBreaksSection: View {
 
     var body: some View {
         Section("Natural seam") {
-            Toggle("Wait for a pause in typing before a break", isOn: $enabled)
+            Toggle("Wait for a pause in typing before a break", isOn: $enabled).settingsAnchor("focus-wait-for-a-pause-in-typing-before-a")
                 .disabled(strictMode)
             if enabled {
                 Stepper("Wait at most \(maxDelaySeconds) s",
@@ -18,7 +18,7 @@ struct SeamBreaksSection: View {
                     .disabled(strictMode)
             }
             Text("Never longer than the limit; off in strict mode")
-                .settingsNote()
+                .settingsNote().settingsAnchor("focus-never-longer-than-the-limit-off-in-s")
         }
     }
 }

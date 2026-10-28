@@ -16,10 +16,10 @@ struct SyncPane: View {
     var body: some View {
         Form {
             Section {
-                Toggle("Synchronizuj i trzymaj kopię w chmurze", isOn: flag($enabled))
+                Toggle("Synchronizuj i trzymaj kopię w chmurze", isOn: flag($enabled)).settingsAnchor("sync-synchronizuj-i-trzymaj-kopie-w-chmur")
                     .onChange(of: enabled) { _, on in if on != 0 { sync.syncNow() } }
                 Text("Ustawienia, rejestr pracy, historia przerw i Pomodoro trafiają do wybranych folderów w chmurze. Inne Twoje Maki czytają je stamtąd, a nowy lub przeinstalowany Mac po włączeniu tej opcji z tym samym folderem odzyska wszystko sam. Każdy Mac zapisuje tylko własny plik, więc chmura nigdy nie scala jednej bazy z dwóch miejsc.")
-                    .settingsNote()
+                    .settingsNote().settingsAnchor("sync-ustawienia-rejestr-pracy-historia-pr")
             }
             if enabled != 0 {
                 foldersSection
@@ -37,7 +37,7 @@ struct SyncPane: View {
         return Section("Gdzie") {
             if clouds.isEmpty {
                 Text("Na tym Macu nie ma iCloud Drive ani folderu OneDrive, Dropbox czy Google Drive. Wybierz folder ręcznie, np. udział sieciowy.")
-                    .settingsNote()
+                    .settingsNote().settingsAnchor("sync-na-tym-macu-nie-ma-icloud-drive-ani")
             }
             ForEach(clouds, id: \.path) { cloud in
                 Toggle(isOn: Binding(get: { paths.contains(cloud.path.path) },
@@ -60,11 +60,11 @@ struct SyncPane: View {
             }
             HStack {
                 Spacer()
-                Button("Dodaj inny folder…", action: pickFolder)
+                Button("Dodaj inny folder…", action: pickFolder).settingsAnchor("sync-dodaj-inny-folder")
             }
             if paths.count > 1 {
                 Text("Kopia trafia do każdego zaznaczonego folderu; przy odczycie liczy się najnowszy plik każdego Maca.")
-                    .settingsNote()
+                    .settingsNote().settingsAnchor("sync-kopia-trafia-do-kazdego-zaznaczonego")
             }
             TextField("Nazwa tego Maca", text: $deviceName, prompt: Text(Host.current().localizedName ?? "Mac"))
         }
@@ -72,12 +72,12 @@ struct SyncPane: View {
 
     private var scopeSection: some View {
             Section("Co synchronizować") {
-                Toggle("Rejestr pracy (odcinki, korekty, notatki)", isOn: flag($scopeWork))
-                Toggle("Historia przerw", isOn: flag($scopeBreaks))
-                Toggle("Ustawienia", isOn: flag($scopeSettings))
-                Toggle("Pomodoro i projekty", isOn: flag($scopePomodoro))
+                Toggle("Rejestr pracy (odcinki, korekty, notatki)", isOn: flag($scopeWork)).settingsAnchor("sync-rejestr-pracy-odcinki-korekty-notatk")
+                Toggle("Historia przerw", isOn: flag($scopeBreaks)).settingsAnchor("sync-historia-przerw")
+                Toggle("Ustawienia", isOn: flag($scopeSettings)).settingsAnchor("sync-ustawienia")
+                Toggle("Pomodoro i projekty", isOn: flag($scopePomodoro)).settingsAnchor("sync-pomodoro-i-projekty")
                 Text("Lokalne zostają: uprawnienia, pozycje okien, ścieżki do plików (muzyka, skrypty, obrazy), dzisiejsze liczniki. Przy konflikcie ustawień wygrywa nowsza zmiana. Mac dołączający do folderu z danymi innego Maca najpierw przejmuje jego ustawienia.")
-                    .settingsNote()
+                    .settingsNote().settingsAnchor("sync-lokalne-zostaja-uprawnienia-pozycje")
             }
     }
 
@@ -102,7 +102,7 @@ struct SyncPane: View {
                         }
                     }
                 }
-                Button("Synchronizuj teraz") { sync.syncNow() }
+                Button("Synchronizuj teraz") { sync.syncNow() }.settingsAnchor("sync-synchronizuj-teraz")
                     .disabled(paths.isEmpty || sync.isSyncing)
             }
     }

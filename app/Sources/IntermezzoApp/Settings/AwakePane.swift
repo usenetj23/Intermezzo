@@ -46,7 +46,7 @@ struct AwakePane: View {
             Picker("Co ma nie spać", selection: $levelRaw) {
                 Text("Tylko Mac (ekran może zgasnąć)").tag(KeepAwakeLevel.system.rawValue)
                 Text("Mac i ekran").tag(KeepAwakeLevel.systemAndDisplay.rawValue)
-            }
+            }.settingsAnchor("awake-co-ma-nie-spac")
             HStack {
                 if awake.manualLevel == nil {
                     Menu("Włącz na…") {
@@ -58,11 +58,11 @@ struct AwakePane: View {
                             Button("do \(hour):00") { awake.turnOn(duration: .untilHour(hour)) }
                         }
                         Divider()
-                        Button("Do wyłączenia") { awake.turnOn() }
+                        Button("Do wyłączenia") { awake.turnOn() }.settingsAnchor("awake-do-wylaczenia")
                     }
                     .fixedSize()
                 } else {
-                    Button("Wyłącz") { awake.turnOff() }
+                    Button("Wyłącz") { awake.turnOff() }.settingsAnchor("awake-wylacz")
                 }
                 Spacer()
             }
@@ -72,7 +72,7 @@ struct AwakePane: View {
                     .foregroundStyle(.secondary)
             }
             Text("Działa bez uprawnień administratora. Zamknięcie klapy MacBooka i tak go uśpi: tego ta funkcja nie zmienia. Stan włączenia zostaje po ponownym uruchomieniu aplikacji.")
-                .settingsNote()
+                .settingsNote().settingsAnchor("awake-dziala-bez-uprawnien-administratora")
         }
     }
 
@@ -93,10 +93,10 @@ struct AwakePane: View {
 
     private var automaticSection: some View {
         Section("Automatycznie") {
-            Toggle("Trzymaj Maca podczas sesji skupienia", isOn: $withFocus)
+            Toggle("Trzymaj Maca podczas sesji skupienia", isOn: $withFocus).settingsAnchor("awake-trzymaj-maca-podczas-sesji-skupienia")
             Text("Sesja Pomodoro nie zostanie przerwana przez uśpienie Maca. Działa tylko, gdy tryb Pomodoro jest włączony.")
-                .settingsNote()
-            Toggle("Trzymaj Maca, gdy działa wybrana aplikacja", isOn: $withApps)
+                .settingsNote().settingsAnchor("awake-sesja-pomodoro-nie-zostanie-przerwan")
+            Toggle("Trzymaj Maca, gdy działa wybrana aplikacja", isOn: $withApps).settingsAnchor("awake-trzymaj-maca-gdy-dziala-wybrana-apli")
             if withApps {
                 TextField("Aplikacje", text: $apps, prompt: Text(verbatim: "OBS, Xcode, ffmpeg"))
                     .textFieldStyle(.editable)
@@ -107,7 +107,7 @@ struct AwakePane: View {
                 }
                 .fixedSize()
                 Text("Nazwy oddzielaj przecinkami. Wielkość liter i końcówka .app nie mają znaczenia; można wpisać też nazwę programu z terminala, np. ffmpeg.")
-                    .settingsNote()
+                    .settingsNote().settingsAnchor("awake-nazwy-oddzielaj-przecinkami-wielkosc")
             }
         }
     }
@@ -127,17 +127,17 @@ struct AwakePane: View {
             Stepper(value: $batteryFloor, in: 0...50, step: 5) {
                 Text(batteryFloor == 0 ? "Nie wyłączaj przy niskiej baterii" : "Wyłącz na baterii poniżej \(batteryFloor)%")
             }
-            Toggle("Wyłącz w trybie niskiego zużycia energii (na baterii)", isOn: $stopOnLowPower)
-            Toggle("Wyłącz, gdy Mac się mocno nagrzeje", isOn: $stopOnThermal)
+            Toggle("Wyłącz w trybie niskiego zużycia energii (na baterii)", isOn: $stopOnLowPower).settingsAnchor("awake-wylacz-w-trybie-niskiego-zuzycia-ene")
+            Toggle("Wyłącz, gdy Mac się mocno nagrzeje", isOn: $stopOnThermal).settingsAnchor("awake-wylacz-gdy-mac-sie-mocno-nagrzeje")
             Text("Zabezpieczenia dotyczą czuwania na życzenie, podczas sesji i dla wybranych aplikacji. Przerwa trzyma Maca zawsze.")
-                .settingsNote()
+                .settingsNote().settingsAnchor("awake-zabezpieczenia-dotycza-czuwania-na-z")
         }
     }
 
     private var othersSection: some View {
         Section("Kto jeszcze trzyma Maca") {
             if awake.others.isEmpty {
-                Text("Żaden inny program nie blokuje uśpienia.").settingsNote()
+                Text("Żaden inny program nie blokuje uśpienia.").settingsNote().settingsAnchor("awake-zaden-inny-program-nie-blokuje-uspie")
             }
             ForEach(Array(awake.others.prefix(8).enumerated()), id: \.offset) { _, item in
                 VStack(alignment: .leading, spacing: 2) {
@@ -147,7 +147,7 @@ struct AwakePane: View {
             }
             HStack {
                 Spacer()
-                Button("Odśwież") { awake.refreshOthers() }.controlSize(.small)
+                Button("Odśwież") { awake.refreshOthers() }.settingsAnchor("awake-odswiez").controlSize(.small)
             }
         }
     }

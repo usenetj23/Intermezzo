@@ -26,7 +26,7 @@ body:
     attributes:
       label: Intermezzo version
       description: Settings › About
-      placeholder: "1.40.0"
+      placeholder: "1.41.0"
     validations:
       required: true
   - type: input

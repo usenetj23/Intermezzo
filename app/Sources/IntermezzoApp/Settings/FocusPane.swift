@@ -27,15 +27,15 @@ struct FocusPane: View {
     var body: some View {
         Form {
             Section("Pomodoro Technique") {
-                Toggle("Enable Pomodoro mode", isOn: $pomodoroMode)
+                Toggle("Enable Pomodoro mode", isOn: $pomodoroMode).settingsAnchor("focus-enable-pomodoro-mode")
                 if pomodoroMode {
-                    Button("Classic 25/5 (4 → 15 min)") { applyClassicPomodoro() }
-                    Button("Deep focus 50/10") { applyLongFocus() }
-                    Text("A 🍅 appears in the menu bar next to the countdown. Work one pomodoro, then take the suggested break fully. Pick a task and log interruptions from the menu-bar panel.")
-                        .settingsNote()
+                    Button("Classic 25/5 (4 → 15 min)") { applyClassicPomodoro() }.settingsAnchor("focus-classic-25-5-4-15-min")
+                    Button("Deep focus 50/10") { applyLongFocus() }.settingsAnchor("focus-deep-focus-50-10")
+                    Text("Work one pomodoro, then take the suggested break fully. Pick a task and log interruptions from the menu-bar panel.")
+                        .settingsNote().settingsAnchor("focus-work-one-pomodoro-then-take-the-sugg")
                 } else {
                     Text("Pomodoro structures work into focused sprints with a real break after each. Turn it on to pick a preset.")
-                        .settingsNote()
+                        .settingsNote().settingsAnchor("focus-pomodoro-structures-work-into-focuse")
                 }
             }
             SeamBreaksSection().expertOnly()

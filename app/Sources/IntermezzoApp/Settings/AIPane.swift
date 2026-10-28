@@ -30,15 +30,15 @@ struct AIPane: View {
                     set: { on in
                         if on, !noticeShown { showNotice = true } else { enabled = on }
                         if !on { service.cancel() }
-                    }))
+                    })).settingsAnchor("ai-wlacz-funkcje-ai")
                 Text("Asystent ustawień, autor skryptów reguł i podsumowanie tygodnia. Funkcje działają tylko wtedy, gdy je klikniesz, a bez włączenia tego przełącznika program niczego nie wysyła.")
-                    .settingsNote()
+                    .settingsNote().settingsAnchor("ai-asystent-ustawien-autor-skryptow-reg")
             }
             if enabled {
                 providerSection
                 Section {
                     Text("Do modelu trafia wyłącznie to, co jest potrzebne do klikniętej funkcji: Twój opis, lista ustawień z ich wartościami albo zbiorcze liczby o przerwach. Nigdy tytuły okien, nazwy sieci, projekty ani ścieżki. Odpowiedź modelu może być błędna, dlatego ustawienia i skrypty zawsze wymagają Twojego zatwierdzenia.")
-                        .settingsNote()
+                        .settingsNote().settingsAnchor("ai-do-modelu-trafia-wylacznie-to-co-jes")
                 }
             }
         }
@@ -49,7 +49,7 @@ struct AIPane: View {
             Button("Włącz") {
                 noticeShown = true
                 enabled = true
-            }
+            }.settingsAnchor("ai-wlacz")
             Button("Anuluj", role: .cancel) {}
         } message: {
             Text("Po kliknięciu funkcji AI program wyśle do wybranego przez Ciebie modelu Twój opis i potrzebne do niej dane o ustawieniach lub zbiorcze liczby o przerwach. Model systemowy Apple działa na tym Macu. Serwer, który wskażesz, może być na innym komputerze lub w internecie.")
@@ -61,12 +61,12 @@ struct AIPane: View {
             Picker("Dostawca", selection: $providerRaw) {
                 Text("Model systemowy Apple").tag(AIProviderKind.apple.rawValue)
                 Text("Serwer zgodny z API OpenAI").tag(AIProviderKind.openai.rawValue)
-            }
+            }.settingsAnchor("ai-dostawca")
             switch provider {
             case .apple:
                 LabeledContent("Stan") { Text(statusText).foregroundStyle(service.availability() == .ready ? Color.green : Color.secondary) }
                 Text("Model wbudowany w macOS (Apple Intelligence). Działa na tym Macu, bez klucza i bez internetu. Wymaga macOS 26 lub nowszego. Jakość odpowiedzi po polsku może być słabsza niż po angielsku.")
-                    .settingsNote()
+                    .settingsNote().settingsAnchor("ai-model-wbudowany-w-macos-apple-intell")
             case .openai:
                 TextField("Adres serwera", text: $endpoint, prompt: Text(verbatim: "http://localhost:1234/v1"))
                     .textFieldStyle(.editable)
@@ -82,9 +82,9 @@ struct AIPane: View {
                     .settingsNote()
                 endpointNote
                 HStack {
-                    Button("Sprawdź połączenie") { testConnection() }
+                    Button("Sprawdź połączenie") { testConnection() }.settingsAnchor("ai-sprawdz-polaczenie")
                         .disabled(service.isBusy)
-                    if service.isBusy { Button("Przerwij") { service.cancel() } }
+                    if service.isBusy { Button("Przerwij") { service.cancel() }.settingsAnchor("ai-przerwij") }
                 }
                 .controlSize(.small)
                 if !testText.isEmpty {
@@ -93,7 +93,7 @@ struct AIPane: View {
                         .font(.caption)
                 }
                 Text("Lokalny serwer (LM Studio, Ollama i podobne) lub dowolna usługa zgodna z API OpenAI. Klucz jest przechowywany w Pęku kluczy. Zwykły adres http:// jest dozwolony tylko dla serwera w tej sieci.")
-                    .settingsNote()
+                    .settingsNote().settingsAnchor("ai-lokalny-serwer-lm-studio-ollama-i-po")
             }
         }
     }
@@ -110,7 +110,7 @@ struct AIPane: View {
                 Picker("Dostępne modele", selection: $model) {
                     if !models.contains(model) { Text("— wybierz —").tag(model) }
                     ForEach(models, id: \.self) { Text($0).tag($0) }
-                }
+                }.settingsAnchor("ai-dostepne-modele")
                 .labelsHidden()
             }
         }

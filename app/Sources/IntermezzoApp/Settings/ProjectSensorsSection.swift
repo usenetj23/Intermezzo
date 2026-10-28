@@ -16,7 +16,7 @@ struct ProjectSensorsSection: View {
 
     var body: some View {
         Section("Project sensors") {
-            Toggle("Suggest a project at session start", isOn: $enabled)
+            Toggle("Suggest a project at session start", isOn: $enabled).settingsAnchor("focus-suggest-a-project-at-session-start")
             if enabled {
                 ForEach(ProjectSensorCatalog.all) { script in sensorRow(script) }
                 permissionRow(.automation, needs: "All sensors (System Events; Terminal/iTerm or Finder for two of them).")
@@ -33,12 +33,12 @@ struct ProjectSensorsSection: View {
                             .font(.system(.callout, design: .monospaced))
                             .textSelection(.enabled)
                         Text("Raw output of the sensor — untrusted text, shown only here.")
-                            .settingsNote()
+                            .settingsNote().settingsAnchor("focus-raw-output-of-the-sensor-untrusted-t")
                     }
                 }
             }
             Text("Runs once when a session starts, only if the current task has no project. You always confirm with “Use”. Nothing leaves your Mac and the text is never stored.")
-                .settingsNote()
+                .settingsNote().settingsAnchor("focus-runs-once-when-a-session-starts-only")
         }
         .onAppear { refresh() }
     }
@@ -65,14 +65,14 @@ struct ProjectSensorsSection: View {
             if isInstalled {
                 Button(isSelected ? "Selected" : "Select") { scriptPath = ProjectSensors.path(for: script).path }
                     .disabled(isSelected)
-                Button("Uninstall") { ProjectSensors.uninstall(script); refresh() }
+                Button("Uninstall") { ProjectSensors.uninstall(script); refresh() }.settingsAnchor("focus-uninstall")
             } else {
                 Button("Install") {
                     if ProjectSensors.install(script) {
                         scriptPath = ProjectSensors.path(for: script).path
                         refresh()
                     }
-                }
+                }.settingsAnchor("focus-install")
             }
         }
     }
@@ -107,7 +107,7 @@ struct ProjectSensorsSection: View {
                         .buttonStyle(.borderless)
                 }
             }
-            Button("Add rule") { rules.append(ProjectSensorRule(pattern: "", project: "")) }
+            Button("Add rule") { rules.append(ProjectSensorRule(pattern: "", project: "")) }.settingsAnchor("focus-add-rule")
         }
         .onChange(of: rules) { _, new in ProjectSensors.save(rules: new) }
     }

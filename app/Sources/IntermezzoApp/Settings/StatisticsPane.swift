@@ -89,7 +89,7 @@ struct StatisticsPane: View {
                     .frame(height: 96)
                 LabeledContent("Skuteczność (ukończone / rozpoczęte)",
                                value: "\(Int((BreakStats.completionRate(days) * 100).rounded()))%")
-                Button("Eksportuj historię do CSV…", action: exportCSV)
+                Button("Eksportuj historię do CSV…", action: exportCSV).settingsAnchor("statistics-eksportuj-historie-do-csv")
                     .controlSize(.small)
             }
             WeeklySummaryView(samples: stats.samples)
