@@ -1123,7 +1123,7 @@ compiler	IntermezzoApp/FlashReminder.swift:3	→
 compiler	IntermezzoApp/Settings/DiagnosticsPane.swift:182	tylko informacja
 compiler	IntermezzoApp/Settings/FocusRolesView.swift:28	Włączony teraz
 compiler	IntermezzoApp/IntermezzoCoordinator.swift:591	żaden
-compiler	IntermezzoApp/Settings/FocusRolesView.swift:43	Telefon przełącza Focus po lokalizacji GPS i synchronizuje go z Makiem, więc tryb oznaczony jako praca mówi, że jesteś w pracy. Pozostałe tryby domyślnie wstrzymują przerwy (jeśli włączone jest wykrywanie Focus).
+compiler	IntermezzoApp/Settings/FocusRolesView.swift:43	Telefon przełącza Focus po lokalizacji GPS i synchronizuje go z Makiem, więc tryb oznaczony jako praca mówi, że jesteś w pracy: liczy się do strefy przerw i do Rejestru pracy (bez sieci biura jako praca zdalna). Pozostałe tryby domyślnie wstrzymują przerwy (jeśli włączone jest wykrywanie Focus).
 compiler	IntermezzoApp/Settings/FocusRolesView.swift:46	Nie mogę odczytać trybów Focus. macOS chroni ten folder: dodaj Intermezzo w Prywatność i ochrona → Pełny dostęp do dysku, potem uruchom aplikację ponownie.
 compiler	IntermezzoApp/Settings/FocusRolesView.swift:50	Otwórz ustawienia prywatności
 compiler	IntermezzoApp/Settings/FocusRolesView.swift:55	Sprawdź ponownie

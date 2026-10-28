@@ -97,7 +97,6 @@ STRINGS = {
     'Dlaczego timer działa albo stoi: wszystkie czynniki w jednym miejscu': 'Dlaczego timer działa albo stoi: wszystkie czynniki w jednym miejscu',
     'Włączony teraz': 'Włączony teraz',
     'żaden': 'żaden',
-    'Telefon przełącza Focus po lokalizacji GPS i synchronizuje go z Makiem, więc tryb oznaczony jako praca mówi, że jesteś w pracy. Pozostałe tryby domyślnie wstrzymują przerwy (jeśli włączone jest wykrywanie Focus).': 'Telefon przełącza Focus po lokalizacji GPS i synchronizuje go z Makiem, więc tryb oznaczony jako praca mówi, że jesteś w pracy. Pozostałe tryby domyślnie wstrzymują przerwy (jeśli włączone jest wykrywanie Focus).',
     'Nie mogę odczytać trybów Focus. macOS chroni ten folder: dodaj Intermezzo w Prywatność i ochrona → Pełny dostęp do dysku, potem uruchom aplikację ponownie.': 'Nie mogę odczytać trybów Focus. macOS chroni ten folder: dodaj Intermezzo w Prywatność i ochrona → Pełny dostęp do dysku, potem uruchom aplikację ponownie.',
     'Otwórz ustawienia prywatności': 'Otwórz ustawienia prywatności',
     'Sprawdź ponownie': 'Sprawdź ponownie',
@@ -129,4 +128,5 @@ STRINGS = {
     'trwa: %@': 'trwa: %@',
     'Wydarzenie liczy się jako praca, gdy pasuje do którejkolwiek włączonej reguły: kalendarz (albo wszystkie), tytuł zawiera jedno ze słów (puste = każdy tytuł) i rodzaj wydarzenia. „Zajęty” to dostępność inna niż „wolny”. „Niepotwierdzone” to zaproszenia bez odpowiedzi lub przyjęte tylko „wstępnie”; własne wydarzenia bez gości liczą się jako potwierdzone.': 'Wydarzenie liczy się jako praca, gdy pasuje do którejkolwiek włączonej reguły: kalendarz (albo wszystkie), tytuł zawiera jedno ze słów (puste = każdy tytuł) i rodzaj wydarzenia. „Zajęty” to dostępność inna niż „wolny”. „Niepotwierdzone” to zaproszenia bez odpowiedzi lub przyjęte tylko „wstępnie”; własne wydarzenia bez gości liczą się jako potwierdzone.',
     'Pomijaj niepotwierdzone': 'Pomijaj niepotwierdzone',
+    'Telefon przełącza Focus po lokalizacji GPS i synchronizuje go z Makiem, więc tryb oznaczony jako praca mówi, że jesteś w pracy: liczy się do strefy przerw i do Rejestru pracy (bez sieci biura jako praca zdalna). Pozostałe tryby domyślnie wstrzymują przerwy (jeśli włączone jest wykrywanie Focus).': 'Telefon przełącza Focus po lokalizacji GPS i synchronizuje go z Makiem, więc tryb oznaczony jako praca mówi, że jesteś w pracy: liczy się do strefy przerw i do Rejestru pracy (bez sieci biura jako praca zdalna). Pozostałe tryby domyślnie wstrzymują przerwy (jeśli włączone jest wykrywanie Focus).',
 }

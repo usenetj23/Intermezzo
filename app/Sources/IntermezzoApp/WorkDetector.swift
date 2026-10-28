@@ -97,9 +97,13 @@ final class WorkDetector: NSObject, ObservableObject, CLLocationManagerDelegate 
 
     /// Where the enabled work-zone options put the Mac: Wi-Fi or saved place = office, a VPN alone = remote.
     /// nil = none of them matches. Calendar is not presence.
+    /// A Focus mode marked as work is on (set by the coordinator). It says nothing about where you are, so alone it counts as remote.
+    var focusAtWork = false
+
     var presencePlace: WorkPlace? {
         if (wifiEnabled && wifiMatch) || (geoEnabled && geoMatch) { return .office }
         if vpnEnabled && vpnMatch { return .remote }
+        if focusAtWork { return .remote }
         return nil
     }
 

@@ -583,6 +583,7 @@ final class BreakCoordinator: ObservableObject {
         let focusSnap = (focusOn || focusWorkOn) ? focusSnapshot(now) : nil
         let activeFocus = focusSnap?.active ?? []
         let focusAtWork = focusWorkOn && activeFocus.contains { FocusModes.role(for: $0.id, stored: focusRoles) == .work }
+        workDetector.focusAtWork = focusAtWork   // also reaches the work log and the lamps through presencePlace
         let activeFocusNames = activeFocus.map(\.name).joined(separator: ", ")
         var focusZoneDetail = "wyłączone"
         if focusWorkOn {

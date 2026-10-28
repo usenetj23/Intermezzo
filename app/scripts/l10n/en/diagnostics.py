@@ -97,7 +97,6 @@ STRINGS = {
     'Dlaczego timer działa albo stoi: wszystkie czynniki w jednym miejscu': 'Why the timer runs or stands: every factor in one place',
     'Włączony teraz': 'On now',
     'żaden': 'none',
-    'Telefon przełącza Focus po lokalizacji GPS i synchronizuje go z Makiem, więc tryb oznaczony jako praca mówi, że jesteś w pracy. Pozostałe tryby domyślnie wstrzymują przerwy (jeśli włączone jest wykrywanie Focus).': 'The iPhone switches Focus by GPS location and syncs it to the Mac, so a mode marked as work says you are at work. Other modes hold breaks by default (if Focus detection is on).',
     'Nie mogę odczytać trybów Focus. macOS chroni ten folder: dodaj Intermezzo w Prywatność i ochrona → Pełny dostęp do dysku, potem uruchom aplikację ponownie.': 'I cannot read the Focus modes. macOS protects that folder: add Intermezzo under Privacy & Security → Full Disk Access, then restart the app.',
     'Otwórz ustawienia prywatności': 'Open privacy settings',
     'Sprawdź ponownie': 'Check again',
@@ -129,4 +128,5 @@ STRINGS = {
     'trwa: %@': 'now: %@',
     'Wydarzenie liczy się jako praca, gdy pasuje do którejkolwiek włączonej reguły: kalendarz (albo wszystkie), tytuł zawiera jedno ze słów (puste = każdy tytuł) i rodzaj wydarzenia. „Zajęty” to dostępność inna niż „wolny”. „Niepotwierdzone” to zaproszenia bez odpowiedzi lub przyjęte tylko „wstępnie”; własne wydarzenia bez gości liczą się jako potwierdzone.': 'An event counts as work when it matches any enabled rule: the calendar (or all of them), a title containing one of the words (empty = any title) and the kind of event. “Busy” means any availability other than “free”. “Unconfirmed” means invitations with no reply or accepted only as “maybe”; your own events without guests count as confirmed.',
     'Pomijaj niepotwierdzone': 'Skip unconfirmed',
+    'Telefon przełącza Focus po lokalizacji GPS i synchronizuje go z Makiem, więc tryb oznaczony jako praca mówi, że jesteś w pracy: liczy się do strefy przerw i do Rejestru pracy (bez sieci biura jako praca zdalna). Pozostałe tryby domyślnie wstrzymują przerwy (jeśli włączone jest wykrywanie Focus).': 'The iPhone switches Focus by GPS location and syncs it to the Mac, so a mode marked as work says you are at work: it counts toward the break work zone and the Work log (as remote work without the office network). Other modes hold breaks by default (if Focus detection is on).',
 }
