@@ -459,7 +459,7 @@ final class BreakCoordinator: ObservableObject {
         let inMeeting = meetingOn && intelligence.meetingInProgress()
         if inMeeting { desired.insert(.inMeeting) }
         gate("meeting", .detection, "Spotkanie (Zoom, Teams, Webex)", inMeeting ? .blocking : (meetingOn ? .passing : .inactive),
-             inMeeting ? "trwa rozmowa" : (meetingOn ? "brak spotkania" : "wykrywanie wyłączone"))
+             inMeeting ? intelligence.meetingReason : (meetingOn ? "brak spotkania" : "wykrywanie wyłączone"))
         let videoOn = d.integer(forKey: Keys.videoDetection) != 0
         let watchingVideo = videoOn && intelligence.videoInProgress()
         if watchingVideo { desired.insert(.watchingVideo) }
