@@ -9,6 +9,7 @@ struct LightPane: View {
     @AppStorage(LightKeys.manualLocation) private var manualLocation = ""
     @AppStorage(LightKeys.weather) private var useWeather = false
     @AppStorage(LightKeys.fadeSeconds) private var fadeSeconds = 20
+    @AppStorage(LightLog.key) private var debugLog = false
     @AppStorage(LightKeys.followRate) private var followRate = LightController.defaultFollowRate
     @AppStorage(LightKeys.skipFullscreen) private var skipFullscreen = true
     @AppStorage(LightKeys.excludedApps) private var excludedApps = ""
@@ -336,6 +337,13 @@ struct LightPane: View {
                 .settingsNote().settingsAnchor("light-pochmurne-popoludnie-sciemnia-sie-wc")
             Stepper("Tempo zmiany barwy: najwyżej \(followRate) K na minutę", value: $followRate, in: 5...300, step: 5)
             Stepper("Przełączenie (włączenie Światła, pełny ekran): \(fadeSeconds) s", value: $fadeSeconds, in: LightController.minFadeSeconds...120, step: 4)
+            Toggle("Szczegółowy dziennik Światła (do szukania przyczyny migania)", isOn: $debugLog).settingsAnchor("light-szczegolowy-dziennik-swiatla-do-szuk")
+            Text("Zapisuje w dzienniku każdą zmianę celu, przejście, zapis koloru na ekran i akcję BetterDisplay, z powodem i czasem co do milisekundy. Włącz, gdy ekran mignie, i wyślij fragment pliku z tą chwilą.")
+                .settingsNote().settingsAnchor("light-zapisuje-w-dzienniku-kazda-zmiane-ce")
+            Button("Pokaż plik dziennika") {
+                NSWorkspace.shared.activateFileViewerSelecting([URL(fileURLWithPath: Trace.logPath)])
+            }.settingsAnchor("light-pokaz-plik-dziennika")
+            .controlSize(.small)
             Text("Barwa podąża za porą dnia powoli, nie szybciej niż ustawione K na minutę (np. 100 K zajmie wtedy kilka minut). Włączenie Światła i okno pełnoekranowe albo aplikacja wyjątek przełączają kolor w podanym czasie, ale dopiero po kilku sekundach, żeby krótkie przełączenia nie migały.")
                 .settingsNote().settingsAnchor("light-kolor-zmienia-sie-lagodnie-powoli-ru")
         }

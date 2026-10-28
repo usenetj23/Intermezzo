@@ -762,6 +762,7 @@
 "Pokazuje przypomnienie błyskiem ekranu" = "Shows the flash reminder";
 "Pokazuje wybrany efekt na 8 sekund. Podgląd nie blokuje myszki i nie jest przerwą." = "Shows the chosen effect for 8 seconds. The preview does not block the mouse and is not a break.";
 "Pokaż licznik także na ekranie z notchem" = "Show the countdown on notched screens too";
+"Pokaż plik dziennika" = "Show the log file";
 "Pokaż przykład" = "Show example";
 "Pokaż ustawienia" = "Show settings";
 "Pokaż w Finderze" = "Show in Finder";
@@ -1079,6 +1080,7 @@
 "System" = "System";
 "Systemowy / System" = "Systemowy / System";
 "Szablon" = "Template";
+"Szczegółowy dziennik Światła (do szukania przyczyny migania)" = "Detailed Light log (to find what makes the screen blink)";
 "Szczotkowane aluminium" = "Brushed aluminium";
 "Szklanka wody przy każdej długiej przerwie — odwodnienie objawia się\nspadkiem koncentracji i „głodem” na słodycze.\n\nKofeina: ostatnia kawa najpóźniej 8 godzin przed snem.\nKawa o 16:00 nadal krąży o północy. Alternatywa na poobiedni zjazd:\n10 minut ruchu na świeżym powietrzu działa lepiej niż drugie espresso." = "A glass of water at every long break — dehydration shows up as\npoorer concentration and “cravings” for sweets.\n\nCaffeine: your last coffee no later than 8 hours before bed.\nA coffee at 4 p.m. is still in your system at midnight. For the after-lunch slump:\n10 minutes of moving in the fresh air works better than a second espresso.";
 "Szklanka wody teraz. Serio. Teraz." = "A glass of water now. Seriously. Now.";
@@ -1410,6 +1412,7 @@
 "Zapisane miejsce" = "Saved place";
 "Zapisano %lld ml %@ · dziś %lld ml (%@)" = "Logged %lld ml of %@ · today %lld ml (%@)";
 "Zapisuj dłuższą nieobecność jako przerwę naturalną" = "Record longer absences as natural breaks";
+"Zapisuje w dzienniku każdą zmianę celu, przejście, zapis koloru na ekran i akcję BetterDisplay, z powodem i czasem co do milisekundy. Włącz, gdy ekran mignie, i wyślij fragment pliku z tą chwilą." = "Logs every goal change, fade, screen colour write and BetterDisplay action, with the reason and the time to the millisecond. Turn it on, and when the screen blinks send the part of the file from that moment.";
 "Zapisz" = "Save";
 "Zapisz napój (Nawodnienie)" = "Log a drink (Hydration)";
 "Zapomnij" = "Forget";

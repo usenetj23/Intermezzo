@@ -234,4 +234,10 @@ STRINGS = {
         "Barwa podąża za porą dnia powoli, nie szybciej niż ustawione K na minutę (np. 100 K zajmie wtedy kilka minut). Włączenie Światła i okno pełnoekranowe albo aplikacja wyjątek przełączają kolor w podanym czasie, ale dopiero po kilku sekundach, żeby krótkie przełączenia nie migały.",
     "Tempo zmiany barwy: najwyżej %lld K na minutę":
         "Tempo zmiany barwy: najwyżej %lld K na minutę",
+    "Szczegółowy dziennik Światła (do szukania przyczyny migania)":
+        "Szczegółowy dziennik Światła (do szukania przyczyny migania)",
+    "Zapisuje w dzienniku każdą zmianę celu, przejście, zapis koloru na ekran i akcję BetterDisplay, z powodem i czasem co do milisekundy. Włącz, gdy ekran mignie, i wyślij fragment pliku z tą chwilą.":
+        "Zapisuje w dzienniku każdą zmianę celu, przejście, zapis koloru na ekran i akcję BetterDisplay, z powodem i czasem co do milisekundy. Włącz, gdy ekran mignie, i wyślij fragment pliku z tą chwilą.",
+    "Pokaż plik dziennika":
+        "Pokaż plik dziennika",
 }

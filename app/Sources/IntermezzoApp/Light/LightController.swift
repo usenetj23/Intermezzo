@@ -244,6 +244,7 @@ final class LightController: ObservableObject {
         let center = NotificationCenter.default
         center.addObserver(forName: NSApplication.didChangeScreenParametersNotification, object: nil, queue: .main) { [weak self] _ in
             MainActor.assumeIsolated {
+                LightLog.detail("event: screen parameters changed")
                 MonitorRegistry.shared.refresh()
                 self?.reapply(rereadOriginals: true)
                 // A display that just appeared has no colour of its own yet: give it its goal, not the general one.
@@ -253,7 +254,10 @@ final class LightController: ObservableObject {
         let workspace = NSWorkspace.shared.notificationCenter
         for name in [NSWorkspace.didWakeNotification, NSWorkspace.activeSpaceDidChangeNotification] {
             workspace.addObserver(forName: name, object: nil, queue: .main) { [weak self] _ in
-                MainActor.assumeIsolated { self?.reapply(rereadOriginals: true) }
+                MainActor.assumeIsolated {
+                    LightLog.detail("event: \(name.rawValue)")
+                    self?.reapply(rereadOriginals: true)
+                }
             }
         }
         workspace.addObserver(forName: NSWorkspace.didActivateApplicationNotification, object: nil, queue: .main) { [weak self] _ in
@@ -309,6 +313,7 @@ final class LightController: ObservableObject {
 
     /// A monitor's own settings changed: show them at once (no fade) and let the dimming follow.
     func monitorSettingsChanged() {
+        LightLog.detail("event: a monitor's settings changed")
         startFade(jump: true)
         tick()
     }
@@ -354,6 +359,7 @@ final class LightController: ObservableObject {
             .map { "\(defaults.object(forKey: $0) ?? "")" }.joined(separator: "|")
         guard signature != lastSettingsSignature else { return }
         lastSettingsSignature = signature
+        LightLog.detail("event: a Light setting changed")
         tick()
     }
 
@@ -391,6 +397,7 @@ final class LightController: ObservableObject {
                                                      roomLampK: lamp > 0 ? Double(lamp) : nil)
             current = LightState(kelvin: kelvin, phase: schedule.phase, sunElevation: schedule.sunElevation)
         }
+        LightLog.detail("tick: schedule \(Int(schedule.kelvin)) K (\(schedule.phase)), lux \(measured.map { String(Int($0)) } ?? "-"), goal \(Int(current.kelvin)) K, shown \(Int(currentKelvin)) K, paused \(pausedUntil != nil), neutral \(neutral.sorted())")
         if current != state { state = current }
 
         // Turning Light on or off, or pausing it, is a switch, not a drift.
@@ -508,6 +515,7 @@ final class LightController: ObservableObject {
         if let steady = steadyGoal, abs(raw - steady) < Self.goalDeadband, raw < LightSettings.maxKelvin - 0.5 {
             return steady
         }
+        if steadyGoal != raw { LightLog.detail("goal: \(steadyGoal.map { String(Int($0)) } ?? "-") -> \(Int(raw)) K") }
         steadyGoal = raw
         return raw
     }
@@ -528,11 +536,12 @@ final class LightController: ObservableObject {
             currentVelocity = 0
             shownVelocity.removeAll()
             displays.ids.forEach { shown[$0] = goal(for: $0) }
-            applyNow(force: true)
+            applyNow(force: true, reason: "jump")
             return
         }
         guard fadeTimer == nil else { return }
         let dt = 0.1
+        LightLog.detail("fade start: \(quickFade ? "quick" : "slow"), from \(Int(currentKelvin)) K to \(Int(globalGoal())) K")
         // The spring covers most of the way in about a third of the set time and settles gently.
         let timer = Timer(timeInterval: dt, repeats: true) { [weak self] t in
             MainActor.assumeIsolated {
@@ -554,6 +563,7 @@ final class LightController: ObservableObject {
                 if !moving {
                     t.invalidate()
                     self.fadeTimer = nil
+                    LightLog.detail("fade end at \(Int(self.currentKelvin)) K")
                     self.quickFade = false
                     self.appliedKelvin = self.currentKelvin
                 }
@@ -581,9 +591,12 @@ final class LightController: ObservableObject {
     private var lastWritten: [CGDirectDisplayID: Int] = [:]
     private var lastWriteDate = Date.distantPast
 
-    private func applyNow(force: Bool = false) {
+    private func applyNow(force: Bool = false, reason: String = "fade") {
         let wanted = Dictionary(uniqueKeysWithValues: displays.ids.map { ($0, Int(((shown[$0] ?? currentKelvin) / 10).rounded())) })
-        if !force, wanted == lastWritten, Date().timeIntervalSince(lastWriteDate) < 30 { return }
+        let unchanged = wanted == lastWritten
+        if !force, unchanged, Date().timeIntervalSince(lastWriteDate) < 30 { return }
+        let why = force ? reason : (unchanged ? "30 s reminder" : reason)
+        LightLog.detail("write (\(why)): \(wanted.sorted { $0.key < $1.key }.map { "#\($0.key)=\($0.value * 10) K" }.joined(separator: " "))")
         lastWritten = wanted
         lastWriteDate = Date()
         let anyTint = displays.ids.contains { (shown[$0] ?? currentKelvin) < LightSettings.maxKelvin - 0.5 }
@@ -623,6 +636,7 @@ final class LightController: ObservableObject {
         if pendingNeutral != next {
             pendingNeutral = next
             pendingNeutralSince = Date()
+            LightLog.detail("neutral displays candidate \(next.sorted()) (now \(windowNeutral.sorted())), waiting \(Int(Self.neutralHoldSeconds)) s")
         }
         let waited = Date().timeIntervalSince(pendingNeutralSince)
         guard waited >= Self.neutralHoldSeconds else {
@@ -632,7 +646,7 @@ final class LightController: ObservableObject {
         pendingNeutral = nil
         windowNeutral = next
         quickFade = true
-        Trace.log("light: neutral displays \(next.sorted())")
+        LightLog.event("neutral displays \(next.sorted())")
         if fade { startFade(jump: false) }
     }
 
@@ -653,7 +667,7 @@ final class LightController: ObservableObject {
             Trace.log("light: displays changed, reading their tables again")
             displays.refreshOriginals()
         }
-        if isEnabled || previewing { applyNow(force: true) }
+        if isEnabled || previewing { applyNow(force: true, reason: "put back after wake, Space or display change") }
     }
 
     // MARK: Preview

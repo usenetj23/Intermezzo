@@ -164,7 +164,7 @@ def check(tables):
 
 
 NOT_UI_LINE = re.compile(
-    r"Trace\.log|\blog\.(debug|info|error|notice|warning|fault)|print\(|NSLog\(|Logger\(|fatalError|"
+    r"Trace\.log|LightLog\.(event|detail)|\blog\.(debug|info|error|notice|warning|fault)|print\(|NSLog\(|Logger\(|fatalError|"
     r"assert|precondition|forKey|UserDefaults|#Predicate|systemName:|Image\(|NSImage\(|URL\(|"
     r"kindRaw|case \w+ = \"|Notification\.Name|identifier|DispatchQueue\(label")
 

@@ -235,4 +235,10 @@ STRINGS = {
         "The colour changes gently: it starts slowly, speeds up and slows down, and a time shorter than 8 s is not used. A full-screen window or an excluded app takes effect only after a few seconds, so brief switches do not flash the colour.",
     "Tempo zmiany barwy: najwyżej %lld K na minutę":
         "Colour change speed: at most %lld K per minute",
+    "Szczegółowy dziennik Światła (do szukania przyczyny migania)":
+        "Detailed Light log (to find what makes the screen blink)",
+    "Zapisuje w dzienniku każdą zmianę celu, przejście, zapis koloru na ekran i akcję BetterDisplay, z powodem i czasem co do milisekundy. Włącz, gdy ekran mignie, i wyślij fragment pliku z tą chwilą.":
+        "Logs every goal change, fade, screen colour write and BetterDisplay action, with the reason and the time to the millisecond. Turn it on, and when the screen blinks send the part of the file from that moment.",
+    "Pokaż plik dziennika":
+        "Show the log file",
 }

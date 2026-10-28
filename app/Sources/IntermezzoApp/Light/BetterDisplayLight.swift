@@ -125,6 +125,7 @@ final class BetterDisplayLight: ObservableObject {
         let factors = devices.map { "\($0.displayID):\(Int((factorFor(UInt32($0.displayID)) * 100).rounded()))" }
         let key = "\(wantsDim)|\(wantsTrueTone)|\(factors)|\(neutral.sorted())|\(untouched.sorted())"
         if key == lastPassKey, Date().timeIntervalSince(lastPassAt) < Self.recheckInterval { return }
+        LightLog.detail("betterdisplay pass: dim \(wantsDim), true tone off \(wantsTrueTone), factors \(factors), neutral \(neutral.sorted())")
         lastPassKey = key
         lastPassAt = Date()
         if !wantsTrueTone { trueToneChecked = false }
@@ -163,6 +164,7 @@ final class BetterDisplayLight: ObservableObject {
     }
 
     private func brightness(of id: Int) async -> Double? {
+        LightLog.detail("betterdisplay: read brightness of #\(id)")
         let response = await send("get", [("displayID", String(id)), ("brightness", nil)])
         guard response?.result == true else { return nil }
         return BetterDisplayProtocol.number(response?.payload)
@@ -170,6 +172,7 @@ final class BetterDisplayLight: ObservableObject {
 
     private func setBrightness(_ value: Double, of id: Int) async -> Bool {
         let clamped = min(max(value, 0.05), 1)
+        LightLog.detail("betterdisplay: brightness of #\(id) -> \(String(format: "%.3f", clamped))")
         return await send("set", [("displayID", String(id)), ("brightness", String(format: "%.3f", clamped))])?.result == true
     }
 
@@ -302,6 +305,7 @@ final class BetterDisplayLight: ObservableObject {
         trueToneChecked = true
         let answer = await send("get", [("trueTone", nil)])
         guard answer?.result == true, answer?.payload == "on" else { return }
+        LightLog.detail("betterdisplay: True Tone off")
         if await send("set", [("trueTone", "off")])?.result == true {
             state.trueToneWasOn = true
             note = ""
@@ -313,6 +317,7 @@ final class BetterDisplayLight: ObservableObject {
 
     private func restoreTrueTone() async {
         trueToneChecked = false
+        LightLog.detail("betterdisplay: True Tone back on")
         _ = await send("set", [("trueTone", "on")])
         state.trueToneWasOn = false
         save()
