@@ -461,6 +461,7 @@
 "Kod AppleScript" = "Kod AppleScript";
 "Kolacja" = "Kolacja";
 "Kolor" = "Kolor";
+"Kolor zmienia się łagodnie: powoli rusza, przyspiesza i zwalnia, a krótszy czas niż 8 s nie jest używany. Pełnoekranowe okno albo aplikacja wyjątek działają dopiero po kilku sekundach, żeby krótkie przełączenia nie migały kolorem." = "Kolor zmienia się łagodnie: powoli rusza, przyspiesza i zwalnia, a krótszy czas niż 8 s nie jest używany. Pełnoekranowe okno albo aplikacja wyjątek działają dopiero po kilku sekundach, żeby krótkie przełączenia nie migały kolorem.";
 "Kolorowane" = "Kolorowane";
 "Koloruj ikonę w pasku menu według stanu timera" = "Koloruj ikonę w pasku menu według stanu timera";
 "Koniec dnia" = "Koniec dnia";

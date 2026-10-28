@@ -60,6 +60,7 @@ final class GammaDisplays {
     /// Reads the displays' own tables (calibration included) so that scaling keeps them.
     func refreshOriginals() {
         restore()
+        knownDisplaySet = Set(activeDisplays())
         originals.removeAll()
         unsupported.removeAll()
         for id in activeDisplays() {
@@ -78,6 +79,10 @@ final class GammaDisplays {
     }
 
     var ids: [CGDirectDisplayID] { Array(originals.keys) }
+
+    /// Displays were plugged, unplugged or renumbered since the tables were read.
+    private var knownDisplaySet: Set<CGDirectDisplayID> = []
+    func displaySetChanged() -> Bool { Set(activeDisplays()) != knownDisplaySet }
 
     /// Display frames in the global space, for matching windows to displays.
     func frames() -> [DisplayFrame] {
@@ -128,6 +133,14 @@ final class LightController: ObservableObject {
     private let locationFetcher = LocationOneShot()
     private var tickTimer: Timer?
     private var fadeTimer: Timer?
+    /// Colour change speed (K/s) of the general value and of each display, for the smooth fade.
+    private var currentVelocity = 0.0
+    private var shownVelocity: [CGDirectDisplayID: Double] = [:]
+    /// A new set of neutral displays must hold this long before it is acted on (a flicker of the probe changes nothing).
+    private var pendingNeutral: Set<UInt32>?
+    private var pendingNeutralSince = Date.distantPast
+    private var neutralRecheck: Timer?
+    private static let neutralHoldSeconds = 4.0
     private var previewTimer: Timer?
     private var signalSources: [DispatchSourceSignal] = []
     private var firstTick = true
@@ -201,8 +214,11 @@ final class LightController: ObservableObject {
                                    settings: settings, cloudCover: cloud, calendar: .current)
     }
 
+    /// Even a value saved before the limit existed never gives a blink.
+    static let minFadeSeconds = 8
+
     private var fadeSeconds: Double {
-        Double(min(max(defaults.object(forKey: LightKeys.fadeSeconds) as? Int ?? 20, 1), 120))
+        Double(min(max(defaults.object(forKey: LightKeys.fadeSeconds) as? Int ?? 20, Self.minFadeSeconds), 120))
     }
 
     // MARK: Lifecycle
@@ -258,6 +274,7 @@ final class LightController: ObservableObject {
 
     func shutdown() {
         fadeTimer?.invalidate()
+        neutralRecheck?.invalidate()
         previewTimer?.invalidate()
         monitorPreviewTimer?.invalidate()
         displays.restore()
@@ -476,20 +493,27 @@ final class LightController: ObservableObject {
         if jump || displays.ids.isEmpty {
             currentKelvin = globalGoal()
             appliedKelvin = currentKelvin
+            currentVelocity = 0
+            shownVelocity.removeAll()
             displays.ids.forEach { shown[$0] = goal(for: $0) }
             applyNow()
             return
         }
         guard fadeTimer == nil else { return }
-        let step = (LightSettings.maxKelvin - LightSettings.minKelvin) / (fadeSeconds * 4)
-        let timer = Timer(timeInterval: 0.25, repeats: true) { [weak self] t in
+        let dt = 0.1
+        // The spring covers most of the way in about a third of the set time and settles gently.
+        let smoothTime = fadeSeconds / 3
+        let timer = Timer(timeInterval: dt, repeats: true) { [weak self] t in
             MainActor.assumeIsolated {
                 guard let self else { t.invalidate(); return }
-                var moving = self.approach(&self.currentKelvin, to: self.globalGoal(), step: step)
+                var moving = self.glide(&self.currentKelvin, &self.currentVelocity, to: self.globalGoal(),
+                                        smoothTime: smoothTime, dt: dt)
                 for id in self.displays.ids {
                     var value = self.shown[id] ?? self.currentKelvin
-                    if self.approach(&value, to: self.goal(for: id), step: step) { moving = true }
+                    var velocity = self.shownVelocity[id] ?? 0
+                    if self.glide(&value, &velocity, to: self.goal(for: id), smoothTime: smoothTime, dt: dt) { moving = true }
                     self.shown[id] = value
+                    self.shownVelocity[id] = velocity
                 }
                 self.applyNow()
                 if !moving {
@@ -503,14 +527,15 @@ final class LightController: ObservableObject {
         fadeTimer = timer
     }
 
-    /// One step toward `target`; returns whether it is still on the way.
-    private func approach(_ value: inout Double, to target: Double, step: Double) -> Bool {
-        let delta = target - value
-        if abs(delta) <= step {
+    /// One smooth step toward `target`; returns whether it is still on the way.
+    private func glide(_ value: inout Double, _ velocity: inout Double, to target: Double,
+                       smoothTime: Double, dt: Double) -> Bool {
+        if SmoothDamp.settled(value: value, target: target, velocity: velocity) {
             value = target
+            velocity = 0
             return false
         }
-        value += delta > 0 ? step : -step
+        value = SmoothDamp.step(value: value, target: target, velocity: &velocity, smoothTime: smoothTime, dt: dt)
         return true
     }
 
@@ -543,17 +568,44 @@ final class LightController: ObservableObject {
         if case .own = probe {} else if case .window(let window) = probe { lastForeignFront = window } else { lastForeignFront = nil }
         let next = LightExclusion.displaysToLeaveNeutral(front: lastForeignFront, displays: displays.frames(),
                                                          excludedApps: excluded, skipFullscreen: skipFullscreen)
-        guard next != windowNeutral else { return }
+        guard next != windowNeutral else {
+            pendingNeutral = nil
+            return
+        }
+        // Inertia: act only on a state that has held for a few seconds, so a window that flickers in the
+        // probe (a Space switch, a full-screen transition) does not tint and un-tint the screen.
+        if pendingNeutral != next {
+            pendingNeutral = next
+            pendingNeutralSince = Date()
+        }
+        let waited = Date().timeIntervalSince(pendingNeutralSince)
+        guard waited >= Self.neutralHoldSeconds else {
+            scheduleNeutralRecheck(after: Self.neutralHoldSeconds - waited + 0.3)
+            return
+        }
+        pendingNeutral = nil
         windowNeutral = next
         Trace.log("light: neutral displays \(next.sorted())")
         if fade { startFade(jump: false) }
+    }
+
+    private func scheduleNeutralRecheck(after seconds: TimeInterval) {
+        neutralRecheck?.invalidate()
+        neutralRecheck = Timer.scheduledTimer(withTimeInterval: seconds, repeats: false) { [weak self] _ in
+            MainActor.assumeIsolated { self?.refreshExclusions() }
+        }
     }
 
     /// After wake-up, a changed display set or a Space change some apps and drivers reset the tables.
     private func reapply(rereadOriginals: Bool) {
         guard Date().timeIntervalSince(lastReapply) > 2 else { return }
         lastReapply = Date()
-        if rereadOriginals { displays.refreshOriginals() }
+        // Reading the tables resets the screen to its own colours for a moment, so it is done only when the
+        // set of displays changed; waking up or changing Space just puts our colour back.
+        if rereadOriginals && displays.displaySetChanged() {
+            Trace.log("light: displays changed, reading their tables again")
+            displays.refreshOriginals()
+        }
         if isEnabled || previewing { applyNow() }
     }
 

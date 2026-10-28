@@ -165,3 +165,37 @@ final class CalendarRulesTests: XCTestCase {
         XCTAssertTrue(CalendarRules.decode(nil).isEmpty)
     }
 }
+
+final class SmoothDampTests: XCTestCase {
+    private func run(from start: Double, to target: Double, smoothTime: Double, seconds: Double) -> [Double] {
+        var value = start, velocity = 0.0
+        var path = [value]
+        let dt = 0.1
+        for _ in 0..<Int(seconds / dt) {
+            value = SmoothDamp.step(value: value, target: target, velocity: &velocity, smoothTime: smoothTime, dt: dt)
+            path.append(value)
+        }
+        return path
+    }
+
+    func testFallsMonotonicallyWithoutOvershootAndSettles() {
+        let path = run(from: 6500, to: 2700, smoothTime: 7, seconds: 60)
+        for (a, b) in zip(path, path.dropFirst()) { XCTAssertLessThanOrEqual(b, a + 1e-9) }
+        XCTAssertGreaterThanOrEqual(path.min()!, 2700 - 1e-6)
+        XCTAssertEqual(path.last!, 2700, accuracy: 1)
+    }
+
+    func testStartsSlowly() {
+        let path = run(from: 6500, to: 2700, smoothTime: 7, seconds: 1)
+        XCTAssertLessThan(path[0] - path[1], 100)   // the first 0.1 s moves only a little
+    }
+
+    func testRetargetKeepsTheSpeed() {
+        var value = 6500.0, velocity = 0.0
+        for _ in 0..<30 { value = SmoothDamp.step(value: value, target: 2700, velocity: &velocity, smoothTime: 7, dt: 0.1) }
+        let before = velocity
+        let next = SmoothDamp.step(value: value, target: 6500, velocity: &velocity, smoothTime: 7, dt: 0.1)
+        XCTAssertLessThan(abs(next - value), 400)       // no jump on the change of direction
+        XCTAssertLessThan(before, 0)
+    }
+}

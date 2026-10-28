@@ -237,6 +237,7 @@ extension SettingsSearch {
         .init(.light, "Zaawansowane", anchor: "light-uwzgledniaj-zachmurzenie"),
         .init(.light, "Uwzględniaj zachmurzenie", anchor: "light-uwzgledniaj-zachmurzenie"),
         .init(.light, "Pochmurne popołudnie ściemnia się wcześniej. Korzysta z tej samej anonimowej pogody co ekran przerwy (Open-Meteo), bez dodatkowych danych.", anchor: "light-pochmurne-popoludnie-sciemnia-sie-wc"),
+        .init(.light, "Kolor zmienia się łagodnie: powoli rusza, przyspiesza i zwalnia, a krótszy czas niż 8 s nie jest używany. Pełnoekranowe okno albo aplikacja wyjątek działają dopiero po kilku sekundach, żeby krótkie przełączenia nie migały kolorem.", anchor: "light-kolor-zmienia-sie-lagodnie-powoli-ru"),
         .init(.light, "Monitory", anchor: "light-nowy-monitor-od-razu-dostaje-ogolna"),
         .init(.light, "Nowy monitor od razu dostaje ogólną krzywą. Takie same monitory mają wspólne ustawienia. Ustawienia są pamiętane tylko na tym Macu i wracają, gdy monitor zostanie podłączony ponownie.", anchor: "light-nowy-monitor-od-razu-dostaje-ogolna"),
         .init(.light, "Nie zarządzaj tym monitorem (np. telewizorem)", anchor: "light-nie-zarzadzaj-tym-monitorem-np-telew"),

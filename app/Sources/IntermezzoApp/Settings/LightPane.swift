@@ -333,7 +333,9 @@ struct LightPane: View {
             Toggle("Uwzględniaj zachmurzenie", isOn: $useWeather).settingsAnchor("light-uwzgledniaj-zachmurzenie")
             Text("Pochmurne popołudnie ściemnia się wcześniej. Korzysta z tej samej anonimowej pogody co ekran przerwy (Open-Meteo), bez dodatkowych danych.")
                 .settingsNote().settingsAnchor("light-pochmurne-popoludnie-sciemnia-sie-wc")
-            Stepper("Płynna zmiana: \(fadeSeconds) s", value: $fadeSeconds, in: 1...120, step: 5)
+            Stepper("Płynna zmiana: \(fadeSeconds) s", value: $fadeSeconds, in: LightController.minFadeSeconds...120, step: 4)
+            Text("Kolor zmienia się łagodnie: powoli rusza, przyspiesza i zwalnia, a krótszy czas niż 8 s nie jest używany. Pełnoekranowe okno albo aplikacja wyjątek działają dopiero po kilku sekundach, żeby krótkie przełączenia nie migały kolorem.")
+                .settingsNote().settingsAnchor("light-kolor-zmienia-sie-lagodnie-powoli-ru")
         }
     }
 }

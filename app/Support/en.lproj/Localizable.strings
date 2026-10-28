@@ -461,6 +461,7 @@
 "Kod AppleScript" = "AppleScript code";
 "Kolacja" = "Dinner";
 "Kolor" = "Colour";
+"Kolor zmienia się łagodnie: powoli rusza, przyspiesza i zwalnia, a krótszy czas niż 8 s nie jest używany. Pełnoekranowe okno albo aplikacja wyjątek działają dopiero po kilku sekundach, żeby krótkie przełączenia nie migały kolorem." = "The colour changes gently: it starts slowly, speeds up and slows down, and a time shorter than 8 s is not used. A full-screen window or an excluded app takes effect only after a few seconds, so brief switches do not flash the colour.";
 "Kolorowane" = "Coloured";
 "Koloruj ikonę w pasku menu według stanu timera" = "Tint the menu bar icon by the timer state";
 "Koniec dnia" = "End of day";
