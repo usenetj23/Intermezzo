@@ -772,7 +772,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, UNUs
         if fallbackSettingsWindow == nil {
             let host = NSHostingController(rootView: SettingsView().modelContainer(Store.container))
             let win = NSWindow(contentViewController: host)
-            win.styleMask = [.titled, .closable, .miniaturizable, .resizable]
+            // Content runs under the title bar, as in the SwiftUI Settings window, so the themed backdrop
+            // (blur for Glass) fills it instead of leaving a see-through strip.
+            win.styleMask = [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView]
+            win.titlebarAppearsTransparent = true
             win.title = "Intermezzo"
             win.identifier = NSUserInterfaceItemIdentifier("intermezzo.settingsWindow")
             win.isReleasedWhenClosed = false
