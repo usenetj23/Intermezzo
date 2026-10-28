@@ -49,6 +49,7 @@ struct WorkLogPane: View {
             }
         }
         .formStyle(.grouped)
+        .scrollsToSettingsAnchor()
         .onChange(of: wifiNames) { _, _ in log.settingsChanged() }
         .onChange(of: vpnNames) { _, _ in log.settingsChanged() }
         .onChange(of: scanInRange) { _, _ in log.settingsChanged() }
@@ -100,6 +101,7 @@ struct WorkLogPane: View {
     private var wiredRows: some View {
         VStack(alignment: .leading, spacing: 2) {
             Text("Sieć przewodowa (LAN, stacja dokująca)")
+                .id("lan")
             Text("Sieć LAN jest rozpoznawana po tym, co podaje jej serwer DHCP (router, domena, DNS), niezależnie od karty. Kartę lub stację zapamiętaj tylko, jeśli nie używasz jej poza pracą.")
                 .settingsNote()
         }

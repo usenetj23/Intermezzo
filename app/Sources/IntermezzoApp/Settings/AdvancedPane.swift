@@ -30,6 +30,7 @@ struct AdvancedPane: View {
                     Text("Event Source (odpytywanie)").tag("source")
                     Text("Event Monitor (tap zdarzeń)").tag("monitor")
                 }
+                .id("idle")
                 if idleMethod == "monitor" {
                     Text("Needs Input Monitoring permission. Without it Intermezzo falls back to Event Source automatically.")
                         .settingsNote()
@@ -106,6 +107,7 @@ struct AdvancedPane: View {
             }
         }
         .formStyle(.grouped)
+        .scrollsToSettingsAnchor()
         .frame(minWidth: 520, minHeight: 440)
         .onAppear { permissions.refresh() }
         // Statuses change in System Settings — re-read every 5 s while this pane is open.

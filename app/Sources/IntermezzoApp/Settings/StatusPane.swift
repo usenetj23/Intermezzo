@@ -59,12 +59,14 @@ struct StatusPane: View {
                 }
                 HStack(spacing: 10) {
                     Button("Wstrzymaj timer") { coordinator.pauseAll() }
+                        .id("pause")
                     Button("Wznów timer") { coordinator.resumeAll() }
                     Button("Zresetuj cykl") { coordinator.resetAll() }
                 }
             }
         }
         .formStyle(.grouped)
+        .scrollsToSettingsAnchor()
         .frame(minWidth: 520, minHeight: 420)
         // The chart changes only when a break starts, ends or is skipped; no need to refetch every tick.
         .onAppear(perform: refreshTrend)

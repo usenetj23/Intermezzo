@@ -127,10 +127,10 @@ struct DiagnosticsPane: View {
                 Text("—").foregroundStyle(.tertiary).frame(maxWidth: .infinity, alignment: .leading)
             }
             ForEach(items) { factor in
-                if let link = factor.link, let pane = SettingsPane(link: link) {
-                    Button { open(pane) } label: { card(factor, verdict, pane: pane) }
+                if let link = factor.link, let target = Self.target(of: link) {
+                    Button { open(target.pane, anchor: target.anchor) } label: { card(factor, verdict, pane: target.pane) }
                         .buttonStyle(.plain)
-                        .help("Otwórz: \(pane.title)")
+                        .help("Otwórz: \(target.pane.title)")
                 } else {
                     card(factor, verdict, pane: nil)
                 }
@@ -139,8 +139,16 @@ struct DiagnosticsPane: View {
         .frame(maxWidth: .infinity, alignment: .topLeading)
     }
 
+    /// "General#hours" = the General pane, scrolled to the row named `hours`.
+    private static func target(of link: String) -> (pane: SettingsPane, anchor: String?)? {
+        let parts = link.split(separator: "#", maxSplits: 1).map(String.init)
+        guard let name = parts.first, let pane = SettingsPane(link: name) else { return nil }
+        return (pane, parts.count > 1 ? parts[1] : nil)
+    }
+
     /// Same route as `intermezzo://settings/<pane>`: the pane is picked up by the open Settings window.
-    private func open(_ pane: SettingsPane) {
+    private func open(_ pane: SettingsPane, anchor: String?) {
+        SettingsPane.pendingAnchor = anchor
         SettingsPane.pending = pane
         NotificationCenter.default.post(name: .openSettingsPane, object: nil)
     }

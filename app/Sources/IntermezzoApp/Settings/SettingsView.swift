@@ -6,6 +6,32 @@ import IntermezzoKit
 extension Notification.Name {
     static let openMessage = Notification.Name("IntermezzoOpenMessage")
     static let openSettingsPane = Notification.Name("IntermezzoOpenSettingsPane")
+    static let scrollToSettingsAnchor = Notification.Name("IntermezzoScrollToSettingsAnchor")
+}
+
+/// Scrolls a settings form to the row named by `SettingsPane.pendingAnchor` when the pane appears
+/// (or at once, if it is already on screen). Rows opt in with `.id("name")`.
+struct ScrollsToSettingsAnchor: ViewModifier {
+    func body(content: Content) -> some View {
+        ScrollViewReader { proxy in
+            content
+                .onAppear { scroll(proxy) }
+                .onReceive(NotificationCenter.default.publisher(for: .scrollToSettingsAnchor)) { _ in scroll(proxy) }
+        }
+    }
+
+    @MainActor private func scroll(_ proxy: ScrollViewProxy) {
+        guard let anchor = SettingsPane.pendingAnchor else { return }
+        SettingsPane.pendingAnchor = nil
+        // The form lays itself out first; scrolling at once would miss rows below the fold.
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+            withAnimation { proxy.scrollTo(anchor, anchor: .top) }
+        }
+    }
+}
+
+extension View {
+    func scrollsToSettingsAnchor() -> some View { modifier(ScrollsToSettingsAnchor()) }
 }
 
 /// `rawValue` stays the legacy English id: Messages deep-link into panes by it.
@@ -34,6 +60,8 @@ enum SettingsPane: String, Identifiable, CaseIterable {
 
     /// Set by `intermezzo://settings/<pane>` before the window exists; taken when it appears.
     @MainActor static var pending: SettingsPane?
+    /// Row to scroll to inside `pending`'s pane (a name a row carries as `.id`).
+    @MainActor static var pendingAnchor: String?
 
     /// `workLog`, `work-log` or the legacy id ("Work log"), case-insensitive.
     init?(link: String) {

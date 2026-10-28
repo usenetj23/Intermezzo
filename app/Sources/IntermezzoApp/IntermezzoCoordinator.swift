@@ -243,11 +243,11 @@ final class BreakCoordinator: ObservableObject {
     private var gateFactors: [GateFactor] = []
     /// Where each factor is set, so a card in Diagnostics can open the right pane.
     private static let gateLinks: [String: String] = [
-        "vacation": "General", "holiday": "General", "hours": "General",
-        "zone": "General", "zone-calendar": "General", "zone-vpn": "General",
-        "zone-wifi": "General", "zone-geo": "General", "zone-lan": "Work log",
-        "meeting": "General", "video": "General", "focus": "General",
-        "rules": "Rules", "manual": "Status", "idle": "Advanced",
+        "vacation": "General#vacation", "holiday": "General#holiday", "hours": "General#hours",
+        "zone": "General#zone-calendar", "zone-calendar": "General#zone-calendar", "zone-vpn": "General#zone-vpn",
+        "zone-wifi": "General#zone-wifi", "zone-geo": "General#zone-geo", "zone-lan": "Work log#lan",
+        "meeting": "General#meeting", "video": "General#video", "focus": "General#focus",
+        "rules": "Rules", "manual": "Status#pause", "idle": "Advanced#idle",
     ]
     private func gate(_ id: String, _ group: GateGroup, _ title: String, _ verdict: GateVerdict,
                       _ detail: String, info: Bool = false) {
