@@ -49,7 +49,9 @@ struct WorkDayEditor: View {
                     .keyboardShortcut(.cancelAction)
                 Button("Zapisz") { save(); dismiss() }
                     .keyboardShortcut(.defaultAction)
-                    .disabled(rows.contains { !$0.deleted && $0.end <= $0.start })
+                    // The interval being recorded right now cannot be edited and is never saved here;
+                    // it starts and ends in the same minute, so it must not block the other rows.
+                    .disabled(rows.contains { !$0.deleted && !$0.isLive && $0.end <= $0.start })
             }
         }
         .padding(20)
@@ -59,10 +61,17 @@ struct WorkDayEditor: View {
 
     private func rowView(_ row: Binding<Row>) -> some View {
         let r = row.wrappedValue
+        // An interval that ends exactly where the live one begins keeps that end: the two are one stretch of work.
+        let liveStart = rows.first(where: \.isLive)?.start
+        let endLocked = !r.isLive && liveStart.map {
+            Calendar.current.isDate(r.end, equalTo: $0, toGranularity: .minute)
+        } ?? false
         return VStack(alignment: .leading, spacing: 6) {
             HStack(spacing: 10) {
                 DatePicker("Od", selection: row.start, displayedComponents: .hourAndMinute)
                 DatePicker("Do", selection: row.end, displayedComponents: .hourAndMinute)
+                    .disabled(endLocked)
+                    .help(endLocked ? "Koniec jest początkiem trwającego odcinka i nie można go zmienić." : "")
                 Picker("", selection: row.place) {
                     Text("Biuro").tag(WorkPlace.office)
                     Text("Zdalnie").tag(WorkPlace.remote)
@@ -82,7 +91,10 @@ struct WorkDayEditor: View {
             }
             .disabled(r.isLive)
             TextField("Notatka (np. awaria linii 3)", text: row.note)
-            if r.end <= r.start {
+            if endLocked {
+                Text("Koniec zablokowany: odcinek łączy się z trwającym.").font(.caption2).foregroundStyle(.secondary)
+            }
+            if !r.isLive, r.end <= r.start {
                 Text("Koniec musi być po początku.").font(.caption).foregroundStyle(.red)
             } else if r.isCorrection || r.record == nil {
                 Text("korekta ręczna").font(.caption2).foregroundStyle(.orange)
