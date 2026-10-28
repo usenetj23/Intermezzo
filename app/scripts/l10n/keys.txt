@@ -1144,7 +1144,7 @@ compiler	IntermezzoApp/Settings/WorkDayEditor.swift:74	Koniec jest początkiem t
 compiler	IntermezzoApp/Settings/WorkDayEditor.swift:95	Koniec zablokowany: odcinek łączy się z trwającym.
 compiler	IntermezzoApp/Settings/StatusPane.swift:91	Odroczenie działa podczas przerwy i tuż przed nią.
 compiler	IntermezzoApp/Settings/CalendarRulesView.swift:1	Dodaj regułę kalendarza
-compiler	IntermezzoApp/Settings/CalendarRulesView.swift:1	Wydarzenie liczy się jako praca, gdy pasuje do którejkolwiek włączonej reguły: kalendarz (albo wszystkie), tytuł zawiera jedno ze słów (puste = każdy tytuł) i rodzaj wydarzenia. „Zajęty” to dostępność inna niż „wolny”. Odrzucone zaproszenia pomijam.
+compiler	IntermezzoApp/Settings/CalendarRulesView.swift:1	Wydarzenie liczy się jako praca, gdy pasuje do którejkolwiek włączonej reguły: kalendarz (albo wszystkie), tytuł zawiera jedno ze słów (puste = każdy tytuł) i rodzaj wydarzenia. „Zajęty” to dostępność inna niż „wolny”. „Niepotwierdzone” to zaproszenia bez odpowiedzi lub przyjęte tylko „wstępnie”; własne wydarzenia bez gości liczą się jako potwierdzone.
 compiler	IntermezzoApp/Settings/CalendarRulesView.swift:1	Reguła włączona
 compiler	IntermezzoApp/Settings/CalendarRulesView.swift:1	Wszystkie kalendarze
 compiler	IntermezzoApp/Settings/CalendarRulesView.swift:1	%@ (niedostępny)
@@ -1153,6 +1153,7 @@ compiler	IntermezzoApp/Settings/CalendarRulesView.swift:1	Tytuł zawiera (po prz
 compiler	IntermezzoApp/Settings/CalendarRulesView.swift:1	Tylko jako zajęty
 compiler	IntermezzoApp/Settings/CalendarRulesView.swift:1	Pomijaj całodniowe
 compiler	IntermezzoApp/Settings/CalendarRulesView.swift:1	Pomijaj odrzucone
+compiler	IntermezzoApp/Settings/CalendarRulesView.swift:1	Pomijaj niepotwierdzone
 runtime	-	%@: w tej chwili i tak nie musisz patrzeć na ekran. Zrobić krótką przerwę teraz?
 runtime	-	10 pełnych, wolnych mrugnięć — powieka do powieki.
 runtime	-	10 wolnych przysiadów. Krążenie wraca, mózg dostaje tlen, biodra otwierają się po siedzeniu.

@@ -118,7 +118,6 @@ STRINGS = {
     'Odroczenie działa podczas przerwy i tuż przed nią.': 'Odroczenie działa podczas przerwy i tuż przed nią.',
     'Przerwy działają w godzinach pracy LUB gdy Mac jest w strefie pracy (wydarzenie w kalendarzu, VPN, Wi-Fi, miejsce albo LAN i karta z Rejestru pracy): nadgodziny, awaria, dzień wolny. Timer stoi dopiero wtedy, gdy nie zachodzi żadne z dwóch.': 'Przerwy działają w godzinach pracy LUB gdy Mac jest w strefie pracy (wydarzenie w kalendarzu, VPN, Wi-Fi, miejsce albo LAN i karta z Rejestru pracy): nadgodziny, awaria, dzień wolny. Timer stoi dopiero wtedy, gdy nie zachodzi żadne z dwóch.',
     'Dodaj regułę kalendarza': 'Dodaj regułę kalendarza',
-    'Wydarzenie liczy się jako praca, gdy pasuje do którejkolwiek włączonej reguły: kalendarz (albo wszystkie), tytuł zawiera jedno ze słów (puste = każdy tytuł) i rodzaj wydarzenia. „Zajęty” to dostępność inna niż „wolny”. Odrzucone zaproszenia pomijam.': 'Wydarzenie liczy się jako praca, gdy pasuje do którejkolwiek włączonej reguły: kalendarz (albo wszystkie), tytuł zawiera jedno ze słów (puste = każdy tytuł) i rodzaj wydarzenia. „Zajęty” to dostępność inna niż „wolny”. Odrzucone zaproszenia pomijam.',
     'Reguła włączona': 'Reguła włączona',
     'Wszystkie kalendarze': 'Wszystkie kalendarze',
     '%@ (niedostępny)': '%@ (niedostępny)',
@@ -128,4 +127,6 @@ STRINGS = {
     'Pomijaj całodniowe': 'Pomijaj całodniowe',
     'Pomijaj odrzucone': 'Pomijaj odrzucone',
     'trwa: %@': 'trwa: %@',
+    'Wydarzenie liczy się jako praca, gdy pasuje do którejkolwiek włączonej reguły: kalendarz (albo wszystkie), tytuł zawiera jedno ze słów (puste = każdy tytuł) i rodzaj wydarzenia. „Zajęty” to dostępność inna niż „wolny”. „Niepotwierdzone” to zaproszenia bez odpowiedzi lub przyjęte tylko „wstępnie”; własne wydarzenia bez gości liczą się jako potwierdzone.': 'Wydarzenie liczy się jako praca, gdy pasuje do którejkolwiek włączonej reguły: kalendarz (albo wszystkie), tytuł zawiera jedno ze słów (puste = każdy tytuł) i rodzaj wydarzenia. „Zajęty” to dostępność inna niż „wolny”. „Niepotwierdzone” to zaproszenia bez odpowiedzi lub przyjęte tylko „wstępnie”; własne wydarzenia bez gości liczą się jako potwierdzone.',
+    'Pomijaj niepotwierdzone': 'Pomijaj niepotwierdzone',
 }

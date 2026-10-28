@@ -39,7 +39,7 @@ struct CalendarRulesView: View {
             ForEach(rules) { rule in card(rule) }
             Button("Dodaj regułę kalendarza") { save(rules + [CalendarRule()]) }
                 .controlSize(.small)
-            Text("Wydarzenie liczy się jako praca, gdy pasuje do którejkolwiek włączonej reguły: kalendarz (albo wszystkie), tytuł zawiera jedno ze słów (puste = każdy tytuł) i rodzaj wydarzenia. „Zajęty” to dostępność inna niż „wolny”. Odrzucone zaproszenia pomijam.")
+            Text("Wydarzenie liczy się jako praca, gdy pasuje do którejkolwiek włączonej reguły: kalendarz (albo wszystkie), tytuł zawiera jedno ze słów (puste = każdy tytuł) i rodzaj wydarzenia. „Zajęty” to dostępność inna niż „wolny”. „Niepotwierdzone” to zaproszenia bez odpowiedzi lub przyjęte tylko „wstępnie”; własne wydarzenia bez gości liczą się jako potwierdzone.")
                 .settingsNote()
         }
         .onAppear {
@@ -72,10 +72,15 @@ struct CalendarRulesView: View {
                 .help("Usuń regułę")
             }
             TextField("Tytuł zawiera (po przecinku, puste = każdy tytuł)", text: binding(rule.id, \.keywords, default: ""))
-            HStack(spacing: 14) {
-                Toggle("Tylko jako zajęty", isOn: binding(rule.id, \.onlyBusy, default: true))
-                Toggle("Pomijaj całodniowe", isOn: binding(rule.id, \.skipAllDay, default: true))
-                Toggle("Pomijaj odrzucone", isOn: binding(rule.id, \.skipDeclined, default: true))
+            VStack(alignment: .leading, spacing: 4) {
+                HStack(spacing: 14) {
+                    Toggle("Tylko jako zajęty", isOn: binding(rule.id, \.onlyBusy, default: true))
+                    Toggle("Pomijaj całodniowe", isOn: binding(rule.id, \.skipAllDay, default: true))
+                }
+                HStack(spacing: 14) {
+                    Toggle("Pomijaj odrzucone", isOn: binding(rule.id, \.skipDeclined, default: true))
+                    Toggle("Pomijaj niepotwierdzone", isOn: binding(rule.id, \.skipUnconfirmed, default: false))
+                }
             }
             .toggleStyle(.checkbox)
             .font(.caption)

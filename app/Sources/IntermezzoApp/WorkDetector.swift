@@ -156,9 +156,12 @@ final class WorkDetector: NSObject, ObservableObject, CLLocationManagerDelegate 
         let predicate = store.predicateForEvents(withStart: start, end: end, calendars: nil)
         var summary = ""
         for ev in store.events(matching: predicate) {
-            let declined = ev.attendees?.contains { $0.isCurrentUser && $0.participantStatus == .declined } ?? false
+            // Your answer to the invitation; an event without guests has none and counts as accepted.
+            let answer = ev.attendees?.first { $0.isCurrentUser }?.participantStatus
             let info = CalendarEventInfo(calendarID: ev.calendar?.calendarIdentifier ?? "", title: ev.title ?? "",
-                                         isAllDay: ev.isAllDay, isBusy: ev.availability != .free, isDeclined: declined)
+                                         isAllDay: ev.isAllDay, isBusy: ev.availability != .free,
+                                         isDeclined: answer == .declined,
+                                         isUnconfirmed: answer == .pending || answer == .tentative)
             if CalendarRules.firstMatch(calendarRules, info) != nil {
                 summary = "\(info.title) (\(ev.calendar?.title ?? ""))"
                 break

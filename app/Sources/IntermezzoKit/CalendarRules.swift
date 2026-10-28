@@ -15,9 +15,12 @@ public struct CalendarRule: Codable, Identifiable, Equatable, Sendable {
     public var skipAllDay = true
     /// Skip events whose invitation you declined.
     public var skipDeclined = true
+    /// Skip events you have not accepted: no reply yet, or only "maybe". Your own events, without guests, count as accepted.
+    public var skipUnconfirmed = false
 
     public init(enabled: Bool = true, calendarID: String? = nil, calendarName: String = "", keywords: String = "",
-                onlyBusy: Bool = true, skipAllDay: Bool = true, skipDeclined: Bool = true) {
+                onlyBusy: Bool = true, skipAllDay: Bool = true, skipDeclined: Bool = true,
+                skipUnconfirmed: Bool = false) {
         self.enabled = enabled
         self.calendarID = calendarID
         self.calendarName = calendarName
@@ -25,6 +28,21 @@ public struct CalendarRule: Codable, Identifiable, Equatable, Sendable {
         self.onlyBusy = onlyBusy
         self.skipAllDay = skipAllDay
         self.skipDeclined = skipDeclined
+        self.skipUnconfirmed = skipUnconfirmed
+    }
+
+    // Rules saved before an option existed lack its key.
+    public init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        id = try c.decodeIfPresent(UUID.self, forKey: .id) ?? UUID()
+        enabled = try c.decodeIfPresent(Bool.self, forKey: .enabled) ?? true
+        calendarID = try c.decodeIfPresent(String.self, forKey: .calendarID)
+        calendarName = try c.decodeIfPresent(String.self, forKey: .calendarName) ?? ""
+        keywords = try c.decodeIfPresent(String.self, forKey: .keywords) ?? ""
+        onlyBusy = try c.decodeIfPresent(Bool.self, forKey: .onlyBusy) ?? true
+        skipAllDay = try c.decodeIfPresent(Bool.self, forKey: .skipAllDay) ?? true
+        skipDeclined = try c.decodeIfPresent(Bool.self, forKey: .skipDeclined) ?? true
+        skipUnconfirmed = try c.decodeIfPresent(Bool.self, forKey: .skipUnconfirmed) ?? false
     }
 }
 
@@ -36,13 +54,17 @@ public struct CalendarEventInfo: Equatable, Sendable {
     /// Availability is anything but "free".
     public var isBusy: Bool
     public var isDeclined: Bool
+    /// You have not accepted it: no reply yet, or only "maybe".
+    public var isUnconfirmed: Bool
 
-    public init(calendarID: String, title: String, isAllDay: Bool, isBusy: Bool, isDeclined: Bool) {
+    public init(calendarID: String, title: String, isAllDay: Bool, isBusy: Bool, isDeclined: Bool,
+                isUnconfirmed: Bool = false) {
         self.calendarID = calendarID
         self.title = title
         self.isAllDay = isAllDay
         self.isBusy = isBusy
         self.isDeclined = isDeclined
+        self.isUnconfirmed = isUnconfirmed
     }
 }
 
@@ -60,6 +82,7 @@ public enum CalendarRules {
         if rule.onlyBusy, !event.isBusy { return false }
         if rule.skipAllDay, event.isAllDay { return false }
         if rule.skipDeclined, event.isDeclined { return false }
+        if rule.skipUnconfirmed, event.isUnconfirmed { return false }
         let words = keywords(from: rule.keywords)
         if words.isEmpty { return true }
         let title = event.title.lowercased()

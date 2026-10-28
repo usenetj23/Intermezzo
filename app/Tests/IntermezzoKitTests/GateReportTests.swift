@@ -133,6 +133,25 @@ final class CalendarRulesTests: XCTestCase {
         XCTAssertEqual(CalendarRules.firstMatch([a, b], event("x"))?.id, b.id)
     }
 
+    func testUnconfirmedEventsAreSkippedOnlyWhenAsked() {
+        let unconfirmed = CalendarEventInfo(calendarID: "work", title: "x", isAllDay: false, isBusy: true,
+                                            isDeclined: false, isUnconfirmed: true)
+        XCTAssertTrue(CalendarRules.matches(CalendarRule(), unconfirmed))
+        XCTAssertFalse(CalendarRules.matches(CalendarRule(skipUnconfirmed: true), unconfirmed))
+        XCTAssertTrue(CalendarRules.matches(CalendarRule(skipUnconfirmed: true), event("x")))
+    }
+
+    func testRuleSavedBeforeTheUnconfirmedOptionStillDecodes() {
+        let json = """
+        [{"id":"\(UUID().uuidString)","enabled":true,"calendarID":"w","calendarName":"Praca","keywords":"a",
+          "onlyBusy":true,"skipAllDay":true,"skipDeclined":true}]
+        """
+        let rules = CalendarRules.decode(Data(json.utf8))
+        XCTAssertEqual(rules.count, 1)
+        XCTAssertFalse(rules[0].skipUnconfirmed)
+        XCTAssertEqual(rules[0].calendarID, "w")
+    }
+
     func testLegacyRuleKeepsTheOldBehaviour() {
         let rule = CalendarRules.legacy(keywords: "work, praca")
         XCTAssertTrue(CalendarRules.matches(rule, event("Praca", calendar: "anything", allDay: true, busy: false)))
