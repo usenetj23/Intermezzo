@@ -628,8 +628,8 @@ STRINGS = {
     "Reset all decisions…": "Zresetuj wszystkie decyzje…",
     "After you allow something in System Settings, click Restart: macOS often shows the new state only to a freshly started app. If a switch is on in System Settings but Intermezzo still shows it as denied after a restart, the app was rebuilt with a different signature: use “Reset all decisions…” and allow again.":
         "Po zezwoleniu na coś w Ustawieniach systemowych kliknij „Uruchom ponownie”: macOS często pokazuje nowy stan dopiero świeżo uruchomionej aplikacji. Jeśli przełącznik w Ustawieniach systemowych jest włączony, a Intermezzo nadal po restarcie pokazuje brak zgody, aplikacja została przebudowana z innym podpisem: użyj „Zresetuj wszystkie decyzje…” i zezwól ponownie.",
-    "Self": "Własne",
-    "Other": "Cudze",
+    "Self": "Sam sobie",
+    "Other": "Ktoś mi przerwał",
     "Intermezzo report": "Raport Intermezzo",
     "By project": "Według projektu",
     "No data for this period": "Brak danych za ten okres",

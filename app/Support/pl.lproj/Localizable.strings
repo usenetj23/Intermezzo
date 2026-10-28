@@ -694,7 +694,7 @@
 "Orientacyjny próg ryzyka: ok. 4 h dziennie (Kaur i in. 2022)." = "Orientacyjny próg ryzyka: ok. 4 h dziennie (Kaur i in. 2022).";
 "Ostatnia synchronizacja" = "Ostatnia synchronizacja";
 "Ostatnie 7 dni" = "Ostatnie 7 dni";
-"Other" = "Cudze";
+"Other" = "Ktoś mi przerwał";
 "Otwiera Ustawienia; panel jest opcjonalny, np. workLog, sync, gallery, appearance" = "Otwiera Ustawienia; panel jest opcjonalny, np. workLog, sync, gallery, appearance";
 "Otwiera panel z paska menu" = "Otwiera panel z paska menu";
 "Otwórz klatkę piersiową" = "Otwórz klatkę piersiową";
@@ -957,7 +957,7 @@
 "Seconds per text: 0 (one text per break)" = "Sekundy na tekst: 0 (jeden tekst na przerwę)";
 "Select" = "Wybierz";
 "Selected" = "Wybrany";
-"Self" = "Własne";
+"Self" = "Sam sobie";
 "Sen" = "Sen";
 "Sen i kopia aplikacji" = "Sen i kopia aplikacji";
 "Send test notification" = "Wyślij testowe powiadomienie";
