@@ -127,7 +127,7 @@ struct GeneralPane: View {
                 LabeledContent("Work ends at") {
                     TimeInput(minutes: $workEndMinutes)
                 }
-                Toggle("Strefa pracy (VPN, Wi-Fi, miejsce) liczy się też poza godzinami pracy", isOn: $zoneOverridesHours)
+                Toggle("Strefa pracy (VPN, Wi-Fi, miejsce, LAN) liczy się też poza godzinami pracy", isOn: $zoneOverridesHours)
                 if zoneOverridesHours {
                     Text("Nadgodziny, awarie: gdy połączysz VPN z listy, jesteś w sieci z listy albo w promieniu zapisanego miejsca (opcje w Intermezzo Intelligence), timer działa także poza godzinami pracy. Bez tego połączenia godziny pracy dalej go wstrzymują.")
                         .settingsNote()

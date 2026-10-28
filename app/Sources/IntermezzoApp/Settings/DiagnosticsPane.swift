@@ -42,7 +42,7 @@ struct DiagnosticsPane: View {
             VStack(alignment: .leading, spacing: 20) {
                 chain(report)
                 board(report)
-                Text("Timer rusza, gdy nic go nie blokuje. W strefie pracy wystarczy jedno dopasowanie z włączonych źródeł (kalendarz, VPN, Wi-Fi, miejsce). Karty z przerywaną ramką tylko informują i nie zmieniają timera.")
+                Text("Timer rusza, gdy nic go nie blokuje. W strefie pracy wystarczy jedno dopasowanie: kalendarz, VPN, Wi-Fi, miejsce albo LAN i karta z Rejestru pracy.")
                     .settingsNote()
             }
             .padding(20)

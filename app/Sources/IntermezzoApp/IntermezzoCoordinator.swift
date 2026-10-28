@@ -555,17 +555,19 @@ final class BreakCoordinator: ObservableObject {
                     : (workDetector.geoMatch ? "w promieniu miejsca"
                        : (workDetector.geoDistanceM >= 0 ? "\(Int(workDetector.geoDistanceM)) m od miejsca" : "położenie nieznane")))
         let workLog = WorkLogController.shared
-        gate("zone-lan", .zone, "LAN i karta z Rejestru pracy",
-             workLog.isEnabled && workLog.zone.inZone ? .passing : .inactive,
+        // The LAN, dock adapter or work Wi-Fi marked in the work log counts as a match here too, so one
+        // place of work is set up once. It never switches the work zone on by itself (that stays with the four sources).
+        let lanMatch = workLog.isEnabled && workLog.zone.inZone
+        gate("zone-lan", .zone, "LAN i karta z Rejestru pracy", lanMatch ? .passing : .inactive,
              !workLog.isEnabled ? "rejestr pracy wyłączony"
-                                : (workLog.zone.inZone ? "\(workLog.zone.reason): widzi to rejestr pracy, ale nie strefa przerw"
-                                                       : "rejestr pracy też nie widzi strefy pracy"),
-             info: true)
+                                : (lanMatch ? "\(workLog.zone.reason): liczy się do strefy przerw"
+                                            : "rejestr pracy też nie widzi strefy pracy"))
         if workDetector.hasActivators {
             let inZone = (calOn && workDetector.calendarMatch)
                 || (vpnOn && workDetector.vpnMatch)
                 || (wifiOn && workDetector.wifiMatch)
                 || (geoOn && workDetector.geoMatch)
+                || lanMatch
             if !inZone { desired.insert(.outsideWorkZone) }
             gate("zone", .zone, "Strefa pracy", inZone ? .passing : .blocking,
                  inZone ? "co najmniej jedno włączone źródło pasuje" : "żadne z włączonych źródeł nie pasuje")
@@ -577,7 +579,7 @@ final class BreakCoordinator: ObservableObject {
         // Outside the working hours, unless the user lets a connected work VPN / Wi-Fi / saved place
         // stand in for them (overtime, an outage).
         let zoneOverrides = d.integer(forKey: Keys.zoneOverridesHours) != 0
-        let presence = workDetector.presencePlace != nil
+        let presence = workDetector.presencePlace != nil || lanMatch
         let hoursBlock = outsideHours && !(zoneOverrides && presence)
         if hoursBlock { desired.insert(.outsideWorkingHours) }
         if !workDetector.hasActivators {
