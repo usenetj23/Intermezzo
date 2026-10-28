@@ -66,8 +66,6 @@ enum Keys {
     static let idleThresholdSeconds = "idleThresholdSeconds"
     static let idleResetAfterMinutes = "idleResetAfterMinutes"
     static let enforceWorkingHours = "enforceWorkingHours"
-    /// VPN / Wi-Fi / saved place from the work zone count as work also outside the working hours.
-    static let zoneOverridesHours = "zoneOverridesHours"
     static let workStartHour = "workStartHour"
     static let workEndHour = "workEndHour"
     static let workStartMinutes = "workStartMinutes"
@@ -158,7 +156,6 @@ func registerDefaults() {
     bind(d, Keys.idleThresholdSeconds, 60)
     bind(d, Keys.idleResetAfterMinutes, 5)
     bind(d, Keys.enforceWorkingHours, 0)
-    bind(d, Keys.zoneOverridesHours, 0)
     bind(d, Keys.workStartHour, 8)
     bind(d, Keys.workEndHour, 18)
     bind(d, Keys.workStartMinutes, 8 * 60)
@@ -558,29 +555,32 @@ final class BreakCoordinator: ObservableObject {
         // The LAN, dock adapter or work Wi-Fi marked in the work log counts as a match here too, so one
         // place of work is set up once. It never switches the work zone on by itself (that stays with the four sources).
         let lanMatch = workLog.isEnabled && workLog.zone.inZone
+        // At work in any sense: one match from any source is enough, whatever the clock says.
+        let atWorkNow = (calOn && workDetector.calendarMatch)
+            || (vpnOn && workDetector.vpnMatch)
+            || (wifiOn && workDetector.wifiMatch)
+            || (geoOn && workDetector.geoMatch)
+            || lanMatch
+        // Working hours and the work zone are alternatives, not both required: the timer runs inside the
+        // hours OR while the Mac is at work (overtime, an outage, a day off), and holds only when neither holds.
+        let inHoursNow = hoursMode == 3 && !outsideHours
         gate("zone-lan", .zone, "LAN i karta z Rejestru pracy", lanMatch ? .passing : .inactive,
              !workLog.isEnabled ? "rejestr pracy wyłączony"
                                 : (lanMatch ? "\(workLog.zone.reason): liczy się do strefy przerw"
                                             : "rejestr pracy też nie widzi strefy pracy"))
         if workDetector.hasActivators {
-            let inZone = (calOn && workDetector.calendarMatch)
-                || (vpnOn && workDetector.vpnMatch)
-                || (wifiOn && workDetector.wifiMatch)
-                || (geoOn && workDetector.geoMatch)
-                || lanMatch
-            if !inZone { desired.insert(.outsideWorkZone) }
-            gate("zone", .zone, "Strefa pracy", inZone ? .passing : .blocking,
-                 inZone ? "co najmniej jedno włączone źródło pasuje" : "żadne z włączonych źródeł nie pasuje")
-            if inZone != lastZoneState {
-                lastZoneState = inZone
-                Trace.log("work-zone: \(inZone ? "IN — breaks active" : "OUT — breaks held")")
+            let zoneBlock = !atWorkNow && !inHoursNow
+            if zoneBlock { desired.insert(.outsideWorkZone) }
+            gate("zone", .zone, "Strefa pracy", zoneBlock ? .blocking : .passing,
+                 atWorkNow ? "co najmniej jedno źródło pasuje"
+                           : (inHoursNow ? "żadne źródło nie pasuje, ale trwają godziny pracy"
+                                         : "żadne źródło nie pasuje i są poza godzinami pracy"))
+            if atWorkNow != lastZoneState {
+                lastZoneState = atWorkNow
+                Trace.log("work-zone: \(atWorkNow ? "IN — breaks active" : "OUT — breaks held")")
             }
         }
-        // Outside the working hours, unless the user lets a connected work VPN / Wi-Fi / saved place
-        // stand in for them (overtime, an outage).
-        let zoneOverrides = d.integer(forKey: Keys.zoneOverridesHours) != 0
-        let presence = workDetector.presencePlace != nil || lanMatch
-        let hoursBlock = outsideHours && !(zoneOverrides && presence)
+        let hoursBlock = outsideHours && !atWorkNow
         if hoursBlock { desired.insert(.outsideWorkingHours) }
         if !workDetector.hasActivators {
             gate("zone", .zone, "Strefa pracy", .inactive, "wszystkie źródła wyłączone: przerwy działają wszędzie")
@@ -590,16 +590,11 @@ final class BreakCoordinator: ObservableObject {
         case 2: gate("hours", .schedule, "Godziny pracy", .inactive, "pominięte: urlop lub święto ma pierwszeństwo")
         case 3:
             gate("hours", .schedule, "Godziny pracy", hoursBlock ? .blocking : .passing,
-                 hoursDetail + (hoursBlock ? " · poza godzinami"
-                                           : (outsideHours ? " · poza godzinami, ale strefa pracy je zastępuje"
+                 hoursDetail + (hoursBlock ? " · poza godzinami i poza strefą pracy"
+                                           : (outsideHours ? " · poza godzinami, ale jesteś w strefie pracy"
                                                            : " · w godzinach pracy")))
         default: gate("hours", .schedule, "Godziny pracy", .inactive, "wyłączone: przerwy działają całą dobę")
         }
-        gate("override", .zone, "Strefa pracy ponad godzinami", zoneOverrides && outsideHours && presence ? .passing : .inactive,
-             !zoneOverrides ? "wyłączone"
-                            : (outsideHours ? (presence ? "VPN, Wi-Fi lub miejsce zastępuje godziny pracy"
-                                                        : "poza godzinami i brak VPN, Wi-Fi ani miejsca")
-                                            : "w godzinach pracy, nie jest potrzebne"))
         // Focus / Do-Not-Disturb: pause while on (separate from the zone).
         let focusOn = d.integer(forKey: Keys.focusDetection) != 0
         let inFocus = focusOn && focusNow(now)
