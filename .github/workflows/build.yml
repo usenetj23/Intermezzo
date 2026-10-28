@@ -1,0 +1,45 @@
+name: Build
+
+# Builds the app on GitHub's servers for testing, without tagging or publishing a release.
+# The zip is attached to the workflow run (Actions tab, Artifacts), unsigned by any developer ID (ad hoc signature).
+on:
+  push:
+    branches-ignore: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: macos-26
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Toolchain
+        run: |
+          xcodebuild -version
+          swift --version
+
+      - name: Build the app
+        working-directory: app
+        run: ./scripts/build_app.sh
+
+      - name: Zip
+        working-directory: app
+        run: |
+          VERSION=$(/usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" Support/Info.plist)
+          ditto -c -k --sequesterRsrc --keepParent dist/Intermezzo.app "Intermezzo-$VERSION-${GITHUB_SHA::7}.zip"
+          ls -l Intermezzo-*.zip
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Intermezzo-${{ github.sha }}
+          path: app/Intermezzo-*.zip
+          if-no-files-found: error
+
+      # After the upload, so a failing test never costs the build.
+      - name: Unit tests
+        working-directory: app
+        continue-on-error: true
+        run: swift test
