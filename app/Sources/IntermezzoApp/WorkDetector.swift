@@ -91,6 +91,14 @@ final class WorkDetector: NSObject, ObservableObject, CLLocationManagerDelegate 
         calendarEnabled || vpnEnabled || wifiEnabled || geoEnabled
     }
 
+    /// Where the enabled work-zone options put the Mac: Wi-Fi or saved place = office, a VPN alone = remote.
+    /// nil = none of them matches. Calendar is not presence.
+    var presencePlace: WorkPlace? {
+        if (wifiEnabled && wifiMatch) || (geoEnabled && geoMatch) { return .office }
+        if vpnEnabled && vpnMatch { return .remote }
+        return nil
+    }
+
     /// Called from the 1-second heartbeat; internally throttled.
     func poll(now: Date) {
         if now.timeIntervalSince(lastAuthRefresh) > 10 {

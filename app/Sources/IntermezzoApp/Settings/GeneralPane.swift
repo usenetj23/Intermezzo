@@ -17,6 +17,7 @@ struct GeneralPane: View {
     @AppStorage(NaturalBreakKeys.enabled) private var naturalLog = 0
     @AppStorage(NaturalBreakKeys.minMinutes) private var naturalMinutes = 0
     @AppStorage(Keys.enforceWorkingHours) private var enforceWorkingHours = false
+    @AppStorage(Keys.zoneOverridesHours) private var zoneOverridesHours = false
     @AppStorage("perDayHours") private var perDayHours = false
     @AppStorage("weekHours") private var weekHoursData = Data()
     @AppStorage(Keys.workStartMinutes) private var workStartMinutes = 480
@@ -125,6 +126,11 @@ struct GeneralPane: View {
                 }
                 LabeledContent("Work ends at") {
                     TimeInput(minutes: $workEndMinutes)
+                }
+                Toggle("Strefa pracy (VPN, Wi-Fi, miejsce) liczy się też poza godzinami pracy", isOn: $zoneOverridesHours)
+                if zoneOverridesHours {
+                    Text("Nadgodziny, awarie: gdy połączysz VPN z listy, jesteś w sieci z listy albo w promieniu zapisanego miejsca (opcje w Intermezzo Intelligence), timer działa także poza godzinami pracy. Bez tego połączenia godziny pracy dalej go wstrzymują.")
+                        .settingsNote()
                 }
                 Group {
                     Toggle("Różne godziny w poszczególne dni", isOn: $perDayHours)
