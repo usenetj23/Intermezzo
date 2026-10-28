@@ -367,8 +367,8 @@ STRINGS = {
     "Enable Pomodoro mode": "Enable Pomodoro mode",
     "Classic 25/5 (4 → 15 min)": "Classic 25/5 (4 → 15 min)",
     "Deep focus 50/10": "Deep focus 50/10",
-    "A 🍅 appears in the menu bar next to the countdown. Work one pomodoro, then take the suggested break fully. Pick a task and log interruptions from the menu-bar panel.":
-        "A 🍅 appears in the menu bar next to the countdown. Work one pomodoro, then take the suggested break fully. Pick a task and log interruptions from the menu-bar panel.",
+    "Work one pomodoro, then take the suggested break fully. Pick a task and log interruptions from the menu-bar panel.":
+        "Work one pomodoro, then take the suggested break fully. Pick a task and log interruptions from the menu-bar panel.",
     "Pomodoro structures work into focused sprints with a real break after each. Turn it on to pick a preset.":
         "Pomodoro structures work into focused sprints with a real break after each. Turn it on to pick a preset.",
     "Projects": "Projects",

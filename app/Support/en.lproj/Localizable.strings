@@ -67,7 +67,6 @@
 "A gentle evening banner reminds you to finish work during the configured window (wraps past midnight)." = "A gentle evening banner reminds you to finish work during the configured window (wraps past midnight).";
 "A pomodoro counts only when you finish it. Resetting the timer or leaving for a long time voids it." = "A pomodoro counts only when you finish it. Resetting the timer or leaving for a long time voids it.";
 "A subtle flash reminds you to check your posture. Skipped during breaks and pauses." = "A subtle flash reminds you to check your posture. Skipped during breaks and pauses.";
-"A 🍅 appears in the menu bar next to the countdown. Work one pomodoro, then take the suggested break fully. Pick a task and log interruptions from the menu-bar panel." = "A 🍅 appears in the menu bar next to the countdown. Work one pomodoro, then take the suggested break fully. Pick a task and log interruptions from the menu-bar panel.";
 "AI" = "AI";
 "AOA / Harvard Health / Kaur 2022 (konsensus; pojedyncze 20 s bywa niewystarczające)" = "AOA / Harvard Health / Kaur 2022 (consensus; a single 20 s is sometimes not enough)";
 "Access to Calendar not granted — enabling it here also requests it" = "Access to Calendar not granted — enabling it here also requests it";
@@ -1249,6 +1248,7 @@
 "Work %lld min" = "Work %lld min";
 "Work ends at" = "Work ends at";
 "Work from any app. You can also automate via URLs, e.g. intermezzo://break/long, intermezzo://break/short/postpone/2m, intermezzo://postpone/5m, intermezzo://skip, intermezzo://resume (s/m/h/d durations; bare number = minutes)." = "Work from any app. You can also automate via URLs, e.g. intermezzo://break/long, intermezzo://break/short/postpone/2m, intermezzo://postpone/5m, intermezzo://skip, intermezzo://resume (s/m/h/d durations; bare number = minutes).";
+"Work one pomodoro, then take the suggested break fully. Pick a task and log interruptions from the menu-bar panel." = "Work one pomodoro, then take the suggested break fully. Pick a task and log interruptions from the menu-bar panel.";
 "Work starts at" = "Work starts at";
 "Work zone — with any option below ON, breaks only run while at least one of the enabled options matches (calendar event, VPN, Wi-Fi or place). All OFF = breaks always run." = "Work zone — with any option below ON, breaks only run while at least one of the enabled options matches (calendar event, VPN, Wi-Fi or place). All OFF = breaks always run.";
 "Working Hours" = "Working Hours";

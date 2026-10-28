@@ -54,7 +54,7 @@ compiler	IntermezzoApp/Settings/SettingsComponents.swift:22	:
 compiler	IntermezzoApp/Settings/ClockOutPane.swift:31	A gentle evening banner reminds you to finish work during the configured window (wraps past midnight).
 compiler	IntermezzoApp/Settings/PomodoroPlanSection.swift:180	A pomodoro counts only when you finish it. Resetting the timer or leaving for a long time voids it.
 compiler	IntermezzoApp/Settings/FlashPane.swift:34	A subtle flash reminds you to check your posture. Skipped during breaks and pauses.
-compiler	IntermezzoApp/Settings/FocusPane.swift:34	A 🍅 appears in the menu bar next to the countdown. Work one pomodoro, then take the suggested break fully. Pick a task and log interruptions from the menu-bar panel.
+compiler	IntermezzoApp/Settings/FocusPane.swift:34	Work one pomodoro, then take the suggested break fully. Pick a task and log interruptions from the menu-bar panel.
 compiler	IntermezzoApp/Settings/GeneralPane.swift:190	Access to Calendar not granted — enabling it here also requests it
 compiler	IntermezzoApp/Settings/BreaksPane.swift:111	Actions run at three points: Before Due (offset seconds before the break), After Start, and After Any End — completed, postponed or skipped.
 compiler	IntermezzoApp/Settings/PomodoroPlanSection.swift:35	Add

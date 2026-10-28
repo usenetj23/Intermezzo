@@ -1206,11 +1206,9 @@ final class BreakCoordinator: ObservableObject {
             edgeGlow.hide()
         } else if let left = engine.timeUntilBreak(now: now) {
             if left < 180 { WeatherController.shared.refreshIfNeeded() }   // scene ready before the break
-            let pomodoro = UserDefaults.standard.integer(forKey: Keys.pomodoroMode) != 0
-            let tomato = pomodoro ? "🍅 " : ""
             // Compact so the item never gets hidden by menu-bar overflow/notch:
             // the button shows a state icon (timer/cup/pause) + MM:SS countdown.
-            statusText = tomato + TimeFormat.short(left)
+            statusText = TimeFormat.short(left)
             statusSymbol = "timer"
             headlineText = String(localized: "Next break in")
             countdownText = TimeFormat.short(left)

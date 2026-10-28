@@ -67,7 +67,6 @@
 "A gentle evening banner reminds you to finish work during the configured window (wraps past midnight)." = "Łagodny wieczorny baner przypomina o zakończeniu pracy w ustawionym oknie czasu (przechodzi przez północ).";
 "A pomodoro counts only when you finish it. Resetting the timer or leaving for a long time voids it." = "Pomodoro liczy się dopiero po ukończeniu. Reset timera albo długie wyjście je unieważnia.";
 "A subtle flash reminds you to check your posture. Skipped during breaks and pauses." = "Subtelny błysk przypomina o sprawdzeniu postawy. Nie pojawia się podczas przerw ani gdy timer jest wstrzymany.";
-"A 🍅 appears in the menu bar next to the countdown. Work one pomodoro, then take the suggested break fully. Pick a task and log interruptions from the menu-bar panel." = "W pasku menu obok odliczania pojawia się 🍅. Przepracuj jedno pomodoro, potem w pełni wykorzystaj proponowaną przerwę. Zadanie wybierzesz i rozproszenia zapiszesz w panelu paska menu.";
 "AI" = "AI";
 "AOA / Harvard Health / Kaur 2022 (konsensus; pojedyncze 20 s bywa niewystarczające)" = "AOA / Harvard Health / Kaur 2022 (konsensus; pojedyncze 20 s bywa niewystarczające)";
 "Access to Calendar not granted — enabling it here also requests it" = "Brak dostępu do Kalendarza — włączenie tej opcji poprosi o niego";
@@ -1249,6 +1248,7 @@
 "Work %lld min" = "Praca %lld min";
 "Work ends at" = "Praca kończy się o";
 "Work from any app. You can also automate via URLs, e.g. intermezzo://break/long, intermezzo://break/short/postpone/2m, intermezzo://postpone/5m, intermezzo://skip, intermezzo://resume (s/m/h/d durations; bare number = minutes)." = "Działają w każdej aplikacji. Możesz też automatyzować przez adresy URL, np. intermezzo://break/long, intermezzo://break/short/postpone/2m, intermezzo://postpone/5m, intermezzo://skip, intermezzo://resume (czasy s/m/h/d; sama liczba = minuty).";
+"Work one pomodoro, then take the suggested break fully. Pick a task and log interruptions from the menu-bar panel." = "Przepracuj jedno pomodoro, potem w pełni wykorzystaj proponowaną przerwę. Zadanie wybierzesz i rozproszenia zapiszesz w panelu paska menu.";
 "Work starts at" = "Praca zaczyna się o";
 "Work zone — with any option below ON, breaks only run while at least one of the enabled options matches (calendar event, VPN, Wi-Fi or place). All OFF = breaks always run." = "Strefa pracy: gdy włączona jest dowolna opcja poniżej, przerwy działają tylko wtedy, gdy pasuje co najmniej jedna z nich (wydarzenie w kalendarzu, VPN, Wi-Fi lub miejsce). Wszystkie wyłączone = przerwy działają zawsze.";
 "Working Hours" = "Godziny pracy";

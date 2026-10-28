@@ -31,7 +31,7 @@ struct FocusPane: View {
                 if pomodoroMode {
                     Button("Classic 25/5 (4 → 15 min)") { applyClassicPomodoro() }
                     Button("Deep focus 50/10") { applyLongFocus() }
-                    Text("A 🍅 appears in the menu bar next to the countdown. Work one pomodoro, then take the suggested break fully. Pick a task and log interruptions from the menu-bar panel.")
+                    Text("Work one pomodoro, then take the suggested break fully. Pick a task and log interruptions from the menu-bar panel.")
                         .settingsNote()
                 } else {
                     Text("Pomodoro structures work into focused sprints with a real break after each. Turn it on to pick a preset.")
