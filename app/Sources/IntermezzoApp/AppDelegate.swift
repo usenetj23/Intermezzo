@@ -729,7 +729,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, UNUs
             } else if NSApp.activationPolicy() == .regular, Date() >= settingsGraceUntil {
                 // Grace: a miniaturized Settings window still exists, only a
                 // fully closed one demotes us.
-                if settingsWindow() == nil {
+                if !(settingsWindow().map { $0.isVisible || $0.isMiniaturized } ?? false) {
                     NSApp.setActivationPolicy(.accessory)
                     Trace.log("settings window closed — back to accessory")
                 }
@@ -764,6 +764,26 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, UNUs
 
     private var windowsBeforeSettings: Set<ObjectIdentifier> = []
 
+    /// Our own Settings window, used when the SwiftUI Settings scene accepts the show action but opens nothing
+    /// (seen on a newer macOS for a menu-bar app). It hosts the same view.
+    private var fallbackSettingsWindow: NSWindow?
+
+    private func showFallbackSettingsWindow() {
+        if fallbackSettingsWindow == nil {
+            let host = NSHostingController(rootView: SettingsView().modelContainer(Store.container))
+            let win = NSWindow(contentViewController: host)
+            win.styleMask = [.titled, .closable, .miniaturizable, .resizable]
+            win.title = "Intermezzo"
+            win.identifier = NSUserInterfaceItemIdentifier("intermezzo.settingsWindow")
+            win.isReleasedWhenClosed = false
+            win.setContentSize(NSSize(width: 900, height: 680))
+            win.center()
+            fallbackSettingsWindow = win
+        }
+        trackedSettingsWindow = fallbackSettingsWindow
+        Trace.log("settings: the Settings scene opened nothing, showing our own window")
+    }
+
     private func sendShowSettingsAction() -> Bool {
         if #available(macOS 14, *) {
             if NSApp.sendAction(Selector(("showSettingsWindow:")), to: nil, from: nil) { return true }
@@ -792,9 +812,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, UNUs
     private func revealSettingsWindow(attempt: Int) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
             guard let self else { return }
-            if self.settingsWindow() == nil, let candidate = self.newSettingsCandidate(since: self.windowsBeforeSettings) {
-                self.trackedSettingsWindow = candidate
-                Trace.log("settings: window recognised by elimination (id=\(candidate.identifier?.rawValue ?? "-"), title='\(candidate.title)', class=\(type(of: candidate)))")
+            if self.settingsWindow() == nil {
+                if let candidate = self.newSettingsCandidate(since: self.windowsBeforeSettings) {
+                    self.trackedSettingsWindow = candidate
+                    Trace.log("settings: window recognised by elimination (id=\(candidate.identifier?.rawValue ?? "-"), title='\(candidate.title)', class=\(type(of: candidate)))")
+                } else if attempt >= 4 {
+                    self.showFallbackSettingsWindow()
+                }
             }
             if let win = self.settingsWindow() {
                 // SwiftUI's Settings scene ships without a minimize button —
