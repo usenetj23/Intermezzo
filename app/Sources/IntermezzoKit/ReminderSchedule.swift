@@ -94,13 +94,36 @@ public enum ReminderSchedule {
         }
     }
 
+    /// A meal break (own length) owns the window `minuteOfDay ..< minuteOfDay + customMinutes`.
+    /// It starts when the regular timer runs out inside that window; if none does, at the window's end.
+    static func window(of b: ScheduledBreak, startOfDay: Date) -> (start: Date, end: Date)? {
+        guard let minutes = b.customMinutes else { return nil }
+        let start = startOfDay.addingTimeInterval(TimeInterval(b.minuteOfDay * 60))
+        return (start, start.addingTimeInterval(TimeInterval(max(1, minutes) * 60)))
+    }
+
+    /// The meal break whose window contains `now` and has not started today yet.
+    public static func mealInWindow(_ items: [ScheduledBreak], lastFired: [UUID: Date],
+                                    now: Date, calendar: Calendar) -> ScheduledBreak? {
+        let startOfDay = calendar.startOfDay(for: now)
+        let weekday = calendar.component(.weekday, from: now)
+        return items.first { b in
+            guard b.enabled, b.weekdays.contains(weekday),
+                  let w = window(of: b, startOfDay: startOfDay), now >= w.start, now < w.end else { return false }
+            if let fired = lastFired[b.id], calendar.isDate(fired, inSameDayAs: now) { return false }
+            return true
+        }
+    }
+
     public static func dueScheduled(_ items: [ScheduledBreak], lastFired: [UUID: Date],
                                     now: Date, calendar: Calendar) -> [ScheduledBreak] {
         let startOfDay = calendar.startOfDay(for: now)
         let weekday = calendar.component(.weekday, from: now)
         return items.filter { b in
             guard b.enabled, b.weekdays.contains(weekday) else { return false }
-            let target = startOfDay.addingTimeInterval(TimeInterval(b.minuteOfDay * 60))
+            // Meal breaks wait for the regular timer; this is their fallback at the window's end.
+            let target = window(of: b, startOfDay: startOfDay)?.end
+                ?? startOfDay.addingTimeInterval(TimeInterval(b.minuteOfDay * 60))
             let late = now.timeIntervalSince(target)
             guard late >= 0, late < catchUpSeconds else { return false }
             if let fired = lastFired[b.id], calendar.isDate(fired, inSameDayAs: now) { return false }
