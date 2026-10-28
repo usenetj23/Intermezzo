@@ -7,6 +7,7 @@ STRINGS = {
     "Automation (System Events)": "Automation (System Events)",
     "Location": "Location",
     "Notifications": "Notifications",
+    "Full Disk Access": "Full Disk Access",
     "Calendar": "Calendar",
     "Natural-break detection (Event Monitor); falls back to polling without it":
         "Natural-break detection (Event Monitor); falls back to polling without it",
@@ -21,4 +22,6 @@ STRINGS = {
     "Break reminders, hydration and backup alerts": "Break reminders, hydration and backup alerts",
     "Meeting and holiday detection, calendar-aware breaks":
         "Meeting and holiday detection, calendar-aware breaks",
+    "Reading Focus modes (work zone and pausing by Focus); optional":
+        "Reading Focus modes (work zone and pausing by Focus); optional",
 }

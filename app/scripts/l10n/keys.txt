@@ -1650,3 +1650,5 @@ runtime	-	Przepuszcza
 runtime	-	Bez wpływu teraz
 runtime	-	Dlaczego timer działa albo stoi: wszystkie czynniki w jednym miejscu
 runtime	-	trwa: %@
+runtime	-	Full Disk Access
+runtime	-	Reading Focus modes (work zone and pausing by Focus); optional
