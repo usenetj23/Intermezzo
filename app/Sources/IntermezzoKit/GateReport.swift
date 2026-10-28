@@ -36,9 +36,12 @@ public struct GateFactor: Identifiable, Equatable, Sendable {
     public let detail: String
     /// Shown for orientation only: it does not change the timer (for example the work-log LAN, which breaks do not read).
     public let informational: Bool
+    /// Settings pane that controls this factor (a pane id the app understands), if it has one.
+    public let link: String?
 
     public init(id: String, group: GateGroup, title: String, verdict: GateVerdict, detail: String,
-                informational: Bool = false) {
+                informational: Bool = false, link: String? = nil) {
+        self.link = link
         self.id = id
         self.group = group
         self.title = title

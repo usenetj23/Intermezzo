@@ -241,10 +241,18 @@ final class BreakCoordinator: ObservableObject {
     @Published private(set) var statusText: String = String(localized: "Paused")
     /// Collected during a tick and published at its end for the Diagnostics pane.
     private var gateFactors: [GateFactor] = []
+    /// Where each factor is set, so a card in Diagnostics can open the right pane.
+    private static let gateLinks: [String: String] = [
+        "vacation": "General", "holiday": "General", "hours": "General",
+        "zone": "General", "zone-calendar": "General", "zone-vpn": "General",
+        "zone-wifi": "General", "zone-geo": "General", "zone-lan": "Work log",
+        "meeting": "General", "video": "General", "focus": "General",
+        "rules": "Rules", "manual": "Status", "idle": "Advanced",
+    ]
     private func gate(_ id: String, _ group: GateGroup, _ title: String, _ verdict: GateVerdict,
                       _ detail: String, info: Bool = false) {
         gateFactors.append(GateFactor(id: id, group: group, title: title, verdict: verdict,
-                                      detail: detail, informational: info))
+                                      detail: detail, informational: info, link: Self.gateLinks[id]))
     }
     private static func clock(_ minutes: Int) -> String { String(format: "%02d:%02d", minutes / 60, minutes % 60) }
     @Published private(set) var statusSymbol: String = "timer"

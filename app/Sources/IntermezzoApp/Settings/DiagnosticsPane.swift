@@ -126,25 +126,49 @@ struct DiagnosticsPane: View {
             if items.isEmpty {
                 Text("—").foregroundStyle(.tertiary).frame(maxWidth: .infinity, alignment: .leading)
             }
-            ForEach(items) { card($0, verdict) }
+            ForEach(items) { factor in
+                if let link = factor.link, let pane = SettingsPane(link: link) {
+                    Button { open(pane) } label: { card(factor, verdict, pane: pane) }
+                        .buttonStyle(.plain)
+                        .help("Otwórz: \(pane.title)")
+                } else {
+                    card(factor, verdict, pane: nil)
+                }
+            }
         }
         .frame(maxWidth: .infinity, alignment: .topLeading)
     }
 
-    private func card(_ factor: GateFactor, _ verdict: GateVerdict) -> some View {
+    /// Same route as `intermezzo://settings/<pane>`: the pane is picked up by the open Settings window.
+    private func open(_ pane: SettingsPane) {
+        SettingsPane.pending = pane
+        NotificationCenter.default.post(name: .openSettingsPane, object: nil)
+    }
+
+    private func card(_ factor: GateFactor, _ verdict: GateVerdict, pane: SettingsPane?) -> some View {
         VStack(alignment: .leading, spacing: 4) {
-            Text(factor.title).font(.caption.weight(.semibold))
+            HStack(alignment: .firstTextBaseline, spacing: 4) {
+                Text(factor.title).font(.caption.weight(.semibold))
+                Spacer(minLength: 0)
+                if pane != nil {
+                    Image(systemName: "chevron.right")
+                        .font(.system(size: 9, weight: .bold))
+                        .foregroundStyle(.tertiary)
+                }
+            }
             Text(factor.detail)
                 .font(.caption2)
                 .foregroundStyle(.secondary)
                 .fixedSize(horizontal: false, vertical: true)
             HStack(spacing: 4) {
                 tag(factor.group.title)
+                if let pane { tag("→ \(pane.title)") }
                 if factor.informational { tag("tylko informacja") }
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(8)
+        .contentShape(Rectangle())
         .background(color(verdict).opacity(0.08), in: RoundedRectangle(cornerRadius: 8, style: .continuous))
         .overlay(
             RoundedRectangle(cornerRadius: 8, style: .continuous)
