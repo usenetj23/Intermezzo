@@ -223,9 +223,6 @@ struct SettingsView: View {
     var body: some View {
         NavigationSplitView {
             List(selection: $selection) {
-                if !query.trimmingCharacters(in: .whitespaces).isEmpty {
-                    SettingsSearchResults(query: query, showAll: showAll, open: openResult)
-                } else {
                 ForEach(SettingsPane.groups, id: \.title) { group in
                     Section(LocalizedStringKey(group.title)) {
                         ForEach(group.panes.filter { showAll || !$0.isExpert }) { pane in
@@ -235,9 +232,17 @@ struct SettingsView: View {
                         }
                     }
                 }
+            }
+            .safeAreaInset(edge: .top, spacing: 0) {
+                SettingsSearchField(query: $query, showAll: showAll, open: openResult)
+            }
+            .overlay(alignment: .top) {
+                if !query.trimmingCharacters(in: .whitespaces).isEmpty {
+                    SettingsSearchResults(query: query, showAll: showAll, open: openResult)
+                        .padding(.horizontal, 10)
+                        .padding(.top, 46)
                 }
             }
-            .searchable(text: $query, placement: .sidebar, prompt: Text("Szukaj w ustawieniach"))
             .scrollContentBackground(.hidden)
             .safeAreaInset(edge: .bottom) { SettingsLevelPicker() }
             .background(SettingsBackdrop(theme: theme, tintHex: tintHex.isEmpty ? nil : tintHex))

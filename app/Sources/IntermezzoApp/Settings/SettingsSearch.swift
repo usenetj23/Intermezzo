@@ -97,7 +97,40 @@ enum SettingsSearch {
     }
 }
 
-/// Sidebar results: one row per match, with the pane it lives in.
+/// Search box pinned above the sidebar list, like the one in System Settings.
+struct SettingsSearchField: View {
+    @Binding var query: String
+    let showAll: Bool
+    let open: (SettingsSearchEntry) -> Void
+    @FocusState private var focused: Bool
+
+    var body: some View {
+        HStack(spacing: 6) {
+            Image(systemName: "magnifyingglass").foregroundStyle(.secondary)
+            TextField("Szukaj w ustawieniach", text: $query)
+                .textFieldStyle(.plain)
+                .focused($focused)
+                .onSubmit {
+                    if let first = SettingsSearch.results(for: query, showAll: showAll).first { open(first) }
+                }
+                .onExitCommand { query = ""; focused = false }
+            if !query.isEmpty {
+                Button { query = "" } label: { Image(systemName: "xmark.circle.fill") }
+                    .buttonStyle(.plain)
+                    .foregroundStyle(.secondary)
+            }
+        }
+        .padding(.horizontal, 8)
+        .padding(.vertical, 6)
+        .background(.quaternary.opacity(0.6), in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+        .overlay(RoundedRectangle(cornerRadius: 8, style: .continuous)
+            .strokeBorder(Color.accentColor.opacity(focused ? 0.9 : 0), lineWidth: 2))
+        .padding(.horizontal, 10)
+        .padding(.vertical, 8)
+    }
+}
+
+/// Drop-down of matches under the search box: one row per setting, with the pane it lives in.
 struct SettingsSearchResults: View {
     let query: String
     let showAll: Bool
@@ -105,21 +138,42 @@ struct SettingsSearchResults: View {
 
     var body: some View {
         let found = SettingsSearch.results(for: query, showAll: showAll)
-        if found.isEmpty {
-            Text("Brak wyników")
-                .foregroundStyle(.secondary)
-        } else {
-            ForEach(found) { entry in
-                Button { open(entry) } label: {
-                    VStack(alignment: .leading, spacing: 2) {
-                        Text(entry.title).lineLimit(2)
-                        Label(LocalizedStringKey(entry.pane.title), systemImage: entry.pane.symbol)
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                    }
+        ScrollView {
+            VStack(alignment: .leading, spacing: 2) {
+                if found.isEmpty {
+                    Text("Brak wyników")
+                        .foregroundStyle(.secondary)
+                        .padding(10)
                 }
-                .buttonStyle(.plain)
+                ForEach(found) { entry in
+                    Button { open(entry) } label: {
+                        HStack(spacing: 8) {
+                            Image(systemName: entry.pane.symbol)
+                                .font(.system(size: 12, weight: .semibold))
+                                .foregroundStyle(Color.black.opacity(0.8))
+                                .frame(width: 24, height: 24)
+                                .background(Color.accentColor, in: RoundedRectangle(cornerRadius: 6, style: .continuous))
+                            VStack(alignment: .leading, spacing: 1) {
+                                Text(entry.title).lineLimit(2).multilineTextAlignment(.leading)
+                                Text(LocalizedStringKey(entry.pane.title))
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
+                            }
+                            Spacer(minLength: 0)
+                        }
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 5)
+                        .contentShape(Rectangle())
+                    }
+                    .buttonStyle(.plain)
+                }
             }
+            .padding(6)
         }
+        .frame(maxHeight: 360)
+        .fixedSize(horizontal: false, vertical: true)
+        .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 10, style: .continuous))
+        .overlay(RoundedRectangle(cornerRadius: 10, style: .continuous).strokeBorder(.white.opacity(0.12)))
+        .shadow(color: .black.opacity(0.35), radius: 12, y: 4)
     }
 }
