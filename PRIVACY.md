@@ -17,7 +17,8 @@ Intermezzo is a free, open-source macOS app. This page says what it stores, what
 
 Each of these needs a permission you grant in macOS, and the app works without any of them (the relevant feature is then unavailable). Nothing read this way is sent anywhere.
 
-- **Calendar:** event times and titles, compared on your Mac with your keywords for meetings, work and holidays.
+- **Calendar:** event times, titles, calendar names, your availability and your reply status, compared on your Mac with the calendars and keywords you choose for meetings, work and holidays.
+- **Full Disk Access (optional):** lets the app read which Focus mode is on, from the files macOS keeps in `~/Library/DoNotDisturb`. They are read on your Mac only and nothing from them is stored or sent.
 - **Location:** for the weather effect, sun position and the saved-place work zone. The name of the Wi-Fi network you are on is compared locally with the names you list.
 - **Input Monitoring:** a listen-only event tap that notes *when* you last pressed a key or clicked, to tell that you are away or took a natural pause. It does not record which keys you press or what you type.
 - **Screen Recording:** the picture of your desktop behind the rain and glass effects on the break screen. It is used only to draw the break screen, and the app does not send it anywhere.
@@ -48,4 +49,4 @@ You can switch each feature and permission off in Settings and in System Setting
 
 If this changes, the change will appear in this file and in the release notes. Questions: open an issue at https://github.com/usenetj23/Intermezzo/issues.
 
-*Last updated: 2026-10-26, for version 1.40.0.*
+*Last updated: 2026-10-28, for version 1.41.0.*
