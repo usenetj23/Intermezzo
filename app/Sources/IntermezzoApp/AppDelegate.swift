@@ -717,12 +717,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, UNUs
                     self.chip?.hide()
                 }
             }
-            let win = NSApp.windows.first { w in
-                w.identifier?.rawValue == "com.apple.SwiftUI.settingsWindow"
-                    || (w.isVisible && (w.title.localizedCaseInsensitiveContains("Settings")
-                        || w.title.localizedCaseInsensitiveContains("Ustawienia")))
-            }
-            if let win {
+            if let win = settingsWindow(), win.isVisible || win.isMiniaturized {
                 if NSApp.activationPolicy() != .regular {
                     NSApp.setActivationPolicy(.regular)
                     NSApp.activate(ignoringOtherApps: true)
@@ -734,10 +729,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, UNUs
             } else if NSApp.activationPolicy() == .regular, Date() >= settingsGraceUntil {
                 // Grace: a miniaturized Settings window still exists, only a
                 // fully closed one demotes us.
-                let any = NSApp.windows.contains { w in
-                    w.identifier?.rawValue == "com.apple.SwiftUI.settingsWindow"
-                }
-                if !any {
+                if settingsWindow() == nil {
                     NSApp.setActivationPolicy(.accessory)
                     Trace.log("settings window closed — back to accessory")
                 }
@@ -748,13 +740,29 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, UNUs
     /// While a request to open Settings is in flight the background check must not give the Dock icon back.
     private var settingsGraceUntil = Date.distantPast
 
+    /// The Settings window found by what appeared after the show action. Newer macOS versions name the window
+    /// differently, and its title is the selected pane, so the identifier and title checks alone can miss it.
+    private weak var trackedSettingsWindow: NSWindow?
+
     private func settingsWindow() -> NSWindow? {
-        NSApp.windows.first { w in
-            w.identifier?.rawValue == "com.apple.SwiftUI.settingsWindow"
+        if let tracked = trackedSettingsWindow, NSApp.windows.contains(tracked) { return tracked }
+        return NSApp.windows.first { w in
+            let id = w.identifier?.rawValue.lowercased() ?? ""
+            return id.contains("settings")
                 || w.title.localizedCaseInsensitiveContains("Settings")
                 || w.title.localizedCaseInsensitiveContains("Ustawienia")
         }
     }
+
+    /// A titled, ordinary window that was not there before the show action: the Settings window by elimination.
+    private func newSettingsCandidate(since known: Set<ObjectIdentifier>) -> NSWindow? {
+        NSApp.windows.first { w in
+            !known.contains(ObjectIdentifier(w)) && !(w is NSPanel)
+                && w.styleMask.contains(.titled) && w.level == .normal
+        }
+    }
+
+    private var windowsBeforeSettings: Set<ObjectIdentifier> = []
 
     private func sendShowSettingsAction() -> Bool {
         if #available(macOS 14, *) {
@@ -771,6 +779,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, UNUs
         // to accessory when the window closes so the Dock icon stays hidden.
         settingsGraceUntil = Date().addingTimeInterval(6)
         NSApp.setActivationPolicy(.regular)
+        windowsBeforeSettings = Set(NSApp.windows.map(ObjectIdentifier.init))
+        trackedSettingsWindow = nil
         let sent = sendShowSettingsAction()
         Trace.log("settings: action sent=\(sent), window exists=\(settingsWindow() != nil)")
         NSApp.activate(ignoringOtherApps: true)
@@ -782,6 +792,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, UNUs
     private func revealSettingsWindow(attempt: Int) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
             guard let self else { return }
+            if self.settingsWindow() == nil, let candidate = self.newSettingsCandidate(since: self.windowsBeforeSettings) {
+                self.trackedSettingsWindow = candidate
+                Trace.log("settings: window recognised by elimination (id=\(candidate.identifier?.rawValue ?? "-"), title='\(candidate.title)', class=\(type(of: candidate)))")
+            }
             if let win = self.settingsWindow() {
                 // SwiftUI's Settings scene ships without a minimize button —
                 // enable miniaturize/zoom so the window can live in the Dock.
@@ -798,7 +812,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, UNUs
                 if attempt == 3 { _ = self.sendShowSettingsAction() }
                 self.revealSettingsWindow(attempt: attempt + 1)
             } else {
-                Trace.log("settings: the window did not appear")
+                Trace.log("settings: the window did not appear; windows: " + NSApp.windows.map {
+                    "[id=\($0.identifier?.rawValue ?? "-") title='\($0.title)' class=\(type(of: $0)) visible=\($0.isVisible) level=\($0.level.rawValue)]"
+                }.joined(separator: " "))
                 self.settingsGraceUntil = .distantPast
             }
         }
