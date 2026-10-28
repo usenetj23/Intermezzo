@@ -29,7 +29,7 @@ final class IntelligenceController {
     private var meetingCacheAt = Date.distantPast
     private var meetingCacheValue = false
     /// Why the last check said what it said, for the Diagnostics pane.
-    private(set) var meetingReason = "brak spotkania"
+    private(set) var meetingReason = L("brak spotkania")
     private var videoCacheAt = Date.distantPast
     private var videoCacheValue = false
 
@@ -54,14 +54,14 @@ final class IntelligenceController {
     /// app runs, and only then are the running apps listed.
     private func computeMeetingInProgress() -> Bool {
         if let front = NSWorkspace.shared.frontmostApplication, isMeetingApp(front) {
-            meetingReason = "\(front.localizedName ?? "aplikacja spotkań") jest na pierwszym planie"
+            meetingReason = L("%@ jest na pierwszym planie", front.localizedName ?? L("aplikacja spotkań"))
             return true
         }
         if Self.microphoneInUse(), let app = NSWorkspace.shared.runningApplications.first(where: isMeetingApp) {
-            meetingReason = "\(app.localizedName ?? "aplikacja spotkań") działa, a mikrofon jest w użyciu"
+            meetingReason = L("%@ działa, a mikrofon jest w użyciu", app.localizedName ?? L("aplikacja spotkań"))
             return true
         }
-        meetingReason = "brak spotkania"
+        meetingReason = L("brak spotkania")
         return false
     }
 

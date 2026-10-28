@@ -30,10 +30,10 @@ public enum GateGroup: String, CaseIterable, Sendable {
 
     public var title: String {
         switch self {
-        case .schedule: return "Harmonogram"
-        case .zone: return "Strefa pracy"
-        case .detection: return "Wykrywanie"
-        case .user: return "Ty"
+        case .schedule: return kitL("Harmonogram")
+        case .zone: return kitL("Strefa pracy")
+        case .detection: return kitL("Wykrywanie")
+        case .user: return kitL("Ty")
         }
     }
 }
@@ -102,11 +102,11 @@ public struct GateReport: Equatable, Sendable {
     }
 
     public var headline: String {
-        if onBreak { return "Trwa przerwa" }
-        if running { return "Timer działa" }
+        if onBreak { return kitL("Trwa przerwa") }
+        if running { return kitL("Timer działa") }
         let n = blockers.count
-        if n == 0 { return "Timer wstrzymany" }
-        return "Timer wstrzymany: \(n) \(Self.reasons(n))"
+        if n == 0 { return kitL("Timer wstrzymany") }
+        return kitL("Timer wstrzymany: %lld %@", n, kitL(Self.reasons(n)))
     }
 
     /// Polish plural of "powód".

@@ -26,8 +26,14 @@ struct FocusRolesView: View {
         Group {
             if let snapshot {
                 LabeledContent("Włączony teraz") {
-                    Text(snapshot.active.isEmpty ? "żaden" : snapshot.active.map(\.name).joined(separator: ", "))
-                        .foregroundStyle(.secondary)
+                    Group {
+                        if snapshot.active.isEmpty {
+                            Text("żaden")
+                        } else {
+                            Text(snapshot.active.map(\.name).joined(separator: ", "))
+                        }
+                    }
+                    .foregroundStyle(.secondary)
                 }
                 ForEach(snapshot.known) { mode in
                     Picker(mode.name, selection: binding(mode.id)) {

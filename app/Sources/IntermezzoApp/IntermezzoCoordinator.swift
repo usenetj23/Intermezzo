@@ -263,8 +263,9 @@ final class BreakCoordinator: ObservableObject {
     ]
     private func gate(_ id: String, _ group: GateGroup, _ title: String, _ verdict: GateVerdict,
                       _ detail: String, info: Bool = false) {
-        gateFactors.append(GateFactor(id: id, group: group, title: title, verdict: verdict,
-                                      detail: detail, informational: info, link: Self.gateLinks[id]))
+        // Plain texts are looked up here; texts with values arrive already built by L("… %@", value).
+        gateFactors.append(GateFactor(id: id, group: group, title: L(title), verdict: verdict,
+                                      detail: L(detail), informational: info, link: Self.gateLinks[id]))
     }
     private static func clock(_ minutes: Int) -> String { String(format: "%02d:%02d", minutes / 60, minutes % 60) }
     @Published private(set) var statusSymbol: String = "timer"
@@ -461,12 +462,13 @@ final class BreakCoordinator: ObservableObject {
             let timeOK = today.contains(minute: minuteOfDay)
             outsideHours = !(dayOK && timeOK)
             hoursMode = 3
-            hoursDetail = "teraz \(Self.clock(minuteOfDay)) · dziś "
-                + (dayOK ? "\(Self.clock(today.start))–\(Self.clock(today.end))" : "dzień wolny")
+            hoursDetail = dayOK
+                ? L("teraz %@ · dziś %@", Self.clock(minuteOfDay), "\(Self.clock(today.start))–\(Self.clock(today.end))")
+                : L("teraz %@ · dziś dzień wolny", Self.clock(minuteOfDay))
         }
         let vacationUntil = Date(timeIntervalSince1970: d.double(forKey: Keys.vacationUntil))
         gate("vacation", .schedule, "Tryb urlopu", onVacation ? .blocking : .inactive,
-             onVacation ? "do \(vacationUntil.formatted(date: .abbreviated, time: .omitted))" : "wyłączony")
+             onVacation ? L("do %@", vacationUntil.formatted(date: .abbreviated, time: .omitted)) : "wyłączony")
         let holidayOn = d.integer(forKey: Keys.holidayGuard) != 0
         gate("holiday", .schedule, "Ochrona świąt i urlopów", onHoliday ? .blocking : (holidayOn ? .passing : .inactive),
              onHoliday ? "dziś w kalendarzu jest wydarzenie urlop/święto"
@@ -560,17 +562,17 @@ final class BreakCoordinator: ObservableObject {
         let vpnNames = workDetector.vpnConnectedNames.joined(separator: ", ")
         gate("zone-vpn", .zone, "VPN", vpnOn && workDetector.vpnMatch ? .passing : .inactive,
              !vpnOn ? "wyłączone"
-                    : (workDetector.vpnMatch ? "połączono: \(vpnNames)"
-                       : (vpnNames.isEmpty ? "brak połączenia VPN" : "połączono (\(vpnNames)), ale nie z listy")))
+                    : (workDetector.vpnMatch ? L("połączono: %@", vpnNames)
+                       : (vpnNames.isEmpty ? "brak połączenia VPN" : L("połączono (%@), ale nie z listy", vpnNames))))
         gate("zone-wifi", .zone, "Wi-Fi", wifiOn && workDetector.wifiMatch ? .passing : .inactive,
              !wifiOn ? "wyłączone"
-                     : (workDetector.wifiMatch ? "sieć: \(workDetector.currentSSID)"
+                     : (workDetector.wifiMatch ? L("sieć: %@", workDetector.currentSSID)
                         : (workDetector.currentSSID.isEmpty ? "brak Wi-Fi albo brak zgody na Lokalizację"
-                           : "sieć \(workDetector.currentSSID) nie jest z listy")))
+                           : L("sieć %@ nie jest z listy", workDetector.currentSSID))))
         gate("zone-geo", .zone, "Zapisane miejsce", geoOn && workDetector.geoMatch ? .passing : .inactive,
              !geoOn ? "wyłączone"
                     : (workDetector.geoMatch ? "w promieniu miejsca"
-                       : (workDetector.geoDistanceM >= 0 ? "\(Int(workDetector.geoDistanceM)) m od miejsca" : "położenie nieznane")))
+                       : (workDetector.geoDistanceM >= 0 ? L("%lld m od miejsca", Int(workDetector.geoDistanceM)) : "położenie nieznane")))
         let workLog = WorkLogController.shared
         // Focus: which modes are on and what each is for (work, hold breaks, ignore).
         let focusOn = d.integer(forKey: Keys.focusDetection) != 0
@@ -588,7 +590,8 @@ final class BreakCoordinator: ObservableObject {
             } else if activeFocus.isEmpty {
                 focusZoneDetail = "żaden Focus nie jest włączony"
             } else {
-                focusZoneDetail = "włączony: \(activeFocusNames)" + (focusAtWork ? " (praca)" : " (nie jako praca)")
+                focusZoneDetail = focusAtWork ? L("włączony: %@ (praca)", activeFocusNames)
+                                              : L("włączony: %@ (nie jako praca)", activeFocusNames)
             }
         }
         gate("zone-focus", .zone, "Focus oznaczony jako praca", focusAtWork ? .passing : .inactive, focusZoneDetail)
@@ -607,7 +610,7 @@ final class BreakCoordinator: ObservableObject {
         let inHoursNow = hoursMode == 3 && !outsideHours
         gate("zone-lan", .zone, "LAN i karta z Rejestru pracy", lanMatch ? .passing : .inactive,
              !workLog.isEnabled ? "rejestr pracy wyłączony"
-                                : (lanMatch ? "\(workLog.zone.reason): liczy się do strefy przerw"
+                                : (lanMatch ? L("%@: liczy się do strefy przerw", workLog.zone.reason)
                                             : "rejestr pracy też nie widzi strefy pracy"))
         if workDetector.hasActivators {
             let zoneBlock = !atWorkNow && !inHoursNow
@@ -631,9 +634,9 @@ final class BreakCoordinator: ObservableObject {
         case 2: gate("hours", .schedule, "Godziny pracy", .inactive, "pominięte: urlop lub święto ma pierwszeństwo")
         case 3:
             gate("hours", .schedule, "Godziny pracy", hoursBlock ? .blocking : .passing,
-                 hoursDetail + (hoursBlock ? " · poza godzinami i poza strefą pracy"
-                                           : (outsideHours ? " · poza godzinami, ale jesteś w strefie pracy"
-                                                           : " · w godzinach pracy")))
+                 hoursBlock ? L("%@ · poza godzinami i poza strefą pracy", hoursDetail)
+                            : (outsideHours ? L("%@ · poza godzinami, ale jesteś w strefie pracy", hoursDetail)
+                                            : L("%@ · w godzinach pracy", hoursDetail)))
         default: gate("hours", .schedule, "Godziny pracy", .inactive, "wyłączone: przerwy działają całą dobę")
         }
         // Focus / Do-Not-Disturb: pause while on (separate from the zone).
@@ -647,11 +650,11 @@ final class BreakCoordinator: ObservableObject {
             if inFocus {
                 focusDetail = pausingFocus.isEmpty
                     ? "Focus jest włączony"
-                    : "wstrzymuje: \(pausingFocus.map(\.name).joined(separator: ", "))"
+                    : L("wstrzymuje: %@", pausingFocus.map(\.name).joined(separator: ", "))
             } else if activeFocus.isEmpty {
                 focusDetail = "żaden Focus nie jest włączony"
             } else {
-                focusDetail = "włączony: \(activeFocusNames) (nie wstrzymuje)"
+                focusDetail = L("włączony: %@ (nie wstrzymuje)", activeFocusNames)
             }
         }
         gate("focus", .detection, "Focus / Nie przeszkadzać", inFocus ? .blocking : (focusOn ? .passing : .inactive), focusDetail)
@@ -824,7 +827,7 @@ final class BreakCoordinator: ObservableObject {
             gate("idle", .user, "Brak aktywności", .inactive, "wykrywanie wyłączone")
         } else if reasons.contains(.userAway) {
             let minutes = awaySince.map { Int(now.timeIntervalSince($0) / 60) } ?? 0
-            gate("idle", .user, "Brak aktywności", .blocking, "brak ruchu myszy i klawiatury od \(minutes) min")
+            gate("idle", .user, "Brak aktywności", .blocking, L("brak ruchu myszy i klawiatury od %lld min", minutes))
         } else {
             gate("idle", .user, "Brak aktywności", .passing, "pracujesz przy komputerze")
         }

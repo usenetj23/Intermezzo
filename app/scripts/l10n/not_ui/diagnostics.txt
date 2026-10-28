@@ -1,0 +1,16 @@
+# Diagnostics: pane links (pane id + row id) and file names, not UI text
+General#vacation
+General#holiday
+General#hours
+General#zone-calendar
+General#zone-vpn
+General#zone-wifi
+General#zone-geo
+Work log#lan
+General#meeting
+General#video
+General#focus
+Status#pause
+Advanced#idle
+ModeConfigurations.json
+Assertions.json

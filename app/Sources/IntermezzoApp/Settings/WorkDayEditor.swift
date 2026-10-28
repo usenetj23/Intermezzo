@@ -71,7 +71,7 @@ struct WorkDayEditor: View {
                 DatePicker("Od", selection: row.start, displayedComponents: .hourAndMinute)
                 DatePicker("Do", selection: row.end, displayedComponents: .hourAndMinute)
                     .disabled(endLocked)
-                    .help(endLocked ? "Koniec jest początkiem trwającego odcinka i nie można go zmienić." : "")
+                    .help(endLocked ? Text("Koniec jest początkiem trwającego odcinka i nie można go zmienić.") : Text(""))
                 Picker("", selection: row.place) {
                     Text("Biuro").tag(WorkPlace.office)
                     Text("Zdalnie").tag(WorkPlace.remote)

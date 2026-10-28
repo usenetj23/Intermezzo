@@ -255,7 +255,10 @@ struct LightPane: View {
             }
             LabeledContent("Teraz stosuję") {
                 let atWork = workLog.zone.inZone || workDetector.presencePlace != nil
-                Text(atWork ? "ustawienie z pracy" : "ustawienie domowe").foregroundStyle(.secondary)
+                Group {
+                    if atWork { Text("ustawienie z pracy") } else { Text("ustawienie domowe") }
+                }
+                .foregroundStyle(.secondary)
             }
             Text("Praca = Mac jest w strefie pracy: sieć LAN lub Wi-Fi z Rejestru pracy, albo Wi-Fi, VPN lub miejsce z Ogólne → strefa pracy. Poza nią używam ustawienia domowego. Kolor lamp wpływa tylko na barwę ekranu wieczorem i tylko gdy czujnik pokazuje oświetlony pokój (co najmniej 100 lx); jasność i przyciemnianie zależą wyłącznie od lx.")
                 .settingsNote()

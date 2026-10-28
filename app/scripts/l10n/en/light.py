@@ -137,8 +137,6 @@ STRINGS = {
         "Lid closed: the sensor cannot see the room, the schedule alone is used.",
     "Ten Mac nie udostępnia czujnika światła: działa sam harmonogram.":
         "This Mac does not provide a light sensor: the schedule alone is used.",
-    "Lampy w pokoju":
-        "Lamps in the room",
     "Nie wiem":
         "I don't know",
     "Ciepłe (ok. 2700 K)":

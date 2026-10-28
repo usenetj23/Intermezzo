@@ -22,9 +22,9 @@ public enum FocusRole: String, Codable, CaseIterable, Sendable {
 
     public var title: String {
         switch self {
-        case .work: return "Praca (strefa pracy)"
-        case .pause: return "Wstrzymuje przerwy"
-        case .ignore: return "Ignoruj"
+        case .work: return kitL("Praca (strefa pracy)")
+        case .pause: return kitL("Wstrzymuje przerwy")
+        case .ignore: return kitL("Ignoruj")
         }
     }
 }
@@ -104,7 +104,7 @@ public enum FocusModes {
     }
 
     public static func displayName(for id: String, names: [String: String]) -> String {
-        names[id] ?? builtInNames[id] ?? id
+        names[id] ?? builtInNames[id].map { kitL($0) } ?? id
     }
 
     /// The Work mode counts as work unless the user said otherwise; every other mode holds breaks, as before.

@@ -77,9 +77,17 @@ struct DiagnosticsPane: View {
                 .foregroundStyle(color(verdict))
             Text(group.title)
                 .font(.caption.weight(.semibold))
-            Text(blocking > 0 ? "blokuje: \(blocking)" : (verdict == .passing ? "przepuszcza" : "bez wpływu"))
-                .font(.caption2)
-                .foregroundStyle(.secondary)
+            Group {
+                if blocking > 0 {
+                    Text("blokuje: \(blocking)")
+                } else if verdict == .passing {
+                    Text("przepuszcza")
+                } else {
+                    Text("bez wpływu")
+                }
+            }
+            .font(.caption2)
+            .foregroundStyle(.secondary)
         }
         .frame(maxWidth: .infinity)
         .padding(.vertical, 10)
@@ -119,7 +127,7 @@ struct DiagnosticsPane: View {
         return VStack(alignment: .leading, spacing: 8) {
             HStack(spacing: 6) {
                 Circle().fill(color(verdict)).frame(width: 8, height: 8)
-                Text(title).font(.subheadline.weight(.semibold))
+                Text(LocalizedStringKey(title)).font(.subheadline.weight(.semibold))
                 Spacer(minLength: 0)
                 Text("\(items.count)").font(.caption).foregroundStyle(.secondary)
             }
@@ -130,7 +138,7 @@ struct DiagnosticsPane: View {
                 if let link = factor.link, let target = Self.target(of: link) {
                     Button { open(target.pane, anchor: target.anchor) } label: { card(factor, verdict, pane: target.pane) }
                         .buttonStyle(.plain)
-                        .help("Otwórz: \(target.pane.title)")
+                        .help("Otwórz: \(L(target.pane.title))")
                 } else {
                     card(factor, verdict, pane: nil)
                 }
@@ -169,9 +177,9 @@ struct DiagnosticsPane: View {
                 .foregroundStyle(.secondary)
                 .fixedSize(horizontal: false, vertical: true)
             HStack(spacing: 4) {
-                tag(factor.group.title)
-                if let pane { tag("→ \(pane.title)") }
-                if factor.informational { tag("tylko informacja") }
+                tag(Text(factor.group.title))
+                if let pane { tag(Text("→ ") + Text(LocalizedStringKey(pane.title))) }
+                if factor.informational { tag(Text("tylko informacja")) }
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -185,8 +193,8 @@ struct DiagnosticsPane: View {
         )
     }
 
-    private func tag(_ text: String) -> some View {
-        Text(text)
+    private func tag(_ text: Text) -> some View {
+        text
             .font(.system(size: 9, weight: .medium))
             .padding(.horizontal, 5)
             .padding(.vertical, 1)

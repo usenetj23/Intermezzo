@@ -136,8 +136,6 @@ STRINGS = {
         "Klapa zamknięta: czujnik nie widzi pokoju, działa sam harmonogram.",
     "Ten Mac nie udostępnia czujnika światła: działa sam harmonogram.":
         "Ten Mac nie udostępnia czujnika światła: działa sam harmonogram.",
-    "Lampy w pokoju":
-        "Lampy w pokoju",
     "Nie wiem":
         "Nie wiem",
     "Ciepłe (ok. 2700 K)":

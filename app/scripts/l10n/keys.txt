@@ -349,7 +349,6 @@ compiler	IntermezzoKit/BreakMessage.swift:88	Krążenia ramion do tyłu x10. Sk�
 compiler	IntermezzoKit/BreakMessage.swift:108	Kręgosłup i odcinek lędźwiowy
 compiler	IntermezzoApp/Settings/AwakePane.swift:138	Kto jeszcze trzyma Maca
 compiler	IntermezzoApp/BreakOverlay.swift:529	LONG BREAK
-compiler	IntermezzoApp/Settings/LightPane.swift:240	Lampy w pokoju
 compiler	IntermezzoApp/Settings/PomodoroPlanSection.swift:228	Last 7 days by project
 compiler	IntermezzoApp/Settings/GeneralPane.swift:75	Launch when Mac starts
 compiler	IntermezzoApp/Settings/WorkLogPane.swift:72	Licz także sieć w zasięgu, bez połączenia (skan co 5 min)
@@ -1113,6 +1112,37 @@ compiler	IntermezzoKit/HealthMessages.swift:271	☐ Ekran: środek poniżej oczu
 compiler	IntermezzoApp/Settings/BreaksPane.swift:107	＋ Add Action
 compiler	IntermezzoApp/Settings/BreakLookSections.swift:202	＋ Add images…
 compiler	IntermezzoApp/Settings/BreakLookSections.swift:78	＋ Add text
+compiler	IntermezzoApp/IntermezzoCoordinator.swift:591	żaden Focus nie jest włączony
+compiler	IntermezzoApp/Settings/DiagnosticsPane.swift:45	Timer rusza, gdy nic go nie blokuje. W strefie pracy wystarczy jedno dopasowanie: kalendarz, VPN, Wi-Fi, miejsce albo LAN i karta z Rejestru pracy.
+compiler	IntermezzoApp/Settings/DiagnosticsPane.swift:82	blokuje: %lld
+compiler	IntermezzoApp/Settings/BreakStyleSection.swift:28	przepuszcza
+compiler	IntermezzoApp/Settings/DiagnosticsPane.swift:86	bez wpływu
+compiler	IntermezzoApp/YouTubeTheme.swift:67	—
+compiler	IntermezzoApp/Settings/DiagnosticsPane.swift:141	Otwórz: %@
+compiler	IntermezzoApp/FlashReminder.swift:3	→ 
+compiler	IntermezzoApp/Settings/DiagnosticsPane.swift:182	tylko informacja
+compiler	IntermezzoApp/Settings/FocusRolesView.swift:28	Włączony teraz
+compiler	IntermezzoApp/IntermezzoCoordinator.swift:591	żaden
+compiler	IntermezzoApp/Settings/FocusRolesView.swift:43	Telefon przełącza Focus po lokalizacji GPS i synchronizuje go z Makiem, więc tryb oznaczony jako praca mówi, że jesteś w pracy. Pozostałe tryby domyślnie wstrzymują przerwy (jeśli włączone jest wykrywanie Focus).
+compiler	IntermezzoApp/Settings/FocusRolesView.swift:46	Nie mogę odczytać trybów Focus. macOS chroni ten folder: dodaj Intermezzo w Prywatność i ochrona → Pełny dostęp do dysku, potem uruchom aplikację ponownie.
+compiler	IntermezzoApp/Settings/FocusRolesView.swift:50	Otwórz ustawienia prywatności
+compiler	IntermezzoApp/Settings/FocusRolesView.swift:55	Sprawdź ponownie
+compiler	IntermezzoApp/Settings/GeneralPane.swift:91	Pokaż licznik także na ekranie z notchem
+compiler	IntermezzoApp/Settings/GeneralPane.swift:93	Na MacBooku z notchem pełny pasek menu może schować ikonę razem z licznikiem. Gdy tak się stanie, licznik widać w pływającej pastylce.
+compiler	IntermezzoApp/Settings/GeneralPane.swift:95	Koloruj ikonę w pasku menu według stanu timera
+compiler	IntermezzoApp/Settings/GeneralPane.swift:96	Zielona: timer działa. Niebieska: trwa przerwa. Pomarańczowa: wstrzymany przez spotkanie, wideo, Focus, regułę lub brak aktywności. Fioletowa: poza godzinami i strefą pracy albo urlop. Szara: wstrzymany ręcznie.
+compiler	IntermezzoApp/Settings/GeneralPane.swift:140	Przerwy działają w godzinach pracy LUB gdy Mac jest w strefie pracy (VPN, Wi-Fi, miejsce albo LAN i karta z Rejestru pracy): nadgodziny, awaria, dzień wolny. Timer stoi dopiero wtedy, gdy nie zachodzi żadne z dwóch.
+compiler	IntermezzoApp/Settings/GeneralPane.swift:199	Focus oznaczony jako „praca” liczy się do strefy pracy
+compiler	IntermezzoApp/Settings/LightPane.swift:243	Lampy w pokoju (dom i reszta miejsc)
+compiler	IntermezzoApp/Settings/LightPane.swift:249	Lampy w pracy
+compiler	IntermezzoApp/Settings/LightPane.swift:250	Tak samo jak wyżej
+compiler	IntermezzoApp/Settings/LightPane.swift:256	Teraz stosuję
+compiler	IntermezzoApp/Settings/LightPane.swift:259	ustawienie z pracy
+compiler	IntermezzoApp/Settings/LightPane.swift:259	ustawienie domowe
+compiler	IntermezzoApp/Settings/LightPane.swift:263	Praca = Mac jest w strefie pracy: sieć LAN lub Wi-Fi z Rejestru pracy, albo Wi-Fi, VPN lub miejsce z Ogólne → strefa pracy. Poza nią używam ustawienia domowego. Kolor lamp wpływa tylko na barwę ekranu wieczorem i tylko gdy czujnik pokazuje oświetlony pokój (co najmniej 100 lx); jasność i przyciemnianie zależą wyłącznie od lx.
+compiler	IntermezzoApp/Settings/WorkDayEditor.swift:74	Koniec jest początkiem trwającego odcinka i nie można go zmienić.
+compiler	IntermezzoApp/Settings/WorkDayEditor.swift:95	Koniec zablokowany: odcinek łączy się z trwającym.
+compiler	IntermezzoApp/Settings/StatusPane.swift:91	Odroczenie działa podczas przerwy i tuż przed nią.
 runtime	-	%@: w tej chwili i tak nie musisz patrzeć na ekran. Zrobić krótką przerwę teraz?
 runtime	-	10 pełnych, wolnych mrugnięć — powieka do powieki.
 runtime	-	10 wolnych przysiadów. Krążenie wraca, mózg dostaje tlen, biodra otwierają się po siedzeniu.
@@ -1522,3 +1552,90 @@ runtime	-	Śniadanie
 runtime	-	Światło
 runtime	-	Światło i odbicia
 runtime	-	Świeże powietrze
+runtime	-	brak spotkania
+runtime	-	%@ jest na pierwszym planie
+runtime	-	%@ działa, a mikrofon jest w użyciu
+runtime	-	aplikacja spotkań
+runtime	-	Tryb urlopu
+runtime	-	do %@
+runtime	-	Ochrona świąt i urlopów
+runtime	-	dziś w kalendarzu jest wydarzenie urlop/święto
+runtime	-	dziś bez wydarzenia urlop/święto
+runtime	-	wyłączona
+runtime	-	Spotkanie (Zoom, Teams, Webex)
+runtime	-	wykrywanie wyłączone
+runtime	-	oglądasz wideo
+runtime	-	brak wideo
+runtime	-	Reguły wstrzymujące
+runtime	-	żadna reguła nie wstrzymuje
+runtime	-	brak reguł tego typu
+runtime	-	Kalendarz
+runtime	-	trwa pasujące wydarzenie
+runtime	-	brak pasującego wydarzenia
+runtime	-	VPN
+runtime	-	połączono: %@
+runtime	-	brak połączenia VPN
+runtime	-	połączono (%@), ale nie z listy
+runtime	-	sieć: %@
+runtime	-	brak Wi-Fi albo brak zgody na Lokalizację
+runtime	-	sieć %@ nie jest z listy
+runtime	-	Zapisane miejsce
+runtime	-	w promieniu miejsca
+runtime	-	%lld m od miejsca
+runtime	-	położenie nieznane
+runtime	-	teraz %@ · dziś %@
+runtime	-	teraz %@ · dziś dzień wolny
+runtime	-	brak dostępu do danych Focus (Pełny dostęp do dysku)
+runtime	-	włączony: %@ (praca)
+runtime	-	włączony: %@ (nie jako praca)
+runtime	-	Focus oznaczony jako praca
+runtime	-	LAN i karta z Rejestru pracy
+runtime	-	rejestr pracy wyłączony
+runtime	-	%@: liczy się do strefy przerw
+runtime	-	rejestr pracy też nie widzi strefy pracy
+runtime	-	co najmniej jedno źródło pasuje
+runtime	-	żadne źródło nie pasuje, ale trwają godziny pracy
+runtime	-	żadne źródło nie pasuje i są poza godzinami pracy
+runtime	-	wszystkie źródła wyłączone: przerwy działają wszędzie
+runtime	-	Godziny pracy
+runtime	-	zastąpione przez kalendarz
+runtime	-	pominięte: urlop lub święto ma pierwszeństwo
+runtime	-	%@ · poza godzinami i poza strefą pracy
+runtime	-	%@ · poza godzinami, ale jesteś w strefie pracy
+runtime	-	%@ · w godzinach pracy
+runtime	-	wyłączone: przerwy działają całą dobę
+runtime	-	Focus jest włączony
+runtime	-	wstrzymuje: %@
+runtime	-	włączony: %@ (nie wstrzymuje)
+runtime	-	Focus / Nie przeszkadzać
+runtime	-	Wstrzymanie ręczne
+runtime	-	timer wstrzymany przyciskiem lub skrótem
+runtime	-	nie wstrzymano
+runtime	-	brak ruchu myszy i klawiatury od %lld min
+runtime	-	pracujesz przy komputerze
+runtime	-	Odroczenie działa tuż przed przerwą
+runtime	-	Można odłożyć przerwę, która trwa albo zaraz się zacznie.
+runtime	-	Ty
+runtime	-	Wykrywanie
+runtime	-	Trwa przerwa
+runtime	-	Timer działa
+runtime	-	Timer wstrzymany
+runtime	-	Timer wstrzymany: %lld %@
+runtime	-	powód
+runtime	-	powody
+runtime	-	powodów
+runtime	-	Praca (strefa pracy)
+runtime	-	Wstrzymuje przerwy
+runtime	-	Ignoruj
+runtime	-	Nie przeszkadzać
+runtime	-	Sen
+runtime	-	Czas osobisty
+runtime	-	Czytanie
+runtime	-	Gry
+runtime	-	Uważność
+runtime	-	Jazda
+runtime	-	Fitness
+runtime	-	Blokuje
+runtime	-	Przepuszcza
+runtime	-	Bez wpływu teraz
+runtime	-	Dlaczego timer działa albo stoi: wszystkie czynniki w jednym miejscu
