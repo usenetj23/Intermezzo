@@ -133,7 +133,7 @@ struct WorkDayLog: View {
             HStack {
                 Button { editing = true } label: { Label("Popraw…", systemImage: "pencil") }
                 Spacer()
-                Button("Zamknij") { dismiss() }.keyboardShortcut(.defaultAction)
+                Button("Zamknij") { dismiss() }.settingsAnchor("worklog-zamknij").keyboardShortcut(.defaultAction)
             }
         }
         .padding(20)

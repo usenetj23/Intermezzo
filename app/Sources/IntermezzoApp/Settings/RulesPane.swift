@@ -75,7 +75,7 @@ struct RulesPane: View {
                 Text("Gdy warunek jest spełniony w momencie nadejścia przerwy — zostanie odroczona lub pominięta")
             }
             Text("Przykład: reguła „Aplikacja z przodu = Keynote” z opcją „Automatycznie pomiń” pomija przerwy podczas prezentacji. „Odrocz” sprawdza warunek ponownie przy każdej próbie wystartowania przerwy, aż przestanie pasować.")
-                .settingsNote()
+                .settingsNote().settingsAnchor("rules-przyklad-regula-aplikacja-z-przodu-k")
         }
         .formStyle(.grouped)
         .onAppear { rules = store.load() }

@@ -41,7 +41,7 @@ struct FocusRolesView: View {
                     }
                 }
                 Text("Telefon przełącza Focus po lokalizacji GPS i synchronizuje go z Makiem, więc tryb oznaczony jako praca mówi, że jesteś w pracy: liczy się do strefy przerw i do Rejestru pracy (bez sieci biura jako praca zdalna). Pozostałe tryby domyślnie wstrzymują przerwy (jeśli włączone jest wykrywanie Focus).")
-                    .settingsNote()
+                    .settingsNote().settingsAnchor("general-telefon-przelacza-focus-po-lokalizac")
             } else if checked {
                 Label("Nie mogę odczytać trybów Focus. macOS chroni ten folder: dodaj Intermezzo w Prywatność i ochrona → Pełny dostęp do dysku, potem uruchom aplikację ponownie.", systemImage: "lock.fill")
                     .font(.caption)
@@ -51,8 +51,8 @@ struct FocusRolesView: View {
                         if let url = URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_AllFiles") {
                             NSWorkspace.shared.open(url)
                         }
-                    }
-                    Button("Sprawdź ponownie", action: reload)
+                    }.settingsAnchor("general-otworz-ustawienia-prywatnosci")
+                    Button("Sprawdź ponownie", action: reload).settingsAnchor("general-sprawdz-ponownie")
                 }
                 .controlSize(.small)
             }

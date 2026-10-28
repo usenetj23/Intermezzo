@@ -37,7 +37,7 @@ struct AppearancePane: View {
             LanguageSection()
             Section("Powierzchnia") {
                 Text("Wspólny motyw dla panelu paska menu, powiadomień, pastylki i tego okna.")
-                    .settingsNote()
+                    .settingsNote().settingsAnchor("appearance-wspolny-motyw-dla-panelu-paska-menu")
                 LazyVGrid(columns: [GridItem(.flexible(), spacing: 12), GridItem(.flexible(), spacing: 12)],
                           spacing: 12) {
                     ForEach(SurfaceTheme.allCases) { t in
@@ -50,7 +50,7 @@ struct AppearancePane: View {
                         HStack {
                             ColorPicker(theme == .navy ? "Kolor" : "Zabarwienie szkła", selection: tintBinding, supportsOpacity: false)
                             if !tintHex.isEmpty {
-                                Button("Przywróć domyślny") { tintHex = "" }.controlSize(.small)
+                                Button("Przywróć domyślny") { tintHex = "" }.settingsAnchor("appearance-przywroc-domyslny").controlSize(.small)
                             }
                         }
                         Text(theme == .navy
@@ -67,10 +67,10 @@ struct AppearancePane: View {
                     Text("Własne okienko (motyw)").tag("toast")
                     Text("Centrum powiadomień macOS").tag("system")
                     Text("Oba").tag("both")
-                }
+                }.settingsAnchor("appearance-styl")
                 Button("Wyślij testowe powiadomienie") {
                     AppDelegate.shared?.coordinator.sendTestNotification()
-                }
+                }.settingsAnchor("appearance-wyslij-testowe-powiadomienie")
                 .controlSize(.small)
             }
 
@@ -79,9 +79,9 @@ struct AppearancePane: View {
                     Text("Tylko gdy macOS schowa ikonę (auto)").tag("auto")
                     Text("Zawsze").tag("always")
                     Text("Nigdy").tag("never")
-                }
+                }.settingsAnchor("appearance-pokazuj")
                 Text("Pastylka z odliczaniem; przeciągnij ją, gdzie chcesz. Ratuje widoczność timera, gdy pasek menu jest pełny.")
-                    .settingsNote()
+                    .settingsNote().settingsAnchor("appearance-pastylka-z-odliczaniem-przeciagnij-j")
             }
             .expertOnly()
 
@@ -94,16 +94,16 @@ struct AppearancePane: View {
                 Picker("Liście i płatki", selection: $seasonFX) {
                     Text("Automatycznie (jesienią liście, wiosną płatki)").tag("auto")
                     Text("Wyłączone").tag("off")
-                }
+                }.settingsAnchor("appearance-liscie-i-platki")
                 Text("Zależą od pory roku, nie od pogody: spadają też w słoneczny październik. Nie pojawiają się w deszczu, burzy i śniegu.")
-                    .settingsNote()
+                    .settingsNote().settingsAnchor("appearance-zaleza-od-pory-roku-nie-od-pogody-sp")
             }
             .expertOnly()
 
             Section("Podgląd scen pogodowych") {
-                Toggle("Podpowiedzi zależne od pogody (co trzecia przerwa)", isOn: $weatherTips)
+                Toggle("Podpowiedzi zależne od pogody (co trzecia przerwa)", isOn: $weatherTips).settingsAnchor("appearance-podpowiedzi-zalezne-od-pogody-co-trz")
                 Text("Pokazuje wybrany efekt na 8 sekund. Podgląd nie blokuje myszki i nie jest przerwą.")
-                    .settingsNote()
+                    .settingsNote().settingsAnchor("appearance-pokazuje-wybrany-efekt-na-8-sekund-p")
                 HStack(spacing: 8) {
                     ForEach(previews, id: \.0) { effect, label, symbol in
                         PanelButton(title: label, symbol: symbol, kind: .tile) {

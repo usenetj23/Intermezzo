@@ -18,7 +18,7 @@ struct ClockOutPane: View {
     var body: some View {
         Form {
             Section {
-                Toggle("Enable Clock Out", isOn: $clockOutEnabled)
+                Toggle("Enable Clock Out", isOn: $clockOutEnabled).settingsAnchor("clockout-enable-clock-out")
                 if clockOutEnabled {
                     Stepper("From \(clockOutStartHour):00", value: $clockOutStartHour, in: 0...23)
                     Stepper("To \(clockOutEndHour):00 (next day)", value: $clockOutEndHour, in: 0...23)
@@ -29,7 +29,7 @@ struct ClockOutPane: View {
                     .expertOnly()
                 }
                 Text("A gentle evening banner reminds you to finish work during the configured window (wraps past midnight).")
-                    .settingsNote()
+                    .settingsNote().settingsAnchor("clockout-a-gentle-evening-banner-reminds-you")
             } header: {
                 Text("Clock Out")
             }

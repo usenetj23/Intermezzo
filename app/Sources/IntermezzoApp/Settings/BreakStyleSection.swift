@@ -17,22 +17,22 @@ struct BreakStyleSection: View {
                 Text("Luźna").tag(Strictness.casual.rawValue)
                 Text("Zrównoważona").tag(Strictness.balanced.rawValue)
                 Text("Twarda").tag(Strictness.hardcore.rawValue)
-            }
+            }.settingsAnchor("breaks-surowosc")
             note(strictnessNote)
             Group {
                 Picker("Styl motywacji", selection: $motivation) {
                     Text("Passa").tag(MotivationStyle.streak.rawValue)
                     Text("Spokojny").tag(MotivationStyle.calm.rawValue)
-                }
+                }.settingsAnchor("breaks-styl-motywacji")
                 note(motivationNote)
                 Toggle("Miękka przerwa: przyciemnienie przepuszcza kliknięcia", isOn: Binding(
-                    get: { softBreak != 0 }, set: { softBreak = $0 ? 1 : 0 }))
+                    get: { softBreak != 0 }, set: { softBreak = $0 ? 1 : 0 })).settingsAnchor("breaks-miekka-przerwa-przyciemnienie-przepu")
                 Toggle("Poświata krawędzi ekranu przed przerwą (bursztyn → czerwień)", isOn: Binding(
-                    get: { edgeGlow != 0 }, set: { edgeGlow = $0 ? 1 : 0 }))
+                    get: { edgeGlow != 0 }, set: { edgeGlow = $0 ? 1 : 0 })).settingsAnchor("breaks-poswiata-krawedzi-ekranu-przed-przer")
             }
             .expertOnly()
             Toggle("Tylko przypominaj, bez przerwy na ekranie", isOn: Binding(
-                get: { remindOnly != 0 }, set: { remindOnly = $0 ? 1 : 0 }))
+                get: { remindOnly != 0 }, set: { remindOnly = $0 ? 1 : 0 })).settingsAnchor("breaks-tylko-przypominaj-bez-przerwy-na-ekr")
             if remindOnly != 0 {
                 Stepper("Silniejsze przypomnienie co \(repeatMinutes == 0 ? ReminderOnlyKeys.defaultRepeat : repeatMinutes) min",
                         value: Binding(get: { repeatMinutes == 0 ? ReminderOnlyKeys.defaultRepeat : repeatMinutes },
@@ -42,7 +42,7 @@ struct BreakStyleSection: View {
             }
             if softBreak != 0 {
                 Text("Przerwa nie przejmuje myszki ani Docka, więc nie ma na niej przycisków. Zakończysz ją z paska menu albo skrótem.")
-                    .settingsNote()
+                    .settingsNote().settingsAnchor("breaks-przerwa-nie-przejmuje-myszki-ani-doc")
                     .expertOnly()
             }
         }

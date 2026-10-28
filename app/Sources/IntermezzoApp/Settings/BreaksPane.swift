@@ -77,24 +77,24 @@ struct BreaksPane: View {
                       value: $longBreakEvery, in: 2...12)
             }
             Section {
-                Toggle("Play sound at break start", isOn: $playSound)
-                Toggle("Wstrzymuj wideo i muzykę na czas przerwy", isOn: $pauseMedia)
+                Toggle("Play sound at break start", isOn: $playSound).settingsAnchor("breaks-play-sound-at-break-start")
+                Toggle("Wstrzymuj wideo i muzykę na czas przerwy", isOn: $pauseMedia).settingsAnchor("breaks-wstrzymuj-wideo-i-muzyke-na-czas-prz")
                 if pauseMedia {
-                    Toggle("Wznawiaj odtwarzanie po przerwie", isOn: $resumeMedia)
+                    Toggle("Wznawiaj odtwarzanie po przerwie", isOn: $resumeMedia).settingsAnchor("breaks-wznawiaj-odtwarzanie-po-przerwie")
                 }
-                Toggle("Countdown popup next to cursor", isOn: $cursorCountdown)
+                Toggle("Countdown popup next to cursor", isOn: $cursorCountdown).settingsAnchor("breaks-countdown-popup-next-to-cursor")
                 if cursorCountdown {
                     Group {
                         Stepper("Show interactive popup in last \(breakLeadPopup) s",
                               value: $breakLeadPopup, in: 10...300, step: 5)
                         Toggle("Hide Skip button in reminder (strict)",
-                              isOn: $reminderHideSkip)
+                              isOn: $reminderHideSkip).settingsAnchor("breaks-hide-skip-button-in-reminder-strict")
                         Toggle("Hide Delay (+1/+5) buttons in reminder (strict)",
-                              isOn: $reminderHideDelay)
+                              isOn: $reminderHideDelay).settingsAnchor("breaks-hide-delay-1-5-buttons-in-reminder-s")
                     }
                     .expertOnly()
                 }
-                Toggle("Strict mode (skip needs confirmation)", isOn: $strictMode)
+                Toggle("Strict mode (skip needs confirmation)", isOn: $strictMode).settingsAnchor("breaks-strict-mode-skip-needs-confirmation")
                     .expertOnly()
             }
 
@@ -107,19 +107,19 @@ struct BreaksPane: View {
                 Button("＋ Add Action") {
                     actionItems.append(BreakActionItem())
                     persistActions()
-                }
+                }.settingsAnchor("breaks-add-action")
                 Text("Actions run at three points: Before Due (offset seconds before the break), After Start, and After Any End — completed, postponed or skipped.")
-                    .settingsNote()
+                    .settingsNote().settingsAnchor("breaks-actions-run-at-three-points-before-d")
             }
             .expertOnly()
 
             Section("Break Scripts") {
-                Toggle("Run scripts when breaks start and end", isOn: $scriptsEnabled)
+                Toggle("Run scripts when breaks start and end", isOn: $scriptsEnabled).settingsAnchor("breaks-run-scripts-when-breaks-start-and-en")
                 if scriptsEnabled {
                     scriptPathRow(title: "When break starts:", key: ScriptActionKeys.startPath)
                     scriptPathRow(title: "When break ends:", key: ScriptActionKeys.endPath)
                     Text("AppleScript (.applescript/.scpt) or shell scripts run at break start and after any end — e.g. mute audio on start, restore on end.")
-                        .settingsNote()
+                        .settingsNote().settingsAnchor("breaks-applescript-applescript-scpt-or-shel")
                 }
             }
             .expertOnly()
@@ -211,7 +211,7 @@ struct BreaksPane: View {
                     }
                 }
                 Spacer(minLength: 8)
-                Toggle("On", isOn: itemBinding(i, \.enabled))
+                Toggle("On", isOn: itemBinding(i, \.enabled)).settingsAnchor("breaks-on")
                     .toggleStyle(.switch)
                     .labelsHidden()
                 Button { moveActionItem(i, by: -1) } label: { Image(systemName: "chevron.up") }
@@ -250,7 +250,7 @@ struct BreaksPane: View {
                     Picker("Sound:", selection: itemBinding(i, \.soundName)) {
                         ForEach(Self.systemSounds, id: \.self) { Text($0).tag($0) }
                         Text("Custom file…").tag("")
-                    }
+                    }.settingsAnchor("breaks-sound")
                     .frame(width: 180)
                     if actionItems[i].soundName.isEmpty {
                         TextField("/path/to/sound.mp3", text: itemBinding(i, \.soundName))
@@ -289,7 +289,7 @@ struct BreaksPane: View {
                         Text("Set to %").tag("set")
                         Text("Increase by %").tag("increase")
                         Text("Decrease by %").tag("decrease")
-                    }
+                    }.settingsAnchor("breaks-mode")
                     .frame(width: 220)
                     if actionItems[i].volumeMode == "set"
                         || actionItems[i].volumeMode == "increase"
@@ -303,7 +303,7 @@ struct BreaksPane: View {
                 }
             case .musicPause, .musicPlay:
                 Text("Music resumes only if it was playing when paused; nothing launches if Music quit.")
-                    .settingsNote()
+                    .settingsNote().settingsAnchor("breaks-music-resumes-only-if-it-was-playing")
             case .script:
                 scriptPathRowForItem(i)
             }
@@ -313,7 +313,7 @@ struct BreaksPane: View {
                     TextField("e.g. Water", text: itemBinding(i, \.title))
                         .textFieldStyle(.editable).labelsHidden().frame(maxWidth: 240)
                     Text("Shown as a button on the break screen.")
-                        .settingsNote()
+                        .settingsNote().settingsAnchor("breaks-shown-as-a-button-on-the-break-scree")
                 }
             }
         }
@@ -337,13 +337,13 @@ struct BreaksPane: View {
                     actionItems[i].scriptPath = url.path
                     persistActions()
                 }
-            }
+            }.settingsAnchor("breaks-browse")
             .controlSize(.small)
             if !actionItems[i].scriptPath.isEmpty {
                 Button("Clear") {
                     actionItems[i].scriptPath = ""
                     persistActions()
-                }
+                }.settingsAnchor("breaks-clear")
                 .controlSize(.small)
             }
         }
@@ -379,13 +379,13 @@ struct BreaksPane: View {
                     scriptPaths[key] = url.path
                     UserDefaults.standard.set(url.path, forKey: key)
                 }
-            }
+            }.settingsAnchor("breaks-browse-2")
             .controlSize(.small)
             if !(scriptPaths[key] ?? "").isEmpty {
                 Button("Clear") {
                     scriptPaths[key] = ""
                     UserDefaults.standard.removeObject(forKey: key)
-                }
+                }.settingsAnchor("breaks-clear-2")
                 .controlSize(.small)
             }
         }

@@ -63,13 +63,13 @@ struct GeneralPane: View {
             if aiEnabled || undoCount > 0 {
                 Section("Asystent ustawień") {
                     if aiEnabled {
-                        Button("Asystent ustawień…") { showAssistant = true }
+                        Button("Asystent ustawień…") { showAssistant = true }.settingsAnchor("general-asystent-ustawien")
                         Text("Opisz własnymi słowami, jak ma działać program, a asystent zaproponuje zmiany do zatwierdzenia.")
-                            .settingsNote()
+                            .settingsNote().settingsAnchor("general-opisz-wlasnymi-slowami-jak-ma-dziala")
                     }
                     // Undo stays available when the AI features are switched off again.
                     if undoCount > 0 {
-                        Button("Cofnij ostatnie zmiany asystenta") { undoAssistant() }
+                        Button("Cofnij ostatnie zmiany asystenta") { undoAssistant() }.settingsAnchor("general-cofnij-ostatnie-zmiany-asystenta")
                     }
                 }
             }
@@ -84,19 +84,19 @@ struct GeneralPane: View {
                                 else { try SMAppService.mainApp.unregister() }
                             } catch { NSSound.beep() }
                         }
-                    }))
-                Toggle("Start timer automatically on app launch", isOn: $autoStartTimer)
-                Toggle("Show countdown text in menu bar", isOn: $menuBarCountdown)
-                Toggle("Pokaż licznik także na ekranie z notchem", isOn: $menuBarCountdownNotch)
+                    })).settingsAnchor("general-launch-when-mac-starts")
+                Toggle("Start timer automatically on app launch", isOn: $autoStartTimer).settingsAnchor("general-start-timer-automatically-on-app-lau")
+                Toggle("Show countdown text in menu bar", isOn: $menuBarCountdown).settingsAnchor("general-show-countdown-text-in-menu-bar")
+                Toggle("Pokaż licznik także na ekranie z notchem", isOn: $menuBarCountdownNotch).settingsAnchor("general-pokaz-licznik-takze-na-ekranie-z-not")
                     .disabled(!menuBarCountdown)
                 Text("Na MacBooku z notchem pełny pasek menu może schować ikonę razem z licznikiem. Gdy tak się stanie, licznik widać w pływającej pastylce.")
-                    .settingsNote()
-                Toggle("Koloruj ikonę w pasku menu według stanu timera", isOn: $menuBarColoredIcon)
+                    .settingsNote().settingsAnchor("general-na-macbooku-z-notchem-pelny-pasek-me")
+                Toggle("Koloruj ikonę w pasku menu według stanu timera", isOn: $menuBarColoredIcon).settingsAnchor("general-koloruj-ikone-w-pasku-menu-wedlug-st")
                 Text("Zielona: timer działa. Niebieska: trwa przerwa. Pomarańczowa: wstrzymany przez spotkanie, wideo, Focus, regułę lub brak aktywności. Fioletowa: poza godzinami i strefą pracy albo urlop. Szara: wstrzymany ręcznie.")
-                    .settingsNote()
+                    .settingsNote().settingsAnchor("general-zielona-timer-dziala-niebieska-trwa")
             }
             Section("Idle Time") {
-                Toggle("Detect inactivity", isOn: $idleDetection)
+                Toggle("Detect inactivity", isOn: $idleDetection).settingsAnchor("general-detect-inactivity")
                 if idleDetection {
                     Group {
                         Stepper("Pause timer after \(idleThresholdSeconds / 60) min",
@@ -104,13 +104,13 @@ struct GeneralPane: View {
                         Stepper("Reset timer after \(idleResetAfterMinutes) min away",
                               value: $idleResetAfterMinutes, in: 1...120)
                         Toggle("Zapisuj dłuższą nieobecność jako przerwę naturalną", isOn: Binding(
-                            get: { naturalLog != 0 }, set: { naturalLog = $0 ? 1 : 0 }))
+                            get: { naturalLog != 0 }, set: { naturalLog = $0 ? 1 : 0 })).settingsAnchor("general-zapisuj-dluzsza-nieobecnosc-jako-prz")
                         if naturalLog != 0 {
                             Stepper("od \(naturalMinutes == 0 ? NaturalBreakKeys.defaultMinutes : naturalMinutes) min",
                                     value: Binding(get: { naturalMinutes == 0 ? NaturalBreakKeys.defaultMinutes : naturalMinutes },
                                                    set: { naturalMinutes = $0 }), in: 5...120, step: 5)
                             Text("Obiad, kawa czy spacer to nie ta sama przerwa co przypomnienie z aplikacji. Takie wpisy są liczone osobno w Statystykach (nie zaliczają passy ani nie wchodzą do wykresu) i widać je w historii z ikoną spaceru. Nieobecność powyżej 6 godzin traktuję jako koniec dnia i jej nie zapisuję.")
-                                .settingsNote()
+                                .settingsNote().settingsAnchor("general-obiad-kawa-czy-spacer-to-nie-ta-sama")
                         }
                     }
                     .expertOnly()
@@ -137,15 +137,15 @@ struct GeneralPane: View {
                     TimeInput(minutes: $workEndMinutes)
                 }
                 Text("Przerwy działają w godzinach pracy LUB gdy Mac jest w strefie pracy (wydarzenie w kalendarzu, VPN, Wi-Fi, miejsce albo LAN i karta z Rejestru pracy): nadgodziny, awaria, dzień wolny. Timer stoi dopiero wtedy, gdy nie zachodzi żadne z dwóch.")
-                    .settingsNote()
+                    .settingsNote().settingsAnchor("general-przerwy-dzialaja-w-godzinach-pracy-l")
                 Group {
-                    Toggle("Różne godziny w poszczególne dni", isOn: $perDayHours)
+                    Toggle("Różne godziny w poszczególne dni", isOn: $perDayHours).settingsAnchor("general-rozne-godziny-w-poszczegolne-dni")
                     if perDayHours {
                         ForEach(0..<7, id: \.self) { i in
                             if (workDaysMask & (1 << i)) != 0 { dayHoursRow(i) }
                         }
                         Text("Dzień bez zmian używa godzin powyżej.")
-                            .settingsNote()
+                            .settingsNote().settingsAnchor("general-dzien-bez-zmian-uzywa-godzin-powyzej")
                     }
                 }
                 .expertOnly()
@@ -180,7 +180,7 @@ struct GeneralPane: View {
                         }
                 }
                 Text("Tip: with Calendar detection ON in Intermezzo Intelligence, calendar events REPLACE these fixed hours — a vacation or day off without a matching event keeps breaks asleep.")
-                    .settingsNote()
+                    .settingsNote().settingsAnchor("general-tip-with-calendar-detection-on-in-in")
                     .expertOnly()
             }
             Section("Intermezzo Intelligence") {
@@ -189,13 +189,13 @@ struct GeneralPane: View {
                 Toggle("Video detection: pause when watching video", isOn: $videoDetection)
                     .settingsAnchor("video")
                 Toggle("Kalendarz: odkładaj przerwę, gdy trwa lub zaraz zacznie się spotkanie",
-                       isOn: $calendarAwareBreaks)
+                       isOn: $calendarAwareBreaks).settingsAnchor("general-kalendarz-odkladaj-przerwe-gdy-trwa")
                     .expertOnly()
                 Toggle("Focus: pause while Focus / Do Not Disturb is on", isOn: $focusDetection)
                     .settingsAnchor("focus")
                     .expertOnly()
                 Group {
-                    Toggle("Focus oznaczony jako „praca” liczy się do strefy pracy", isOn: $focusWorkZone)
+                    Toggle("Focus oznaczony jako „praca” liczy się do strefy pracy", isOn: $focusWorkZone).settingsAnchor("general-focus-oznaczony-jako-praca-liczy-sie")
                     FocusRolesView()
                 }
                 .expertOnly()
@@ -203,7 +203,7 @@ struct GeneralPane: View {
                 Group {
                     Divider()
                     Text("Work zone — with any option below ON, breaks run only while at least one of the enabled options matches (calendar event, VPN, Wi-Fi or place) or it is within working hours. All OFF = breaks always run.")
-                        .settingsNote()
+                        .settingsNote().settingsAnchor("general-work-zone-with-any-option-below-on-b")
 
                     Toggle("Calendar: breaks also run during matching events (added to working hours)", isOn: $calendarWorkDetection)
                         .settingsAnchor("zone-calendar")
@@ -265,7 +265,7 @@ struct GeneralPane: View {
                                         geoLon = c.longitude
                                     }
                                 }
-                            }
+                            }.settingsAnchor("general-use-current")
                             .controlSize(.small)
                         }
                         if !work.locationAuthorized {
@@ -294,7 +294,7 @@ struct GeneralPane: View {
                 HotkeyRecorderRow(Keys.hotkeyReset, title: "Reset all breaks")
                 HotkeyRecorderRow(Keys.hotkeyStopSound, title: "Stop sound")
                 Text("Work from any app. You can also automate via URLs, e.g. intermezzo://break/long, intermezzo://break/short/postpone/2m, intermezzo://postpone/5m, intermezzo://skip, intermezzo://resume (s/m/h/d durations; bare number = minutes).")
-                    .settingsNote()
+                    .settingsNote().settingsAnchor("general-work-from-any-app-you-can-also-autom")
             }
             .expertOnly()
             AutomationSection()
@@ -321,7 +321,7 @@ private extension GeneralPane {
                 .settingsNote()
             Spacer()
             if state == -1, let settingsURL, let url = URL(string: settingsURL) {
-                Button("Nadaj uprawnienia…") { NSWorkspace.shared.open(url) }
+                Button("Nadaj uprawnienia…") { NSWorkspace.shared.open(url) }.settingsAnchor("general-nadaj-uprawnienia")
                     .controlSize(.small)
             }
         }

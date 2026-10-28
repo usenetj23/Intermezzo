@@ -42,14 +42,14 @@ struct MessagesPane: View {
                 Button("Oznacz wszystkie jako przeczytane") {
                     store.markAllRead()
                     readIDs = store.readIDs()
-                }
+                }.settingsAnchor("messages-oznacz-wszystkie-jako-przeczytane")
                 .controlSize(.small)
             }
             .padding([.horizontal, .top], 12)
 
             List {
                 Section {
-                    Toggle("Pokazuj skrócone porady na ekranie przerwy", isOn: $duringBreak)
+                    Toggle("Pokazuj skrócone porady na ekranie przerwy", isOn: $duringBreak).settingsAnchor("messages-pokazuj-skrocone-porady-na-ekranie-p")
                     if duringBreak {
                         Stepper("Co \(breakEvery) przerwy", value: $breakEvery, in: 1...10)
                     }
@@ -120,7 +120,7 @@ struct MessagesPane: View {
                         Button("Pokaż ustawienia") {
                             openMessageID = nil
                             selection = target
-                        }
+                        }.settingsAnchor("messages-pokaz-ustawienia")
                         .buttonStyle(.borderedProminent)
                         .frame(maxWidth: .infinity)
                     }

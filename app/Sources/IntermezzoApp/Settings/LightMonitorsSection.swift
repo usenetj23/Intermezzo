@@ -27,7 +27,7 @@ struct LightMonitorsSection: View {
                 }
             }
             Text("Nowy monitor od razu dostaje ogólną krzywą. Takie same monitory mają wspólne ustawienia. Ustawienia są pamiętane tylko na tym Macu i wracają, gdy monitor zostanie podłączony ponownie.")
-                .settingsNote()
+                .settingsNote().settingsAnchor("light-nowy-monitor-od-razu-dostaje-ogolna")
         }
     }
 }
@@ -56,16 +56,16 @@ private struct MonitorRow: View {
         DisclosureGroup {
             Toggle("Nie zarządzaj tym monitorem (np. telewizorem)", isOn: Binding(
                 get: { profile.untouched },
-                set: { value in registry.update(group.key) { $0.untouched = value } }))
+                set: { value in registry.update(group.key) { $0.untouched = value } })).settingsAnchor("light-nie-zarzadzaj-tym-monitorem-np-telew")
             if !profile.untouched {
                 colourControls
                 if BetterDisplayLight.isInstalled { dimControls }
                 HStack {
                     Button("Podgląd wieczoru") {
                         if let id = group.displayIDs.first { light.previewMonitor(displayID: id) }
-                    }
+                    }.settingsAnchor("light-podglad-wieczoru")
                     .disabled(light.previewingDisplay != nil)
-                    Button("Przywróć ogólne") { registry.resetOverrides(group.key) }
+                    Button("Przywróć ogólne") { registry.resetOverrides(group.key) }.settingsAnchor("light-przywroc-ogolne")
                         .disabled(!profile.hasOverrides)
                 }
                 .controlSize(.small)
@@ -84,7 +84,7 @@ private struct MonitorRow: View {
         Group {
             Toggle("Własny limit koloru", isOn: Binding(
                 get: { profile.warmestK != nil },
-                set: { on in registry.update(group.key) { $0.warmestK = on ? light.settings.bedtimeK : nil } }))
+                set: { on in registry.update(group.key) { $0.warmestK = on ? light.settings.bedtimeK : nil } })).settingsAnchor("light-wlasny-limit-koloru")
             if let saved = profile.warmestK {
                 let shown = draftK ?? saved
                 Slider(value: Binding(get: { shown }, set: { draftK = $0 }),
@@ -103,7 +103,7 @@ private struct MonitorRow: View {
         Group {
             Toggle("Własne przyciemnienie", isOn: Binding(
                 get: { profile.dimPercent != nil },
-                set: { on in registry.update(group.key) { $0.dimPercent = on ? BetterDisplayLight.shared.globalDimPercent : nil } }))
+                set: { on in registry.update(group.key) { $0.dimPercent = on ? BetterDisplayLight.shared.globalDimPercent : nil } })).settingsAnchor("light-wlasne-przyciemnienie")
             if let percent = profile.dimPercent {
                 Stepper("Przyciemnij maksymalnie o \(percent)%", value: Binding(
                     get: { percent },
@@ -111,7 +111,7 @@ private struct MonitorRow: View {
                         in: 0...EveningDimming.maxDimPercent, step: 5)
                 if !bdDim {
                     Text("Przyciemnianie sprzętowe jest wyłączone (sekcja BetterDisplay), więc ten wybór na razie nic nie zmienia.")
-                        .settingsNote()
+                        .settingsNote().settingsAnchor("light-przyciemnianie-sprzetowe-jest-wylacz")
                 }
             }
         }

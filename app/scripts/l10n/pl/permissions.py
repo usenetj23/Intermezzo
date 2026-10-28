@@ -23,5 +23,5 @@ STRINGS = {
     "Meeting and holiday detection, calendar-aware breaks":
         "Wykrywanie spotkań i świąt, przerwy dopasowane do kalendarza",
     "Reading Focus modes (work zone and pausing by Focus); optional":
-        "Odczyt trybów Focus (strefa pracy i pauza przez Focus); opcjonalne",
+        "Odczyt trybów Skupienia (strefa pracy i pauza przez Skupienie); opcjonalne",
 }

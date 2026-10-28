@@ -32,18 +32,18 @@ struct PomodoroPlanSection: View {
                     Stepper("\(newEstimate) 🍅", value: $newEstimate, in: 1...12)
                         .fixedSize()
                     Spacer()
-                    Button("Add", action: add)
+                    Button("Add", action: add).settingsAnchor("focus-add")
                         .disabled(newTitle.trimmingCharacters(in: .whitespaces).isEmpty)
                 }
             }
             forecastLine
             Text("Estimate how many pomodoros a task needs, then compare with the real count: the statistics show how your estimates hold up.")
-                .settingsNote()
+                .settingsNote().settingsAnchor("focus-estimate-how-many-pomodoros-a-task-n")
         }
         .onChange(of: pomodoro.ledger.projects) { _, _ in validateSelection() }
         .alert("New project", isPresented: $askingNewProject) {
             TextField("Name", text: $newProjectName)
-            Button("Create") { createProject() }
+            Button("Create") { createProject() }.settingsAnchor("focus-create")
                 .disabled(newProjectName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
             Button("Cancel", role: .cancel) {}
         }
@@ -68,7 +68,7 @@ struct PomodoroPlanSection: View {
             }
             Divider()
             Text("New project…").tag(Self.newProjectTag)
-        }
+        }.settingsAnchor("focus-project")
         .labelsHidden()
         .frame(width: 140)
     }
@@ -131,7 +131,7 @@ struct PomodoroPlanSection: View {
                 .font(.callout.monospacedDigit())
                 .foregroundStyle(task.done > task.estimate ? .orange : .secondary)
             if !task.isFinished {
-                Button("Done") { pomodoro.finishTask(task.id) }.controlSize(.small)
+                Button("Done") { pomodoro.finishTask(task.id) }.settingsAnchor("focus-done").controlSize(.small)
             }
             Button(role: .destructive) { pomodoro.removeTask(task.id) } label: { Image(systemName: "trash") }
                 .controlSize(.small)
@@ -178,7 +178,7 @@ struct PomodoroStatsSection: View {
             goldenHours
             reportControls
             Text("A pomodoro counts only when you finish it. Resetting the timer or leaving for a long time voids it.")
-                .settingsNote()
+                .settingsNote().settingsAnchor("focus-a-pomodoro-counts-only-when-you-fini")
         }
     }
 
@@ -189,11 +189,11 @@ struct PomodoroStatsSection: View {
                 Spacer()
                 Picker("Report", selection: $reportPeriod) {
                     ForEach(ReportPeriod.allCases) { Text($0.title).tag($0) }
-                }
+                }.settingsAnchor("focus-report")
                 .pickerStyle(.segmented)
                 .labelsHidden()
                 .fixedSize()
-                Button("Export report…", action: exportReport)
+                Button("Export report…", action: exportReport).settingsAnchor("focus-export-report")
             }
             if let reportError { Text(reportError).font(.caption).foregroundStyle(.red) }
         }
@@ -256,7 +256,7 @@ struct PomodoroStatsSection: View {
             }
         } else {
             Text("Your calmest hour appears after about three pomodoros in at least two different hours of the day.")
-                .settingsNote()
+                .settingsNote().settingsAnchor("focus-your-calmest-hour-appears-after-abou")
         }
     }
 

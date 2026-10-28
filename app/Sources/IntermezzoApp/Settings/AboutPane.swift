@@ -28,10 +28,10 @@ struct AboutPane: View {
             HStack(spacing: 10) {
                 Button("Otwórz logi…") {
                     NSWorkspace.shared.open(URL(fileURLWithPath: Trace.logPath))
-                }
+                }.settingsAnchor("about-otworz-logi")
                 Button("Ustawienia systemowe…") {
                     NSWorkspace.shared.open(URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_ListenEvent")!)
-                }
+                }.settingsAnchor("about-ustawienia-systemowe")
             }
             .controlSize(.small)
         }

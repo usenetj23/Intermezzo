@@ -364,11 +364,11 @@
 "Flash color:" = "Kolor błysku:";
 "Flash interval" = "Odstęp błysków";
 "Focus (project colour)" = "Skupienie (kolor projektu)";
-"Focus / Nie przeszkadzać" = "Focus / Nie przeszkadzać";
+"Focus / Nie przeszkadzać" = "Skupienie / Nie przeszkadzać";
 "Focus Duration" = "Czas skupienia";
-"Focus jest włączony" = "Focus jest włączony";
-"Focus oznaczony jako praca" = "Focus oznaczony jako praca";
-"Focus oznaczony jako „praca” liczy się do strefy pracy" = "Focus oznaczony jako „praca” liczy się do strefy pracy";
+"Focus jest włączony" = "Skupienie jest włączone";
+"Focus oznaczony jako praca" = "Tryb Skupienia oznaczony jako praca";
+"Focus oznaczony jako „praca” liczy się do strefy pracy" = "Tryb Skupienia oznaczony jako „praca” liczy się do strefy pracy";
 "Focus through Shortcuts" = "Tryb Skupienia przez Skróty";
 "Focus: pause while Focus / Do Not Disturb is on" = "Tryb Skupienia: wstrzymuj przerwy, gdy włączone jest Skupienie / Nie przeszkadzać";
 "Folia holograficzna" = "Folia holograficzna";
@@ -611,7 +611,7 @@
 "New project…" = "Nowy projekt…";
 "Next break in" = "Następna przerwa za";
 "Nie ma jednej „zdrowej” pozycji siedzącej — zdrowa to NASTĘPNA.\n\nWyprost w staniu: ręce na biodra, delikatne odchylenie do tyłu, 10 s.\nNa siedząco: kolano do klatki, 20 s na stronę (rozciąganie gruszkowatego).\n\nUstaw monitor na wysokość oczu. Jeśli patrzysz w dół — szyja płaci rachunek." = "Nie ma jednej „zdrowej” pozycji siedzącej — zdrowa to NASTĘPNA.\n\nWyprost w staniu: ręce na biodra, delikatne odchylenie do tyłu, 10 s.\nNa siedząco: kolano do klatki, 20 s na stronę (rozciąganie gruszkowatego).\n\nUstaw monitor na wysokości oczu. Jeśli patrzysz w dół — szyja płaci rachunek.";
-"Nie mogę odczytać trybów Focus. macOS chroni ten folder: dodaj Intermezzo w Prywatność i ochrona → Pełny dostęp do dysku, potem uruchom aplikację ponownie." = "Nie mogę odczytać trybów Focus. macOS chroni ten folder: dodaj Intermezzo w Prywatność i ochrona → Pełny dostęp do dysku, potem uruchom aplikację ponownie.";
+"Nie mogę odczytać trybów Focus. macOS chroni ten folder: dodaj Intermezzo w Prywatność i ochrona → Pełny dostęp do dysku, potem uruchom aplikację ponownie." = "Nie mogę odczytać trybów Skupienia. macOS chroni ten folder: dodaj Intermezzo w Prywatność i ochrona → Pełny dostęp do dysku, potem uruchom aplikację ponownie.";
 "Nie może być dłuższa niż długa przerwa (%@)." = "Nie może być dłuższa niż długa przerwa (%@).";
 "Nie może być krótsza niż krótka przerwa (%@)." = "Nie może być krótsza niż krótka przerwa (%@).";
 "Nie pozwól Macowi zasnąć, gdy pracuje" = "Nie pozwól Macowi zasnąć, gdy pracuje";
@@ -891,7 +891,7 @@
 "Rano wyjdź na światło dzienne: to najlepszy „ekran” dla zegara dobowego." = "Rano wyjdź na światło dzienne: to najlepszy „ekran” dla zegara dobowego.";
 "Rate / h" = "Stawka / godz.";
 "Raw output of the sensor — untrusted text, shown only here." = "Surowy wynik czujnika: niezaufany tekst, pokazywany tylko tutaj.";
-"Reading Focus modes (work zone and pausing by Focus); optional" = "Odczyt trybów Focus (strefa pracy i pauza przez Focus); opcjonalne";
+"Reading Focus modes (work zone and pausing by Focus); optional" = "Odczyt trybów Skupienia (strefa pracy i pauza przez Skupienie); opcjonalne";
 "Real desktop behind rain and glass effects; a procedural backdrop is used without it" = "Prawdziwy pulpit za efektami deszczu i szkła; bez tego używane jest tło generowane";
 "Redondo i in. 2025 (24 osoby, 40 min czytania: przerwy co 10 min zmniejszały podrażnienie oczu)" = "Redondo i in. 2025 (24 osoby, 40 min czytania: przerwy co 10 min zmniejszały podrażnienie oczu)";
 "Refresh" = "Odśwież";
@@ -1099,7 +1099,7 @@
 "TeamViewer, AnyDesk, Parsec, Jump Desktop, Windows App lub udostępnianie ekranu macOS na pierwszym planie. Przerwa nie wskoczy w środek sesji u klienta ani cudzej pomocy." = "TeamViewer, AnyDesk, Parsec, Jump Desktop, Windows App lub udostępnianie ekranu macOS na pierwszym planie. Przerwa nie wskoczy w środek sesji u klienta ani cudzej pomocy.";
 "Technika Pomodoro" = "Technika Pomodoro";
 "Tego dnia nie zarejestrowano pracy." = "Tego dnia nie zarejestrowano pracy.";
-"Telefon przełącza Focus po lokalizacji GPS i synchronizuje go z Makiem, więc tryb oznaczony jako praca mówi, że jesteś w pracy: liczy się do strefy przerw i do Rejestru pracy (bez sieci biura jako praca zdalna). Pozostałe tryby domyślnie wstrzymują przerwy (jeśli włączone jest wykrywanie Focus)." = "Telefon przełącza Focus po lokalizacji GPS i synchronizuje go z Makiem, więc tryb oznaczony jako praca mówi, że jesteś w pracy: liczy się do strefy przerw i do Rejestru pracy (bez sieci biura jako praca zdalna). Pozostałe tryby domyślnie wstrzymują przerwy (jeśli włączone jest wykrywanie Focus).";
+"Telefon przełącza Focus po lokalizacji GPS i synchronizuje go z Makiem, więc tryb oznaczony jako praca mówi, że jesteś w pracy: liczy się do strefy przerw i do Rejestru pracy (bez sieci biura jako praca zdalna). Pozostałe tryby domyślnie wstrzymują przerwy (jeśli włączone jest wykrywanie Focus)." = "Telefon przełącza tryb Skupienia po lokalizacji GPS i synchronizuje go z Makiem, więc tryb oznaczony jako praca mówi, że jesteś w pracy: liczy się do strefy przerw i do Rejestru pracy (bez sieci biura jako praca zdalna). Pozostałe tryby domyślnie wstrzymują przerwy (jeśli włączone jest wykrywanie Skupienia).";
 "Temperatura barwowa ekranu na wieczór poniżej 3400 K poprawia zasypianie (tryb nocny istnieje nie bez powodu)." = "Temperatura barwowa ekranu na wieczór poniżej 3400 K poprawia zasypianie (Night Shift istnieje nie bez powodu).";
 "Ten Mac nie udostępnia czujnika światła: działa sam harmonogram." = "Ten Mac nie udostępnia czujnika światła: działa sam harmonogram.";
 "Ten adres jest poza Twoją siecią: wysyłane dane opuszczą ten komputer." = "Ten adres jest poza Twoją siecią: wysyłane dane opuszczą ten komputer.";
@@ -1429,7 +1429,7 @@
 "Zdrowie oczu" = "Zdrowie oczu";
 "Zeruje cykl i liczy do następnej przerwy od nowa" = "Zeruje cykl i liczy do następnej przerwy od nowa";
 "Zezwól" = "Zezwól";
-"Zielona: timer działa. Niebieska: trwa przerwa. Pomarańczowa: wstrzymany przez spotkanie, wideo, Focus, regułę lub brak aktywności. Fioletowa: poza godzinami i strefą pracy albo urlop. Szara: wstrzymany ręcznie." = "Zielona: timer działa. Niebieska: trwa przerwa. Pomarańczowa: wstrzymany przez spotkanie, wideo, Focus, regułę lub brak aktywności. Fioletowa: poza godzinami i strefą pracy albo urlop. Szara: wstrzymany ręcznie.";
+"Zielona: timer działa. Niebieska: trwa przerwa. Pomarańczowa: wstrzymany przez spotkanie, wideo, Focus, regułę lub brak aktywności. Fioletowa: poza godzinami i strefą pracy albo urlop. Szara: wstrzymany ręcznie." = "Zielona: timer działa. Niebieska: trwa przerwa. Pomarańczowa: wstrzymany przez spotkanie, wideo, Skupienie, regułę lub brak aktywności. Fioletowa: poza godzinami i strefą pracy albo urlop. Szara: wstrzymany ręcznie.";
 "Zimne (ok. 5500 K)" = "Zimne (ok. 5500 K)";
 "Zmiana działa po ponownym uruchomieniu. / Applies after a restart." = "Zmiana działa po ponownym uruchomieniu. / Applies after a restart.";
 "Zmiany zostały zastosowane. Możesz je cofnąć przyciskiem poniżej." = "Zmiany zostały zastosowane. Możesz je cofnąć przyciskiem poniżej.";
@@ -1460,7 +1460,7 @@
 "blokuje: %lld" = "blokuje: %lld";
 "brak" = "brak";
 "brak Wi-Fi albo brak zgody na Lokalizację" = "brak Wi-Fi albo brak zgody na Lokalizację";
-"brak dostępu do danych Focus (Pełny dostęp do dysku)" = "brak dostępu do danych Focus (Pełny dostęp do dysku)";
+"brak dostępu do danych Focus (Pełny dostęp do dysku)" = "brak dostępu do danych trybów Skupienia (Pełny dostęp do dysku)";
 "brak odczytu" = "brak odczytu";
 "brak odpowiedzi (włącz integrację w BetterDisplay)" = "brak odpowiedzi (włącz integrację w BetterDisplay)";
 "brak pasującego wydarzenia" = "brak pasującego wydarzenia";
@@ -1636,7 +1636,7 @@
 "Źródło" = "Źródło";
 "Żaden inny program nie blokuje uśpienia." = "Żaden inny program nie blokuje uśpienia.";
 "żaden" = "żaden";
-"żaden Focus nie jest włączony" = "żaden Focus nie jest włączony";
+"żaden Focus nie jest włączony" = "żaden tryb Skupienia nie jest włączony";
 "żadna reguła nie wstrzymuje" = "żadna reguła nie wstrzymuje";
 "żadne źródło nie pasuje i są poza godzinami pracy" = "żadne źródło nie pasuje i są poza godzinami pracy";
 "żadne źródło nie pasuje, ale trwają godziny pracy" = "żadne źródło nie pasuje, ale trwają godziny pracy";

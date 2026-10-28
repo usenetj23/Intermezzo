@@ -33,7 +33,7 @@ struct AdvancedPane: View {
                 .settingsAnchor("idle")
                 if idleMethod == "monitor" {
                     Text("Needs Input Monitoring permission. Without it Intermezzo falls back to Event Source automatically.")
-                        .settingsNote()
+                        .settingsNote().settingsAnchor("advanced-needs-input-monitoring-permission-wi")
                 }
                 if idleDetection && idleMethod != "none" {
                     Stepper(value: $idleThresholdSeconds, in: 30...900, step: 30) {
@@ -47,16 +47,17 @@ struct AdvancedPane: View {
                     PermissionRow(kind: kind, status: permissions.status(kind)) {
                         permissions.request(kind)
                     }
+                    .settingsAnchor("perm-\(kind.rawValue)")
                 }
                 HStack {
-                    Button("Refresh") { permissions.refresh() }
+                    Button("Refresh") { permissions.refresh() }.settingsAnchor("advanced-refresh")
                     Button("Send test notification") {
                         AppDelegate.shared?.coordinator.sendTestNotification()
-                    }
-                    Button("Reset all decisions…") { confirmingReset = true }
+                    }.settingsAnchor("advanced-send-test-notification")
+                    Button("Reset all decisions…") { confirmingReset = true }.settingsAnchor("advanced-reset-all-decisions")
                     Spacer()
                     // macOS hands a running app its old answers, so a new grant often shows only after a restart.
-                    Button("Restart") { LanguageSwitch.relaunch() }
+                    Button("Restart") { LanguageSwitch.relaunch() }.settingsAnchor("advanced-restart")
                         .tint(permissions.resetThisRun.isEmpty ? nil : .accentColor)
                 }
                 .controlSize(.small)
@@ -70,19 +71,19 @@ struct AdvancedPane: View {
                     Text(permissions.lastMessage).font(.caption).foregroundStyle(.orange)
                 }
                 Text("After you allow something in System Settings, click Restart: macOS often shows the new state only to a freshly started app. If a switch is on in System Settings but Intermezzo still shows it as denied after a restart, the app was rebuilt with a different signature: use “Reset all decisions…” and allow again.")
-                    .settingsNote()
+                    .settingsNote().settingsAnchor("advanced-after-you-allow-something-in-system")
             }
 
             Section("Ukryj przyciski (pokusa do pomijania)") {
-                Toggle("Pauza", isOn: $hidePause)
-                Toggle("Zrób przerwę teraz", isOn: $hideMakeDue)
-                Toggle("Reset", isOn: $hideReset)
-                Toggle("Wyjdź", isOn: $hideQuit)
+                Toggle("Pauza", isOn: $hidePause).settingsAnchor("advanced-pauza")
+                Toggle("Zrób przerwę teraz", isOn: $hideMakeDue).settingsAnchor("advanced-zrob-przerwe-teraz")
+                Toggle("Reset", isOn: $hideReset).settingsAnchor("advanced-reset")
+                Toggle("Wyjdź", isOn: $hideQuit).settingsAnchor("advanced-wyjdz")
             }
 
             Section("Sen i kopia aplikacji") {
-                Toggle("Nie pozwól uśpić Maca podczas przerwy", isOn: $preventSleepDuringBreak)
-                Toggle("Alarmuj o drugiej kopii Intermezzo", isOn: $alertDuplicates)
+                Toggle("Nie pozwól uśpić Maca podczas przerwy", isOn: $preventSleepDuringBreak).settingsAnchor("advanced-nie-pozwol-uspic-maca-podczas-przerw")
+                Toggle("Alarmuj o drugiej kopii Intermezzo", isOn: $alertDuplicates).settingsAnchor("advanced-alarmuj-o-drugiej-kopii-intermezzo")
                 HStack {
                     Button("Skanuj teraz") {
                         scanMessage = String(localized: "Skanowanie…")
@@ -95,7 +96,7 @@ struct AdvancedPane: View {
                                     : String(localized: "Znaleziono: \(found.joined(separator: ", "))")
                             }
                         }
-                    }
+                    }.settingsAnchor("advanced-skanuj-teraz")
                     Text(scanMessage)
                         .settingsNote()
                 }
@@ -103,7 +104,7 @@ struct AdvancedPane: View {
 
             Section {
                 Text("Intermezzo nic nie wysyła: zero analityki, zero powiadomień od wydawcy, zero kontaktów z siecią. Cała diagnostyka zostaje na tym Macu.")
-                    .settingsNote()
+                    .settingsNote().settingsAnchor("advanced-intermezzo-nic-nie-wysyla-zero-anali")
             }
         }
         .formStyle(.grouped)

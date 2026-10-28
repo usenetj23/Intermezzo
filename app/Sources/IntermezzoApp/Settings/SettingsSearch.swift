@@ -7,13 +7,16 @@ struct SettingsSearchEntry: Identifiable {
     let anchor: String?
     let key: String
     let words: String
+    /// Lives in a section that only shows with all settings on.
+    let expert: Bool
     var id: String { pane.rawValue + "|" + key }
 
-    init(_ pane: SettingsPane, _ key: String, anchor: String? = nil, words: String = "") {
+    init(_ pane: SettingsPane, _ key: String, anchor: String? = nil, words: String = "", expert: Bool = false) {
         self.pane = pane
         self.anchor = anchor
         self.key = key
         self.words = words
+        self.expert = expert
     }
 
     var title: String { L(key) }
@@ -84,10 +87,31 @@ enum SettingsSearch {
     static func results(for query: String, showAll: Bool) -> [SettingsSearchEntry] {
         let terms = fold(query).split(separator: " ").map(String.init)
         guard !terms.isEmpty else { return [] }
-        return entries.filter { entry in
-            guard showAll || !entry.pane.isExpert else { return false }
-            let hay = fold([entry.title, entry.key, L(entry.pane.title), entry.words].joined(separator: " "))
-            return terms.allSatisfy { hay.contains($0) }
+        var hits: [(entry: SettingsSearchEntry, inTitle: Bool)] = []
+        for entry in all {
+            guard showAll || !(entry.pane.isExpert || entry.expert) else { continue }
+            let title = fold(entry.title + " " + entry.key)
+            let hay = title + " " + fold([L(entry.pane.title), entry.words].joined(separator: " "))
+            if terms.allSatisfy({ hay.contains($0) }) {
+                hits.append((entry, terms.allSatisfy { title.contains($0) }))
+            }
+        }
+        // Matches in the label itself first, then the ones found through the pane name or extra words.
+        return hits.filter(\.inTitle).map(\.entry) + hits.filter { !$0.inTitle }.map(\.entry)
+    }
+
+    /// Hand-kept entries (extra words, rows with old anchors), then the generated index, then the permissions;
+    /// the first entry for a pane and label wins.
+    static let all: [SettingsSearchEntry] = {
+        var seen = Set<String>()
+        return (entries + generated + permissionEntries).filter { seen.insert($0.id).inserted }
+    }()
+
+    /// One row per permission, found by its name or by what it is for.
+    static var permissionEntries: [SettingsSearchEntry] {
+        PermissionKind.allCases.map {
+            SettingsSearchEntry(.advanced, $0.title, anchor: "perm-\($0.rawValue)",
+                                words: L($0.usedFor) + " " + $0.usedFor, expert: false)
         }
     }
 

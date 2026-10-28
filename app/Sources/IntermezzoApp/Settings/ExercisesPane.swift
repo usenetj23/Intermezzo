@@ -58,7 +58,7 @@ struct ExercisesPane: View {
                         assignToShort: true, assignToLong: false))
                     try? context.save()
                     newName = ""; newTitle = ""
-                }
+                }.settingsAnchor("exercises-add-exercise")
             }
             .padding(10)
 
@@ -68,7 +68,7 @@ struct ExercisesPane: View {
                 Spacer()
                 Button("Przywróć bibliotekę") {
                     ExerciseSeed.syncLibrary(context, force: true)
-                }
+                }.settingsAnchor("exercises-przywroc-biblioteke")
                 .controlSize(.small)
             }
             .padding(.horizontal, 10).padding(.bottom, 10)

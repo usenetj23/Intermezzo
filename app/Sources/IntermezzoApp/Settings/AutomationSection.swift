@@ -7,7 +7,7 @@ struct AutomationSection: View {
     var body: some View {
         Section("Automatyzacja: adresy intermezzo://") {
             Text("Adresy działają w Skrótach macOS, skryptach, cronie i terminalu. „Kopiuj” wkłada do schowka gotowy przykład.")
-                .settingsNote()
+                .settingsNote().settingsAnchor("general-adresy-dzialaja-w-skrotach-macos-skr")
             ForEach(AutomationCatalog.urls, id: \.display) { entry in
                 HStack(alignment: .top) {
                     VStack(alignment: .leading, spacing: 2) {

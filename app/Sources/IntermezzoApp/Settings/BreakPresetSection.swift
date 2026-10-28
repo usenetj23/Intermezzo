@@ -35,7 +35,7 @@ struct BreakPresetSection: View {
                 .buttonStyle(.plain)
             }
             Text("Profil ustawia rytm pracy i długość przerw. Dowody są ograniczone (małe próby, konsensus) — dobierz to, co pasuje do Twojej pracy; suwaki poniżej nadal działają.")
-                .settingsNote()
+                .settingsNote().settingsAnchor("breaks-profil-ustawia-rytm-pracy-i-dlugosc")
         } header: {
             Text("Gotowe profile przerw")
         }

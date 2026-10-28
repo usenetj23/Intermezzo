@@ -48,20 +48,20 @@ struct StatusPane: View {
             Section("Zdrowie oczu") {
                 StatusScreenTimeRow(coordinator: coordinator)
                 Text("Orientacyjny próg ryzyka: ok. 4 h dziennie (Kaur i in. 2022).")
-                    .settingsNote()
+                    .settingsNote().settingsAnchor("status-orientacyjny-prog-ryzyka-ok-4-h-dzie")
             }
             Section("Akcje") {
                 HStack(spacing: 10) {
-                    Button("Pauza teraz") { coordinator.takeShortNow(source: "status-pane") }
-                    Button("Długa pauza") { coordinator.takeLongNow(source: "status-pane") }
+                    Button("Pauza teraz") { coordinator.takeShortNow(source: "status-pane") }.settingsAnchor("status-pauza-teraz")
+                    Button("Długa pauza") { coordinator.takeLongNow(source: "status-pane") }.settingsAnchor("status-dluga-pauza")
                     StatusSnoozeButtons(coordinator: coordinator)
-                    Button("Pomiń najbliższą") { coordinator.handleSkip(source: "status-pane") }
+                    Button("Pomiń najbliższą") { coordinator.handleSkip(source: "status-pane") }.settingsAnchor("status-pomin-najblizsza")
                 }
                 HStack(spacing: 10) {
                     Button("Wstrzymaj timer") { coordinator.pauseAll() }
                         .settingsAnchor("pause")
-                    Button("Wznów timer") { coordinator.resumeAll() }
-                    Button("Zresetuj cykl") { coordinator.resetAll() }
+                    Button("Wznów timer") { coordinator.resumeAll() }.settingsAnchor("status-wznow-timer")
+                    Button("Zresetuj cykl") { coordinator.resetAll() }.settingsAnchor("status-zresetuj-cykl")
                 }
             }
         }
@@ -84,8 +84,8 @@ private struct StatusSnoozeButtons: View {
 
     var body: some View {
         Group {
-            Button("+1 min") { coordinator.snooze(minutes: 1) }
-            Button("+5 min") { coordinator.snooze(minutes: 5) }
+            Button("+1 min") { coordinator.snooze(minutes: 1) }.settingsAnchor("status-1-min")
+            Button("+5 min") { coordinator.snooze(minutes: 5) }.settingsAnchor("status-5-min")
         }
         .disabled(!coordinator.canSnoozeNow)
         .help("Odroczenie działa podczas przerwy i tuż przed nią.")

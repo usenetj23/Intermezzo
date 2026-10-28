@@ -257,6 +257,7 @@ struct SettingsView: View {
                 PaneHeader(pane: pane, accent: theme.accent)
                 content(for: pane)
                     .scrollContentBackground(.hidden)
+                    .scrollsToSettingsAnchor()
             }
             .background(SettingsBackdrop(theme: theme, tintHex: tintHex.isEmpty ? nil : tintHex))
             .toolbarBackground(.hidden, for: .windowToolbar)

@@ -21,7 +21,7 @@ struct FocusShortcutsSection: View {
 
     var body: some View {
         Section("Focus through Shortcuts") {
-            Toggle("Run my Shortcuts to change Focus", isOn: $enabled)
+            Toggle("Run my Shortcuts to change Focus", isOn: $enabled).settingsAnchor("focus-run-my-shortcuts-to-change-focus")
             if enabled {
                 if let message = listMessage {
                     Text(message)
@@ -42,7 +42,7 @@ struct FocusShortcutsSection: View {
                     }
                 }
                 Text("Your Mac and iPhone share Focus only if ‘Share across devices’ is on in System Settings → Focus. Check once by hand.")
-                    .settingsNote()
+                    .settingsNote().settingsAnchor("focus-your-mac-and-iphone-share-focus-only")
             }
         }
         .onAppear { if enabled { refresh() } }
@@ -104,7 +104,7 @@ private struct FocusShortcutRow: View {
                 .disabled(!hasSelection)
         }
         .confirmationDialog("Run “\(shown)” now?", isPresented: $confirming) {
-            Button("Run Shortcut") { FocusShortcuts.fire(event) }
+            Button("Run Shortcut") { FocusShortcuts.fire(event) }.settingsAnchor("focus-run-shortcut")
             Button("Cancel", role: .cancel) {}
         } message: {
             Text("This runs your shortcut and will change your Focus — on your iPhone too if Focus is shared across devices.")

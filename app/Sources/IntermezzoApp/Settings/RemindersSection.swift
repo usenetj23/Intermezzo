@@ -39,12 +39,12 @@ struct RemindersSection: View {
                         Button(p.title) { reminders.append(MicroReminder(title: p.title, intervalMinutes: p.intervalMinutes, symbol: p.symbol)) }
                     }
                     Divider()
-                    Button("Własne…") { reminders.append(MicroReminder(title: String(localized: "Moje przypomnienie"), intervalMinutes: 45)) }
+                    Button("Własne…") { reminders.append(MicroReminder(title: String(localized: "Moje przypomnienie"), intervalMinutes: 45)) }.settingsAnchor("breaks-wlasne")
                 }
                 .fixedSize()
             }
             Text("Krótkie powiadomienia na własnych odstępach, niezależne od przerw. Pojawiają się tylko podczas pracy.")
-                .settingsNote()
+                .settingsNote().settingsAnchor("breaks-krotkie-powiadomienia-na-wlasnych-od")
         }
         .onChange(of: reminders) { _, new in
             UserDefaults.standard.set(MicroReminder.encodeList(new), forKey: ReminderController.microKey)
@@ -89,11 +89,11 @@ struct RemindersSection: View {
                 Button("Własna…") {
                     scheduled.append(ScheduledBreak(label: String(localized: "Przerwa"), minuteOfDay: 10 * 60, weekdays: [2, 3, 4, 5, 6],
                                                     isLong: false, customMinutes: 15))
-                }
+                }.settingsAnchor("breaks-wlasna")
             }
             .fixedSize()
             Text("Własny czas pasuje do przerwy śniadaniowej (9:00, 15 min) albo obiadu (12:30, 30 min). Startuje w podanej minucie, o ile aplikacja nie jest wstrzymana (spotkanie, poza godzinami pracy). Z opcją „Zapytaj” dostaniesz powiadomienie z przyciskiem Zacznij.")
-                .settingsNote()
+                .settingsNote().settingsAnchor("breaks-wlasny-czas-pasuje-do-przerwy-sniada")
         }
         .onChange(of: scheduled) { _, new in
             UserDefaults.standard.set(ScheduledBreak.encodeList(new), forKey: ReminderController.scheduledKey)
