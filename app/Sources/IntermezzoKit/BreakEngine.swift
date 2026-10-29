@@ -173,6 +173,13 @@ public struct BreakEngine {
         }
     }
 
+    /// An absence counted as a finished break of `kind` (see `AwayCredit`): moves the cycle like a real
+    /// break and restarts the work period at full length.
+    public mutating func creditAway(kind: BreakKind, now: Date, config: BreakConfig) {
+        if kind == .short { completedShortBreaks += 1 } else { completedShortBreaks = 0 }
+        resetCycle(now: now, config: config)
+    }
+
     // MARK: - Pause / resume
 
     public mutating func pause(reason: PauseReason, now: Date = Date()) {

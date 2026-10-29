@@ -1654,3 +1654,7 @@ runtime	-	Full Disk Access
 runtime	-	Reading Focus modes (work zone and pausing by Focus); optional
 compiler	IntermezzoApp/Settings/SettingsView.swift	Szukaj w ustawieniach
 compiler	IntermezzoApp/Settings/SettingsSearch.swift	Brak wyników
+compiler	IntermezzoApp/Settings/GeneralPane.swift:105	Zalicz nieobecność jako przerwę (krótką albo długą)
+compiler	IntermezzoApp/Settings/GeneralPane.swift:106	Gdy czas bez ruchu myszą i klawiaturą jest co najmniej tak długi jak następna zaplanowana przerwa, timer zaczyna od nowa tak, jakby przerwa się odbyła. Jeśli następna miała być krótka, a nieobecność trwała tyle co długa przerwa albo dłużej, liczy się jako długa. Krótsze nieobecności nadal obsługuje ustawienie poniżej.
+runtime	-	Byłeś nieobecny %lld min: zaliczone jako długa przerwa, timer zaczyna od nowa.
+runtime	-	Byłeś nieobecny %lld min: zaliczone jako krótka przerwa, timer zaczyna od nowa.

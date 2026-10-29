@@ -17,6 +17,8 @@ extension SettingsSearch {
         .init(.general, "Zielona: timer działa. Niebieska: trwa przerwa. Pomarańczowa: wstrzymany przez spotkanie, wideo, Focus, regułę lub brak aktywności. Fioletowa: poza godzinami i strefą pracy albo urlop. Szara: wstrzymany ręcznie.", anchor: "general-zielona-timer-dziala-niebieska-trwa"),
         .init(.general, "Idle Time", anchor: "general-detect-inactivity"),
         .init(.general, "Detect inactivity", anchor: "general-detect-inactivity"),
+        .init(.general, "Zalicz nieobecność jako przerwę (krótką albo długą)", anchor: "general-zalicz-nieobecnosc-jako-przerwe-krot"),
+        .init(.general, "Gdy czas bez ruchu myszą i klawiaturą jest co najmniej tak długi jak następna zaplanowana przerwa, timer zaczyna od nowa tak, jakby przerwa się odbyła. Jeśli następna miała być krótka, a nieobecność trwała tyle co długa przerwa albo dłużej, liczy się jako długa. Krótsze nieobecności nadal obsługuje ustawienie poniżej.", anchor: "general-gdy-czas-bez-ruchu-mysza-i-klawiatur"),
         .init(.general, "Zapisuj dłuższą nieobecność jako przerwę naturalną", anchor: "general-zapisuj-dluzsza-nieobecnosc-jako-prz"),
         .init(.general, "Obiad, kawa czy spacer to nie ta sama przerwa co przypomnienie z aplikacji. Takie wpisy są liczone osobno w Statystykach (nie zaliczają passy ani nie wchodzą do wykresu) i widać je w historii z ikoną spaceru. Nieobecność powyżej 6 godzin traktuję jako koniec dnia i jej nie zapisuję.", anchor: "general-obiad-kawa-czy-spacer-to-nie-ta-sama"),
         .init(.general, "Working Hours", anchor: "hours"),

@@ -728,4 +728,12 @@ STRINGS = {
         "Wznawiaj odtwarzanie po przerwie",
     "Szukaj w ustawieniach": "Szukaj w ustawieniach",
     "Brak wyników": "Brak wyników",
+    "Zalicz nieobecność jako przerwę (krótką albo długą)":
+        "Zalicz nieobecność jako przerwę (krótką albo długą)",
+    "Gdy czas bez ruchu myszą i klawiaturą jest co najmniej tak długi jak następna zaplanowana przerwa, timer zaczyna od nowa tak, jakby przerwa się odbyła. Jeśli następna miała być krótka, a nieobecność trwała tyle co długa przerwa albo dłużej, liczy się jako długa. Krótsze nieobecności nadal obsługuje ustawienie poniżej.":
+        "Gdy czas bez ruchu myszą i klawiaturą jest co najmniej tak długi jak następna zaplanowana przerwa, timer zaczyna od nowa tak, jakby przerwa się odbyła. Jeśli następna miała być krótka, a nieobecność trwała tyle co długa przerwa albo dłużej, liczy się jako długa. Krótsze nieobecności nadal obsługuje ustawienie poniżej.",
+    "Byłeś nieobecny %lld min: zaliczone jako długa przerwa, timer zaczyna od nowa.":
+        "Byłeś nieobecny %lld min: zaliczone jako długa przerwa, timer zaczyna od nowa.",
+    "Byłeś nieobecny %lld min: zaliczone jako krótka przerwa, timer zaczyna od nowa.":
+        "Byłeś nieobecny %lld min: zaliczone jako krótka przerwa, timer zaczyna od nowa.",
 }

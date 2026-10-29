@@ -692,7 +692,22 @@ final class BreakCoordinator: ObservableObject {
                 awaySince = nil
                 let resetAfter = TimeInterval(max(1, d.integer(forKey: Keys.idleResetAfterMinutes)) * 60)
                 logNaturalBreak(away: awayFor, now: now)
-                if awayFor > resetAfter {
+                // The time without input also includes the idle threshold that had to pass before "away" began.
+                let withoutInput = awayFor + threshold
+                let creditEnabled = d.object(forKey: "awayCreditsBreak") as? Bool ?? true
+                let credit = creditEnabled
+                    ? AwayCredit.kind(awaySeconds: withoutInput, nextKind: engine.previewNextKind(config: config), config: config)
+                    : nil
+                if let credit {
+                    engine.creditAway(kind: credit, now: now, config: config)
+                    if awayFor > resetAfter { PomodoroController.shared.abandon(at: now) }
+                    Trace.log("away \(Int(withoutInput)) s counted as a \(credit) break")
+                    post(title: "Witaj z powrotem",
+                         body: credit == .long
+                            ? L("Byłeś nieobecny %lld min: zaliczone jako długa przerwa, timer zaczyna od nowa.", Int(withoutInput / 60))
+                            : L("Byłeś nieobecny %lld min: zaliczone jako krótka przerwa, timer zaczyna od nowa.", Int(withoutInput / 60)),
+                         symbol: "hand.wave.fill")
+                } else if awayFor > resetAfter {
                     // "Timer Reset Logic": restart the work cycle at
                     // FULL length — returning never triggers an instant break.
                     engine.resetCycle(now: now, config: config)
