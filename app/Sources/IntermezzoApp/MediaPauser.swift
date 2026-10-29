@@ -70,11 +70,12 @@ final class MediaPauser {
         Trace.log("media: pausing for the break (\(playing.map(\.name).joined(separator: ", ")))")
         guard !families.isEmpty else {
             // Sound that is not a media app (a call, a notification): the media key would go to Apple Music instead.
-            Trace.log("media: the sound is not from a media app, no media key (it could start Apple Music)")
-            sendNowPlaying(command: .pause, allowKey: false)
+            Trace.log("media: the sound is not from a media app, nothing sent (a media command can start Apple Music)")
             return
         }
+        let musicRunning = Self.musicIsRunning
         sendNowPlaying(command: .pause, allowKey: true)
+        Self.closeMusicIfStarted(wasRunning: musicRunning)
         pausedByUs = true
         pausedFamilies = Array(families)
         // Some players ignore the Now Playing command: then the media key, once, while a media app still plays.
@@ -82,7 +83,9 @@ final class MediaPauser {
             let still = Self.playingProcesses().filter { Self.family(of: $0.bundleID) != nil }
             guard !still.isEmpty else { return }
             Trace.log("media: still playing after pause, sending the media key")
+            let musicRunning = Self.musicIsRunning
             Self.postPlayPauseKey()
+            Self.closeMusicIfStarted(wasRunning: musicRunning)
             // The key can land on Apple Music instead (it is Now Playing but was silent): undo that at once.
             if !musicWasPlaying {
                 self.schedule(after: 1.2) {
@@ -108,7 +111,9 @@ final class MediaPauser {
                 return
             }
             Trace.log("media: resuming after the break")
+            let musicRunning = Self.musicIsRunning
             self.sendNowPlaying(command: .play, allowKey: false)
+            Self.closeMusicIfStarted(wasRunning: musicRunning)
             self.schedule(after: 1.2) {
                 guard Self.playingProcesses().isEmpty else { return }
                 // The key starts whatever is Now Playing: only when the app we paused is still there.
@@ -117,6 +122,8 @@ final class MediaPauser {
                     return
                 }
                 Trace.log("media: did not resume, sending the media key")
+                let musicRunning = Self.musicIsRunning
+                defer { Self.closeMusicIfStarted(wasRunning: musicRunning) }
                 Self.postPlayPauseKey()
             }
         }
@@ -126,6 +133,26 @@ final class MediaPauser {
         let item = DispatchWorkItem { MainActor.assumeIsolated { work() } }
         pending = item
         DispatchQueue.main.asyncAfter(deadline: .now() + seconds, execute: item)
+    }
+
+    // MARK: Apple Music guard
+
+    private static var musicIsRunning: Bool {
+        !NSRunningApplication.runningApplications(withBundleIdentifier: "com.apple.Music").isEmpty
+    }
+
+    /// A Now Playing command or the media key has nobody to go to sometimes, and macOS then opens Apple Music.
+    /// If it was not running before and is now, quit it again (a polite quit; it was never ours to start).
+    private static func closeMusicIfStarted(wasRunning: Bool) {
+        guard !wasRunning else { return }
+        for delay in [1.0, 2.5] {
+            DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+                let started = NSRunningApplication.runningApplications(withBundleIdentifier: "com.apple.Music")
+                guard !started.isEmpty else { return }
+                Trace.log("media: Apple Music was started by the command, quitting it")
+                started.forEach { $0.terminate() }
+            }
+        }
     }
 
     // MARK: Who plays
