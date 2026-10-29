@@ -14,11 +14,17 @@ enum MediaPauseKeys {
 /// What plays is read from CoreAudio (each process's "is running output", public API), so a silent Mac
 /// is never sent a play/pause toggle that would start music. Pausing uses the system's Now Playing
 /// command (an explicit pause, not a toggle); if the sound does not stop, the media key is sent once.
+///
+/// The media key goes to whichever app macOS last made "Now Playing" (often Apple Music, which it then starts
+/// or even launches). So the key is sent only when a known media app is the one making the sound, never for
+/// a call, a notification or a game, and a resume key only while the app we paused is still running.
 @MainActor
 final class MediaPauser {
     static let shared = MediaPauser()
 
     private var pausedByUs = false
+    /// The media app families we paused (see `families`), for the resume.
+    private var pausedFamilies: [Int] = []
     private var pending: DispatchWorkItem?
 
     /// Apps that always produce output (equalisers, audio routers): their sound says nothing about media.
@@ -27,6 +33,27 @@ final class MediaPauser {
         "com.rogueamoeba.Loopback", "com.bitgapp.eqmac", "com.bitgapp.eqMac", "com.existential.BackgroundMusic",
         "com.globaldelight.Boom3D", "com.apple.audio.coreaudiod",
     ]
+
+    /// Apps and browsers that register as Now Playing: the media key controls them. Each family lists the bundle
+    /// id prefixes of the app and of its helper processes (a browser's sound comes from a helper).
+    private static let families: [[String]] = [
+        ["com.apple.Music"], ["com.apple.Safari", "com.apple.WebKit"], ["com.apple.TV"], ["com.apple.podcasts"],
+        ["com.apple.QuickTimePlayerX"], ["com.spotify.client"], ["com.google.Chrome"], ["org.mozilla.firefox"],
+        ["com.microsoft.edgemac"], ["com.brave.Browser"], ["company.thebrowser.Browser"], ["com.operasoftware.Opera"],
+        ["com.vivaldi.Vivaldi"], ["org.videolan.vlc"], ["com.colliderli.iina"], ["com.firecore.infuse"],
+        ["tv.plex"], ["com.tidal"], ["com.deezer"], ["com.amazon.music"],
+    ]
+
+    private static func family(of bundleID: String) -> Int? {
+        families.firstIndex { $0.contains { bundleID.hasPrefix($0) } }
+    }
+
+    private static func isRunning(family index: Int) -> Bool {
+        NSWorkspace.shared.runningApplications.contains { app in
+            guard let id = app.bundleIdentifier else { return false }
+            return families[index].contains { id.hasPrefix($0) }
+        }
+    }
 
     private var enabled: Bool { UserDefaults.standard.object(forKey: MediaPauseKeys.enabled) as? Bool ?? true }
     private var resumeEnabled: Bool { UserDefaults.standard.object(forKey: MediaPauseKeys.resume) as? Bool ?? true }
@@ -38,15 +65,32 @@ final class MediaPauser {
         guard enabled else { return }
         let playing = Self.playingProcesses()
         guard !playing.isEmpty else { return }
+        let families = Set(playing.compactMap { Self.family(of: $0.bundleID) })
+        let musicWasPlaying = playing.contains { $0.bundleID.hasPrefix("com.apple.Music") }
         Trace.log("media: pausing for the break (\(playing.map(\.name).joined(separator: ", ")))")
-        sendNowPlaying(command: .pause)
+        guard !families.isEmpty else {
+            // Sound that is not a media app (a call, a notification): the media key would go to Apple Music instead.
+            Trace.log("media: the sound is not from a media app, no media key (it could start Apple Music)")
+            sendNowPlaying(command: .pause, allowKey: false)
+            return
+        }
+        sendNowPlaying(command: .pause, allowKey: true)
         pausedByUs = true
-        // Some players ignore the Now Playing command: then the media key, once.
+        pausedFamilies = Array(families)
+        // Some players ignore the Now Playing command: then the media key, once, while a media app still plays.
         schedule(after: 1.0) {
-            let still = Self.playingProcesses()
+            let still = Self.playingProcesses().filter { Self.family(of: $0.bundleID) != nil }
             guard !still.isEmpty else { return }
             Trace.log("media: still playing after pause, sending the media key")
             Self.postPlayPauseKey()
+            // The key can land on Apple Music instead (it is Now Playing but was silent): undo that at once.
+            if !musicWasPlaying {
+                self.schedule(after: 1.2) {
+                    guard Self.playingProcesses().contains(where: { $0.bundleID.hasPrefix("com.apple.Music") }) else { return }
+                    Trace.log("media: the key started Apple Music, pausing it again")
+                    Self.postPlayPauseKey()
+                }
+            }
         }
     }
 
@@ -54,6 +98,8 @@ final class MediaPauser {
         pending?.cancel()
         guard pausedByUs else { return }
         pausedByUs = false
+        let paused = pausedFamilies
+        pausedFamilies = []
         guard resumeEnabled else { return }
         // After the break screen (and any video on it) is gone.
         schedule(after: 1.5) {
@@ -62,9 +108,14 @@ final class MediaPauser {
                 return
             }
             Trace.log("media: resuming after the break")
-            self.sendNowPlaying(command: .play)
+            self.sendNowPlaying(command: .play, allowKey: false)
             self.schedule(after: 1.2) {
                 guard Self.playingProcesses().isEmpty else { return }
+                // The key starts whatever is Now Playing: only when the app we paused is still there.
+                guard paused.contains(where: Self.isRunning(family:)) else {
+                    Trace.log("media: the paused app is gone, no media key")
+                    return
+                }
                 Trace.log("media: did not resume, sending the media key")
                 Self.postPlayPauseKey()
             }
@@ -139,9 +190,9 @@ final class MediaPauser {
     }()
 
     /// An explicit play or pause for the system's Now Playing app (private MediaRemote; may be absent).
-    private func sendNowPlaying(command: NowPlayingCommand) {
+    private func sendNowPlaying(command: NowPlayingCommand, allowKey: Bool) {
         guard let send = Self.sendCommandFunction else {
-            if command == .pause { Self.postPlayPauseKey() }
+            if command == .pause, allowKey { Self.postPlayPauseKey() }
             return
         }
         _ = send(command.rawValue, nil)
