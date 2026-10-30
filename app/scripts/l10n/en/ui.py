@@ -724,4 +724,8 @@ STRINGS = {
         "Resume playback after the break",
     "Szukaj w ustawieniach": "Search settings",
     "Brak wyników": "No results",
+    "Pauzuj też inne odtwarzacze klawiszem multimediów (może otworzyć Apple Music)":
+        "Also pause other players with the media key (may open Apple Music)",
+    "Apple Music i Spotify są zatrzymywane bezpośrednio, tylko gdy grają. Dla przeglądarek i innych odtwarzaczy trzeba użyć klawisza multimediów, który trafia do ostatniego odtwarzacza, a gdy go nie ma, macOS otwiera Apple Music. Dlatego jest domyślnie wyłączony.":
+        "Apple Music and Spotify are paused directly, only while they play. For browsers and other players the media key is needed; it goes to the last player, and when there is none macOS opens Apple Music. That is why it is off by default.",
 }

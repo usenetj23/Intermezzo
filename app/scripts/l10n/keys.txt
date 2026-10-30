@@ -1659,3 +1659,5 @@ compiler	IntermezzoApp/Settings/LightPane.swift:336	Tempo zmiany barwy: najwyże
 compiler	IntermezzoApp/Settings/LightPane.swift:340	Szczegółowy dziennik Światła (do szukania przyczyny migania)
 compiler	IntermezzoApp/Settings/LightPane.swift:341	Zapisuje w dzienniku każdą zmianę celu, przejście, zapis koloru na ekran i akcję BetterDisplay, z powodem i czasem co do milisekundy. Włącz, gdy ekran mignie, i wyślij fragment pliku z tą chwilą.
 compiler	IntermezzoApp/Settings/LightPane.swift:343	Pokaż plik dziennika
+compiler	IntermezzoApp/Settings/BreaksPane.swift:85	Pauzuj też inne odtwarzacze klawiszem multimediów (może otworzyć Apple Music)
+compiler	IntermezzoApp/Settings/BreaksPane.swift:86	Apple Music i Spotify są zatrzymywane bezpośrednio, tylko gdy grają. Dla przeglądarek i innych odtwarzaczy trzeba użyć klawisza multimediów, który trafia do ostatniego odtwarzacza, a gdy go nie ma, macOS otwiera Apple Music. Dlatego jest domyślnie wyłączony.

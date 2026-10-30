@@ -74,6 +74,8 @@ extension SettingsSearch {
         .init(.breaks, "Play sound at break start", anchor: "breaks-play-sound-at-break-start"),
         .init(.breaks, "Wstrzymuj wideo i muzykę na czas przerwy", anchor: "breaks-wstrzymuj-wideo-i-muzyke-na-czas-prz"),
         .init(.breaks, "Wznawiaj odtwarzanie po przerwie", anchor: "breaks-wznawiaj-odtwarzanie-po-przerwie"),
+        .init(.breaks, "Pauzuj też inne odtwarzacze klawiszem multimediów (może otworzyć Apple Music)", anchor: "breaks-pauzuj-tez-inne-odtwarzacze-klawisze"),
+        .init(.breaks, "Apple Music i Spotify są zatrzymywane bezpośrednio, tylko gdy grają. Dla przeglądarek i innych odtwarzaczy trzeba użyć klawisza multimediów, który trafia do ostatniego odtwarzacza, a gdy go nie ma, macOS otwiera Apple Music. Dlatego jest domyślnie wyłączony.", anchor: "breaks-apple-music-i-spotify-sa-zatrzymywan"),
         .init(.breaks, "Countdown popup next to cursor", anchor: "breaks-countdown-popup-next-to-cursor"),
         .init(.breaks, "Hide Skip button in reminder (strict)", anchor: "breaks-hide-skip-button-in-reminder-strict"),
         .init(.breaks, "Hide Delay (+1/+5) buttons in reminder (strict)", anchor: "breaks-hide-delay-1-5-buttons-in-reminder-s"),
