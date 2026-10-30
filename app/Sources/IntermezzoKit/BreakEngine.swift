@@ -56,6 +56,12 @@ public struct BreakConfig: Equatable {
 
     public init() {}
 
+    /// How a break of a fixed length (a meal) counts in the cycle: as a long break when it is longer than
+    /// the short one and at least as long as the long one, otherwise as a short break.
+    public func kindForCustomLength(seconds: Int) -> BreakKind {
+        seconds > shortBreakSeconds && seconds >= longBreakSeconds ? .long : .short
+    }
+
     public func breakDuration(for kind: BreakKind) -> TimeInterval {
         switch kind {
         case .short: return TimeInterval(shortBreakSeconds)
@@ -84,14 +90,16 @@ public struct BreakEngine {
         state = .working(until: now.addingTimeInterval(TimeInterval(config.cycleMinutes * 60)))
     }
 
-    public mutating func tick(now: Date, config: BreakConfig) -> [EngineEvent] {
+    /// `startKind` makes the break that starts now of that kind instead of the next one in the cycle
+    /// (a meal that counts as a long break).
+    public mutating func tick(now: Date, config: BreakConfig, startKind: BreakKind? = nil) -> [EngineEvent] {
         var events: [EngineEvent] = []
         switch state {
         case .paused:
             break
         case .working(let until):
             if now >= until {
-                let kind = previewNextKind(config: config)
+                let kind = startKind ?? previewNextKind(config: config)
                 state = .onBreak(kind: kind, until: now.addingTimeInterval(config.breakDuration(for: kind)))
                 events.append(.breakStarted(kind))
             }

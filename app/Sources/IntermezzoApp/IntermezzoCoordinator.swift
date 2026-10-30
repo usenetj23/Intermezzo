@@ -762,14 +762,17 @@ final class BreakCoordinator: ObservableObject {
         applyReminderOnly(now: now)
         // Meal break window open and the regular timer runs out now: this break becomes the meal.
         var mealStarting: ScheduledBreak?
+        var mealKind: BreakKind = .short
         if !isOnBreak, !engine.isPaused, CustomBreak.active == nil,
            let left = engine.timeUntilBreak(now: now), left <= 0,
            let meal = reminders.mealInWindow(now: now), let minutes = meal.customMinutes {
+            // How the meal counts in the cycle depends on the regular lengths, so read them before the override.
+            mealKind = currentConfig().kindForCustomLength(seconds: max(1, minutes) * 60)
             CustomBreak.active = (meal.label, max(1, minutes) * 60)
             config = currentConfig()
             mealStarting = meal
         }
-        let events = engine.tick(now: now, config: config)
+        let events = engine.tick(now: now, config: config, startKind: mealStarting == nil ? nil : mealKind)
         if let meal = mealStarting {
             if events.contains(where: { if case .breakStarted = $0 { return true } else { return false } }) {
                 reminders.markFired(meal, now: now)
