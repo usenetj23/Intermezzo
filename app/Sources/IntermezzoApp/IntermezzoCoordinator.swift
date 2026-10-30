@@ -242,7 +242,12 @@ func currentConfig() -> BreakConfig {
     }
     c.workingHoursStart = d.integer(forKey: Keys.workStartMinutes)
     c.workingHoursEnd = d.integer(forKey: Keys.workEndMinutes)
-    if let custom = CustomBreak.active { c.shortBreakSeconds = custom.seconds }
+    // A meal or other fixed-length break replaces the length of whichever kind is next: the cycle may be
+    // on a long break, and then only overriding the short one would leave the regular length.
+    if let custom = CustomBreak.active {
+        c.shortBreakSeconds = custom.seconds
+        c.longBreakSeconds = custom.seconds
+    }
     return c
 }
 
