@@ -728,4 +728,12 @@ STRINGS = {
         "Also pause other players with the media key (may open Apple Music)",
     "Apple Music i Spotify są zatrzymywane bezpośrednio, tylko gdy grają. Dla przeglądarek i innych odtwarzaczy trzeba użyć klawisza multimediów, który trafia do ostatniego odtwarzacza, a gdy go nie ma, macOS otwiera Apple Music. Dlatego jest domyślnie wyłączony.":
         "Apple Music and Spotify are paused directly, only while they play. For browsers and other players the media key is needed; it goes to the last player, and when there is none macOS opens Apple Music. That is why it is off by default.",
+    "Zalicz nieobecność jako przerwę (krótką albo długą)":
+        "Count being away as a break (short or long)",
+    "Gdy czas bez ruchu myszą i klawiaturą jest co najmniej tak długi jak następna zaplanowana przerwa, timer zaczyna od nowa tak, jakby przerwa się odbyła. Jeśli następna miała być krótka, a nieobecność trwała tyle co długa przerwa albo dłużej, liczy się jako długa. Krótsze nieobecności nadal obsługuje ustawienie poniżej.":
+        "When the time without mouse or keyboard input is at least as long as the next planned break, the timer starts over as if the break had happened. If a short one was next and you were away for as long as a long break or more, it counts as a long one. Shorter absences are still handled by the setting below.",
+    "Byłeś nieobecny %lld min: zaliczone jako długa przerwa, timer zaczyna od nowa.":
+        "You were away %lld min: counted as a long break, the timer starts over.",
+    "Byłeś nieobecny %lld min: zaliczone jako krótka przerwa, timer zaczyna od nowa.":
+        "You were away %lld min: counted as a short break, the timer starts over.",
 }

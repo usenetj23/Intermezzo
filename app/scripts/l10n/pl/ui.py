@@ -732,4 +732,12 @@ STRINGS = {
         "Pauzuj też inne odtwarzacze klawiszem multimediów (może otworzyć Apple Music)",
     "Apple Music i Spotify są zatrzymywane bezpośrednio, tylko gdy grają. Dla przeglądarek i innych odtwarzaczy trzeba użyć klawisza multimediów, który trafia do ostatniego odtwarzacza, a gdy go nie ma, macOS otwiera Apple Music. Dlatego jest domyślnie wyłączony.":
         "Apple Music i Spotify są zatrzymywane bezpośrednio, tylko gdy grają. Dla przeglądarek i innych odtwarzaczy trzeba użyć klawisza multimediów, który trafia do ostatniego odtwarzacza, a gdy go nie ma, macOS otwiera Apple Music. Dlatego jest domyślnie wyłączony.",
+    "Zalicz nieobecność jako przerwę (krótką albo długą)":
+        "Zalicz nieobecność jako przerwę (krótką albo długą)",
+    "Gdy czas bez ruchu myszą i klawiaturą jest co najmniej tak długi jak następna zaplanowana przerwa, timer zaczyna od nowa tak, jakby przerwa się odbyła. Jeśli następna miała być krótka, a nieobecność trwała tyle co długa przerwa albo dłużej, liczy się jako długa. Krótsze nieobecności nadal obsługuje ustawienie poniżej.":
+        "Gdy czas bez ruchu myszą i klawiaturą jest co najmniej tak długi jak następna zaplanowana przerwa, timer zaczyna od nowa tak, jakby przerwa się odbyła. Jeśli następna miała być krótka, a nieobecność trwała tyle co długa przerwa albo dłużej, liczy się jako długa. Krótsze nieobecności nadal obsługuje ustawienie poniżej.",
+    "Byłeś nieobecny %lld min: zaliczone jako długa przerwa, timer zaczyna od nowa.":
+        "Byłeś nieobecny %lld min: zaliczone jako długa przerwa, timer zaczyna od nowa.",
+    "Byłeś nieobecny %lld min: zaliczone jako krótka przerwa, timer zaczyna od nowa.":
+        "Byłeś nieobecny %lld min: zaliczone jako krótka przerwa, timer zaczyna od nowa.",
 }

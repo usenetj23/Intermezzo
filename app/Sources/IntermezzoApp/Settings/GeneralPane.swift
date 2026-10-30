@@ -13,6 +13,7 @@ struct GeneralPane: View {
     @AppStorage(Keys.autoStartTimer) private var autoStartTimer = true
     @AppStorage(Keys.idleDetection) private var idleDetection = true
     @AppStorage(Keys.idleThresholdSeconds) private var idleThresholdSeconds = 60
+    @AppStorage("awayCreditsBreak") private var awayCreditsBreak = true
     @AppStorage(Keys.idleResetAfterMinutes) private var idleResetAfterMinutes = 5
     @AppStorage(NaturalBreakKeys.enabled) private var naturalLog = 0
     @AppStorage(NaturalBreakKeys.minMinutes) private var naturalMinutes = 0
@@ -101,6 +102,9 @@ struct GeneralPane: View {
                     Group {
                         Stepper("Pause timer after \(idleThresholdSeconds / 60) min",
                               value: $idleThresholdSeconds, in: 1...60, step: 60)
+                        Toggle("Zalicz nieobecność jako przerwę (krótką albo długą)", isOn: $awayCreditsBreak).settingsAnchor("general-zalicz-nieobecnosc-jako-przerwe-krot")
+                        Text("Gdy czas bez ruchu myszą i klawiaturą jest co najmniej tak długi jak następna zaplanowana przerwa, timer zaczyna od nowa tak, jakby przerwa się odbyła. Jeśli następna miała być krótka, a nieobecność trwała tyle co długa przerwa albo dłużej, liczy się jako długa. Krótsze nieobecności nadal obsługuje ustawienie poniżej.")
+                            .settingsNote().settingsAnchor("general-gdy-czas-bez-ruchu-mysza-i-klawiatur")
                         Stepper("Reset timer after \(idleResetAfterMinutes) min away",
                               value: $idleResetAfterMinutes, in: 1...120)
                         Toggle("Zapisuj dłuższą nieobecność jako przerwę naturalną", isOn: Binding(

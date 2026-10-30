@@ -187,6 +187,8 @@
 "Button title:" = "Button title:";
 "By project" = "By project";
 "Byłeś nieobecny %lld min — zaliczyć to jako przerwę?" = "You were away for %lld min — count it as a break?";
+"Byłeś nieobecny %lld min: zaliczone jako długa przerwa, timer zaczyna od nowa." = "You were away %lld min: counted as a long break, the timer starts over.";
+"Byłeś nieobecny %lld min: zaliczone jako krótka przerwa, timer zaczyna od nowa." = "You were away %lld min: counted as a short break, the timer starts over.";
 "Błąd połączenia: %@" = "Connection error: %@";
 "Błąd w skrypcie: %@" = "Error in the script: %@";
 "Calendar" = "Calendar";
@@ -388,6 +390,7 @@
 "Galeria skryptów" = "Script gallery";
 "Gallery scripts that read window titles through System Events" = "Gallery scripts that read window titles through System Events";
 "Gdy aplikacja z listy jest aktywnym oknem, jej monitor pokazuje normalne kolory, np. przy obróbce zdjęć i wideo. Nazwy oddzielaj przecinkami." = "While an app from the list is the active window, its monitor shows normal colours, e.g. when editing photos and video. Separate the names with commas.";
+"Gdy czas bez ruchu myszą i klawiaturą jest co najmniej tak długi jak następna zaplanowana przerwa, timer zaczyna od nowa tak, jakby przerwa się odbyła. Jeśli następna miała być krótka, a nieobecność trwała tyle co długa przerwa albo dłużej, liczy się jako długa. Krótsze nieobecności nadal obsługuje ustawienie poniżej." = "When the time without mouse or keyboard input is at least as long as the next planned break, the timer starts over as if the break had happened. If a short one was next and you were away for as long as a long break or more, it counts as a long one. Shorter absences are still handled by the setting below.";
 "Gdy ekran jest powielony na projektorze lub telewizorze (Mirror: On), to prawie na pewno ktoś na niego patrzy. Przerwa na cały ekran na czyjejś prezentacji byłaby niezręczna." = "When the screen is mirrored to a projector or TV (Mirror: On), someone is almost certainly watching it. A full-screen break over someone's presentation would be awkward.";
 "Gdy przerwa jest należna, nic nie zasłania ekranu. Dostajesz łagodne powiadomienie i dźwięk; jeśli je zignorujesz, co kilka minut pojawia się mocniejsze, a krawędzie ekranu zaczynają świecić na czerwono. Kończysz je przyciskiem Zacznij przerwę, Zrobiłem przerwę, odroczeniem albo odejściem od komputera. Ten tryb ma pierwszeństwo przed surowością i miękką przerwą." = "When a break is due, nothing covers the screen. You get a gentle notification and sound; if you ignore it, a stronger one appears every few minutes and the screen edges start to glow red. You end it with Start break or I took a break, by postponing or by walking away from the computer. This mode takes precedence over strictness and soft break.";
 "Gdy warunek jest spełniony w momencie nadejścia przerwy — zostanie odroczona lub pominięta" = "When the condition is met at the moment a break is due, it will be postponed or skipped";
@@ -1403,6 +1406,7 @@
 "Zalecane: pomijaj automatycznie." = "Recommended: skip automatically.";
 "Zalecane: traktuj jako naturalną przerwę." = "Recommended: treat as a natural break.";
 "Zależą od pory roku, nie od pogody: spadają też w słoneczny październik. Nie pojawiają się w deszczu, burzy i śniegu." = "They follow the season, not the weather: they fall on a sunny October day too. They do not appear in rain, storms or snow.";
+"Zalicz nieobecność jako przerwę (krótką albo długą)" = "Count being away as a break (short or long)";
 "Zalicz przerwę" = "Count as break";
 "Zamknij" = "Close";
 "Zamknij powieki wolno, na sekundę, i otwórz. Zrób 10 takich pełnych mrugnięć. Przy ekranie mrugamy kilka razy rzadziej i często niepełnie." = "Close your eyelids slowly for a second, then open. Do 10 such full blinks. At a screen we blink several times less often and often incompletely.";
