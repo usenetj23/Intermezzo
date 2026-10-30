@@ -16,6 +16,7 @@ struct BreaksPane: View {
     @AppStorage(Keys.playSound) private var playSound = true
     @AppStorage(MediaPauseKeys.enabled) private var pauseMedia = true
     @AppStorage(MediaPauseKeys.resume) private var resumeMedia = true
+    @AppStorage(MediaPauseKeys.useSystemKeys) private var useMediaKeys = false
     @AppStorage(Keys.cursorCountdown) private var cursorCountdown = true
     @AppStorage(Keys.breakLeadPopup) private var breakLeadPopup = 30
     @AppStorage(ReminderKeys.hideSkip) private var reminderHideSkip = false
@@ -81,6 +82,9 @@ struct BreaksPane: View {
                 Toggle("Wstrzymuj wideo i muzykę na czas przerwy", isOn: $pauseMedia).settingsAnchor("breaks-wstrzymuj-wideo-i-muzyke-na-czas-prz")
                 if pauseMedia {
                     Toggle("Wznawiaj odtwarzanie po przerwie", isOn: $resumeMedia).settingsAnchor("breaks-wznawiaj-odtwarzanie-po-przerwie")
+                    Toggle("Pauzuj też inne odtwarzacze klawiszem multimediów (może otworzyć Apple Music)", isOn: $useMediaKeys).settingsAnchor("breaks-pauzuj-tez-inne-odtwarzacze-klawisze")
+                    Text("Apple Music i Spotify są zatrzymywane bezpośrednio, tylko gdy grają. Dla przeglądarek i innych odtwarzaczy trzeba użyć klawisza multimediów, który trafia do ostatniego odtwarzacza, a gdy go nie ma, macOS otwiera Apple Music. Dlatego jest domyślnie wyłączony.")
+                        .settingsNote().settingsAnchor("breaks-apple-music-i-spotify-sa-zatrzymywan")
                 }
                 Toggle("Countdown popup next to cursor", isOn: $cursorCountdown).settingsAnchor("breaks-countdown-popup-next-to-cursor")
                 if cursorCountdown {

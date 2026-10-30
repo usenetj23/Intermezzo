@@ -109,6 +109,7 @@
 "Aplikacje do rozmów i pulpitu zdalnego" = "Aplikacje do rozmów i pulpitu zdalnego";
 "Aplikacji nie ma na tym Macu: %@. Sprawdź uruchomione procesy przez System Events zamiast „tell application”." = "Aplikacji nie ma na tym Macu: %@. Sprawdź uruchomione procesy przez System Events zamiast „tell application”.";
 "Apple Intelligence jest wyłączona w Ustawieniach systemowych" = "Apple Intelligence jest wyłączona w Ustawieniach systemowych";
+"Apple Music i Spotify są zatrzymywane bezpośrednio, tylko gdy grają. Dla przeglądarek i innych odtwarzaczy trzeba użyć klawisza multimediów, który trafia do ostatniego odtwarzacza, a gdy go nie ma, macOS otwiera Apple Music. Dlatego jest domyślnie wyłączony." = "Apple Music i Spotify są zatrzymywane bezpośrednio, tylko gdy grają. Dla przeglądarek i innych odtwarzaczy trzeba użyć klawisza multimediów, który trafia do ostatniego odtwarzacza, a gdy go nie ma, macOS otwiera Apple Music. Dlatego jest domyślnie wyłączony.";
 "AppleScript (.applescript/.scpt) or shell scripts run at break start and after any end — e.g. mute audio on start, restore on end." = "Skrypty AppleScript (.applescript/.scpt) lub powłoki uruchamiane na starcie przerwy i po dowolnym zakończeniu, np. wycisz dźwięk na starcie, przywróć na końcu.";
 "AppleScript rules that ask System Events about apps and windows" = "Reguły AppleScript pytające System Events o aplikacje i okna";
 "Archive" = "Archiwizuj";
@@ -721,6 +722,7 @@
 "Pauza" = "Wstrzymaj";
 "Pauza teraz" = "Przerwa teraz";
 "Pauza to ruch + dal + oddech. Telefon to nie odpoczynek." = "Przerwa to ruch + dal + oddech. Telefon to nie odpoczynek.";
+"Pauzuj też inne odtwarzacze klawiszem multimediów (może otworzyć Apple Music)" = "Pauzuj też inne odtwarzacze klawiszem multimediów (może otworzyć Apple Music)";
 "Pauzy, które naprawdę działają" = "Przerwy, które naprawdę działają";
 "Percent of screen" = "Procent ekranu";
 "Percent: %lld%%" = "Procent: %lld%%";

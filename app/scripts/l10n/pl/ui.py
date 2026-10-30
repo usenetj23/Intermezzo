@@ -728,4 +728,8 @@ STRINGS = {
         "Wznawiaj odtwarzanie po przerwie",
     "Szukaj w ustawieniach": "Szukaj w ustawieniach",
     "Brak wyników": "Brak wyników",
+    "Pauzuj też inne odtwarzacze klawiszem multimediów (może otworzyć Apple Music)":
+        "Pauzuj też inne odtwarzacze klawiszem multimediów (może otworzyć Apple Music)",
+    "Apple Music i Spotify są zatrzymywane bezpośrednio, tylko gdy grają. Dla przeglądarek i innych odtwarzaczy trzeba użyć klawisza multimediów, który trafia do ostatniego odtwarzacza, a gdy go nie ma, macOS otwiera Apple Music. Dlatego jest domyślnie wyłączony.":
+        "Apple Music i Spotify są zatrzymywane bezpośrednio, tylko gdy grają. Dla przeglądarek i innych odtwarzaczy trzeba użyć klawisza multimediów, który trafia do ostatniego odtwarzacza, a gdy go nie ma, macOS otwiera Apple Music. Dlatego jest domyślnie wyłączony.",
 }

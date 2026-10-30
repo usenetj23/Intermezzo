@@ -7,6 +7,9 @@ enum MediaPauseKeys {
     static let enabled = "pauseMediaDuringBreak"
     /// Play it again when the break ends, if nothing else started meanwhile. On by default.
     static let resume = "resumeMediaAfterBreak"
+    /// Also pause other players with the system's media key / Now Playing command. Off by default: those
+    /// go to "whatever was Now Playing last" and macOS opens Apple Music when there is none.
+    static let useSystemKeys = "pauseMediaUseSystemKeys"
 }
 
 /// Pauses media for the break and resumes it afterwards — only what it paused itself.
@@ -23,6 +26,8 @@ final class MediaPauser {
     static let shared = MediaPauser()
 
     private var pausedByUs = false
+    /// Players paused directly by AppleScript ("Music", "Spotify"), to be resumed the same way.
+    private var pausedScripted: [String] = []
     /// The media app families we paused (see `families`), for the resume.
     private var pausedFamilies: [Int] = []
     private var pending: DispatchWorkItem?
@@ -56,6 +61,7 @@ final class MediaPauser {
     }
 
     private var enabled: Bool { UserDefaults.standard.object(forKey: MediaPauseKeys.enabled) as? Bool ?? true }
+    private var useSystemKeys: Bool { UserDefaults.standard.bool(forKey: MediaPauseKeys.useSystemKeys) }
     private var resumeEnabled: Bool { UserDefaults.standard.object(forKey: MediaPauseKeys.resume) as? Bool ?? true }
 
     // MARK: Break hooks
@@ -65,19 +71,33 @@ final class MediaPauser {
         guard enabled else { return }
         let playing = Self.playingProcesses()
         guard !playing.isEmpty else { return }
-        let families = Set(playing.compactMap { Self.family(of: $0.bundleID) })
-        let musicWasPlaying = playing.contains { $0.bundleID.hasPrefix("com.apple.Music") }
-        Trace.log("media: pausing for the break (\(playing.map(\.name).joined(separator: ", ")))")
-        guard !families.isEmpty else {
-            // Sound that is not a media app (a call, a notification): the media key would go to Apple Music instead.
-            Trace.log("media: the sound is not from a media app, nothing sent (a media command can start Apple Music)")
+        Trace.log("media: break starts, sound from \(playing.map { "\($0.name) [\($0.bundleID)]" }.joined(separator: ", "))")
+        pausedScripted = []
+        // Music and Spotify are asked directly, only when they run and play: nothing can start or launch them.
+        let scriptable = Self.scriptablePlayers.filter { player in
+            playing.contains { $0.bundleID.hasPrefix(player.bundlePrefix) }
+        }
+        for player in scriptable {
+            Self.runAppleScript(Self.script(app: player.appName, whenState: "playing", then: "pause", result: "paused")) { [weak self] out in
+                guard out.contains("paused") else { return }
+                Trace.log("media: \(player.appName) paused")
+                self?.pausedScripted.append(player.appName)
+                self?.pausedByUs = true
+            }
+        }
+        // Everything else would need the media key or the Now Playing command, which go to whatever was Now Playing
+        // last and open Apple Music when nothing was.
+        let others = playing.filter { p in !scriptable.contains { p.bundleID.hasPrefix($0.bundlePrefix) } && Self.family(of: p.bundleID) != nil }
+        guard !others.isEmpty else { return }
+        guard useSystemKeys else {
+            Trace.log("media: \(others.map(\.name).joined(separator: ", ")) not paused (media keys are off in Settings: they can open Apple Music)")
             return
         }
         let musicRunning = Self.musicIsRunning
         sendNowPlaying(command: .pause, allowKey: true)
         Self.closeMusicIfStarted(wasRunning: musicRunning)
         pausedByUs = true
-        pausedFamilies = Array(families)
+        pausedFamilies = Array(Set(others.compactMap { Self.family(of: $0.bundleID) }))
         // Some players ignore the Now Playing command: then the media key, once, while a media app still plays.
         schedule(after: 1.0) {
             let still = Self.playingProcesses().filter { Self.family(of: $0.bundleID) != nil }
@@ -86,14 +106,6 @@ final class MediaPauser {
             let musicRunning = Self.musicIsRunning
             Self.postPlayPauseKey()
             Self.closeMusicIfStarted(wasRunning: musicRunning)
-            // The key can land on Apple Music instead (it is Now Playing but was silent): undo that at once.
-            if !musicWasPlaying {
-                self.schedule(after: 1.2) {
-                    guard Self.playingProcesses().contains(where: { $0.bundleID.hasPrefix("com.apple.Music") }) else { return }
-                    Trace.log("media: the key started Apple Music, pausing it again")
-                    Self.postPlayPauseKey()
-                }
-            }
         }
     }
 
@@ -101,6 +113,8 @@ final class MediaPauser {
         pending?.cancel()
         guard pausedByUs else { return }
         pausedByUs = false
+        let scripted = pausedScripted
+        pausedScripted = []
         let paused = pausedFamilies
         pausedFamilies = []
         guard resumeEnabled else { return }
@@ -110,8 +124,15 @@ final class MediaPauser {
                 Trace.log("media: something else plays now, not resuming")
                 return
             }
-            Trace.log("media: resuming after the break")
+            // Only what we paused ourselves, and only if it is still paused (never start a player that was not ours).
+            for app in scripted {
+                Self.runAppleScript(Self.script(app: app, whenState: "paused", then: "play", result: "played")) { out in
+                    if out.contains("played") { Trace.log("media: \(app) resumed") }
+                }
+            }
+            guard !paused.isEmpty, self.useSystemKeys else { return }
             let musicRunning = Self.musicIsRunning
+            Trace.log("media: resuming after the break")
             self.sendNowPlaying(command: .play, allowKey: false)
             Self.closeMusicIfStarted(wasRunning: musicRunning)
             self.schedule(after: 1.2) {
@@ -126,6 +147,53 @@ final class MediaPauser {
                 defer { Self.closeMusicIfStarted(wasRunning: musicRunning) }
                 Self.postPlayPauseKey()
             }
+        }
+    }
+
+    // MARK: Scriptable players
+
+    private struct ScriptablePlayer {
+        let bundlePrefix: String
+        let appName: String
+    }
+
+    private static let scriptablePlayers = [
+        ScriptablePlayer(bundlePrefix: "com.apple.Music", appName: "Music"),
+        ScriptablePlayer(bundlePrefix: "com.spotify.client", appName: "Spotify"),
+    ]
+
+    /// Runs only while the app is running (the check cannot launch it) and acts only in the given player state.
+    private static func script(app: String, whenState: String, then command: String, result: String) -> String {
+        """
+        if application "\(app)" is running then
+            tell application "\(app)"
+                if player state is \(whenState) then
+                    \(command)
+                    return "\(result)"
+                end if
+            end tell
+        end if
+        return ""
+        """
+    }
+
+    private static func runAppleScript(_ source: String, completion: @escaping @MainActor (String) -> Void) {
+        DispatchQueue.global(qos: .userInitiated).async {
+            let task = Process()
+            task.executableURL = URL(fileURLWithPath: "/usr/bin/osascript")
+            task.arguments = ["-e", source]
+            let pipe = Pipe()
+            task.standardOutput = pipe
+            task.standardError = FileHandle.nullDevice
+            var text = ""
+            do {
+                try task.run()
+                text = String(data: pipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? ""
+                task.waitUntilExit()
+            } catch {
+                Trace.log("media: osascript failed: \(error)")
+            }
+            Task { @MainActor in completion(text) }
         }
     }
 

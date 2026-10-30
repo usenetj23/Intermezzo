@@ -78,3 +78,4 @@ wireguard strefa pracy
 święta urlop
 Privacy_AllFiles
 SystemPolicyAllFiles
+Spotify
