@@ -9,15 +9,23 @@ public enum BreakMomentum {
         public var skipped: Bool
         /// 1 = a regular short break; a long break weighs more.
         public var weight: Double
-        public init(skipped: Bool, weight: Double = 1) {
+        /// How much of the full drop a skipped break causes: 1 for a skip, less for a postponement (+1 / +5).
+        public var lossShare: Double
+        public init(skipped: Bool, weight: Double = 1, lossShare: Double = 1) {
             self.skipped = skipped
             self.weight = weight
+            self.lossShare = lossShare
         }
     }
 
     static let start = 0.6
     static let gain = 0.12
     static let loss = 0.2
+
+    /// A postponement lowers the line only a little: more for +5 than for +1, never as much as a skip.
+    public static func postponeShare(minutes: Int) -> Double {
+        min(0.5, 0.15 + 0.05 * Double(max(0, minutes)))
+    }
 
     /// Weight of a break relative to the short one, so a 15-minute break
     /// counts for more than a 5-minute one but never absurdly more.
@@ -31,7 +39,7 @@ public enum BreakMomentum {
         guard outcomes.count >= 2 else { return [] }
         var level = start
         return outcomes.map { o in
-            level += (o.skipped ? -loss : gain) * o.weight
+            level += (o.skipped ? -loss * o.lossShare : gain) * o.weight
             level = min(1, max(0, level))
             return level
         }

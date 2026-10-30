@@ -236,4 +236,29 @@ final class BreakEngineTests: XCTestCase {
         engine.holdBreak(seconds: 2, now: t0.addingTimeInterval(702))
         XCTAssertEqual(engine.state, onBreak)
     }
+
+    func testMealCountsAsLongOnlyWhenLongerThanShortAndAtLeastTheLongBreak() {
+        var c = BreakConfig()
+        c.shortBreakSeconds = 180
+        c.longBreakSeconds = 600
+        XCTAssertEqual(c.kindForCustomLength(seconds: 900), .long)
+        XCTAssertEqual(c.kindForCustomLength(seconds: 600), .long)
+        XCTAssertEqual(c.kindForCustomLength(seconds: 599), .short)
+        XCTAssertEqual(c.kindForCustomLength(seconds: 120), .short)
+    }
+
+    func testStartKindOverridesTheCycleAndCountsLikeThatBreak() {
+        var c = BreakConfig()
+        c.cycleMinutes = 1
+        c.shortBreakSeconds = 60
+        c.longBreakSeconds = 600
+        c.longBreakEvery = 4
+        var engine = BreakEngine()
+        let t0 = Date(timeIntervalSince1970: 1_000_000)
+        engine.start(now: t0, config: c)
+        let events = engine.tick(now: t0.addingTimeInterval(61), config: c, startKind: .long)
+        XCTAssertEqual(events, [.breakStarted(.long)])
+        _ = engine.tick(now: t0.addingTimeInterval(61 + 601), config: c)
+        XCTAssertEqual(engine.completedShortBreaks, 0)   // a long break resets the count of short ones
+    }
 }
