@@ -409,7 +409,7 @@ STRINGS = {
     "Show countdown text in menu bar": "Show countdown text in menu bar",
     "Idle Time": "Idle Time",
     "Detect inactivity": "Detect inactivity",
-    "Pause timer after %lld min": "Pause timer after %lld min",
+    "Pause timer after %lld min": "No input counts as idle after %lld min",
     "Reset timer after %lld min away": "Reset timer after %lld min away",
     "Working Hours": "Working Hours",
     "Enable working hours": "Enable working hours",
@@ -753,4 +753,8 @@ STRINGS = {
         "Position",
     "Ustawienia miejsca pracy…":
         "Work place settings…",
+    "Bez blokady ekranu: nieobecność od %lld min":
+        "Without a locked screen: away from %lld min",
+    "Brak ruchu myszą i klawiaturą przy odblokowanym ekranie może być czytaniem. Timer zatrzymuje się, a nieobecność zalicza jako przerwa dopiero po tylu minutach albo od razu, gdy ekran zostanie zablokowany, uśpiony lub włączy się wygaszacz.":
+        "No mouse or keyboard input with an unlocked screen may just be reading. The timer is held, and the absence counts as a break, only after this many minutes, or at once when the screen is locked, asleep or on the screen saver.",
 }

@@ -13,6 +13,7 @@ struct GeneralPane: View {
     @AppStorage(Keys.autoStartTimer) private var autoStartTimer = true
     @AppStorage(Keys.idleDetection) private var idleDetection = true
     @AppStorage(Keys.idleThresholdSeconds) private var idleThresholdSeconds = 60
+    @AppStorage("awayUnconfirmedMinutes") private var awayUnconfirmedMinutes = 10
     @AppStorage("awayCreditsBreak") private var awayCreditsBreak = true
     @AppStorage(Keys.idleResetAfterMinutes) private var idleResetAfterMinutes = 5
     @AppStorage(NaturalBreakKeys.enabled) private var naturalLog = 0
@@ -106,6 +107,9 @@ struct GeneralPane: View {
                         Toggle("Zalicz nieobecność jako przerwę (krótką albo długą)", isOn: $awayCreditsBreak).settingsAnchor("general-zalicz-nieobecnosc-jako-przerwe-krot")
                         Text("Gdy czas bez ruchu myszą i klawiaturą jest co najmniej tak długi jak następna zaplanowana przerwa, timer zaczyna od nowa tak, jakby przerwa się odbyła. Jeśli następna miała być krótka, a nieobecność trwała tyle co długa przerwa albo dłużej, liczy się jako długa. Krótsze nieobecności nadal obsługuje ustawienie poniżej.")
                             .settingsNote().settingsAnchor("general-gdy-czas-bez-ruchu-mysza-i-klawiatur")
+                        Stepper("Bez blokady ekranu: nieobecność od \(awayUnconfirmedMinutes) min", value: $awayUnconfirmedMinutes, in: 2...60)
+                        Text("Brak ruchu myszą i klawiaturą przy odblokowanym ekranie może być czytaniem. Timer zatrzymuje się, a nieobecność zalicza jako przerwa dopiero po tylu minutach albo od razu, gdy ekran zostanie zablokowany, uśpiony lub włączy się wygaszacz.")
+                            .settingsNote().settingsAnchor("general-brak-ruchu-mysza-i-klawiatura-przy-o")
                         Stepper("Reset timer after \(idleResetAfterMinutes) min away",
                               value: $idleResetAfterMinutes, in: 1...120)
                         Toggle("Zapisuj dłuższą nieobecność jako przerwę naturalną", isOn: Binding(

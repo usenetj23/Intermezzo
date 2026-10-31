@@ -82,3 +82,7 @@ SystemPolicyAllFiles
 30 s reminder
 put back after wake, Space or display change
 Spotify
+CGSSessionScreenIsLocked
+com.apple.ScreenSaver.Engine
+screen locked or asleep
+long stretch without input

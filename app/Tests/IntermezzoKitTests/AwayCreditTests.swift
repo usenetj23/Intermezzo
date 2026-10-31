@@ -36,4 +36,11 @@ final class AwayCreditTests: XCTestCase {
         XCTAssertEqual(engine.completedShortBreaks, 0)
         XCTAssertEqual(engine.timeUntilBreak(now: now), TimeInterval(config.cycleMinutes * 60))
     }
+
+    func testReadingIsNotAwayUntilALongStretchOrAConfirmedLeave() {
+        XCTAssertFalse(AwayPolicy.shouldPause(idleSeconds: 90, confirmed: false, unconfirmedSeconds: 600))
+        XCTAssertFalse(AwayPolicy.shouldPause(idleSeconds: 599, confirmed: false, unconfirmedSeconds: 600))
+        XCTAssertTrue(AwayPolicy.shouldPause(idleSeconds: 600, confirmed: false, unconfirmedSeconds: 600))
+        XCTAssertTrue(AwayPolicy.shouldPause(idleSeconds: 61, confirmed: true, unconfirmedSeconds: 600))
+    }
 }

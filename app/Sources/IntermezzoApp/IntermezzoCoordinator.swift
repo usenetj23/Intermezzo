@@ -329,6 +329,18 @@ final class BreakCoordinator: ObservableObject {
         notify: { [weak self] title, body in self?.notify(title: title, body: body) },
         flashPulse: { [weak self] hex in self?.flash.pulse(colorHex: hex) })
     private var awaySince: Date?
+    /// The timer was held for this away spell (a locked or asleep screen, or a long stretch without input).
+    private var awayPaused = false
+    /// A sign of really leaving was seen during this spell: the screen locked, asleep or on the screen saver.
+    private var awayConfirmed = false
+
+    /// The screen is locked, asleep or showing the screen saver: the person is not reading it.
+    private static func screenIsAway() -> Bool {
+        if CGDisplayIsAsleep(CGMainDisplayID()) != 0 { return true }
+        if let session = CGSessionCopyCurrentDictionary() as? [String: Any],
+           (session["CGSSessionScreenIsLocked"] as? Bool) == true { return true }
+        return NSWorkspace.shared.runningApplications.contains { $0.bundleIdentifier == "com.apple.ScreenSaver.Engine" }
+    }
     private var clockOutOverlay: ClockOutController?
     private var clockOutAcknowledgedAt: Date?
     private var tickCount: Int = 0
@@ -690,11 +702,24 @@ final class BreakCoordinator: ObservableObject {
             if idle > threshold && !ignoreNaturalBreak {
                 if awaySince == nil {
                     awaySince = now
-                    engine.pause(reason: .userAway, now: now)
+                    awayConfirmed = false
+                    awayPaused = false
                 }
+                // No input can be reading: hold the timer only with a sign of leaving or after a long stretch.
+                if !awayConfirmed, Self.screenIsAway() { awayConfirmed = true }
+                let unconfirmed = TimeInterval(max(2, d.object(forKey: "awayUnconfirmedMinutes") as? Int ?? 10) * 60)
+                if !awayPaused, AwayPolicy.shouldPause(idleSeconds: idle, confirmed: awayConfirmed, unconfirmedSeconds: unconfirmed) {
+                    awayPaused = true
+                    engine.pause(reason: .userAway, now: now)
+                    Trace.log("idle: away confirmed (\(awayConfirmed ? "screen locked or asleep" : "long stretch without input")), timer held")
+                }
+            } else if awaySince != nil, !awayPaused {
+                // A short stretch without input and nothing showing the person left: they were reading or thinking.
+                awaySince = nil
             } else if awaySince != nil {
                 let awayFor = now.timeIntervalSince(awaySince!)
                 awaySince = nil
+                awayPaused = false
                 let resetAfter = TimeInterval(max(1, d.integer(forKey: Keys.idleResetAfterMinutes)) * 60)
                 logNaturalBreak(away: awayFor, now: now)
                 // The time without input also includes the idle threshold that had to pass before "away" began.
@@ -729,6 +754,7 @@ final class BreakCoordinator: ObservableObject {
             }
         } else if awaySince != nil {
             awaySince = nil
+            awayPaused = false
             engine.resume(reason: .userAway, now: now)
         }
 

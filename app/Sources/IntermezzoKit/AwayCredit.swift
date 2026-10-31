@@ -11,3 +11,13 @@ public enum AwayCredit {
         return nil
     }
 }
+
+/// When no input counts as being away. Reading, watching or thinking looks the same as leaving the desk, so
+/// without a sign of leaving (the screen locked, asleep or on the screen saver) the timer is held only after a
+/// long stretch without input.
+public enum AwayPolicy {
+    public static func shouldPause(idleSeconds: TimeInterval, confirmed: Bool, unconfirmedSeconds: TimeInterval) -> Bool {
+        confirmed || idleSeconds >= unconfirmedSeconds
+    }
+}
+
