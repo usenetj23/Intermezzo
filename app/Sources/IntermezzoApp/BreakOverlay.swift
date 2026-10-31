@@ -695,16 +695,19 @@ struct BreakOverlayView: View {
             if cursorHere != inside { cursorHere = inside }
         }
         // Poll: pobierz pogodę raz przy starcie, potem odświeżaj co 60 s.
+        // The answer of a fetch comes a moment later: look every second until there is one, then every minute
+        // (a 60 s wait after the first look left short breaks without weather).
         .task(id: shownAt) {
             guard weatherAllowed else { return }
-            var ticks = 0
-            while !Task.isCancelled, ticks < 30 {
+            var waited = 0.0
+            while !Task.isCancelled, waited < 30 * 60 {
                 WeatherController.shared.refreshIfNeeded()
-                if let s = WeatherController.shared.snapshot, s.isFresh {
-                    liveWeather = s
+                if let s = WeatherController.shared.snapshot, s.isFresh, liveWeather?.fetchedAt != s.fetchedAt {
+                    withAnimation(.easeIn(duration: 1.2)) { liveWeather = s }
                 }
-                try? await Task.sleep(nanoseconds: 60_000_000_000)
-                ticks += 1
+                let step = liveWeather == nil ? 1.0 : 60.0
+                try? await Task.sleep(nanoseconds: UInt64(step * 1_000_000_000))
+                waited += step
             }
         }
     }

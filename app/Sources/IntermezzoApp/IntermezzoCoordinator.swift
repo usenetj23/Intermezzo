@@ -793,6 +793,10 @@ final class BreakCoordinator: ObservableObject {
         }
 
         publishGateReport(now: now)
+        // Fetch the weather before the break so its effect is there from the first second.
+        if !isOnBreak, let untilBreak = engine.timeUntilBreak(now: now), untilBreak <= 90 {
+            WeatherController.shared.refreshIfNeeded()
+        }
         refreshUI(now: now, config: config)
 
         // Break Actions — Before Due point (fires once per approaching break).

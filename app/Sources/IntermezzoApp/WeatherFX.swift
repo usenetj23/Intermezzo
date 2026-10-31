@@ -45,6 +45,8 @@ final class WeatherController {
     private var fetching = false
     private var locationRequested = false
     private var lastAttempt = Date.distantPast
+    /// What happened the last time, for the diagnostics ("ok …", "no location", "fetch failed …").
+    private(set) var lastStatus = "not requested yet"
     private let locationFetcher = LocationOneShot()
 
     /// intermezzo://debug/weather?effect=rain&wind=15 — wymusza warunki do podglądu.
@@ -64,6 +66,7 @@ final class WeatherController {
         if !force, Date().timeIntervalSince(lastAttempt) < 60 { return }
         lastAttempt = Date()
         Trace.log("weather: refresh requested")
+        lastStatus = "requested"
 
         // Potrzebna lokalizacja: najpierw cache, potem CoreLocation (raz).
         let d = UserDefaults.standard
@@ -74,6 +77,7 @@ final class WeatherController {
         }
         guard let lat = coord(GlassKeys.lat), let lon = coord(GlassKeys.lon) else {
             Trace.log("weather: no cached location, requesting CoreLocation")
+            lastStatus = "no location yet (Location permission needed or no fix)"
             if !locationRequested {
                 locationRequested = true
                 locationFetcher.onLocation = { [weak self] lat, lon in
@@ -100,6 +104,7 @@ final class WeatherController {
                       let current = json["current"] as? [String: Any],
                       let code = current["weather_code"] as? Int else {
                     Trace.log("weather: bad payload")
+                    self?.lastStatus = "bad answer from the weather service"
                     return
                 }
                 let temp = (current["temperature_2m"] as? Double) ?? 0
@@ -111,9 +116,11 @@ final class WeatherController {
                                                  windKmh: wind, windDirDeg: windDir,
                                                  fetchedAt: Date(), uvIndex: uv,
                                                  cloudCover: current["cloud_cover"] as? Double)
+                self?.lastStatus = "ok, \(WeatherEffect.from(wmoCode: code).rawValue)"
                 Trace.log("weather: code=\(code) effect=\(WeatherEffect.from(wmoCode: code).rawValue) \(temp)°C wiatr \(Int(wind)) km/h")
             } catch {
                 Trace.log("weather: fetch failed \(error.localizedDescription)")
+                self?.lastStatus = "fetch failed (\((error as NSError).code))"
             }
         }
     }
