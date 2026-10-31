@@ -115,6 +115,13 @@ enum SettingsPane: String, Identifiable, CaseIterable {
     /// Row to scroll to inside `pending`'s pane (a name a row carries as `.id`).
     @MainActor static var pendingAnchor: String?
 
+    /// Opens `pane` in the Settings window, scrolled to the row named `anchor` (same route as the Diagnostics cards).
+    @MainActor static func go(to pane: SettingsPane, anchor: String? = nil) {
+        pendingAnchor = anchor
+        pending = pane
+        NotificationCenter.default.post(name: .openSettingsPane, object: nil)
+    }
+
     /// `workLog`, `work-log` or the legacy id ("Work log"), case-insensitive.
     init?(link: String) {
         let key = link.lowercased().filter { $0.isLetter }

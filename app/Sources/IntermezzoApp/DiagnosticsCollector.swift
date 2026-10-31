@@ -55,6 +55,8 @@ enum DiagnosticsCollector {
             ("BetterDisplay", String(describing: BetterDisplayLight.shared.link)),
             ("Location Services", yesNo(CLLocationManager.locationServicesEnabled(), "on", "off")
                 + ", Mac position " + yesNo(defaults.object(forKey: GlassKeys.lat) != nil, "known", "not known yet")),
+            ("Place for sun and weather", PlaceResolver.resolve(defaults: defaults)
+                .map { "\($0.source)" } ?? "unknown"),
             ("Light", yesNo(defaults.bool(forKey: LightKeys.enabled), "on", "off")),
             ("Weather on the break screen", WeatherController.shared.snapshot.map {
                 "\(WeatherController.shared.lastStatus); data \(Int(Date().timeIntervalSince($0.fetchedAt) / 60)) min old"

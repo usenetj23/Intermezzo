@@ -161,7 +161,6 @@ final class LightController: ObservableObject {
     private var lastForeignFront: FrontWindow?
     private var frontTimer: Timer?
     /// The time zone's reference city, read from zone.tab once per zone.
-    private var zoneCache: (zone: String, point: GeoPoint?)?
 
     // MARK: Settings
 
@@ -458,39 +457,19 @@ final class LightController: ObservableObject {
         return snapshot.cloudCover
     }
 
-    /// Where the Mac is, as well as it is known (typed in, the Mac's own fix, or the time zone's city): for the weather.
-    /// nil when nothing is known.
-    func bestKnownPoint() -> GeoPoint? {
-        let (point, _) = resolveLocation()
-        return point.latitude == 0 && point.longitude == 0 ? nil : point
-    }
-
     private func resolveLocation() -> (GeoPoint, String) {
-        if let manual = defaults.string(forKey: LightKeys.manualLocation), !manual.isEmpty,
-           let point = LightLocation.parse(manual) {
-            return (point, String(localized: "wpisana ręcznie"))
+        let resolved = PlaceResolver.resolve(defaults: defaults)
+        // Only the time zone's city (or nothing) is a stand-in: keep asking the Mac for its real position.
+        if resolved == nil || resolved?.source == .timeZone { requestLocationIfAllowed() }
+        switch resolved?.source {
+        case .manual: return (resolved!.point, String(localized: "wpisana ręcznie"))
+        case .macFix: return (resolved!.point, String(localized: "z lokalizacji Maca"))
+        case .timeZone:
+            return (resolved!.point, String(localized: "przybliżona, ze strefy czasowej \(TimeZone.current.identifier)"))
+        case nil: return (GeoPoint(latitude: 0, longitude: 0), String(localized: "nieznana (wpisz współrzędne)"))
         }
-        func coordinate(_ key: String) -> Double? {
-            if let v = defaults.object(forKey: key) as? Double { return v }
-            if let s = defaults.string(forKey: key), let v = Double(s) { return v }
-            return nil
-        }
-        if let lat = coordinate(GlassKeys.lat), let lon = coordinate(GlassKeys.lon) {
-            return (GeoPoint(latitude: lat, longitude: lon), String(localized: "z lokalizacji Maca"))
-        }
-        requestLocationIfAllowed()
-        let zone = TimeZone.current.identifier
-        if zoneCache?.zone != zone {
-            let table = (try? String(contentsOfFile: "/usr/share/zoneinfo/zone.tab", encoding: .utf8)) ?? ""
-            zoneCache = (zone, LightLocation.fromZoneTab(zoneID: zone, table: table))
-        }
-        if let point = zoneCache?.point {
-            return (point, String(localized: "przybliżona, ze strefy czasowej \(zone)"))
-        }
-        return (GeoPoint(latitude: 0, longitude: 0), String(localized: "nieznana (wpisz współrzędne)"))
     }
 
-    /// Only when the system already allows it: this never opens a permission prompt.
     private func requestLocationIfAllowed() {
         guard !requestedLocation else { return }
         guard PermissionCenter.location(CLLocationManager().authorizationStatus) == .granted else { return }

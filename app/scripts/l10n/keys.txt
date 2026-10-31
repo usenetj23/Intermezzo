@@ -105,7 +105,6 @@ compiler	IntermezzoApp/Settings/LightPane.swift:254	BetterDisplay
 compiler	IntermezzoApp/Settings/LightPane.swift:283	BetterDisplay nie jest uruchomiony
 compiler	IntermezzoApp/Light/BetterDisplayLight.swift:310	BetterDisplay nie wyłączył True Tone (ta funkcja wymaga wersji Pro).
 compiler	IntermezzoApp/Settings/AIPane.swift:81	Bez klucza (zwykle tak jest przy lokalnym serwerze).
-compiler	IntermezzoApp/Settings/LightPane.swift:307	Bez wpisanych współrzędnych aplikacja używa lokalizacji Maca, a gdy jej nie ma, przybliżonego miejsca ze strefy czasowej. Wschód i zachód liczy lokalnie, bez internetu.
 compiler	IntermezzoApp/Settings/LightPane.swift:49	Bez zmiany barwy: %@
 compiler	IntermezzoApp/Settings/ExercisesPane.swift:66	Biblioteka: %lld ćwiczeń (oczy, kark i barki, nadgarstki, plecy, nogi, stanowisko).
 compiler	IntermezzoApp/Settings/PomodoroProjectsSection.swift:74	Billable
@@ -1027,8 +1026,6 @@ compiler	IntermezzoApp/Settings/WorkLogPane.swift:134	karta / stacja
 compiler	IntermezzoApp/Settings/LightMonitorsSection.swift:50	kolor do %lld K
 compiler	IntermezzoApp/Settings/WorkCalendar.swift:160	korekta ręczna
 compiler	IntermezzoApp/IntermezzoCoordinator.swift:1051	krótka
-compiler	IntermezzoApp/Settings/GeneralPane.swift:228	lat
-compiler	IntermezzoApp/Settings/GeneralPane.swift:230	lon
 compiler	IntermezzoApp/Settings/AdvancedPane.swift:66	macOS forgets what you allowed for Intermezzo (input monitoring, screen recording, accessibility, automation, calendar). Until you allow them again, natural-break detection, effects and script rules work in a reduced way.
 compiler	IntermezzoApp/Settings/WorkLogPane.swift:76	macOS podaje nazwy sieci Wi-Fi tylko aplikacjom z dostępem do lokalizacji.
 compiler	IntermezzoApp/Settings/GeneralPane.swift:215	macOS reads the Wi-Fi name only with Location access
@@ -1056,7 +1053,6 @@ compiler	IntermezzoApp/Reports/ReportSummaryPage.swift:70	pomodoros
 compiler	IntermezzoApp/Settings/WorkLogPane.swift:89	poza strefą pracy
 compiler	IntermezzoApp/Light/LightController.swift:428	przybliżona, ze strefy czasowej %@
 compiler	IntermezzoApp/Settings/LightMonitorsSection.swift:51	przyciemnienie %lld%%
-compiler	IntermezzoApp/Settings/GeneralPane.swift:232	radius m
 compiler	IntermezzoApp/Settings/WorkLogPane.swift:159	router %@
 compiler	IntermezzoApp/Settings/BreaksPane.swift:208	s po
 compiler	IntermezzoApp/Settings/BreaksPane.swift:208	s przed
@@ -1669,3 +1665,13 @@ compiler	IntermezzoApp/Settings/AboutPane.swift:44	Kopiuj diagnostykę
 compiler	IntermezzoApp/Settings/AboutPane.swift:44	Skopiowano do schowka
 compiler	IntermezzoApp/Settings/AboutPane.swift:48	Kopiuje do schowka wersję aplikacji i macOS, model Maca, monitory, stan uprawnień i funkcje, które się wycofały, oraz kilka linii dziennika o świetle i multimediach. Bez nazw sieci, tytułów z kalendarza, miejsc i nazwy użytkownika. Nic nie jest wysyłane: wklej to do zgłoszenia na GitHubie.
 compiler	IntermezzoApp/PermissionCenter.swift:211	Najpierw kliknij Uruchom ponownie: macOS pokaże okno z pytaniem dopiero po ponownym uruchomieniu aplikacji.
+compiler	IntermezzoApp/Settings/GeneralPane.swift:258	Szerokość geograficzna
+compiler	IntermezzoApp/Settings/GeneralPane.swift:264	Długość geograficzna
+compiler	IntermezzoApp/Settings/GeneralPane.swift:280	Wybierz na mapie…
+compiler	IntermezzoApp/Settings/GeneralPane.swift:291	To miejsce pracy, a nie pozycja Maca: dzięki niemu aplikacja wie, że jesteś w pracy. Pozycję używaną do pogody i wschodu słońca ustawiasz osobno.
+compiler	IntermezzoApp/Settings/GeneralPane.swift:293	Ustawienia pozycji do pogody i słońca…
+compiler	IntermezzoApp/Settings/GeneralPane.swift:293	Ustawienia pozycji do pogody i słońca…
+compiler	IntermezzoApp/Settings/LightPane.swift:314	Pozycja
+compiler	IntermezzoApp/Settings/LightPane.swift:331	To jedna pozycja dla Światła (wschód i zachód słońca), pogody na ekranie przerwy i słońca na jego obrazie. Najpierw liczą się wpisane współrzędne, potem lokalizacja Maca, na końcu przybliżone miejsce ze strefy czasowej. Wschód i zachód liczy lokalnie, bez internetu. Miejsce pracy dla strefy pracy ustawiasz osobno w Ogólne.
+compiler	IntermezzoApp/Settings/LightPane.swift:333	Ustawienia miejsca pracy…
+compiler	IntermezzoApp/Settings/GeneralPane.swift:270	Promień: %lld m

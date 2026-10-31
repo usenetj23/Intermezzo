@@ -139,7 +139,6 @@
 "BetterDisplay nie wyłączył True Tone (ta funkcja wymaga wersji Pro)." = "BetterDisplay did not turn True Tone off (this feature needs the Pro version).";
 "Bez klucza (zwykle tak jest przy lokalnym serwerze)." = "No key (usual for a local server).";
 "Bez odroczeń, bez przycisku Skip i bez Esc na ekranie przerwy. Awaryjnie przerwę kończysz z paska menu." = "No postponements, no Skip button and no Esc on the break screen. In an emergency you end the break from the menu bar.";
-"Bez wpisanych współrzędnych aplikacja używa lokalizacji Maca, a gdy jej nie ma, przybliżonego miejsca ze strefy czasowej. Wschód i zachód liczy lokalnie, bez internetu." = "Without typed coordinates the app uses the Mac's location, and without that, an approximate place from the time zone. Sunrise and sunset are calculated locally, without the internet.";
 "Bez wpływu teraz" = "No effect right now";
 "Bez wykresu, haseł o passie i liczników dni z rzędu. Zostaje sam numer przerwy dziś. Statystyki i mapa regularności nadal są dostępne, bez oceniania." = "No chart, streak phrases or days-in-a-row counters. Only today's break number remains. Statistics and the consistency map are still available, without judging.";
 "Bez zmiany barwy: %@" = "No colour change: %@";
@@ -333,6 +332,7 @@
 "Długa przerwa teraz" = "Long break now";
 "Długi build / render" = "Long build / render";
 "Długi build / render (dobra pora na przerwę)" = "Long build / render (a good time for a break)";
+"Długość geograficzna" = "Longitude";
 "Długość, rytm, dźwięk i akcje przerw" = "Length, rhythm, sound and break actions";
 "Edytory zdjęć, wideo i grafiki" = "Photo, video and graphics editors";
 "Edytuj…" = "Edit…";
@@ -506,7 +506,7 @@
 "Loading your shortcuts…" = "Loading your shortcuts…";
 "Location" = "Location";
 "Location access not granted" = "Location access not granted";
-"Location: active only within radius of a saved place" = "Location: active only within radius of a saved place";
+"Location: active only within radius of a saved place" = "Work place: work zone only within a radius of a saved place";
 "Logic, GarageBand, Ableton, Pro Tools, Cubase, Reaper, Final Cut, Premiere, DaVinci Resolve lub Blender na pierwszym planie. Wejście w stan flow trudno odbudować po przerwie w środku nagrania lub renderu." = "Logic, GarageBand, Ableton, Pro Tools, Cubase, Reaper, Final Cut, Premiere, DaVinci Resolve or Blender in front. Flow is hard to rebuild after a break in the middle of a recording or render.";
 "Lokalizacja" = "Location";
 "Lokalne zostają: uprawnienia, pozycje okien, ścieżki do plików (muzyka, skrypty, obrazy), dzisiejsze liczniki. Przy konflikcie ustawień wygrywa nowsza zmiana. Mac dołączający do folderu z danymi innego Maca najpierw przejmuje jego ustawienia." = "Kept per Mac: permissions, window positions, file paths (music, scripts, images), today's counters. When a setting changed on both Macs, the newer change wins. A Mac joining a folder that already holds another Mac's data first takes over its settings.";
@@ -815,6 +815,7 @@
 "Poza godzinami pracy" = "Outside working hours";
 "Poza strefą pracy" = "Outside the work zone";
 "Poziom surowości możesz zmienić w Przerwy › Podejście do przerw." = "You can change the strictness level in Breaks › Approach to breaks.";
+"Pozycja" = "Position";
 "Połowa walki o zmęczone oczy" = "Half the battle against tired eyes";
 "Połączenie" = "Connection";
 "Połączenie działa." = "The connection works.";
@@ -843,6 +844,7 @@
 "Project ‘%@’?" = "Project ‘%@’?";
 "Projects" = "Projects";
 "Projects appear here when you create one in the plan above (Project → New project…)." = "Projects appear here when you create one in the plan above (Project › New project…).";
+"Promień: %lld m" = "Radius: %lld m";
 "Prostuj palce w górę, grzbiet dłoni do siebie, przytrzymaj 15 s. Odwróć dłoń w dół — druga strona. Profilaktyka RSI." = "Point your fingers up, back of the hand towards you, hold for 15 s. Turn the palm down for the other side. Prevents RSI.";
 "Prowadź rejestr czasu pracy" = "Keep a work-time log";
 "Przechyl głowę delikatnie do prawego ramienia, utrzymaj 15 s. Zmień stronę." = "Gently tilt your head toward your right shoulder and hold for 15 s. Switch sides.";
@@ -1091,6 +1093,7 @@
 "Szablon" = "Template";
 "Szczegółowy dziennik Światła (do szukania przyczyny migania)" = "Detailed Light log (to find what makes the screen blink)";
 "Szczotkowane aluminium" = "Brushed aluminium";
+"Szerokość geograficzna" = "Latitude";
 "Szklanka wody przy każdej długiej przerwie — odwodnienie objawia się\nspadkiem koncentracji i „głodem” na słodycze.\n\nKofeina: ostatnia kawa najpóźniej 8 godzin przed snem.\nKawa o 16:00 nadal krąży o północy. Alternatywa na poobiedni zjazd:\n10 minut ruchu na świeżym powietrzu działa lepiej niż drugie espresso." = "A glass of water at every long break — dehydration shows up as\npoorer concentration and “cravings” for sweets.\n\nCaffeine: your last coffee no later than 8 hours before bed.\nA coffee at 4 p.m. is still in your system at midnight. For the after-lunch slump:\n10 minutes of moving in the fresh air works better than a second espresso.";
 "Szklanka wody teraz. Serio. Teraz." = "A glass of water now. Seriously. Now.";
 "Szkło" = "Glass";
@@ -1148,7 +1151,9 @@
 "Title of the frontmost window of the frontmost app. Needs Automation for System Events and Accessibility." = "Title of the frontmost window of the frontmost app. Needs Automation for System Events and Accessibility.";
 "Title shown on break screen" = "Title shown on break screen";
 "To %lld:00 (next day)" = "To %lld:00 (next day)";
+"To jedna pozycja dla Światła (wschód i zachód słońca), pogody na ekranie przerwy i słońca na jego obrazie. Najpierw liczą się wpisane współrzędne, potem lokalizacja Maca, na końcu przybliżone miejsce ze strefy czasowej. Wschód i zachód liczy lokalnie, bez internetu. Miejsce pracy dla strefy pracy ustawiasz osobno w Ogólne." = "This is the one position for Light (sunrise and sunset), the weather on the break screen and the sun in its picture. The place you type in comes first, then the Mac's own position, then the city of the time zone. Sunrise and sunset are computed locally, without the internet. The work place of the work zone is set separately in General.";
 "To jest sieć w pracy" = "This is the work network";
+"To miejsce pracy, a nie pozycja Maca: dzięki niemu aplikacja wie, że jesteś w pracy. Pozycję używaną do pogody i wschodu słońca ustawiasz osobno." = "This is the work place, not the Mac's position: it tells the app you are at work. The position used for the weather and the sunrise is set separately.";
 "To nie porada medyczna. Treści w Intermezzo opieramy na przeglądach i zaleceniach; część to konsensus ekspertów, nie wyniki dużych prób.\n\nDobrze podparte: przerwy zmniejszają objawy; ergonomia stanowiska i światło mają znaczenie; ruch chroni układ mięśniowo-szkieletowy.\nUmiarkowanie: mruganie (małe badania), konkretny rytm przerw (próby po 11–24 osoby).\nSłabo / niespójnie: okulary z filtrem światła niebieskiego, programy zmieniające barwę ekranu.\n\nCzytaliśmy w całości: Kaur 2022 (PMC9434525), Lapa 2023 (PMC10001854), Moreira 2022 (PMC9778108), Harvard Health, Medical News Today, wytyczne Towson. Tylko streszczenia: Redondo 2025, Dyrek 2024, Blasioli i Baleiron, Mierczak i Garus-Pakowska 2025, Kamińska 2016, Shin 2018. Nie udało się otworzyć (blokada serwera): strony ResearchGate, ScienceDirect i MDPI.\n\nŹródła: patrz wyżej oraz plik docs/zrodla-zdrowie-oczu.md w repozytorium." = "This is not medical advice. The content in Intermezzo is based on reviews and guidelines; some of it is expert consensus, not the results of large trials.\n\nWell supported: breaks reduce symptoms; workstation ergonomics and lighting matter; movement protects the musculoskeletal system.\nModerately: blinking (small studies), a specific break rhythm (trials of 11–24 people).\nWeak / inconsistent: blue-light-filtering glasses, software that changes the screen's colour.\n\nRead in full: Kaur 2022 (PMC9434525), Lapa 2023 (PMC10001854), Moreira 2022 (PMC9778108), Harvard Health, Medical News Today, Towson guidelines. Abstracts only: Redondo 2025, Dyrek 2024, Blasioli and Baleiron, Mierczak and Garus-Pakowska 2025, Kamińska 2016, Shin 2018. Could not be opened (blocked by the server): ResearchGate, ScienceDirect and MDPI pages.\n\nSources: see above and the file docs/zrodla-zdrowie-oczu.md in the repository.";
 "To samo co postpone; rodzaj przerwy w adresie jest dziś pomijany" = "Same as postpone; the break kind in the address is ignored for now";
 "Today" = "Today";
@@ -1206,6 +1211,8 @@
 "Ustawienia domyślne Intermezzo" = "Intermezzo defaults";
 "Ustawienia ekranu" = "Display settings";
 "Ustawienia i historia na Twoich Macach i w chmurze" = "Settings and history on your Macs and in the cloud";
+"Ustawienia miejsca pracy…" = "Work place settings…";
+"Ustawienia pozycji do pogody i słońca…" = "Settings of the position for weather and sun…";
 "Ustawienia systemowe…" = "System Settings…";
 "Ustawienia, rejestr pracy, historia przerw i Pomodoro trafiają do wybranych folderów w chmurze. Inne Twoje Maki czytają je stamtąd, a nowy lub przeinstalowany Mac po włączeniu tej opcji z tym samym folderem odzyska wszystko sam. Każdy Mac zapisuje tylko własny plik, więc chmura nigdy nie scala jednej bazy z dwóch miejsc." = "Settings, the work log, break history and Pomodoro go to the cloud folders you pick. Your other Macs read them from there, and a new or reinstalled Mac gets everything back by itself once you turn this on with the same folder. Each Mac writes only its own file, so the cloud never merges one database from two places.";
 "Usunąć skrypt?" = "Delete the script?";
@@ -1519,8 +1526,6 @@
 "krótka" = "short";
 "krótka przerwa byłaby dłuższa niż długa" = "the short break would be longer than the long one";
 "ktoś ogląda Twój ekran (usługa macOS działa tylko podczas połączenia)" = "someone is watching your screen (the macOS service only runs during a connection)";
-"lat" = "lat";
-"lon" = "lon";
 "macOS forgets what you allowed for Intermezzo (input monitoring, screen recording, accessibility, automation, calendar). Until you allow them again, natural-break detection, effects and script rules work in a reduced way." = "macOS forgets what you allowed for Intermezzo (input monitoring, screen recording, accessibility, automation, calendar). Until you allow them again, natural-break detection, effects and script rules work in a reduced way.";
 "macOS podaje nazwy sieci Wi-Fi tylko aplikacjom z dostępem do lokalizacji." = "macOS reveals Wi-Fi names only to apps with Location access.";
 "macOS reads the Wi-Fi name only with Location access" = "macOS reads the Wi-Fi name only with Location access";
@@ -1565,7 +1570,6 @@
 "przepuszcza" = "lets through";
 "przybliżona, ze strefy czasowej %@" = "approximate, from the time zone %@";
 "przyciemnienie %lld%%" = "dimming %lld%%";
-"radius m" = "radius m";
 "rejestr pracy też nie widzi strefy pracy" = "the work log does not see the work zone either";
 "rejestr pracy wyłączony" = "work log is off";
 "router %@" = "router %@";

@@ -57,8 +57,8 @@ STRINGS = {
         "Coordinates",
     "Wpisz szerokość i długość oddzielone przecinkiem, np. 52.4, 22":
         "Enter the latitude and longitude separated by a comma, e.g. 52.4, 22",
-    "Bez wpisanych współrzędnych aplikacja używa lokalizacji Maca, a gdy jej nie ma, przybliżonego miejsca ze strefy czasowej. Wschód i zachód liczy lokalnie, bez internetu.":
-        "Without typed coordinates the app uses the Mac's location, and without that, an approximate place from the time zone. Sunrise and sunset are calculated locally, without the internet.",
+    "To jedna pozycja dla Światła (wschód i zachód słońca), pogody na ekranie przerwy i słońca na jego obrazie. Najpierw liczą się wpisane współrzędne, potem lokalizacja Maca, na końcu przybliżone miejsce ze strefy czasowej. Wschód i zachód liczy lokalnie, bez internetu. Miejsce pracy dla strefy pracy ustawiasz osobno w Ogólne.":
+        "This is the one position for Light (sunrise and sunset), the weather on the break screen and the sun in its picture. The place you type in comes first, then the Mac's own position, then the city of the time zone. Sunrise and sunset are computed locally, without the internet. The work place of the work zone is set separately in General.",
     "Uwzględniaj zachmurzenie":
         "Take cloud cover into account",
     "Pochmurne popołudnie ściemnia się wcześniej. Korzysta z tej samej anonimowej pogody co ekran przerwy (Open-Meteo), bez dodatkowych danych.":

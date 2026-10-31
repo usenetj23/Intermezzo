@@ -439,10 +439,7 @@ STRINGS = {
         "Wi-Fi: aktywne tylko przy połączeniu z siecią z listy",
     "SSIDs (comma separated), e.g. Biuro": "Nazwy sieci (po przecinku), np. Biuro",
     "Location: active only within radius of a saved place":
-        "Lokalizacja: aktywna tylko w promieniu od zapisanego miejsca",
-    "lat": "szer.",
-    "lon": "dł.",
-    "radius m": "promień m",
+        "Miejsce pracy: strefa pracy tylko w promieniu od zapisanego miejsca",
     "Use current": "Użyj bieżącej",
     "Keyboard Shortcuts": "Skróty klawiszowe",
     "Start short break": "Rozpocznij krótką przerwę",
@@ -746,4 +743,18 @@ STRINGS = {
         "Skopiowano do schowka",
     "Kopiuje do schowka wersję aplikacji i macOS, model Maca, monitory, stan uprawnień i funkcje, które się wycofały, oraz kilka linii dziennika o świetle i multimediach. Bez nazw sieci, tytułów z kalendarza, miejsc i nazwy użytkownika. Nic nie jest wysyłane: wklej to do zgłoszenia na GitHubie.":
         "Kopiuje do schowka wersję aplikacji i macOS, model Maca, monitory, stan uprawnień i funkcje, które się wycofały, oraz kilka linii dziennika o świetle i multimediach. Bez nazw sieci, tytułów z kalendarza, miejsc i nazwy użytkownika. Nic nie jest wysyłane: wklej to do zgłoszenia na GitHubie.",
+    "Szerokość geograficzna":
+        "Szerokość geograficzna",
+    "Długość geograficzna":
+        "Długość geograficzna",
+    "Promień: %lld m":
+        "Promień: %lld m",
+    "To miejsce pracy, a nie pozycja Maca: dzięki niemu aplikacja wie, że jesteś w pracy. Pozycję używaną do pogody i wschodu słońca ustawiasz osobno.":
+        "To miejsce pracy, a nie pozycja Maca: dzięki niemu aplikacja wie, że jesteś w pracy. Pozycję używaną do pogody i wschodu słońca ustawiasz osobno.",
+    "Ustawienia pozycji do pogody i słońca…":
+        "Ustawienia pozycji do pogody i słońca…",
+    "Pozycja":
+        "Pozycja",
+    "Ustawienia miejsca pracy…":
+        "Ustawienia miejsca pracy…",
 }

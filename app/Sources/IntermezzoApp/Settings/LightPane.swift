@@ -311,6 +311,9 @@ struct LightPane: View {
 
     private var locationSection: some View {
         Section("Lokalizacja") {
+            LabeledContent("Pozycja") {
+                Text(verbatim: "\(LightLocation.format(light.point))").monospacedDigit().foregroundStyle(.secondary)
+            }
             LabeledContent("Źródło") { Text(light.locationNote).foregroundStyle(.secondary) }
             TextField("Współrzędne", text: $manualLocation, prompt: Text(verbatim: "52.4, 22"))
                 .textFieldStyle(.editable)
@@ -325,8 +328,10 @@ struct LightPane: View {
                     .foregroundStyle(.orange)
                     .font(.caption)
             }
-            Text("Bez wpisanych współrzędnych aplikacja używa lokalizacji Maca, a gdy jej nie ma, przybliżonego miejsca ze strefy czasowej. Wschód i zachód liczy lokalnie, bez internetu.")
-                .settingsNote().settingsAnchor("light-bez-wpisanych-wspolrzednych-aplikacj")
+            Text("To jedna pozycja dla Światła (wschód i zachód słońca), pogody na ekranie przerwy i słońca na jego obrazie. Najpierw liczą się wpisane współrzędne, potem lokalizacja Maca, na końcu przybliżone miejsce ze strefy czasowej. Wschód i zachód liczy lokalnie, bez internetu. Miejsce pracy dla strefy pracy ustawiasz osobno w Ogólne.")
+                .settingsNote().settingsAnchor("light-to-jedna-pozycja-dla-swiatla-wschod")
+            Button("Ustawienia miejsca pracy…") { SettingsPane.go(to: .general, anchor: "zone-geo") }.settingsAnchor("light-ustawienia-miejsca-pracy")
+                .controlSize(.small)
         }
     }
 

@@ -68,15 +68,11 @@ final class WeatherController {
         Trace.log("weather: refresh requested")
         lastStatus = "requested"
 
-        // Potrzebna lokalizacja: najpierw cache, potem CoreLocation (raz).
+        // The same place as the Light schedule and the sun: typed in, else the Mac's position, else the time zone's city.
         let d = UserDefaults.standard
-        func coord(_ key: String) -> Double? {
-            if let v = d.object(forKey: key) as? Double { return v }
-            if let s = d.string(forKey: key), let v = Double(s) { return v }
-            return nil
-        }
-        var cached = (lat: coord(GlassKeys.lat), lon: coord(GlassKeys.lon))
-        if cached.lat == nil || cached.lon == nil {
+        let resolved = PlaceResolver.resolve(defaults: d)
+        var cached: (lat: Double?, lon: Double?) = (resolved?.point.latitude, resolved?.point.longitude)
+        if resolved == nil || resolved?.source == .timeZone {
             Trace.log("weather: no cached location, requesting CoreLocation")
             if !locationRequested {
                 locationRequested = true
@@ -92,14 +88,9 @@ final class WeatherController {
                 }
                 locationFetcher.requestOnce()
             }
-            // A fix may never come (no signal, a denied permission): the city of the time zone, or the place typed
-            // in Light settings, is accurate enough for the weather.
-            if let point = LightController.shared.bestKnownPoint() {
-                cached = (point.latitude, point.longitude)
-                lastStatus = "approximate location (typed in or from the time zone)"
-            } else {
-                lastStatus = "no location yet (Location permission needed or no fix)"
-            }
+            // A fix may never come (no signal, a denied permission): the time zone's city is accurate enough for the weather.
+            lastStatus = resolved == nil ? "no location yet (Location permission needed or no fix)"
+                                         : "approximate location (from the time zone)"
         }
         guard let lat = cached.lat, let lon = cached.lon else { return }
         fetching = true
@@ -127,7 +118,7 @@ final class WeatherController {
                                                  windKmh: wind, windDirDeg: windDir,
                                                  fetchedAt: Date(), uvIndex: uv,
                                                  cloudCover: current["cloud_cover"] as? Double)
-                let approximate = d.object(forKey: GlassKeys.lat) == nil
+                let approximate = resolved?.source == .timeZone
                 self?.lastStatus = "ok, \(WeatherEffect.from(wmoCode: code).rawValue)" + (approximate ? " (approximate location)" : "")
                 Trace.log("weather: code=\(code) effect=\(WeatherEffect.from(wmoCode: code).rawValue) \(temp)°C wiatr \(Int(wind)) km/h")
             } catch {

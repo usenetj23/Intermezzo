@@ -316,9 +316,8 @@ final class SkyMetalView: NSView {
         let d = UserDefaults.standard
         var alt = 45.0
         var uv = SIMD2<Float>(0.82, 0.14)
-        if let lat = d.object(forKey: GlassKeys.lat) as? Double,
-           let lon = d.object(forKey: GlassKeys.lon) as? Double {
-            let p = Sun.position(date: Date(), latitude: lat, longitude: lon)
+        if let place = PlaceResolver.resolve(defaults: d)?.point {
+            let p = Sun.position(date: Date(), latitude: place.latitude, longitude: place.longitude)
             alt = p.altitudeDegrees
             let fx = 0.08 + (min(270, max(90, p.azimuthDegrees)) - 90) / 180 * 0.84
             let fy = max(0.07, 0.80 - max(0, min(60, alt)) / 60 * 0.73)

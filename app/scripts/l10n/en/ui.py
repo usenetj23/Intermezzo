@@ -437,10 +437,7 @@ STRINGS = {
         "Wi-Fi: active only while connected to a network from the list",
     "SSIDs (comma separated), e.g. Biuro": "SSIDs (comma separated), e.g. Biuro",
     "Location: active only within radius of a saved place":
-        "Location: active only within radius of a saved place",
-    "lat": "lat",
-    "lon": "lon",
-    "radius m": "radius m",
+        "Work place: work zone only within a radius of a saved place",
     "Use current": "Use current",
     "Keyboard Shortcuts": "Keyboard Shortcuts",
     "Start short break": "Start short break",
@@ -742,4 +739,18 @@ STRINGS = {
         "Copied to the clipboard",
     "Kopiuje do schowka wersję aplikacji i macOS, model Maca, monitory, stan uprawnień i funkcje, które się wycofały, oraz kilka linii dziennika o świetle i multimediach. Bez nazw sieci, tytułów z kalendarza, miejsc i nazwy użytkownika. Nic nie jest wysyłane: wklej to do zgłoszenia na GitHubie.":
         "Copies the app and macOS versions, the Mac model, the displays, the permission states and the features that fell back, plus a few log lines about light and media, to the clipboard. No network names, calendar titles, places or user name. Nothing is sent: paste it into a GitHub issue.",
+    "Szerokość geograficzna":
+        "Latitude",
+    "Długość geograficzna":
+        "Longitude",
+    "Promień: %lld m":
+        "Radius: %lld m",
+    "To miejsce pracy, a nie pozycja Maca: dzięki niemu aplikacja wie, że jesteś w pracy. Pozycję używaną do pogody i wschodu słońca ustawiasz osobno.":
+        "This is the work place, not the Mac's position: it tells the app you are at work. The position used for the weather and the sunrise is set separately.",
+    "Ustawienia pozycji do pogody i słońca…":
+        "Settings of the position for weather and sun…",
+    "Pozycja":
+        "Position",
+    "Ustawienia miejsca pracy…":
+        "Work place settings…",
 }
