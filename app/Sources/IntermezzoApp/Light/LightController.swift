@@ -13,6 +13,8 @@ enum LightKeys {
     static let manualLocation = "lightLocation"
     static let weather = "lightWeather"
     static let fadeSeconds = "lightFadeSeconds"
+    /// How fast the colour may follow the day, in kelvin per minute.
+    static let followRate = "lightFollowRate"
     /// This Mac only: not synchronised (see SyncPolicy).
     static let disabledUntil = "lightDisabledUntil"
     /// Leave a display neutral while a full-screen window (film, game) is on it.
@@ -60,6 +62,7 @@ final class GammaDisplays {
     /// Reads the displays' own tables (calibration included) so that scaling keeps them.
     func refreshOriginals() {
         restore()
+        knownDisplaySet = Set(activeDisplays())
         originals.removeAll()
         unsupported.removeAll()
         for id in activeDisplays() {
@@ -78,6 +81,10 @@ final class GammaDisplays {
     }
 
     var ids: [CGDirectDisplayID] { Array(originals.keys) }
+
+    /// Displays were plugged, unplugged or renumbered since the tables were read.
+    private var knownDisplaySet: Set<CGDirectDisplayID> = []
+    func displaySetChanged() -> Bool { Set(activeDisplays()) != knownDisplaySet }
 
     /// Display frames in the global space, for matching windows to displays.
     func frames() -> [DisplayFrame] {
@@ -104,11 +111,11 @@ final class LightController: ObservableObject {
     static let shared = LightController()
 
     @Published private(set) var state: LightState?
-    /// For the UI: follows `currentKelvin` in steps of 50 K, so a fade does not redraw the pane four times a second.
+    /// For the UI: follows `currentKelvin` in steps of 10 K, so a fade does not redraw the pane ten times a second.
     @Published private(set) var appliedKelvin = 6500.0
     /// What the screens show right now (changes every 0.25 s during a fade).
     private var currentKelvin = 6500.0 {
-        didSet { if abs(currentKelvin - appliedKelvin) >= 50 { appliedKelvin = currentKelvin } }
+        didSet { if abs(currentKelvin - appliedKelvin) >= 10 { appliedKelvin = currentKelvin } }
     }
     @Published private(set) var nextEvent: SunEvent?
     @Published private(set) var locationNote = ""
@@ -128,6 +135,18 @@ final class LightController: ObservableObject {
     private let locationFetcher = LocationOneShot()
     private var tickTimer: Timer?
     private var fadeTimer: Timer?
+    /// Colour change speed (K/s) of the general value and of each display, for the smooth fade.
+    private var currentVelocity = 0.0
+    private var shownVelocity: [CGDirectDisplayID: Double] = [:]
+    /// A new set of neutral displays must hold this long before it is acted on (a flicker of the probe changes nothing).
+    private var pendingNeutral: Set<UInt32>?
+    private var pendingNeutralSince = Date.distantPast
+    private var neutralRecheck: Timer?
+    /// A switch (Light on or off, an exception) fades in the set number of seconds; the drift of the day itself
+    /// follows slowly, at most `followRate` kelvin per minute.
+    private var quickFade = false
+    private var wasActive: Bool?
+    private static let neutralHoldSeconds = 4.0
     private var previewTimer: Timer?
     private var signalSources: [DispatchSourceSignal] = []
     private var firstTick = true
@@ -142,7 +161,6 @@ final class LightController: ObservableObject {
     private var lastForeignFront: FrontWindow?
     private var frontTimer: Timer?
     /// The time zone's reference city, read from zone.tab once per zone.
-    private var zoneCache: (zone: String, point: GeoPoint?)?
 
     // MARK: Settings
 
@@ -201,8 +219,17 @@ final class LightController: ObservableObject {
                                    settings: settings, cloudCover: cloud, calendar: .current)
     }
 
+    /// Even a value saved before the limit existed never gives a blink.
+    static let minFadeSeconds = 8
+    static let defaultFollowRate = 30
+
+    private var followSpeed: Double {
+        let rate = defaults.object(forKey: LightKeys.followRate) as? Int ?? Self.defaultFollowRate
+        return Double(min(max(rate, 1), 600)) / 60
+    }
+
     private var fadeSeconds: Double {
-        Double(min(max(defaults.object(forKey: LightKeys.fadeSeconds) as? Int ?? 20, 1), 120))
+        Double(min(max(defaults.object(forKey: LightKeys.fadeSeconds) as? Int ?? 20, Self.minFadeSeconds), 120))
     }
 
     // MARK: Lifecycle
@@ -216,6 +243,7 @@ final class LightController: ObservableObject {
         let center = NotificationCenter.default
         center.addObserver(forName: NSApplication.didChangeScreenParametersNotification, object: nil, queue: .main) { [weak self] _ in
             MainActor.assumeIsolated {
+                LightLog.detail("event: screen parameters changed")
                 MonitorRegistry.shared.refresh()
                 self?.reapply(rereadOriginals: true)
                 // A display that just appeared has no colour of its own yet: give it its goal, not the general one.
@@ -225,7 +253,10 @@ final class LightController: ObservableObject {
         let workspace = NSWorkspace.shared.notificationCenter
         for name in [NSWorkspace.didWakeNotification, NSWorkspace.activeSpaceDidChangeNotification] {
             workspace.addObserver(forName: name, object: nil, queue: .main) { [weak self] _ in
-                MainActor.assumeIsolated { self?.reapply(rereadOriginals: true) }
+                MainActor.assumeIsolated {
+                    LightLog.detail("event: \(name.rawValue)")
+                    self?.reapply(rereadOriginals: true)
+                }
             }
         }
         workspace.addObserver(forName: NSWorkspace.didActivateApplicationNotification, object: nil, queue: .main) { [weak self] _ in
@@ -258,6 +289,7 @@ final class LightController: ObservableObject {
 
     func shutdown() {
         fadeTimer?.invalidate()
+        neutralRecheck?.invalidate()
         previewTimer?.invalidate()
         monitorPreviewTimer?.invalidate()
         displays.restore()
@@ -280,6 +312,7 @@ final class LightController: ObservableObject {
 
     /// A monitor's own settings changed: show them at once (no fade) and let the dimming follow.
     func monitorSettingsChanged() {
+        LightLog.detail("event: a monitor's settings changed")
         startFade(jump: true)
         tick()
     }
@@ -325,6 +358,7 @@ final class LightController: ObservableObject {
             .map { "\(defaults.object(forKey: $0) ?? "")" }.joined(separator: "|")
         guard signature != lastSettingsSignature else { return }
         lastSettingsSignature = signature
+        LightLog.detail("event: a Light setting changed")
         tick()
     }
 
@@ -362,8 +396,13 @@ final class LightController: ObservableObject {
                                                      roomLampK: lamp > 0 ? Double(lamp) : nil)
             current = LightState(kelvin: kelvin, phase: schedule.phase, sunElevation: schedule.sunElevation)
         }
+        LightLog.detail("tick: schedule \(Int(schedule.kelvin)) K (\(schedule.phase)), lux \(measured.map { String(Int($0)) } ?? "-"), goal \(Int(current.kelvin)) K, shown \(Int(currentKelvin)) K, paused \(pausedUntil != nil), neutral \(neutral.sorted())")
         if current != state { state = current }
 
+        // Turning Light on or off, or pausing it, is a switch, not a drift.
+        let active = isEnabled && pausedUntil == nil
+        if let was = wasActive, was != active { quickFade = true }
+        wasActive = active
         refreshExclusions(fade: false)
         startFade(jump: firstTick)
         let general = current.kelvin
@@ -419,31 +458,18 @@ final class LightController: ObservableObject {
     }
 
     private func resolveLocation() -> (GeoPoint, String) {
-        if let manual = defaults.string(forKey: LightKeys.manualLocation), !manual.isEmpty,
-           let point = LightLocation.parse(manual) {
-            return (point, String(localized: "wpisana ręcznie"))
+        let resolved = PlaceResolver.resolve(defaults: defaults)
+        // Only the time zone's city (or nothing) is a stand-in: keep asking the Mac for its real position.
+        if resolved == nil || resolved?.source == .timeZone { requestLocationIfAllowed() }
+        switch resolved?.source {
+        case .manual: return (resolved!.point, String(localized: "wpisana ręcznie"))
+        case .macFix: return (resolved!.point, String(localized: "z lokalizacji Maca"))
+        case .timeZone:
+            return (resolved!.point, String(localized: "przybliżona, ze strefy czasowej \(TimeZone.current.identifier)"))
+        case nil: return (GeoPoint(latitude: 0, longitude: 0), String(localized: "nieznana (wpisz współrzędne)"))
         }
-        func coordinate(_ key: String) -> Double? {
-            if let v = defaults.object(forKey: key) as? Double { return v }
-            if let s = defaults.string(forKey: key), let v = Double(s) { return v }
-            return nil
-        }
-        if let lat = coordinate(GlassKeys.lat), let lon = coordinate(GlassKeys.lon) {
-            return (GeoPoint(latitude: lat, longitude: lon), String(localized: "z lokalizacji Maca"))
-        }
-        requestLocationIfAllowed()
-        let zone = TimeZone.current.identifier
-        if zoneCache?.zone != zone {
-            let table = (try? String(contentsOfFile: "/usr/share/zoneinfo/zone.tab", encoding: .utf8)) ?? ""
-            zoneCache = (zone, LightLocation.fromZoneTab(zoneID: zone, table: table))
-        }
-        if let point = zoneCache?.point {
-            return (point, String(localized: "przybliżona, ze strefy czasowej \(zone)"))
-        }
-        return (GeoPoint(latitude: 0, longitude: 0), String(localized: "nieznana (wpisz współrzędne)"))
     }
 
-    /// Only when the system already allows it: this never opens a permission prompt.
     private func requestLocationIfAllowed() {
         guard !requestedLocation else { return }
         guard PermissionCenter.location(CLLocationManager().authorizationStatus) == .granted else { return }
@@ -455,14 +481,32 @@ final class LightController: ObservableObject {
                 self?.tick()
             }
         }
+        locationFetcher.onFailure = { [weak self] in
+            Task { @MainActor in self?.requestedLocation = false }   // ask again at a later tick
+        }
         locationFetcher.requestOnce()
     }
 
     // MARK: Applying
 
     /// What the screens should show when nothing is excluded.
-    private func globalGoal() -> Double {
+    private func rawGlobalGoal() -> Double {
         (isEnabled && pausedUntil == nil) ? (state?.kelvin ?? LightSettings.maxKelvin) : LightSettings.maxKelvin
+    }
+
+    /// The goal moves only when the raw one is clearly elsewhere: the room-light sensor and the slow schedule
+    /// wobble by a few dozen kelvin, which the eye cannot see but a redraw can make blink.
+    private static let goalDeadband = 40.0
+    private var steadyGoal: Double?
+
+    private func globalGoal() -> Double {
+        let raw = rawGlobalGoal()
+        if let steady = steadyGoal, abs(raw - steady) < Self.goalDeadband, raw < LightSettings.maxKelvin - 0.5 {
+            return steady
+        }
+        if steadyGoal != raw { LightLog.detail("goal: \(steadyGoal.map { String(Int($0)) } ?? "-") -> \(Int(raw)) K") }
+        steadyGoal = raw
+        return raw
     }
 
     private func goal(for id: CGDirectDisplayID) -> Double {
@@ -474,27 +518,42 @@ final class LightController: ObservableObject {
     /// Moves every display to its goal in steps, so that the screen never jumps.
     private func startFade(jump: Bool) {
         if jump || displays.ids.isEmpty {
+            steadyGoal = nil
+            quickFade = false
             currentKelvin = globalGoal()
             appliedKelvin = currentKelvin
+            currentVelocity = 0
+            shownVelocity.removeAll()
             displays.ids.forEach { shown[$0] = goal(for: $0) }
-            applyNow()
+            applyNow(force: true, reason: "jump")
             return
         }
         guard fadeTimer == nil else { return }
-        let step = (LightSettings.maxKelvin - LightSettings.minKelvin) / (fadeSeconds * 4)
-        let timer = Timer(timeInterval: 0.25, repeats: true) { [weak self] t in
+        let dt = 0.1
+        LightLog.detail("fade start: \(quickFade ? "quick" : "slow"), from \(Int(currentKelvin)) K to \(Int(globalGoal())) K")
+        // The spring covers most of the way in about a third of the set time and settles gently.
+        let timer = Timer(timeInterval: dt, repeats: true) { [weak self] t in
             MainActor.assumeIsolated {
                 guard let self else { t.invalidate(); return }
-                var moving = self.approach(&self.currentKelvin, to: self.globalGoal(), step: step)
+                // Read each step: a switch can arrive while a slow drift is under way.
+                let quick = self.quickFade
+                let smoothTime = quick ? self.fadeSeconds / 3 : 20
+                let maxSpeed = quick ? Double.infinity : self.followSpeed
+                var moving = self.glide(&self.currentKelvin, &self.currentVelocity, to: self.globalGoal(),
+                                        smoothTime: smoothTime, maxSpeed: maxSpeed, dt: dt)
                 for id in self.displays.ids {
                     var value = self.shown[id] ?? self.currentKelvin
-                    if self.approach(&value, to: self.goal(for: id), step: step) { moving = true }
+                    var velocity = self.shownVelocity[id] ?? 0
+                    if self.glide(&value, &velocity, to: self.goal(for: id), smoothTime: smoothTime, maxSpeed: maxSpeed, dt: dt) { moving = true }
                     self.shown[id] = value
+                    self.shownVelocity[id] = velocity
                 }
                 self.applyNow()
                 if !moving {
                     t.invalidate()
                     self.fadeTimer = nil
+                    LightLog.detail("fade end at \(Int(self.currentKelvin)) K")
+                    self.quickFade = false
                     self.appliedKelvin = self.currentKelvin
                 }
             }
@@ -503,18 +562,32 @@ final class LightController: ObservableObject {
         fadeTimer = timer
     }
 
-    /// One step toward `target`; returns whether it is still on the way.
-    private func approach(_ value: inout Double, to target: Double, step: Double) -> Bool {
-        let delta = target - value
-        if abs(delta) <= step {
+    /// One smooth step toward `target`; returns whether it is still on the way.
+    private func glide(_ value: inout Double, _ velocity: inout Double, to target: Double,
+                       smoothTime: Double, maxSpeed: Double, dt: Double) -> Bool {
+        if SmoothDamp.settled(value: value, target: target, velocity: velocity) {
             value = target
+            velocity = 0
             return false
         }
-        value += delta > 0 ? step : -step
+        value = SmoothDamp.step(value: value, target: target, velocity: &velocity, smoothTime: smoothTime, dt: dt,
+                                maxSpeed: maxSpeed)
         return true
     }
 
-    private func applyNow() {
+    /// What was last written to the displays (kelvin in 10 K steps) and when: the same colour is not written
+    /// again (each write can make a display blink), except as a reminder every 30 s in case macOS reset it.
+    private var lastWritten: [CGDirectDisplayID: Int] = [:]
+    private var lastWriteDate = Date.distantPast
+
+    private func applyNow(force: Bool = false, reason: String = "fade") {
+        let wanted = Dictionary(uniqueKeysWithValues: displays.ids.map { ($0, Int(((shown[$0] ?? currentKelvin) / 10).rounded())) })
+        let unchanged = wanted == lastWritten
+        if !force, unchanged, Date().timeIntervalSince(lastWriteDate) < 30 { return }
+        let why = force ? reason : (unchanged ? "30 s reminder" : reason)
+        LightLog.detail("write (\(why)): \(wanted.sorted { $0.key < $1.key }.map { "#\($0.key)=\($0.value * 10) K" }.joined(separator: " "))")
+        lastWritten = wanted
+        lastWriteDate = Date()
         let anyTint = displays.ids.contains { (shown[$0] ?? currentKelvin) < LightSettings.maxKelvin - 0.5 }
         if !anyTint && !isEnabled && !previewing {
             displays.restore()
@@ -543,18 +616,47 @@ final class LightController: ObservableObject {
         if case .own = probe {} else if case .window(let window) = probe { lastForeignFront = window } else { lastForeignFront = nil }
         let next = LightExclusion.displaysToLeaveNeutral(front: lastForeignFront, displays: displays.frames(),
                                                          excludedApps: excluded, skipFullscreen: skipFullscreen)
-        guard next != windowNeutral else { return }
+        guard next != windowNeutral else {
+            pendingNeutral = nil
+            return
+        }
+        // Inertia: act only on a state that has held for a few seconds, so a window that flickers in the
+        // probe (a Space switch, a full-screen transition) does not tint and un-tint the screen.
+        if pendingNeutral != next {
+            pendingNeutral = next
+            pendingNeutralSince = Date()
+            LightLog.detail("neutral displays candidate \(next.sorted()) (now \(windowNeutral.sorted())), waiting \(Int(Self.neutralHoldSeconds)) s")
+        }
+        let waited = Date().timeIntervalSince(pendingNeutralSince)
+        guard waited >= Self.neutralHoldSeconds else {
+            scheduleNeutralRecheck(after: Self.neutralHoldSeconds - waited + 0.3)
+            return
+        }
+        pendingNeutral = nil
         windowNeutral = next
-        Trace.log("light: neutral displays \(next.sorted())")
+        quickFade = true
+        LightLog.event("neutral displays \(next.sorted())")
         if fade { startFade(jump: false) }
+    }
+
+    private func scheduleNeutralRecheck(after seconds: TimeInterval) {
+        neutralRecheck?.invalidate()
+        neutralRecheck = Timer.scheduledTimer(withTimeInterval: seconds, repeats: false) { [weak self] _ in
+            MainActor.assumeIsolated { self?.refreshExclusions() }
+        }
     }
 
     /// After wake-up, a changed display set or a Space change some apps and drivers reset the tables.
     private func reapply(rereadOriginals: Bool) {
         guard Date().timeIntervalSince(lastReapply) > 2 else { return }
         lastReapply = Date()
-        if rereadOriginals { displays.refreshOriginals() }
-        if isEnabled || previewing { applyNow() }
+        // Reading the tables resets the screen to its own colours for a moment, so it is done only when the
+        // set of displays changed; waking up or changing Space just puts our colour back.
+        if rereadOriginals && displays.displaySetChanged() {
+            Trace.log("light: displays changed, reading their tables again")
+            displays.refreshOriginals()
+        }
+        if isEnabled || previewing { applyNow(force: true, reason: "put back after wake, Space or display change") }
     }
 
     // MARK: Preview
@@ -598,7 +700,7 @@ final class LightController: ObservableObject {
         previewingDisplay = displayID
         monitorPreviewKelvin = MonitorLight.kelvin(global: evening.bedtimeK, profile: profile)
         shown[displayID] = monitorPreviewKelvin
-        applyNow()
+        applyNow(force: true)
         let factor = MonitorLight.dimFactor(kelvin: evening.bedtimeK, settings: evening,
                                             globalPercent: BetterDisplayLight.shared.globalDimPercent, profile: profile)
         Task { await BetterDisplayLight.shared.previewDim(displayID: Int(displayID), factor: factor, seconds: seconds) }

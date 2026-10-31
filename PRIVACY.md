@@ -25,11 +25,15 @@ Each of these needs a permission you grant in macOS, and the app works without a
 - **Accessibility and Automation:** used by AppleScript rules and gallery scripts that ask System Events about running apps and window titles. Scripts run on your Mac.
 - **Notifications:** to show break reminders.
 
+## Diagnostics you copy yourself
+
+Settings › About › **Copy diagnostics** puts a text on your clipboard: the app and macOS versions, the Mac model and chip, the displays, the permission states, which features fell back (for example no light sensor) and a few log lines about light, media and sensors. It has no Wi-Fi or VPN names, calendar titles, places or user name. The app sends it nowhere; you decide whether to paste it into a GitHub issue.
+
 ## Network requests
 
 All of these are optional and off unless you use the feature.
 
-- **Weather effect on the break screen.** The app asks [Open-Meteo](https://open-meteo.com) for the current weather. The request contains the latitude and longitude of the Mac's location (the app asks for about 100 m accuracy), or the cached location. Open-Meteo sees your IP address like any web server does. See its own privacy policy.
+- **Weather effect on the break screen.** The app asks [Open-Meteo](https://open-meteo.com) for the current weather. The request contains the latitude and longitude of the Mac's location (the app asks for about 100 m accuracy), or the cached location. If the Mac gives no position, the place you typed in Light settings or the city of your time zone is used instead. Open-Meteo sees your IP address like any web server does. See its own privacy policy.
 - **YouTube background theme.** If you choose a YouTube video as the break background, the app loads that video from YouTube in an embedded web view, and YouTube sees the request. By default this is not used.
 - **AI features** (settings assistant, rule-script author, weekly summary). Off by default. A request is sent only when you click one of the features:
   - With the **Apple on-device model** nothing leaves your Mac.
@@ -49,4 +53,4 @@ You can switch each feature and permission off in Settings and in System Setting
 
 If this changes, the change will appear in this file and in the release notes. Questions: open an issue at https://github.com/usenetj23/Intermezzo/issues.
 
-*Last updated: 2026-10-28, for version 1.41.0.*
+*Last updated: 2026-10-31, for version 1.42.0.*

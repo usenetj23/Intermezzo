@@ -109,6 +109,7 @@
 "Aplikacje do rozmów i pulpitu zdalnego" = "Aplikacje do rozmów i pulpitu zdalnego";
 "Aplikacji nie ma na tym Macu: %@. Sprawdź uruchomione procesy przez System Events zamiast „tell application”." = "Aplikacji nie ma na tym Macu: %@. Sprawdź uruchomione procesy przez System Events zamiast „tell application”.";
 "Apple Intelligence jest wyłączona w Ustawieniach systemowych" = "Apple Intelligence jest wyłączona w Ustawieniach systemowych";
+"Apple Music i Spotify są zatrzymywane bezpośrednio, tylko gdy grają. Dla przeglądarek i innych odtwarzaczy trzeba użyć klawisza multimediów, który trafia do ostatniego odtwarzacza, a gdy go nie ma, macOS otwiera Apple Music. Dlatego jest domyślnie wyłączony." = "Apple Music i Spotify są zatrzymywane bezpośrednio, tylko gdy grają. Dla przeglądarek i innych odtwarzaczy trzeba użyć klawisza multimediów, który trafia do ostatniego odtwarzacza, a gdy go nie ma, macOS otwiera Apple Music. Dlatego jest domyślnie wyłączony.";
 "AppleScript (.applescript/.scpt) or shell scripts run at break start and after any end — e.g. mute audio on start, restore on end." = "Skrypty AppleScript (.applescript/.scpt) lub powłoki uruchamiane na starcie przerwy i po dowolnym zakończeniu, np. wycisz dźwięk na starcie, przywróć na końcu.";
 "AppleScript rules that ask System Events about apps and windows" = "Reguły AppleScript pytające System Events o aplikacje i okna";
 "Archive" = "Archiwizuj";
@@ -127,6 +128,7 @@
 "Barki w dół" = "Barki w dół";
 "Barwa" = "Barwa";
 "Barwa ekranu według pory dnia i godziny snu" = "Barwa ekranu według pory dnia i godziny snu";
+"Barwa podąża za porą dnia powoli, nie szybciej niż ustawione K na minutę (np. 100 K zajmie wtedy kilka minut). Włączenie Światła i okno pełnoekranowe albo aplikacja wyjątek przełączają kolor w podanym czasie, ale dopiero po kilku sekundach, żeby krótkie przełączenia nie migały." = "Barwa podąża za porą dnia powoli, nie szybciej niż ustawione K na minutę (np. 100 K zajmie wtedy kilka minut). Włączenie Światła i okno pełnoekranowe albo aplikacja wyjątek przełączają kolor w podanym czasie, ale dopiero po kilku sekundach, żeby krótkie przełączenia nie migały.";
 "Barwa światła w ciągu dnia" = "Barwa światła w ciągu dnia";
 "Bateria spadła poniżej ustawionego progu, więc Mac może już zasnąć." = "Bateria spadła poniżej ustawionego progu, więc Mac może już zasnąć.";
 "Before Due" = "Przed terminem";
@@ -137,7 +139,6 @@
 "BetterDisplay nie wyłączył True Tone (ta funkcja wymaga wersji Pro)." = "BetterDisplay nie wyłączył True Tone (ta funkcja wymaga wersji Pro).";
 "Bez klucza (zwykle tak jest przy lokalnym serwerze)." = "Bez klucza (zwykle tak jest przy lokalnym serwerze).";
 "Bez odroczeń, bez przycisku Skip i bez Esc na ekranie przerwy. Awaryjnie przerwę kończysz z paska menu." = "Bez odroczeń, bez przycisku „Pomiń” i bez Esc na ekranie przerwy. Awaryjnie przerwę kończysz z paska menu.";
-"Bez wpisanych współrzędnych aplikacja używa lokalizacji Maca, a gdy jej nie ma, przybliżonego miejsca ze strefy czasowej. Wschód i zachód liczy lokalnie, bez internetu." = "Bez wpisanych współrzędnych aplikacja używa lokalizacji Maca, a gdy jej nie ma, przybliżonego miejsca ze strefy czasowej. Wschód i zachód liczy lokalnie, bez internetu.";
 "Bez wpływu teraz" = "Bez wpływu teraz";
 "Bez wykresu, haseł o passie i liczników dni z rzędu. Zostaje sam numer przerwy dziś. Statystyki i mapa regularności nadal są dostępne, bez oceniania." = "Bez wykresu, haseł o passie i liczników dni z rzędu. Zostaje sam numer przerwy dziś. Statystyki i mapa regularności nadal są dostępne, bez oceniania.";
 "Bez zmiany barwy: %@" = "Bez zmiany barwy: %@";
@@ -185,6 +186,8 @@
 "Button title:" = "Tytuł przycisku:";
 "By project" = "Według projektu";
 "Byłeś nieobecny %lld min — zaliczyć to jako przerwę?" = "Nieobecność: %lld min — zaliczyć ją jako przerwę?";
+"Byłeś nieobecny %lld min: zaliczone jako długa przerwa, timer zaczyna od nowa." = "Byłeś nieobecny %lld min: zaliczone jako długa przerwa, timer zaczyna od nowa.";
+"Byłeś nieobecny %lld min: zaliczone jako krótka przerwa, timer zaczyna od nowa." = "Byłeś nieobecny %lld min: zaliczone jako krótka przerwa, timer zaczyna od nowa.";
 "Błąd połączenia: %@" = "Błąd połączenia: %@";
 "Błąd w skrypcie: %@" = "Błąd w skrypcie: %@";
 "Calendar" = "Kalendarz";
@@ -329,6 +332,7 @@
 "Długa przerwa teraz" = "Długa przerwa teraz";
 "Długi build / render" = "Długi build / render";
 "Długi build / render (dobra pora na przerwę)" = "Długi build / render (dobra pora na przerwę)";
+"Długość geograficzna" = "Długość geograficzna";
 "Długość, rytm, dźwięk i akcje przerw" = "Długość, rytm, dźwięk i akcje przerw";
 "Edytory zdjęć, wideo i grafiki" = "Edytory zdjęć, wideo i grafiki";
 "Edytuj…" = "Edytuj…";
@@ -386,6 +390,7 @@
 "Galeria skryptów" = "Galeria skryptów";
 "Gallery scripts that read window titles through System Events" = "Skrypty z galerii czytające tytuły okien przez System Events";
 "Gdy aplikacja z listy jest aktywnym oknem, jej monitor pokazuje normalne kolory, np. przy obróbce zdjęć i wideo. Nazwy oddzielaj przecinkami." = "Gdy aplikacja z listy jest aktywnym oknem, jej monitor pokazuje normalne kolory, np. przy obróbce zdjęć i wideo. Nazwy oddzielaj przecinkami.";
+"Gdy czas bez ruchu myszą i klawiaturą jest co najmniej tak długi jak następna zaplanowana przerwa, timer zaczyna od nowa tak, jakby przerwa się odbyła. Jeśli następna miała być krótka, a nieobecność trwała tyle co długa przerwa albo dłużej, liczy się jako długa. Krótsze nieobecności nadal obsługuje ustawienie poniżej." = "Gdy czas bez ruchu myszą i klawiaturą jest co najmniej tak długi jak następna zaplanowana przerwa, timer zaczyna od nowa tak, jakby przerwa się odbyła. Jeśli następna miała być krótka, a nieobecność trwała tyle co długa przerwa albo dłużej, liczy się jako długa. Krótsze nieobecności nadal obsługuje ustawienie poniżej.";
 "Gdy ekran jest powielony na projektorze lub telewizorze (Mirror: On), to prawie na pewno ktoś na niego patrzy. Przerwa na cały ekran na czyjejś prezentacji byłaby niezręczna." = "Gdy ekran jest powielony na projektorze lub telewizorze (Mirror: On), to prawie na pewno ktoś na niego patrzy. Przerwa na cały ekran na czyjejś prezentacji byłaby niezręczna.";
 "Gdy przerwa jest należna, nic nie zasłania ekranu. Dostajesz łagodne powiadomienie i dźwięk; jeśli je zignorujesz, co kilka minut pojawia się mocniejsze, a krawędzie ekranu zaczynają świecić na czerwono. Kończysz je przyciskiem Zacznij przerwę, Zrobiłem przerwę, odroczeniem albo odejściem od komputera. Ten tryb ma pierwszeństwo przed surowością i miękką przerwą." = "Gdy przerwa jest należna, nic nie zasłania ekranu. Dostajesz łagodne powiadomienie i dźwięk; jeśli je zignorujesz, co kilka minut pojawia się mocniejsze, a krawędzie ekranu zaczynają świecić na czerwono. Kończysz je przyciskiem „Zacznij przerwę” lub „Przerwa zrobiona”, odroczeniem albo odejściem od komputera. Ten tryb ma pierwszeństwo przed surowością i miękką przerwą.";
 "Gdy warunek jest spełniony w momencie nadejścia przerwy — zostanie odroczona lub pominięta" = "Gdy warunek jest spełniony w momencie nadejścia przerwy — zostanie odroczona lub pominięta";
@@ -470,6 +475,8 @@
 "Kontrast i rozmiar czcionki" = "Kontrast i rozmiar czcionki";
 "Kopia trafia do każdego zaznaczonego folderu; przy odczycie liczy się najnowszy plik każdego Maca." = "Kopia trafia do każdego zaznaczonego folderu; przy odczycie liczy się najnowszy plik każdego Maca.";
 "Kopiuj" = "Kopiuj";
+"Kopiuj diagnostykę" = "Kopiuj diagnostykę";
+"Kopiuje do schowka wersję aplikacji i macOS, model Maca, monitory, stan uprawnień i funkcje, które się wycofały, oraz kilka linii dziennika o świetle i multimediach. Bez nazw sieci, tytułów z kalendarza, miejsc i nazwy użytkownika. Nic nie jest wysyłane: wklej to do zgłoszenia na GitHubie." = "Kopiuje do schowka wersję aplikacji i macOS, model Maca, monitory, stan uprawnień i funkcje, które się wycofały, oraz kilka linii dziennika o świetle i multimediach. Bez nazw sieci, tytułów z kalendarza, miejsc i nazwy użytkownika. Nic nie jest wysyłane: wklej to do zgłoszenia na GitHubie.";
 "Kot – krowa przy biurku" = "Kot – krowa przy biurku";
 "Krótka (z ustawień)" = "Krótka (z ustawień)";
 "Krótka przerwa" = "Krótka przerwa";
@@ -499,7 +506,7 @@
 "Loading your shortcuts…" = "Wczytywanie Twoich skrótów…";
 "Location" = "Lokalizacja";
 "Location access not granted" = "Brak dostępu do lokalizacji";
-"Location: active only within radius of a saved place" = "Lokalizacja: aktywna tylko w promieniu od zapisanego miejsca";
+"Location: active only within radius of a saved place" = "Miejsce pracy: strefa pracy tylko w promieniu od zapisanego miejsca";
 "Logic, GarageBand, Ableton, Pro Tools, Cubase, Reaper, Final Cut, Premiere, DaVinci Resolve lub Blender na pierwszym planie. Wejście w stan flow trudno odbudować po przerwie w środku nagrania lub renderu." = "Logic, GarageBand, Ableton, Pro Tools, Cubase, Reaper, Final Cut, Premiere, DaVinci Resolve lub Blender na pierwszym planie. Stan flow trudno odbudować po przerwie w środku nagrania lub renderu.";
 "Lokalizacja" = "Lokalizacja";
 "Lokalne zostają: uprawnienia, pozycje okien, ścieżki do plików (muzyka, skrypty, obrazy), dzisiejsze liczniki. Przy konflikcie ustawień wygrywa nowsza zmiana. Mac dołączający do folderu z danymi innego Maca najpierw przejmuje jego ustawienia." = "Lokalne zostają: uprawnienia, pozycje okien, ścieżki do plików (muzyka, skrypty, obrazy), dzisiejsze liczniki. Przy konflikcie ustawień wygrywa nowsza zmiana. Mac dołączający do folderu z danymi innego Maca najpierw przejmuje jego ustawienia.";
@@ -577,6 +584,7 @@
 "Najcieplejszy kolor: %lld K" = "Najcieplejszy kolor: %lld K";
 "Najczęstsze odstępy między propozycjami z tej reguły" = "Minimalny odstęp między propozycjami z tej reguły";
 "Najgorsza pozycja to kolejna" = "Najlepsza pozycja to następna";
+"Najpierw kliknij Uruchom ponownie: macOS pokaże okno z pytaniem dopiero po ponownym uruchomieniu aplikacji." = "Najpierw kliknij Uruchom ponownie: macOS pokaże okno z pytaniem dopiero po ponownym uruchomieniu aplikacji.";
 "Najważniejszy nawyk przy monitorze" = "Najważniejszy nawyk przy monitorze";
 "Najzdrowsza odległość od monitora: 50–70 cm, górna krawędź ekranu na wysokości oczu." = "Najzdrowsza odległość od monitora: 50–70 cm, górna krawędź ekranu na wysokości oczu.";
 "Name" = "Nazwa";
@@ -721,6 +729,7 @@
 "Pauza" = "Wstrzymaj";
 "Pauza teraz" = "Przerwa teraz";
 "Pauza to ruch + dal + oddech. Telefon to nie odpoczynek." = "Przerwa to ruch + dal + oddech. Telefon to nie odpoczynek.";
+"Pauzuj też inne odtwarzacze klawiszem multimediów (może otworzyć Apple Music)" = "Pauzuj też inne odtwarzacze klawiszem multimediów (może otworzyć Apple Music)";
 "Pauzy, które naprawdę działają" = "Przerwy, które naprawdę działają";
 "Percent of screen" = "Procent ekranu";
 "Percent: %lld%%" = "Procent: %lld%%";
@@ -761,6 +770,7 @@
 "Pokazuje przypomnienie błyskiem ekranu" = "Pokazuje przypomnienie błyskiem ekranu";
 "Pokazuje wybrany efekt na 8 sekund. Podgląd nie blokuje myszki i nie jest przerwą." = "Pokazuje wybrany efekt na 8 sekund. Podgląd nie blokuje myszki i nie jest przerwą.";
 "Pokaż licznik także na ekranie z notchem" = "Pokaż licznik także na ekranie z notchem";
+"Pokaż plik dziennika" = "Pokaż plik dziennika";
 "Pokaż przykład" = "Pokaż przykład";
 "Pokaż ustawienia" = "Pokaż ustawienia";
 "Pokaż w Finderze" = "Pokaż w Finderze";
@@ -805,6 +815,7 @@
 "Poza godzinami pracy" = "Poza godzinami pracy";
 "Poza strefą pracy" = "Poza strefą pracy";
 "Poziom surowości możesz zmienić w Przerwy › Podejście do przerw." = "Poziom surowości możesz zmienić w Przerwy › Podejście do przerw.";
+"Pozycja" = "Pozycja";
 "Połowa walki o zmęczone oczy" = "Połowa walki o zmęczone oczy";
 "Połączenie" = "Połączenie";
 "Połączenie działa." = "Połączenie działa.";
@@ -833,6 +844,7 @@
 "Project ‘%@’?" = "Projekt „%@”?";
 "Projects" = "Projekty";
 "Projects appear here when you create one in the plan above (Project → New project…)." = "Projekty pojawią się tutaj po utworzeniu w planie powyżej (Projekt › Nowy projekt…).";
+"Promień: %lld m" = "Promień: %lld m";
 "Prostuj palce w górę, grzbiet dłoni do siebie, przytrzymaj 15 s. Odwróć dłoń w dół — druga strona. Profilaktyka RSI." = "Prostuj palce w górę, grzbiet dłoni do siebie, przytrzymaj 15 s. Odwróć dłoń w dół — druga strona. Profilaktyka RSI.";
 "Prowadź rejestr czasu pracy" = "Prowadź rejestr czasu pracy";
 "Przechyl głowę delikatnie do prawego ramienia, utrzymaj 15 s. Zmień stronę." = "Przechyl głowę delikatnie do prawego ramienia, utrzymaj 15 s. Zmień stronę.";
@@ -863,6 +875,7 @@
 "Przetocz barki do tyłu 10 razy, potem do przodu 10 razy." = "Przetocz barki do tyłu 10 razy, potem do przodu 10 razy.";
 "Przezroczysty dla myszy, zniknie sam." = "Nie blokuje kliknięć, zniknie sam.";
 "Przełącza czuwanie" = "Przełącza czuwanie";
+"Przełączenie (włączenie Światła, pełny ekran): %lld s" = "Przełączenie (włączenie Światła, pełny ekran): %lld s";
 "Przy ekranach mrugamy 3x rzadziej — oczy wysychają. Zrób 10 powolnych, pełnych mrugnięć." = "Przy ekranach mrugamy 3× rzadziej — oczy wysychają. Zrób 10 powolnych, pełnych mrugnięć.";
 "Przy ekranie mrugamy ok. 4–6 razy na minutę zamiast 15–20 (Lapa i in. 2023; Kaur i in. 2022). Krótkie okienko przypomina o kilku pełnych mrugnięciach. Tylko w trakcie aktywnej pracy." = "Przy ekranie mrugamy ok. 4–6 razy na minutę zamiast 15–20 (Lapa i in. 2023; Kaur i in. 2022). Krótkie okienko przypomina o kilku pełnych mrugnięciach. Tylko w trakcie aktywnej pracy.";
 "Przy monitorze mrugamy nawet 3× rzadziej niż normalnie — stąd suchość oczu." = "Przy monitorze mrugamy nawet 3× rzadziej niż normalnie — stąd suchość oczu.";
@@ -885,7 +898,6 @@
 "Przyznaj uprawnienia…" = "Przyznaj uprawnienia…";
 "Pt" = "Pt";
 "Pusty skrypt" = "Pusty skrypt";
-"Płynna zmiana: %lld s" = "Płynna zmiana: %lld s";
 "Pływająca pastylka" = "Pływająca pastylka";
 "Random" = "Losowo";
 "Rano wyjdź na światło dzienne: to najlepszy „ekran” dla zegara dobowego." = "Rano wyjdź na światło dzienne: to najlepszy „ekran” dla zegara dobowego.";
@@ -1005,6 +1017,7 @@
 "Skip »" = "Pomiń »";
 "Skip!" = "Pomiń!";
 "Skipped break" = "Pominięta przerwa";
+"Skopiowano do schowka" = "Skopiowano do schowka";
 "Skopiuj" = "Skopiuj";
 "Skrypt (AppleScript)" = "Skrypt (AppleScript)";
 "Skrypt jest poprawny." = "Skrypt jest poprawny.";
@@ -1078,7 +1091,9 @@
 "System" = "Systemowa";
 "Systemowy / System" = "Systemowy / System";
 "Szablon" = "Szablon";
+"Szczegółowy dziennik Światła (do szukania przyczyny migania)" = "Szczegółowy dziennik Światła (do szukania przyczyny migania)";
 "Szczotkowane aluminium" = "Szczotkowane aluminium";
+"Szerokość geograficzna" = "Szerokość geograficzna";
 "Szklanka wody przy każdej długiej przerwie — odwodnienie objawia się\nspadkiem koncentracji i „głodem” na słodycze.\n\nKofeina: ostatnia kawa najpóźniej 8 godzin przed snem.\nKawa o 16:00 nadal krąży o północy. Alternatywa na poobiedni zjazd:\n10 minut ruchu na świeżym powietrzu działa lepiej niż drugie espresso." = "Szklanka wody przy każdej długiej przerwie — odwodnienie objawia się\nspadkiem koncentracji i „głodem” na słodycze.\n\nKofeina: ostatnia kawa najpóźniej 8 godzin przed snem.\nKawa o 16:00 nadal krąży o północy. Alternatywa na poobiedni zjazd:\n10 minut ruchu na świeżym powietrzu działa lepiej niż drugie espresso.";
 "Szklanka wody teraz. Serio. Teraz." = "Szklanka wody teraz. Serio. Teraz.";
 "Szkło" = "Szkło";
@@ -1101,6 +1116,7 @@
 "Tego dnia nie zarejestrowano pracy." = "Tego dnia nie zarejestrowano pracy.";
 "Telefon przełącza Focus po lokalizacji GPS i synchronizuje go z Makiem, więc tryb oznaczony jako praca mówi, że jesteś w pracy: liczy się do strefy przerw i do Rejestru pracy (bez sieci biura jako praca zdalna). Pozostałe tryby domyślnie wstrzymują przerwy (jeśli włączone jest wykrywanie Focus)." = "Telefon przełącza tryb Skupienia po lokalizacji GPS i synchronizuje go z Makiem, więc tryb oznaczony jako praca mówi, że jesteś w pracy: liczy się do strefy przerw i do Rejestru pracy (bez sieci biura jako praca zdalna). Pozostałe tryby domyślnie wstrzymują przerwy (jeśli włączone jest wykrywanie Skupienia).";
 "Temperatura barwowa ekranu na wieczór poniżej 3400 K poprawia zasypianie (tryb nocny istnieje nie bez powodu)." = "Temperatura barwowa ekranu na wieczór poniżej 3400 K poprawia zasypianie (Night Shift istnieje nie bez powodu).";
+"Tempo zmiany barwy: najwyżej %lld K na minutę" = "Tempo zmiany barwy: najwyżej %lld K na minutę";
 "Ten Mac nie udostępnia czujnika światła: działa sam harmonogram." = "Ten Mac nie udostępnia czujnika światła: działa sam harmonogram.";
 "Ten adres jest poza Twoją siecią: wysyłane dane opuszczą ten komputer." = "Ten adres jest poza Twoją siecią: wysyłane dane opuszczą ten komputer.";
 "Ten skrypt nie ma nastaw. Dodaj na początku kodu linię „property nazwa : wartość”, a pojawi się tutaj jako pole." = "Ten skrypt nie ma nastaw. Dodaj na początku kodu linię „property nazwa : wartość”, a pojawi się tutaj jako pole.";
@@ -1135,7 +1151,9 @@
 "Title of the frontmost window of the frontmost app. Needs Automation for System Events and Accessibility." = "Tytuł okna na wierzchu w aplikacji na pierwszym planie. Wymaga Automatyzacji dla System Events oraz uprawnienia Dostępności.";
 "Title shown on break screen" = "Tytuł na ekranie przerwy";
 "To %lld:00 (next day)" = "Do %lld:00 (następnego dnia)";
+"To jedna pozycja dla Światła (wschód i zachód słońca), pogody na ekranie przerwy i słońca na jego obrazie. Najpierw liczą się wpisane współrzędne, potem lokalizacja Maca, na końcu przybliżone miejsce ze strefy czasowej. Wschód i zachód liczy lokalnie, bez internetu. Miejsce pracy dla strefy pracy ustawiasz osobno w Ogólne." = "To jedna pozycja dla Światła (wschód i zachód słońca), pogody na ekranie przerwy i słońca na jego obrazie. Najpierw liczą się wpisane współrzędne, potem lokalizacja Maca, na końcu przybliżone miejsce ze strefy czasowej. Wschód i zachód liczy lokalnie, bez internetu. Miejsce pracy dla strefy pracy ustawiasz osobno w Ogólne.";
 "To jest sieć w pracy" = "To jest sieć w pracy";
+"To miejsce pracy, a nie pozycja Maca: dzięki niemu aplikacja wie, że jesteś w pracy. Pozycję używaną do pogody i wschodu słońca ustawiasz osobno." = "To miejsce pracy, a nie pozycja Maca: dzięki niemu aplikacja wie, że jesteś w pracy. Pozycję używaną do pogody i wschodu słońca ustawiasz osobno.";
 "To nie porada medyczna. Treści w Intermezzo opieramy na przeglądach i zaleceniach; część to konsensus ekspertów, nie wyniki dużych prób.\n\nDobrze podparte: przerwy zmniejszają objawy; ergonomia stanowiska i światło mają znaczenie; ruch chroni układ mięśniowo-szkieletowy.\nUmiarkowanie: mruganie (małe badania), konkretny rytm przerw (próby po 11–24 osoby).\nSłabo / niespójnie: okulary z filtrem światła niebieskiego, programy zmieniające barwę ekranu.\n\nCzytaliśmy w całości: Kaur 2022 (PMC9434525), Lapa 2023 (PMC10001854), Moreira 2022 (PMC9778108), Harvard Health, Medical News Today, wytyczne Towson. Tylko streszczenia: Redondo 2025, Dyrek 2024, Blasioli i Baleiron, Mierczak i Garus-Pakowska 2025, Kamińska 2016, Shin 2018. Nie udało się otworzyć (blokada serwera): strony ResearchGate, ScienceDirect i MDPI.\n\nŹródła: patrz wyżej oraz plik docs/zrodla-zdrowie-oczu.md w repozytorium." = "To nie porada medyczna. Treści w Intermezzo opieramy na przeglądach i zaleceniach; część to konsensus ekspertów, nie wyniki dużych prób.\n\nDobrze podparte: przerwy zmniejszają objawy; ergonomia stanowiska i światło mają znaczenie; ruch chroni układ mięśniowo-szkieletowy.\nUmiarkowanie: mruganie (małe badania), konkretny rytm przerw (próby po 11–24 osoby).\nSłabo / niespójnie: okulary z filtrem światła niebieskiego, programy zmieniające barwę ekranu.\n\nCzytaliśmy w całości: Kaur 2022 (PMC9434525), Lapa 2023 (PMC10001854), Moreira 2022 (PMC9778108), Harvard Health, Medical News Today, wytyczne Towson. Tylko streszczenia: Redondo 2025, Dyrek 2024, Blasioli i Baleiron, Mierczak i Garus-Pakowska 2025, Kamińska 2016, Shin 2018. Nie udało się otworzyć (blokada serwera): strony ResearchGate, ScienceDirect i MDPI.\n\nŹródła: patrz wyżej oraz plik docs/zrodla-zdrowie-oczu.md w repozytorium.";
 "To samo co postpone; rodzaj przerwy w adresie jest dziś pomijany" = "To samo co postpone; rodzaj przerwy w adresie jest dziś pomijany";
 "Today" = "Dziś";
@@ -1193,6 +1211,8 @@
 "Ustawienia domyślne Intermezzo" = "Ustawienia domyślne Intermezzo";
 "Ustawienia ekranu" = "Ustawienia ekranu";
 "Ustawienia i historia na Twoich Macach i w chmurze" = "Ustawienia i historia na Twoich Macach i w chmurze";
+"Ustawienia miejsca pracy…" = "Ustawienia miejsca pracy…";
+"Ustawienia pozycji do pogody i słońca…" = "Ustawienia pozycji do pogody i słońca…";
 "Ustawienia systemowe…" = "Ustawienia systemowe…";
 "Ustawienia, rejestr pracy, historia przerw i Pomodoro trafiają do wybranych folderów w chmurze. Inne Twoje Maki czytają je stamtąd, a nowy lub przeinstalowany Mac po włączeniu tej opcji z tym samym folderem odzyska wszystko sam. Każdy Mac zapisuje tylko własny plik, więc chmura nigdy nie scala jednej bazy z dwóch miejsc." = "Ustawienia, rejestr pracy, historia przerw i Pomodoro trafiają do wybranych folderów w chmurze. Inne Twoje Maki czytają je stamtąd, a nowy lub przeinstalowany Mac po włączeniu tej opcji z tym samym folderem odzyska wszystko sam. Każdy Mac zapisuje tylko własny plik, więc chmura nigdy nie scala jednej bazy z dwóch miejsc.";
 "Usunąć skrypt?" = "Usunąć skrypt?";
@@ -1397,6 +1417,7 @@
 "Zalecane: pomijaj automatycznie." = "Zalecane: pomijaj automatycznie.";
 "Zalecane: traktuj jako naturalną przerwę." = "Zalecane: traktuj jako naturalną przerwę.";
 "Zależą od pory roku, nie od pogody: spadają też w słoneczny październik. Nie pojawiają się w deszczu, burzy i śniegu." = "Zależą od pory roku, nie od pogody: spadają też w słoneczny październik. Nie pojawiają się w deszczu, burzy i śniegu.";
+"Zalicz nieobecność jako przerwę (krótką albo długą)" = "Zalicz nieobecność jako przerwę (krótką albo długą)";
 "Zalicz przerwę" = "Zalicz przerwę";
 "Zamknij" = "Zamknij";
 "Zamknij powieki wolno, na sekundę, i otwórz. Zrób 10 takich pełnych mrugnięć. Przy ekranie mrugamy kilka razy rzadziej i często niepełnie." = "Zamknij powieki wolno, na sekundę, i otwórz. Zrób 10 takich pełnych mrugnięć. Przy ekranie mrugamy kilka razy rzadziej i często niepełnie.";
@@ -1408,6 +1429,7 @@
 "Zapisane miejsce" = "Zapisane miejsce";
 "Zapisano %lld ml %@ · dziś %lld ml (%@)" = "Zapisano %lld ml (%@) · dziś %lld ml (%@)";
 "Zapisuj dłuższą nieobecność jako przerwę naturalną" = "Zapisuj dłuższą nieobecność jako przerwę naturalną";
+"Zapisuje w dzienniku każdą zmianę celu, przejście, zapis koloru na ekran i akcję BetterDisplay, z powodem i czasem co do milisekundy. Włącz, gdy ekran mignie, i wyślij fragment pliku z tą chwilą." = "Zapisuje w dzienniku każdą zmianę celu, przejście, zapis koloru na ekran i akcję BetterDisplay, z powodem i czasem co do milisekundy. Włącz, gdy ekran mignie, i wyślij fragment pliku z tą chwilą.";
 "Zapisz" = "Zapisz";
 "Zapisz napój (Nawodnienie)" = "Zapisz napój (Nawodnienie)";
 "Zapomnij" = "Zapomnij";
@@ -1504,8 +1526,6 @@
 "krótka" = "krótka";
 "krótka przerwa byłaby dłuższa niż długa" = "krótka przerwa byłaby dłuższa niż długa";
 "ktoś ogląda Twój ekran (usługa macOS działa tylko podczas połączenia)" = "ktoś ogląda Twój ekran (usługa macOS działa tylko podczas połączenia)";
-"lat" = "szer.";
-"lon" = "dł.";
 "macOS forgets what you allowed for Intermezzo (input monitoring, screen recording, accessibility, automation, calendar). Until you allow them again, natural-break detection, effects and script rules work in a reduced way." = "macOS zapomni, na co pozwolono Intermezzo (monitorowanie wprowadzania, nagrywanie ekranu, dostępność, automatyzacja, kalendarz). Dopóki nie zezwolisz ponownie, wykrywanie naturalnych przerw, efekty i reguły skryptów działają w ograniczonym zakresie.";
 "macOS podaje nazwy sieci Wi-Fi tylko aplikacjom z dostępem do lokalizacji." = "macOS podaje nazwy sieci Wi-Fi tylko aplikacjom z dostępem do lokalizacji.";
 "macOS reads the Wi-Fi name only with Location access" = "macOS podaje nazwę sieci Wi-Fi tylko z dostępem do lokalizacji";
@@ -1550,7 +1570,6 @@
 "przepuszcza" = "przepuszcza";
 "przybliżona, ze strefy czasowej %@" = "przybliżona, ze strefy czasowej %@";
 "przyciemnienie %lld%%" = "przyciemnienie %lld%%";
-"radius m" = "promień m";
 "rejestr pracy też nie widzi strefy pracy" = "rejestr pracy też nie widzi strefy pracy";
 "rejestr pracy wyłączony" = "rejestr pracy wyłączony";
 "router %@" = "router %@";

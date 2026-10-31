@@ -439,10 +439,7 @@ STRINGS = {
         "Wi-Fi: aktywne tylko przy połączeniu z siecią z listy",
     "SSIDs (comma separated), e.g. Biuro": "Nazwy sieci (po przecinku), np. Biuro",
     "Location: active only within radius of a saved place":
-        "Lokalizacja: aktywna tylko w promieniu od zapisanego miejsca",
-    "lat": "szer.",
-    "lon": "dł.",
-    "radius m": "promień m",
+        "Miejsce pracy: strefa pracy tylko w promieniu od zapisanego miejsca",
     "Use current": "Użyj bieżącej",
     "Keyboard Shortcuts": "Skróty klawiszowe",
     "Start short break": "Rozpocznij krótką przerwę",
@@ -728,4 +725,36 @@ STRINGS = {
         "Wznawiaj odtwarzanie po przerwie",
     "Szukaj w ustawieniach": "Szukaj w ustawieniach",
     "Brak wyników": "Brak wyników",
+    "Pauzuj też inne odtwarzacze klawiszem multimediów (może otworzyć Apple Music)":
+        "Pauzuj też inne odtwarzacze klawiszem multimediów (może otworzyć Apple Music)",
+    "Apple Music i Spotify są zatrzymywane bezpośrednio, tylko gdy grają. Dla przeglądarek i innych odtwarzaczy trzeba użyć klawisza multimediów, który trafia do ostatniego odtwarzacza, a gdy go nie ma, macOS otwiera Apple Music. Dlatego jest domyślnie wyłączony.":
+        "Apple Music i Spotify są zatrzymywane bezpośrednio, tylko gdy grają. Dla przeglądarek i innych odtwarzaczy trzeba użyć klawisza multimediów, który trafia do ostatniego odtwarzacza, a gdy go nie ma, macOS otwiera Apple Music. Dlatego jest domyślnie wyłączony.",
+    "Zalicz nieobecność jako przerwę (krótką albo długą)":
+        "Zalicz nieobecność jako przerwę (krótką albo długą)",
+    "Gdy czas bez ruchu myszą i klawiaturą jest co najmniej tak długi jak następna zaplanowana przerwa, timer zaczyna od nowa tak, jakby przerwa się odbyła. Jeśli następna miała być krótka, a nieobecność trwała tyle co długa przerwa albo dłużej, liczy się jako długa. Krótsze nieobecności nadal obsługuje ustawienie poniżej.":
+        "Gdy czas bez ruchu myszą i klawiaturą jest co najmniej tak długi jak następna zaplanowana przerwa, timer zaczyna od nowa tak, jakby przerwa się odbyła. Jeśli następna miała być krótka, a nieobecność trwała tyle co długa przerwa albo dłużej, liczy się jako długa. Krótsze nieobecności nadal obsługuje ustawienie poniżej.",
+    "Byłeś nieobecny %lld min: zaliczone jako długa przerwa, timer zaczyna od nowa.":
+        "Byłeś nieobecny %lld min: zaliczone jako długa przerwa, timer zaczyna od nowa.",
+    "Byłeś nieobecny %lld min: zaliczone jako krótka przerwa, timer zaczyna od nowa.":
+        "Byłeś nieobecny %lld min: zaliczone jako krótka przerwa, timer zaczyna od nowa.",
+    "Kopiuj diagnostykę":
+        "Kopiuj diagnostykę",
+    "Skopiowano do schowka":
+        "Skopiowano do schowka",
+    "Kopiuje do schowka wersję aplikacji i macOS, model Maca, monitory, stan uprawnień i funkcje, które się wycofały, oraz kilka linii dziennika o świetle i multimediach. Bez nazw sieci, tytułów z kalendarza, miejsc i nazwy użytkownika. Nic nie jest wysyłane: wklej to do zgłoszenia na GitHubie.":
+        "Kopiuje do schowka wersję aplikacji i macOS, model Maca, monitory, stan uprawnień i funkcje, które się wycofały, oraz kilka linii dziennika o świetle i multimediach. Bez nazw sieci, tytułów z kalendarza, miejsc i nazwy użytkownika. Nic nie jest wysyłane: wklej to do zgłoszenia na GitHubie.",
+    "Szerokość geograficzna":
+        "Szerokość geograficzna",
+    "Długość geograficzna":
+        "Długość geograficzna",
+    "Promień: %lld m":
+        "Promień: %lld m",
+    "To miejsce pracy, a nie pozycja Maca: dzięki niemu aplikacja wie, że jesteś w pracy. Pozycję używaną do pogody i wschodu słońca ustawiasz osobno.":
+        "To miejsce pracy, a nie pozycja Maca: dzięki niemu aplikacja wie, że jesteś w pracy. Pozycję używaną do pogody i wschodu słońca ustawiasz osobno.",
+    "Ustawienia pozycji do pogody i słońca…":
+        "Ustawienia pozycji do pogody i słońca…",
+    "Pozycja":
+        "Pozycja",
+    "Ustawienia miejsca pracy…":
+        "Ustawienia miejsca pracy…",
 }

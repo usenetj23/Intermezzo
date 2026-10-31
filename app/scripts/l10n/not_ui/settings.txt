@@ -78,3 +78,7 @@ wireguard strefa pracy
 święta urlop
 Privacy_AllFiles
 SystemPolicyAllFiles
+# Light log reasons, not UI text
+30 s reminder
+put back after wake, Space or display change
+Spotify

@@ -300,3 +300,18 @@ public enum LightExclusion {
         return leftOK && topOK && rightOK && bottomOK
     }
 }
+
+/// Where the Mac is, for the sun and the weather: one choice for the whole app.
+public enum PlaceSource: String, Sendable {
+    case manual, macFix, timeZone
+}
+
+public enum PlaceChoice {
+    /// The place typed in wins, then the Mac's own position, then the city of the time zone.
+    public static func pick(manual: String?, macFix: GeoPoint?, timeZoneCity: GeoPoint?) -> (point: GeoPoint, source: PlaceSource)? {
+        if let text = manual, !text.isEmpty, let point = LightLocation.parse(text) { return (point, .manual) }
+        if let fix = macFix { return (fix, .macFix) }
+        if let city = timeZoneCity { return (city, .timeZone) }
+        return nil
+    }
+}

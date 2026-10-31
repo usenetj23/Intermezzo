@@ -24,4 +24,6 @@ STRINGS = {
         "Meeting and holiday detection, calendar-aware breaks",
     "Reading Focus modes (work zone and pausing by Focus); optional":
         "Reading Focus modes (work zone and pausing by Focus); optional",
+    "Najpierw kliknij Uruchom ponownie: macOS pokaże okno z pytaniem dopiero po ponownym uruchomieniu aplikacji.":
+        "Click Restart first: macOS shows the question only after the app is started again.",
 }

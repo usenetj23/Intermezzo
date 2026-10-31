@@ -13,6 +13,7 @@ struct GeneralPane: View {
     @AppStorage(Keys.autoStartTimer) private var autoStartTimer = true
     @AppStorage(Keys.idleDetection) private var idleDetection = true
     @AppStorage(Keys.idleThresholdSeconds) private var idleThresholdSeconds = 60
+    @AppStorage("awayCreditsBreak") private var awayCreditsBreak = true
     @AppStorage(Keys.idleResetAfterMinutes) private var idleResetAfterMinutes = 5
     @AppStorage(NaturalBreakKeys.enabled) private var naturalLog = 0
     @AppStorage(NaturalBreakKeys.minMinutes) private var naturalMinutes = 0
@@ -37,6 +38,7 @@ struct GeneralPane: View {
     @AppStorage(Keys.wifiDetection) private var wifiDetection = false
     @AppStorage(Keys.wifiNames) private var wifiNames = ""
     @AppStorage(Keys.geoDetection) private var geoDetection = false
+    @State private var showWorkPlaceMap = false
     @AppStorage(Keys.geoLat) private var geoLat = 0.0
     @AppStorage(Keys.geoLon) private var geoLon = 0.0
     @AppStorage(Keys.geoRadiusM) private var geoRadiusM = 300.0
@@ -101,6 +103,9 @@ struct GeneralPane: View {
                     Group {
                         Stepper("Pause timer after \(idleThresholdSeconds / 60) min",
                               value: $idleThresholdSeconds, in: 1...60, step: 60)
+                        Toggle("Zalicz nieobecność jako przerwę (krótką albo długą)", isOn: $awayCreditsBreak).settingsAnchor("general-zalicz-nieobecnosc-jako-przerwe-krot")
+                        Text("Gdy czas bez ruchu myszą i klawiaturą jest co najmniej tak długi jak następna zaplanowana przerwa, timer zaczyna od nowa tak, jakby przerwa się odbyła. Jeśli następna miała być krótka, a nieobecność trwała tyle co długa przerwa albo dłużej, liczy się jako długa. Krótsze nieobecności nadal obsługuje ustawienie poniżej.")
+                            .settingsNote().settingsAnchor("general-gdy-czas-bez-ruchu-mysza-i-klawiatur")
                         Stepper("Reset timer after \(idleResetAfterMinutes) min away",
                               value: $idleResetAfterMinutes, in: 1...120)
                         Toggle("Zapisuj dłuższą nieobecność jako przerwę naturalną", isOn: Binding(
@@ -250,14 +255,20 @@ struct GeneralPane: View {
                     Toggle("Location: active only within radius of a saved place", isOn: $geoDetection)
                         .settingsAnchor("zone-geo")
                     if geoDetection {
-                        HStack(spacing: 6) {
-                            TextField("lat", value: $geoLat, format: .number.precision(.fractionLength(4)))
+                        LabeledContent("Szerokość geograficzna") {
+                            TextField("", value: $geoLat, format: .number.precision(.fractionLength(4)))
                                 .textFieldStyle(.editable)
-                            TextField("lon", value: $geoLon, format: .number.precision(.fractionLength(4)))
+                                .multilineTextAlignment(.trailing)
+                                .frame(width: 120)
+                        }
+                        LabeledContent("Długość geograficzna") {
+                            TextField("", value: $geoLon, format: .number.precision(.fractionLength(4)))
                                 .textFieldStyle(.editable)
-                            TextField("radius m", value: $geoRadiusM, format: .number)
-                                .textFieldStyle(.editable)
-                                .frame(width: 78)
+                                .multilineTextAlignment(.trailing)
+                                .frame(width: 120)
+                        }
+                        Stepper("Promień: \(Int(geoRadiusM)) m", value: $geoRadiusM, in: 50...5000, step: 50)
+                        HStack(spacing: 8) {
                             Button("Use current") {
                                 WorkDetector.shared.captureCurrentLocation { c in
                                     DispatchQueue.main.async {
@@ -266,8 +277,23 @@ struct GeneralPane: View {
                                     }
                                 }
                             }.settingsAnchor("general-use-current")
-                            .controlSize(.small)
+                            Button("Wybierz na mapie…") { showWorkPlaceMap = true }.settingsAnchor("general-wybierz-na-mapie")
+                                .sheet(isPresented: $showWorkPlaceMap) {
+                                    LocationMapSheet(
+                                        center: GeoPoint(latitude: geoLat, longitude: geoLon),
+                                        pin: (geoLat == 0 && geoLon == 0) ? nil : GeoPoint(latitude: geoLat, longitude: geoLon)) {
+                                        geoLat = $0.latitude
+                                        geoLon = $0.longitude
+                                    }
+                                }
                         }
+                        .controlSize(.small)
+                        Text("To miejsce pracy, a nie pozycja Maca: dzięki niemu aplikacja wie, że jesteś w pracy. Pozycję używaną do pogody i wschodu słońca ustawiasz osobno.")
+                            .settingsNote().settingsAnchor("general-to-miejsce-pracy-a-nie-pozycja-maca")
+                        Button("Ustawienia pozycji do pogody i słońca…") {
+                            SettingsPane.go(to: .light, anchor: "light-wybierz-na-mapie")
+                        }.settingsAnchor("general-ustawienia-pozycji-do-pogody-i-slonc")
+                        .controlSize(.small)
                         if !work.locationAuthorized {
                             zoneStatus(-1, String(localized: "Location access not granted"),
                                        settingsURL: "x-apple.systempreferences:com.apple.preference.security?Privacy_LocationServices")

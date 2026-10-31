@@ -5,7 +5,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thanks for reporting. Intermezzo is built and tested on one Mac, so details about your setup help a lot.
+        Thanks for reporting. Intermezzo is tested on a few Macs only, so details about your setup help a lot. The easiest way: Settings › About › **Copy diagnostics**, then paste the result below.
         **Do not post security problems here**; see SECURITY.md.
   - type: textarea
     id: what-happened
@@ -26,16 +26,21 @@ body:
     attributes:
       label: Intermezzo version
       description: Settings › About
-      placeholder: "1.41.0"
+      placeholder: "1.42.0"
     validations:
       required: true
+  - type: textarea
+    id: diagnostics
+    attributes:
+      label: Diagnostics
+      description: Settings › About › Copy diagnostics, then paste. It holds the macOS version, the Mac, the displays, the permission states and the features that fell back. It has no Wi-Fi names, calendar titles, places or user name, and nothing is sent anywhere; look it over before you post.
+      render: text
   - type: input
     id: macos
     attributes:
       label: macOS version and Mac
+      description: Not needed if you pasted the diagnostics above.
       placeholder: "macOS 26.0, MacBook Pro M3, built-in display and two external monitors"
-    validations:
-      required: true
   - type: dropdown
     id: area
     attributes:

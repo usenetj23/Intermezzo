@@ -16,7 +16,12 @@ struct BreakTrendChart: View {
     private static let bottomPad: CGFloat = 16
     private static let minSpacing: CGFloat = 28
 
-    private var levels: [Double] { BreakMomentum.levels(markers.map { .init(skipped: $0.wasSkipped, weight: $0.weight) }) }
+    private var levels: [Double] {
+        BreakMomentum.levels(markers.map {
+            .init(skipped: $0.wasSkipped, weight: $0.weight,
+                  lossShare: $0.outcome == .postponed ? BreakMomentum.postponeShare(minutes: $0.postponeMinutes) : 1)
+        })
+    }
 
     private func layout(in size: CGSize) -> (points: [CGPoint], gaps: [TrendTimeline.CollapsedGap]) {
         let l = levels

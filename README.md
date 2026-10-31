@@ -11,7 +11,9 @@ A break reminder for macOS that lives in the menu bar. It reminds you to step aw
 
 The interface is available in **English** and **Polish**.
 
-> Intermezzo is a personal project, built and tested on one Mac. It is not notarised and has no Developer ID signature, so macOS asks for confirmation on first launch (see [Installation](#installation)).
+> **First launch:** Intermezzo is not notarised, so macOS blocks it the first time. Open **System Settings › Privacy & Security**, scroll to the message about Intermezzo and click **Open Anyway** (you do this once). Details and a Terminal alternative are under [Installation](#installation).
+>
+> Intermezzo is a personal project, tested on a MacBook Pro (M5, 128 GB), a MacBook Air (M4, 16 GB) and a Mac Studio (M3 Ultra, 96 GB). It has no Developer ID signature because that needs a paid Apple Developer membership; the release zip carries a signed build provenance attestation instead (see [Installation](#installation)). It has not been tried on Intel Macs, on other macOS versions or on many monitor models, so reports are welcome: **Settings › About › Copy diagnostics** puts the details a bug report needs on your clipboard (nothing is sent anywhere).
 
 <p align="center">
   <img src="docs/screenshots/break-screen.png" alt="The break screen: a countdown, an exercise to do, and a trend of recent breaks over the desktop" width="860">
@@ -155,12 +157,12 @@ The script signs the app ad hoc with a designated requirement based on the bundl
 Release zips are built on GitHub's servers from the tagged source by the [Release workflow](.github/workflows/release.yml), not on a personal machine. Each zip carries a signed [build provenance attestation](https://docs.github.com/en/actions/security-for-github-actions/using-artifact-attestations) that ties it to the exact commit and workflow run. To check a download with the [GitHub CLI](https://cli.github.com):
 
 ```bash
-gh attestation verify Intermezzo-1.41.0.zip -R usenetj23/Intermezzo
+gh attestation verify Intermezzo-1.42.0.zip -R usenetj23/Intermezzo
 ```
 
 Other checks:
 - Every push is scanned by [CodeQL](https://github.com/usenetj23/Intermezzo/security/code-scanning), GitHub's static security analysis, and the unit tests run on each change.
-- Each release lists the zip's SHA-256 checksum. Compare it with `shasum -a 256 Intermezzo-1.41.0.zip`.
+- Each release lists the zip's SHA-256 checksum. Compare it with `shasum -a 256 Intermezzo-1.42.0.zip`.
 - The release notes link a [VirusTotal](https://www.virustotal.com) report for the zip.
 - You can always build the app yourself from source (see [Building](#building)).
 

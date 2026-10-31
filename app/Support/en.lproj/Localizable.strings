@@ -109,6 +109,7 @@
 "Aplikacje do rozmów i pulpitu zdalnego" = "Call and remote desktop apps";
 "Aplikacji nie ma na tym Macu: %@. Sprawdź uruchomione procesy przez System Events zamiast „tell application”." = "These applications are not installed on this Mac: %@. Check the running processes through System Events instead of “tell application”.";
 "Apple Intelligence jest wyłączona w Ustawieniach systemowych" = "Apple Intelligence is switched off in System Settings";
+"Apple Music i Spotify są zatrzymywane bezpośrednio, tylko gdy grają. Dla przeglądarek i innych odtwarzaczy trzeba użyć klawisza multimediów, który trafia do ostatniego odtwarzacza, a gdy go nie ma, macOS otwiera Apple Music. Dlatego jest domyślnie wyłączony." = "Apple Music and Spotify are paused directly, only while they play. For browsers and other players the media key is needed; it goes to the last player, and when there is none macOS opens Apple Music. That is why it is off by default.";
 "AppleScript (.applescript/.scpt) or shell scripts run at break start and after any end — e.g. mute audio on start, restore on end." = "AppleScript (.applescript/.scpt) or shell scripts run at break start and after any end — e.g. mute audio on start, restore on end.";
 "AppleScript rules that ask System Events about apps and windows" = "AppleScript rules that ask System Events about apps and windows";
 "Archive" = "Archive";
@@ -127,6 +128,7 @@
 "Barki w dół" = "Shoulders down";
 "Barwa" = "Colour";
 "Barwa ekranu według pory dnia i godziny snu" = "Screen colour by the time of day and bedtime";
+"Barwa podąża za porą dnia powoli, nie szybciej niż ustawione K na minutę (np. 100 K zajmie wtedy kilka minut). Włączenie Światła i okno pełnoekranowe albo aplikacja wyjątek przełączają kolor w podanym czasie, ale dopiero po kilku sekundach, żeby krótkie przełączenia nie migały." = "The colour changes gently: it starts slowly, speeds up and slows down, and a time shorter than 8 s is not used. A full-screen window or an excluded app takes effect only after a few seconds, so brief switches do not flash the colour.";
 "Barwa światła w ciągu dnia" = "The colour of light through the day";
 "Bateria spadła poniżej ustawionego progu, więc Mac może już zasnąć." = "The battery fell below the set limit, so the Mac may sleep now.";
 "Before Due" = "Before Due";
@@ -137,7 +139,6 @@
 "BetterDisplay nie wyłączył True Tone (ta funkcja wymaga wersji Pro)." = "BetterDisplay did not turn True Tone off (this feature needs the Pro version).";
 "Bez klucza (zwykle tak jest przy lokalnym serwerze)." = "No key (usual for a local server).";
 "Bez odroczeń, bez przycisku Skip i bez Esc na ekranie przerwy. Awaryjnie przerwę kończysz z paska menu." = "No postponements, no Skip button and no Esc on the break screen. In an emergency you end the break from the menu bar.";
-"Bez wpisanych współrzędnych aplikacja używa lokalizacji Maca, a gdy jej nie ma, przybliżonego miejsca ze strefy czasowej. Wschód i zachód liczy lokalnie, bez internetu." = "Without typed coordinates the app uses the Mac's location, and without that, an approximate place from the time zone. Sunrise and sunset are calculated locally, without the internet.";
 "Bez wpływu teraz" = "No effect right now";
 "Bez wykresu, haseł o passie i liczników dni z rzędu. Zostaje sam numer przerwy dziś. Statystyki i mapa regularności nadal są dostępne, bez oceniania." = "No chart, streak phrases or days-in-a-row counters. Only today's break number remains. Statistics and the consistency map are still available, without judging.";
 "Bez zmiany barwy: %@" = "No colour change: %@";
@@ -185,6 +186,8 @@
 "Button title:" = "Button title:";
 "By project" = "By project";
 "Byłeś nieobecny %lld min — zaliczyć to jako przerwę?" = "You were away for %lld min — count it as a break?";
+"Byłeś nieobecny %lld min: zaliczone jako długa przerwa, timer zaczyna od nowa." = "You were away %lld min: counted as a long break, the timer starts over.";
+"Byłeś nieobecny %lld min: zaliczone jako krótka przerwa, timer zaczyna od nowa." = "You were away %lld min: counted as a short break, the timer starts over.";
 "Błąd połączenia: %@" = "Connection error: %@";
 "Błąd w skrypcie: %@" = "Error in the script: %@";
 "Calendar" = "Calendar";
@@ -329,6 +332,7 @@
 "Długa przerwa teraz" = "Long break now";
 "Długi build / render" = "Long build / render";
 "Długi build / render (dobra pora na przerwę)" = "Long build / render (a good time for a break)";
+"Długość geograficzna" = "Longitude";
 "Długość, rytm, dźwięk i akcje przerw" = "Length, rhythm, sound and break actions";
 "Edytory zdjęć, wideo i grafiki" = "Photo, video and graphics editors";
 "Edytuj…" = "Edit…";
@@ -386,6 +390,7 @@
 "Galeria skryptów" = "Script gallery";
 "Gallery scripts that read window titles through System Events" = "Gallery scripts that read window titles through System Events";
 "Gdy aplikacja z listy jest aktywnym oknem, jej monitor pokazuje normalne kolory, np. przy obróbce zdjęć i wideo. Nazwy oddzielaj przecinkami." = "While an app from the list is the active window, its monitor shows normal colours, e.g. when editing photos and video. Separate the names with commas.";
+"Gdy czas bez ruchu myszą i klawiaturą jest co najmniej tak długi jak następna zaplanowana przerwa, timer zaczyna od nowa tak, jakby przerwa się odbyła. Jeśli następna miała być krótka, a nieobecność trwała tyle co długa przerwa albo dłużej, liczy się jako długa. Krótsze nieobecności nadal obsługuje ustawienie poniżej." = "When the time without mouse or keyboard input is at least as long as the next planned break, the timer starts over as if the break had happened. If a short one was next and you were away for as long as a long break or more, it counts as a long one. Shorter absences are still handled by the setting below.";
 "Gdy ekran jest powielony na projektorze lub telewizorze (Mirror: On), to prawie na pewno ktoś na niego patrzy. Przerwa na cały ekran na czyjejś prezentacji byłaby niezręczna." = "When the screen is mirrored to a projector or TV (Mirror: On), someone is almost certainly watching it. A full-screen break over someone's presentation would be awkward.";
 "Gdy przerwa jest należna, nic nie zasłania ekranu. Dostajesz łagodne powiadomienie i dźwięk; jeśli je zignorujesz, co kilka minut pojawia się mocniejsze, a krawędzie ekranu zaczynają świecić na czerwono. Kończysz je przyciskiem Zacznij przerwę, Zrobiłem przerwę, odroczeniem albo odejściem od komputera. Ten tryb ma pierwszeństwo przed surowością i miękką przerwą." = "When a break is due, nothing covers the screen. You get a gentle notification and sound; if you ignore it, a stronger one appears every few minutes and the screen edges start to glow red. You end it with Start break or I took a break, by postponing or by walking away from the computer. This mode takes precedence over strictness and soft break.";
 "Gdy warunek jest spełniony w momencie nadejścia przerwy — zostanie odroczona lub pominięta" = "When the condition is met at the moment a break is due, it will be postponed or skipped";
@@ -470,6 +475,8 @@
 "Kontrast i rozmiar czcionki" = "Contrast and font size";
 "Kopia trafia do każdego zaznaczonego folderu; przy odczycie liczy się najnowszy plik każdego Maca." = "The backup goes to every selected folder; when reading, the newest file of each Mac counts.";
 "Kopiuj" = "Copy";
+"Kopiuj diagnostykę" = "Copy diagnostics";
+"Kopiuje do schowka wersję aplikacji i macOS, model Maca, monitory, stan uprawnień i funkcje, które się wycofały, oraz kilka linii dziennika o świetle i multimediach. Bez nazw sieci, tytułów z kalendarza, miejsc i nazwy użytkownika. Nic nie jest wysyłane: wklej to do zgłoszenia na GitHubie." = "Copies the app and macOS versions, the Mac model, the displays, the permission states and the features that fell back, plus a few log lines about light and media, to the clipboard. No network names, calendar titles, places or user name. Nothing is sent: paste it into a GitHub issue.";
 "Kot – krowa przy biurku" = "Cat – cow at the desk";
 "Krótka (z ustawień)" = "Short (from settings)";
 "Krótka przerwa" = "Short break";
@@ -499,7 +506,7 @@
 "Loading your shortcuts…" = "Loading your shortcuts…";
 "Location" = "Location";
 "Location access not granted" = "Location access not granted";
-"Location: active only within radius of a saved place" = "Location: active only within radius of a saved place";
+"Location: active only within radius of a saved place" = "Work place: work zone only within a radius of a saved place";
 "Logic, GarageBand, Ableton, Pro Tools, Cubase, Reaper, Final Cut, Premiere, DaVinci Resolve lub Blender na pierwszym planie. Wejście w stan flow trudno odbudować po przerwie w środku nagrania lub renderu." = "Logic, GarageBand, Ableton, Pro Tools, Cubase, Reaper, Final Cut, Premiere, DaVinci Resolve or Blender in front. Flow is hard to rebuild after a break in the middle of a recording or render.";
 "Lokalizacja" = "Location";
 "Lokalne zostają: uprawnienia, pozycje okien, ścieżki do plików (muzyka, skrypty, obrazy), dzisiejsze liczniki. Przy konflikcie ustawień wygrywa nowsza zmiana. Mac dołączający do folderu z danymi innego Maca najpierw przejmuje jego ustawienia." = "Kept per Mac: permissions, window positions, file paths (music, scripts, images), today's counters. When a setting changed on both Macs, the newer change wins. A Mac joining a folder that already holds another Mac's data first takes over its settings.";
@@ -577,6 +584,7 @@
 "Najcieplejszy kolor: %lld K" = "Warmest colour: %lld K";
 "Najczęstsze odstępy między propozycjami z tej reguły" = "Shortest interval between suggestions from this rule";
 "Najgorsza pozycja to kolejna" = "The best position is the next one";
+"Najpierw kliknij Uruchom ponownie: macOS pokaże okno z pytaniem dopiero po ponownym uruchomieniu aplikacji." = "Click Restart first: macOS shows the question only after the app is started again.";
 "Najważniejszy nawyk przy monitorze" = "The most important habit at the screen";
 "Najzdrowsza odległość od monitora: 50–70 cm, górna krawędź ekranu na wysokości oczu." = "The healthiest distance from the monitor: 50–70 cm, the top edge of the screen at eye level.";
 "Name" = "Name";
@@ -721,6 +729,7 @@
 "Pauza" = "Pause";
 "Pauza teraz" = "Break now";
 "Pauza to ruch + dal + oddech. Telefon to nie odpoczynek." = "A break is movement + distance + breathing. Your phone is not rest.";
+"Pauzuj też inne odtwarzacze klawiszem multimediów (może otworzyć Apple Music)" = "Also pause other players with the media key (may open Apple Music)";
 "Pauzy, które naprawdę działają" = "Breaks that actually work";
 "Percent of screen" = "Percent of screen";
 "Percent: %lld%%" = "Percent: %lld%%";
@@ -761,6 +770,7 @@
 "Pokazuje przypomnienie błyskiem ekranu" = "Shows the flash reminder";
 "Pokazuje wybrany efekt na 8 sekund. Podgląd nie blokuje myszki i nie jest przerwą." = "Shows the chosen effect for 8 seconds. The preview does not block the mouse and is not a break.";
 "Pokaż licznik także na ekranie z notchem" = "Show the countdown on notched screens too";
+"Pokaż plik dziennika" = "Show the log file";
 "Pokaż przykład" = "Show example";
 "Pokaż ustawienia" = "Show settings";
 "Pokaż w Finderze" = "Show in Finder";
@@ -805,6 +815,7 @@
 "Poza godzinami pracy" = "Outside working hours";
 "Poza strefą pracy" = "Outside the work zone";
 "Poziom surowości możesz zmienić w Przerwy › Podejście do przerw." = "You can change the strictness level in Breaks › Approach to breaks.";
+"Pozycja" = "Position";
 "Połowa walki o zmęczone oczy" = "Half the battle against tired eyes";
 "Połączenie" = "Connection";
 "Połączenie działa." = "The connection works.";
@@ -833,6 +844,7 @@
 "Project ‘%@’?" = "Project ‘%@’?";
 "Projects" = "Projects";
 "Projects appear here when you create one in the plan above (Project → New project…)." = "Projects appear here when you create one in the plan above (Project › New project…).";
+"Promień: %lld m" = "Radius: %lld m";
 "Prostuj palce w górę, grzbiet dłoni do siebie, przytrzymaj 15 s. Odwróć dłoń w dół — druga strona. Profilaktyka RSI." = "Point your fingers up, back of the hand towards you, hold for 15 s. Turn the palm down for the other side. Prevents RSI.";
 "Prowadź rejestr czasu pracy" = "Keep a work-time log";
 "Przechyl głowę delikatnie do prawego ramienia, utrzymaj 15 s. Zmień stronę." = "Gently tilt your head toward your right shoulder and hold for 15 s. Switch sides.";
@@ -863,6 +875,7 @@
 "Przetocz barki do tyłu 10 razy, potem do przodu 10 razy." = "Roll your shoulders back 10 times, then forward 10 times.";
 "Przezroczysty dla myszy, zniknie sam." = "Click-through, it disappears on its own.";
 "Przełącza czuwanie" = "Toggles keep awake";
+"Przełączenie (włączenie Światła, pełny ekran): %lld s" = "Switch (Light turning on, full screen): %lld s";
 "Przy ekranach mrugamy 3x rzadziej — oczy wysychają. Zrób 10 powolnych, pełnych mrugnięć." = "At screens we blink 3× less often, so eyes dry out. Do 10 slow, full blinks.";
 "Przy ekranie mrugamy ok. 4–6 razy na minutę zamiast 15–20 (Lapa i in. 2023; Kaur i in. 2022). Krótkie okienko przypomina o kilku pełnych mrugnięciach. Tylko w trakcie aktywnej pracy." = "At a screen we blink about 4–6 times a minute instead of 15–20 (Lapa et al. 2023; Kaur et al. 2022). A short popup reminds you to blink fully a few times. Only during active work.";
 "Przy monitorze mrugamy nawet 3× rzadziej niż normalnie — stąd suchość oczu." = "At a monitor we blink up to 3× less often than normal — hence dry eyes.";
@@ -885,7 +898,6 @@
 "Przyznaj uprawnienia…" = "Grant permissions…";
 "Pt" = "Fri";
 "Pusty skrypt" = "Empty script";
-"Płynna zmiana: %lld s" = "Smooth change: %lld s";
 "Pływająca pastylka" = "Floating pill";
 "Random" = "Random";
 "Rano wyjdź na światło dzienne: to najlepszy „ekran” dla zegara dobowego." = "In the morning go out into daylight: it is the best “screen” for your body clock.";
@@ -1005,6 +1017,7 @@
 "Skip »" = "Skip »";
 "Skip!" = "Skip!";
 "Skipped break" = "Skipped break";
+"Skopiowano do schowka" = "Copied to the clipboard";
 "Skopiuj" = "Copy";
 "Skrypt (AppleScript)" = "Script (AppleScript)";
 "Skrypt jest poprawny." = "The script is valid.";
@@ -1078,7 +1091,9 @@
 "System" = "System";
 "Systemowy / System" = "Systemowy / System";
 "Szablon" = "Template";
+"Szczegółowy dziennik Światła (do szukania przyczyny migania)" = "Detailed Light log (to find what makes the screen blink)";
 "Szczotkowane aluminium" = "Brushed aluminium";
+"Szerokość geograficzna" = "Latitude";
 "Szklanka wody przy każdej długiej przerwie — odwodnienie objawia się\nspadkiem koncentracji i „głodem” na słodycze.\n\nKofeina: ostatnia kawa najpóźniej 8 godzin przed snem.\nKawa o 16:00 nadal krąży o północy. Alternatywa na poobiedni zjazd:\n10 minut ruchu na świeżym powietrzu działa lepiej niż drugie espresso." = "A glass of water at every long break — dehydration shows up as\npoorer concentration and “cravings” for sweets.\n\nCaffeine: your last coffee no later than 8 hours before bed.\nA coffee at 4 p.m. is still in your system at midnight. For the after-lunch slump:\n10 minutes of moving in the fresh air works better than a second espresso.";
 "Szklanka wody teraz. Serio. Teraz." = "A glass of water now. Seriously. Now.";
 "Szkło" = "Glass";
@@ -1101,6 +1116,7 @@
 "Tego dnia nie zarejestrowano pracy." = "No work recorded on this day.";
 "Telefon przełącza Focus po lokalizacji GPS i synchronizuje go z Makiem, więc tryb oznaczony jako praca mówi, że jesteś w pracy: liczy się do strefy przerw i do Rejestru pracy (bez sieci biura jako praca zdalna). Pozostałe tryby domyślnie wstrzymują przerwy (jeśli włączone jest wykrywanie Focus)." = "The iPhone switches Focus by GPS location and syncs it to the Mac, so a mode marked as work says you are at work: it counts toward the break work zone and the Work log (as remote work without the office network). Other modes hold breaks by default (if Focus detection is on).";
 "Temperatura barwowa ekranu na wieczór poniżej 3400 K poprawia zasypianie (tryb nocny istnieje nie bez powodu)." = "An evening screen colour temperature below 3400 K helps you fall asleep (Night Shift exists for a reason).";
+"Tempo zmiany barwy: najwyżej %lld K na minutę" = "Colour change speed: at most %lld K per minute";
 "Ten Mac nie udostępnia czujnika światła: działa sam harmonogram." = "This Mac does not provide a light sensor: the schedule alone is used.";
 "Ten adres jest poza Twoją siecią: wysyłane dane opuszczą ten komputer." = "This address is outside your network: the data sent will leave this computer.";
 "Ten skrypt nie ma nastaw. Dodaj na początku kodu linię „property nazwa : wartość”, a pojawi się tutaj jako pole." = "This script has no settings. Add a line “property name : value” at the top of the code and it appears here as a field.";
@@ -1135,7 +1151,9 @@
 "Title of the frontmost window of the frontmost app. Needs Automation for System Events and Accessibility." = "Title of the frontmost window of the frontmost app. Needs Automation for System Events and Accessibility.";
 "Title shown on break screen" = "Title shown on break screen";
 "To %lld:00 (next day)" = "To %lld:00 (next day)";
+"To jedna pozycja dla Światła (wschód i zachód słońca), pogody na ekranie przerwy i słońca na jego obrazie. Najpierw liczą się wpisane współrzędne, potem lokalizacja Maca, na końcu przybliżone miejsce ze strefy czasowej. Wschód i zachód liczy lokalnie, bez internetu. Miejsce pracy dla strefy pracy ustawiasz osobno w Ogólne." = "This is the one position for Light (sunrise and sunset), the weather on the break screen and the sun in its picture. The place you type in comes first, then the Mac's own position, then the city of the time zone. Sunrise and sunset are computed locally, without the internet. The work place of the work zone is set separately in General.";
 "To jest sieć w pracy" = "This is the work network";
+"To miejsce pracy, a nie pozycja Maca: dzięki niemu aplikacja wie, że jesteś w pracy. Pozycję używaną do pogody i wschodu słońca ustawiasz osobno." = "This is the work place, not the Mac's position: it tells the app you are at work. The position used for the weather and the sunrise is set separately.";
 "To nie porada medyczna. Treści w Intermezzo opieramy na przeglądach i zaleceniach; część to konsensus ekspertów, nie wyniki dużych prób.\n\nDobrze podparte: przerwy zmniejszają objawy; ergonomia stanowiska i światło mają znaczenie; ruch chroni układ mięśniowo-szkieletowy.\nUmiarkowanie: mruganie (małe badania), konkretny rytm przerw (próby po 11–24 osoby).\nSłabo / niespójnie: okulary z filtrem światła niebieskiego, programy zmieniające barwę ekranu.\n\nCzytaliśmy w całości: Kaur 2022 (PMC9434525), Lapa 2023 (PMC10001854), Moreira 2022 (PMC9778108), Harvard Health, Medical News Today, wytyczne Towson. Tylko streszczenia: Redondo 2025, Dyrek 2024, Blasioli i Baleiron, Mierczak i Garus-Pakowska 2025, Kamińska 2016, Shin 2018. Nie udało się otworzyć (blokada serwera): strony ResearchGate, ScienceDirect i MDPI.\n\nŹródła: patrz wyżej oraz plik docs/zrodla-zdrowie-oczu.md w repozytorium." = "This is not medical advice. The content in Intermezzo is based on reviews and guidelines; some of it is expert consensus, not the results of large trials.\n\nWell supported: breaks reduce symptoms; workstation ergonomics and lighting matter; movement protects the musculoskeletal system.\nModerately: blinking (small studies), a specific break rhythm (trials of 11–24 people).\nWeak / inconsistent: blue-light-filtering glasses, software that changes the screen's colour.\n\nRead in full: Kaur 2022 (PMC9434525), Lapa 2023 (PMC10001854), Moreira 2022 (PMC9778108), Harvard Health, Medical News Today, Towson guidelines. Abstracts only: Redondo 2025, Dyrek 2024, Blasioli and Baleiron, Mierczak and Garus-Pakowska 2025, Kamińska 2016, Shin 2018. Could not be opened (blocked by the server): ResearchGate, ScienceDirect and MDPI pages.\n\nSources: see above and the file docs/zrodla-zdrowie-oczu.md in the repository.";
 "To samo co postpone; rodzaj przerwy w adresie jest dziś pomijany" = "Same as postpone; the break kind in the address is ignored for now";
 "Today" = "Today";
@@ -1193,6 +1211,8 @@
 "Ustawienia domyślne Intermezzo" = "Intermezzo defaults";
 "Ustawienia ekranu" = "Display settings";
 "Ustawienia i historia na Twoich Macach i w chmurze" = "Settings and history on your Macs and in the cloud";
+"Ustawienia miejsca pracy…" = "Work place settings…";
+"Ustawienia pozycji do pogody i słońca…" = "Settings of the position for weather and sun…";
 "Ustawienia systemowe…" = "System Settings…";
 "Ustawienia, rejestr pracy, historia przerw i Pomodoro trafiają do wybranych folderów w chmurze. Inne Twoje Maki czytają je stamtąd, a nowy lub przeinstalowany Mac po włączeniu tej opcji z tym samym folderem odzyska wszystko sam. Każdy Mac zapisuje tylko własny plik, więc chmura nigdy nie scala jednej bazy z dwóch miejsc." = "Settings, the work log, break history and Pomodoro go to the cloud folders you pick. Your other Macs read them from there, and a new or reinstalled Mac gets everything back by itself once you turn this on with the same folder. Each Mac writes only its own file, so the cloud never merges one database from two places.";
 "Usunąć skrypt?" = "Delete the script?";
@@ -1397,6 +1417,7 @@
 "Zalecane: pomijaj automatycznie." = "Recommended: skip automatically.";
 "Zalecane: traktuj jako naturalną przerwę." = "Recommended: treat as a natural break.";
 "Zależą od pory roku, nie od pogody: spadają też w słoneczny październik. Nie pojawiają się w deszczu, burzy i śniegu." = "They follow the season, not the weather: they fall on a sunny October day too. They do not appear in rain, storms or snow.";
+"Zalicz nieobecność jako przerwę (krótką albo długą)" = "Count being away as a break (short or long)";
 "Zalicz przerwę" = "Count as break";
 "Zamknij" = "Close";
 "Zamknij powieki wolno, na sekundę, i otwórz. Zrób 10 takich pełnych mrugnięć. Przy ekranie mrugamy kilka razy rzadziej i często niepełnie." = "Close your eyelids slowly for a second, then open. Do 10 such full blinks. At a screen we blink several times less often and often incompletely.";
@@ -1408,6 +1429,7 @@
 "Zapisane miejsce" = "Saved place";
 "Zapisano %lld ml %@ · dziś %lld ml (%@)" = "Logged %lld ml of %@ · today %lld ml (%@)";
 "Zapisuj dłuższą nieobecność jako przerwę naturalną" = "Record longer absences as natural breaks";
+"Zapisuje w dzienniku każdą zmianę celu, przejście, zapis koloru na ekran i akcję BetterDisplay, z powodem i czasem co do milisekundy. Włącz, gdy ekran mignie, i wyślij fragment pliku z tą chwilą." = "Logs every goal change, fade, screen colour write and BetterDisplay action, with the reason and the time to the millisecond. Turn it on, and when the screen blinks send the part of the file from that moment.";
 "Zapisz" = "Save";
 "Zapisz napój (Nawodnienie)" = "Log a drink (Hydration)";
 "Zapomnij" = "Forget";
@@ -1504,8 +1526,6 @@
 "krótka" = "short";
 "krótka przerwa byłaby dłuższa niż długa" = "the short break would be longer than the long one";
 "ktoś ogląda Twój ekran (usługa macOS działa tylko podczas połączenia)" = "someone is watching your screen (the macOS service only runs during a connection)";
-"lat" = "lat";
-"lon" = "lon";
 "macOS forgets what you allowed for Intermezzo (input monitoring, screen recording, accessibility, automation, calendar). Until you allow them again, natural-break detection, effects and script rules work in a reduced way." = "macOS forgets what you allowed for Intermezzo (input monitoring, screen recording, accessibility, automation, calendar). Until you allow them again, natural-break detection, effects and script rules work in a reduced way.";
 "macOS podaje nazwy sieci Wi-Fi tylko aplikacjom z dostępem do lokalizacji." = "macOS reveals Wi-Fi names only to apps with Location access.";
 "macOS reads the Wi-Fi name only with Location access" = "macOS reads the Wi-Fi name only with Location access";
@@ -1550,7 +1570,6 @@
 "przepuszcza" = "lets through";
 "przybliżona, ze strefy czasowej %@" = "approximate, from the time zone %@";
 "przyciemnienie %lld%%" = "dimming %lld%%";
-"radius m" = "radius m";
 "rejestr pracy też nie widzi strefy pracy" = "the work log does not see the work zone either";
 "rejestr pracy wyłączony" = "work log is off";
 "router %@" = "router %@";

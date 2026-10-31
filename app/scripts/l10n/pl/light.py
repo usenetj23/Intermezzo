@@ -56,14 +56,14 @@ STRINGS = {
         "Współrzędne",
     "Wpisz szerokość i długość oddzielone przecinkiem, np. 52.4, 22":
         "Wpisz szerokość i długość oddzielone przecinkiem, np. 52.4, 22",
-    "Bez wpisanych współrzędnych aplikacja używa lokalizacji Maca, a gdy jej nie ma, przybliżonego miejsca ze strefy czasowej. Wschód i zachód liczy lokalnie, bez internetu.":
-        "Bez wpisanych współrzędnych aplikacja używa lokalizacji Maca, a gdy jej nie ma, przybliżonego miejsca ze strefy czasowej. Wschód i zachód liczy lokalnie, bez internetu.",
+    "To jedna pozycja dla Światła (wschód i zachód słońca), pogody na ekranie przerwy i słońca na jego obrazie. Najpierw liczą się wpisane współrzędne, potem lokalizacja Maca, na końcu przybliżone miejsce ze strefy czasowej. Wschód i zachód liczy lokalnie, bez internetu. Miejsce pracy dla strefy pracy ustawiasz osobno w Ogólne.":
+        "To jedna pozycja dla Światła (wschód i zachód słońca), pogody na ekranie przerwy i słońca na jego obrazie. Najpierw liczą się wpisane współrzędne, potem lokalizacja Maca, na końcu przybliżone miejsce ze strefy czasowej. Wschód i zachód liczy lokalnie, bez internetu. Miejsce pracy dla strefy pracy ustawiasz osobno w Ogólne.",
     "Uwzględniaj zachmurzenie":
         "Uwzględniaj zachmurzenie",
     "Pochmurne popołudnie ściemnia się wcześniej. Korzysta z tej samej anonimowej pogody co ekran przerwy (Open-Meteo), bez dodatkowych danych.":
         "Pochmurne popołudnie ściemnia się wcześniej. Korzysta z tej samej anonimowej pogody co ekran przerwy (Open-Meteo), bez dodatkowych danych.",
-    "Płynna zmiana: %lld s":
-        "Płynna zmiana: %lld s",
+    "Przełączenie (włączenie Światła, pełny ekran): %lld s":
+        "Przełączenie (włączenie Światła, pełny ekran): %lld s",
     "Wykres barwy ekranu w ciągu doby":
         "Wykres barwy ekranu w ciągu doby",
     "wpisana ręcznie":
@@ -230,4 +230,14 @@ STRINGS = {
         "Oddal",
     "Dane mapy: Natural Earth (domena publiczna); nazwy miast: GeoNames, licencja CC BY 4.0.":
         "Dane mapy: Natural Earth (domena publiczna); nazwy miast: GeoNames, licencja CC BY 4.0.",
+    "Barwa podąża za porą dnia powoli, nie szybciej niż ustawione K na minutę (np. 100 K zajmie wtedy kilka minut). Włączenie Światła i okno pełnoekranowe albo aplikacja wyjątek przełączają kolor w podanym czasie, ale dopiero po kilku sekundach, żeby krótkie przełączenia nie migały.":
+        "Barwa podąża za porą dnia powoli, nie szybciej niż ustawione K na minutę (np. 100 K zajmie wtedy kilka minut). Włączenie Światła i okno pełnoekranowe albo aplikacja wyjątek przełączają kolor w podanym czasie, ale dopiero po kilku sekundach, żeby krótkie przełączenia nie migały.",
+    "Tempo zmiany barwy: najwyżej %lld K na minutę":
+        "Tempo zmiany barwy: najwyżej %lld K na minutę",
+    "Szczegółowy dziennik Światła (do szukania przyczyny migania)":
+        "Szczegółowy dziennik Światła (do szukania przyczyny migania)",
+    "Zapisuje w dzienniku każdą zmianę celu, przejście, zapis koloru na ekran i akcję BetterDisplay, z powodem i czasem co do milisekundy. Włącz, gdy ekran mignie, i wyślij fragment pliku z tą chwilą.":
+        "Zapisuje w dzienniku każdą zmianę celu, przejście, zapis koloru na ekran i akcję BetterDisplay, z powodem i czasem co do milisekundy. Włącz, gdy ekran mignie, i wyślij fragment pliku z tą chwilą.",
+    "Pokaż plik dziennika":
+        "Pokaż plik dziennika",
 }

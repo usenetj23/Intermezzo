@@ -85,9 +85,8 @@ final class SunSkyNSView: NSView {
         let d = UserDefaults.standard
         var altitude = 45.0
         var sun = CGPoint(x: w * 0.82, y: h * 0.86)
-        if let lat = d.object(forKey: GlassKeys.lat) as? Double,
-           let lon = d.object(forKey: GlassKeys.lon) as? Double {
-            let p = Sun.position(date: Date(), latitude: lat, longitude: lon)
+        if let place = PlaceResolver.resolve(defaults: d)?.point {
+            let p = Sun.position(date: Date(), latitude: place.latitude, longitude: place.longitude)
             altitude = p.altitudeDegrees
             let fx = 0.08 + (min(270, max(90, p.azimuthDegrees)) - 90) / 180 * 0.84
             let fyTop = max(0.07, 0.80 - max(0, min(60, altitude)) / 60 * 0.73)

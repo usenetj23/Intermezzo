@@ -437,10 +437,7 @@ STRINGS = {
         "Wi-Fi: active only while connected to a network from the list",
     "SSIDs (comma separated), e.g. Biuro": "SSIDs (comma separated), e.g. Biuro",
     "Location: active only within radius of a saved place":
-        "Location: active only within radius of a saved place",
-    "lat": "lat",
-    "lon": "lon",
-    "radius m": "radius m",
+        "Work place: work zone only within a radius of a saved place",
     "Use current": "Use current",
     "Keyboard Shortcuts": "Keyboard Shortcuts",
     "Start short break": "Start short break",
@@ -724,4 +721,36 @@ STRINGS = {
         "Resume playback after the break",
     "Szukaj w ustawieniach": "Search settings",
     "Brak wyników": "No results",
+    "Pauzuj też inne odtwarzacze klawiszem multimediów (może otworzyć Apple Music)":
+        "Also pause other players with the media key (may open Apple Music)",
+    "Apple Music i Spotify są zatrzymywane bezpośrednio, tylko gdy grają. Dla przeglądarek i innych odtwarzaczy trzeba użyć klawisza multimediów, który trafia do ostatniego odtwarzacza, a gdy go nie ma, macOS otwiera Apple Music. Dlatego jest domyślnie wyłączony.":
+        "Apple Music and Spotify are paused directly, only while they play. For browsers and other players the media key is needed; it goes to the last player, and when there is none macOS opens Apple Music. That is why it is off by default.",
+    "Zalicz nieobecność jako przerwę (krótką albo długą)":
+        "Count being away as a break (short or long)",
+    "Gdy czas bez ruchu myszą i klawiaturą jest co najmniej tak długi jak następna zaplanowana przerwa, timer zaczyna od nowa tak, jakby przerwa się odbyła. Jeśli następna miała być krótka, a nieobecność trwała tyle co długa przerwa albo dłużej, liczy się jako długa. Krótsze nieobecności nadal obsługuje ustawienie poniżej.":
+        "When the time without mouse or keyboard input is at least as long as the next planned break, the timer starts over as if the break had happened. If a short one was next and you were away for as long as a long break or more, it counts as a long one. Shorter absences are still handled by the setting below.",
+    "Byłeś nieobecny %lld min: zaliczone jako długa przerwa, timer zaczyna od nowa.":
+        "You were away %lld min: counted as a long break, the timer starts over.",
+    "Byłeś nieobecny %lld min: zaliczone jako krótka przerwa, timer zaczyna od nowa.":
+        "You were away %lld min: counted as a short break, the timer starts over.",
+    "Kopiuj diagnostykę":
+        "Copy diagnostics",
+    "Skopiowano do schowka":
+        "Copied to the clipboard",
+    "Kopiuje do schowka wersję aplikacji i macOS, model Maca, monitory, stan uprawnień i funkcje, które się wycofały, oraz kilka linii dziennika o świetle i multimediach. Bez nazw sieci, tytułów z kalendarza, miejsc i nazwy użytkownika. Nic nie jest wysyłane: wklej to do zgłoszenia na GitHubie.":
+        "Copies the app and macOS versions, the Mac model, the displays, the permission states and the features that fell back, plus a few log lines about light and media, to the clipboard. No network names, calendar titles, places or user name. Nothing is sent: paste it into a GitHub issue.",
+    "Szerokość geograficzna":
+        "Latitude",
+    "Długość geograficzna":
+        "Longitude",
+    "Promień: %lld m":
+        "Radius: %lld m",
+    "To miejsce pracy, a nie pozycja Maca: dzięki niemu aplikacja wie, że jesteś w pracy. Pozycję używaną do pogody i wschodu słońca ustawiasz osobno.":
+        "This is the work place, not the Mac's position: it tells the app you are at work. The position used for the weather and the sunrise is set separately.",
+    "Ustawienia pozycji do pogody i słońca…":
+        "Settings of the position for weather and sun…",
+    "Pozycja":
+        "Position",
+    "Ustawienia miejsca pracy…":
+        "Work place settings…",
 }

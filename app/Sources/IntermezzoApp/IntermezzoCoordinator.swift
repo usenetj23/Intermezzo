@@ -242,7 +242,12 @@ func currentConfig() -> BreakConfig {
     }
     c.workingHoursStart = d.integer(forKey: Keys.workStartMinutes)
     c.workingHoursEnd = d.integer(forKey: Keys.workEndMinutes)
-    if let custom = CustomBreak.active { c.shortBreakSeconds = custom.seconds }
+    // A meal or other fixed-length break replaces the length of whichever kind is next: the cycle may be
+    // on a long break, and then only overriding the short one would leave the regular length.
+    if let custom = CustomBreak.active {
+        c.shortBreakSeconds = custom.seconds
+        c.longBreakSeconds = custom.seconds
+    }
     return c
 }
 
@@ -692,7 +697,22 @@ final class BreakCoordinator: ObservableObject {
                 awaySince = nil
                 let resetAfter = TimeInterval(max(1, d.integer(forKey: Keys.idleResetAfterMinutes)) * 60)
                 logNaturalBreak(away: awayFor, now: now)
-                if awayFor > resetAfter {
+                // The time without input also includes the idle threshold that had to pass before "away" began.
+                let withoutInput = awayFor + threshold
+                let creditEnabled = d.object(forKey: "awayCreditsBreak") as? Bool ?? true
+                let credit = creditEnabled
+                    ? AwayCredit.kind(awaySeconds: withoutInput, nextKind: engine.previewNextKind(config: config), config: config)
+                    : nil
+                if let credit {
+                    engine.creditAway(kind: credit, now: now, config: config)
+                    if awayFor > resetAfter { PomodoroController.shared.abandon(at: now) }
+                    Trace.log("away \(Int(withoutInput)) s counted as a \(credit) break")
+                    post(title: "Witaj z powrotem",
+                         body: credit == .long
+                            ? L("Byłeś nieobecny %lld min: zaliczone jako długa przerwa, timer zaczyna od nowa.", Int(withoutInput / 60))
+                            : L("Byłeś nieobecny %lld min: zaliczone jako krótka przerwa, timer zaczyna od nowa.", Int(withoutInput / 60)),
+                         symbol: "hand.wave.fill")
+                } else if awayFor > resetAfter {
                     // "Timer Reset Logic": restart the work cycle at
                     // FULL length — returning never triggers an instant break.
                     engine.resetCycle(now: now, config: config)
@@ -757,14 +777,17 @@ final class BreakCoordinator: ObservableObject {
         applyReminderOnly(now: now)
         // Meal break window open and the regular timer runs out now: this break becomes the meal.
         var mealStarting: ScheduledBreak?
+        var mealKind: BreakKind = .short
         if !isOnBreak, !engine.isPaused, CustomBreak.active == nil,
            let left = engine.timeUntilBreak(now: now), left <= 0,
            let meal = reminders.mealInWindow(now: now), let minutes = meal.customMinutes {
+            // How the meal counts in the cycle depends on the regular lengths, so read them before the override.
+            mealKind = currentConfig().kindForCustomLength(seconds: max(1, minutes) * 60)
             CustomBreak.active = (meal.label, max(1, minutes) * 60)
             config = currentConfig()
             mealStarting = meal
         }
-        let events = engine.tick(now: now, config: config)
+        let events = engine.tick(now: now, config: config, startKind: mealStarting == nil ? nil : mealKind)
         if let meal = mealStarting {
             if events.contains(where: { if case .breakStarted = $0 { return true } else { return false } }) {
                 reminders.markFired(meal, now: now)
@@ -793,6 +816,10 @@ final class BreakCoordinator: ObservableObject {
         }
 
         publishGateReport(now: now)
+        // Fetch the weather before the break so its effect is there from the first second.
+        if !isOnBreak, let untilBreak = engine.timeUntilBreak(now: now), untilBreak <= 90 {
+            WeatherController.shared.refreshIfNeeded()
+        }
         refreshUI(now: now, config: config)
 
         // Break Actions — Before Due point (fires once per approaching break).

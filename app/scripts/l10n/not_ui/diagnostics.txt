@@ -14,3 +14,53 @@ Status#pause
 Advanced#idle
 ModeConfigurations.json
 Assertions.json
+# Diagnostics report text (English on purpose, pasted into GitHub issues) and search words
+Version
+] as? String ?? 
+] as? String ?? 
+Language
+Chip
+Cores
+Memory
+, notch
+Idle detection
+Event Monitor
+Event Monitor requested, fell back to Event Source
+Ambient light sensor
+no reading
+Now Playing (MediaRemote)
+not available
+Focus modes
+not readable (Full Disk Access)
+Displays without colour control
+App
+Displays
+Features and fallbacks
+diagnostics diagnostyka raport zgłoszenie błąd bug github issue schowek clipboard
+### Intermezzo diagnostics
+, startingAt: 0))  %@
+[Log excerpt: light, media, sensors, BetterDisplay]
+### Intermezzo diagnostics
+, count: 3)) Intermezzo diagnostics
+# Weather status words for the diagnostics, not UI text
+not requested yet
+no location yet (Location permission needed or no fix)
+bad answer from the weather service
+fetch failed (%@)
+Weather on the break screen
+data \(Int(Date().timeIntervalSince($0.fetchedAt) / 60)) min old
+%@; data %@ min old
+ on
+, Mac position 
+known
+not known yet
+Location Services
+ approximate location (typed in or from the time zone)
+approximate location (typed in or from the time zone)
+ (approximate location)
+ (build 
+ (build %@)
+ (or System Events is not running)
+[Log excerpt: light, media, sensors, location, weather, BetterDisplay]
+Place for sun and weather
+approximate location (from the time zone)

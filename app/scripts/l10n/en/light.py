@@ -57,14 +57,14 @@ STRINGS = {
         "Coordinates",
     "Wpisz szerokość i długość oddzielone przecinkiem, np. 52.4, 22":
         "Enter the latitude and longitude separated by a comma, e.g. 52.4, 22",
-    "Bez wpisanych współrzędnych aplikacja używa lokalizacji Maca, a gdy jej nie ma, przybliżonego miejsca ze strefy czasowej. Wschód i zachód liczy lokalnie, bez internetu.":
-        "Without typed coordinates the app uses the Mac's location, and without that, an approximate place from the time zone. Sunrise and sunset are calculated locally, without the internet.",
+    "To jedna pozycja dla Światła (wschód i zachód słońca), pogody na ekranie przerwy i słońca na jego obrazie. Najpierw liczą się wpisane współrzędne, potem lokalizacja Maca, na końcu przybliżone miejsce ze strefy czasowej. Wschód i zachód liczy lokalnie, bez internetu. Miejsce pracy dla strefy pracy ustawiasz osobno w Ogólne.":
+        "This is the one position for Light (sunrise and sunset), the weather on the break screen and the sun in its picture. The place you type in comes first, then the Mac's own position, then the city of the time zone. Sunrise and sunset are computed locally, without the internet. The work place of the work zone is set separately in General.",
     "Uwzględniaj zachmurzenie":
         "Take cloud cover into account",
     "Pochmurne popołudnie ściemnia się wcześniej. Korzysta z tej samej anonimowej pogody co ekran przerwy (Open-Meteo), bez dodatkowych danych.":
         "A cloudy afternoon gets dark earlier. It uses the same anonymous weather as the break screen (Open-Meteo), with no extra data.",
-    "Płynna zmiana: %lld s":
-        "Smooth change: %lld s",
+    "Przełączenie (włączenie Światła, pełny ekran): %lld s":
+        "Switch (Light turning on, full screen): %lld s",
     "Wykres barwy ekranu w ciągu doby":
         "Chart of the screen colour over the day",
     "wpisana ręcznie":
@@ -231,4 +231,14 @@ STRINGS = {
         "Zoom out",
     "Dane mapy: Natural Earth (domena publiczna); nazwy miast: GeoNames, licencja CC BY 4.0.":
         "Map data: Natural Earth (public domain); city names: GeoNames, licence CC BY 4.0.",
+    "Barwa podąża za porą dnia powoli, nie szybciej niż ustawione K na minutę (np. 100 K zajmie wtedy kilka minut). Włączenie Światła i okno pełnoekranowe albo aplikacja wyjątek przełączają kolor w podanym czasie, ale dopiero po kilku sekundach, żeby krótkie przełączenia nie migały.":
+        "The colour changes gently: it starts slowly, speeds up and slows down, and a time shorter than 8 s is not used. A full-screen window or an excluded app takes effect only after a few seconds, so brief switches do not flash the colour.",
+    "Tempo zmiany barwy: najwyżej %lld K na minutę":
+        "Colour change speed: at most %lld K per minute",
+    "Szczegółowy dziennik Światła (do szukania przyczyny migania)":
+        "Detailed Light log (to find what makes the screen blink)",
+    "Zapisuje w dzienniku każdą zmianę celu, przejście, zapis koloru na ekran i akcję BetterDisplay, z powodem i czasem co do milisekundy. Włącz, gdy ekran mignie, i wyślij fragment pliku z tą chwilą.":
+        "Logs every goal change, fade, screen colour write and BetterDisplay action, with the reason and the time to the millisecond. Turn it on, and when the screen blinks send the part of the file from that moment.",
+    "Pokaż plik dziennika":
+        "Show the log file",
 }

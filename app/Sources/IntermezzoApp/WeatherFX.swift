@@ -45,6 +45,8 @@ final class WeatherController {
     private var fetching = false
     private var locationRequested = false
     private var lastAttempt = Date.distantPast
+    /// What happened the last time, for the diagnostics ("ok …", "no location", "fetch failed …").
+    private(set) var lastStatus = "not requested yet"
     private let locationFetcher = LocationOneShot()
 
     /// intermezzo://debug/weather?effect=rain&wind=15 — wymusza warunki do podglądu.
@@ -64,15 +66,13 @@ final class WeatherController {
         if !force, Date().timeIntervalSince(lastAttempt) < 60 { return }
         lastAttempt = Date()
         Trace.log("weather: refresh requested")
+        lastStatus = "requested"
 
-        // Potrzebna lokalizacja: najpierw cache, potem CoreLocation (raz).
+        // The same place as the Light schedule and the sun: typed in, else the Mac's position, else the time zone's city.
         let d = UserDefaults.standard
-        func coord(_ key: String) -> Double? {
-            if let v = d.object(forKey: key) as? Double { return v }
-            if let s = d.string(forKey: key), let v = Double(s) { return v }
-            return nil
-        }
-        guard let lat = coord(GlassKeys.lat), let lon = coord(GlassKeys.lon) else {
+        let resolved = PlaceResolver.resolve(defaults: d)
+        var cached: (lat: Double?, lon: Double?) = (resolved?.point.latitude, resolved?.point.longitude)
+        if resolved == nil || resolved?.source == .timeZone {
             Trace.log("weather: no cached location, requesting CoreLocation")
             if !locationRequested {
                 locationRequested = true
@@ -83,10 +83,16 @@ final class WeatherController {
                         self?.refreshIfNeeded(force: true)
                     }
                 }
+                locationFetcher.onFailure = { [weak self] in
+                    Task { @MainActor in self?.locationRequested = false }   // try again at the next refresh
+                }
                 locationFetcher.requestOnce()
             }
-            return
+            // A fix may never come (no signal, a denied permission): the time zone's city is accurate enough for the weather.
+            lastStatus = resolved == nil ? "no location yet (Location permission needed or no fix)"
+                                         : "approximate location (from the time zone)"
         }
+        guard let lat = cached.lat, let lon = cached.lon else { return }
         fetching = true
         Task { [weak self] in
             defer { self?.fetching = false }
@@ -100,6 +106,7 @@ final class WeatherController {
                       let current = json["current"] as? [String: Any],
                       let code = current["weather_code"] as? Int else {
                     Trace.log("weather: bad payload")
+                    self?.lastStatus = "bad answer from the weather service"
                     return
                 }
                 let temp = (current["temperature_2m"] as? Double) ?? 0
@@ -111,9 +118,12 @@ final class WeatherController {
                                                  windKmh: wind, windDirDeg: windDir,
                                                  fetchedAt: Date(), uvIndex: uv,
                                                  cloudCover: current["cloud_cover"] as? Double)
+                let approximate = resolved?.source == .timeZone
+                self?.lastStatus = "ok, \(WeatherEffect.from(wmoCode: code).rawValue)" + (approximate ? " (approximate location)" : "")
                 Trace.log("weather: code=\(code) effect=\(WeatherEffect.from(wmoCode: code).rawValue) \(temp)°C wiatr \(Int(wind)) km/h")
             } catch {
                 Trace.log("weather: fetch failed \(error.localizedDescription)")
+                self?.lastStatus = "fetch failed (\((error as NSError).code))"
             }
         }
     }
@@ -124,6 +134,8 @@ final class WeatherController {
 final class LocationOneShot: NSObject, CLLocationManagerDelegate {
     private let manager = CLLocationManager()
     var onLocation: ((Double, Double) -> Void)?
+    /// Called when no fix came, so that the owner may ask again later.
+    var onFailure: (() -> Void)?
 
     override init() {
         super.init()
@@ -150,6 +162,8 @@ final class LocationOneShot: NSObject, CLLocationManagerDelegate {
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         // Bez lokalizacji — pogody po prostu nie ma; zero crashy.
+        Trace.log("location: one-shot failed (\((error as NSError).domain) \((error as NSError).code))")
+        onFailure?()
     }
 }
 

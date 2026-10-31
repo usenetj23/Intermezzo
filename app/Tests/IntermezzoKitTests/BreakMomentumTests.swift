@@ -43,4 +43,22 @@ final class BreakMomentumTests: XCTestCase {
         XCTAssertEqual(BreakMomentum.weight(seconds: 60, shortSeconds: 300), 1)
         XCTAssertEqual(BreakMomentum.weight(seconds: 60, shortSeconds: 0), 1)
     }
+
+    func testPostponingLowersTheLineOnlyALittle() {
+        let base = [o(false), o(false)]
+        let skipped = BreakMomentum.levels(base + [o(true)]).last!
+        let postponed1 = BreakMomentum.levels(base + [.init(skipped: true, lossShare: BreakMomentum.postponeShare(minutes: 1))]).last!
+        let postponed5 = BreakMomentum.levels(base + [.init(skipped: true, lossShare: BreakMomentum.postponeShare(minutes: 5))]).last!
+        let completed = BreakMomentum.levels(base + [o(false)]).last!
+        XCTAssertLessThan(postponed1, BreakMomentum.levels(base).last!)   // it does lower the line
+        XCTAssertGreaterThan(postponed1, skipped)
+        XCTAssertGreaterThan(postponed5, skipped)
+        XCTAssertGreaterThan(postponed1, postponed5)   // +5 drops more than +1
+        XCTAssertLessThan(postponed5, completed)
+    }
+
+    func testPostponeShareIsCapped() {
+        XCTAssertEqual(BreakMomentum.postponeShare(minutes: 1), 0.2, accuracy: 1e-9)
+        XCTAssertEqual(BreakMomentum.postponeShare(minutes: 60), 0.5, accuracy: 1e-9)
+    }
 }

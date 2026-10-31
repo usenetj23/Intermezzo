@@ -256,3 +256,23 @@ final class LightExclusionTests: XCTestCase {
         XCTAssertNotNil(LightLocation.parse(text))
     }
 }
+
+final class PlaceChoiceTests: XCTestCase {
+    private let fix = GeoPoint(latitude: 50, longitude: 20)
+    private let city = GeoPoint(latitude: 52, longitude: 21)
+
+    func testTypedPlaceBeatsTheMacAndTheTimeZone() {
+        let picked = PlaceChoice.pick(manual: "52.4, 22", macFix: fix, timeZoneCity: city)
+        XCTAssertEqual(picked?.source, .manual)
+        XCTAssertEqual(picked?.point.latitude ?? 0, 52.4, accuracy: 1e-9)
+    }
+
+    func testMacPositionBeatsTheTimeZoneAndAnUnreadableEntryIsIgnored() {
+        XCTAssertEqual(PlaceChoice.pick(manual: "nonsense", macFix: fix, timeZoneCity: city)?.source, .macFix)
+        XCTAssertEqual(PlaceChoice.pick(manual: "", macFix: nil, timeZoneCity: city)?.source, .timeZone)
+    }
+
+    func testNothingKnownGivesNil() {
+        XCTAssertNil(PlaceChoice.pick(manual: nil, macFix: nil, timeZoneCity: nil))
+    }
+}
