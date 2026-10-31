@@ -42,3 +42,11 @@ diagnostics diagnostyka raport zgłoszenie błąd bug github issue schowek clipb
 [Log excerpt: light, media, sensors, BetterDisplay]
 ### Intermezzo diagnostics
 , count: 3)) Intermezzo diagnostics
+# Weather status words for the diagnostics, not UI text
+not requested yet
+no location yet (Location permission needed or no fix)
+bad answer from the weather service
+fetch failed (%@)
+Weather on the break screen
+data \(Int(Date().timeIntervalSince($0.fetchedAt) / 60)) min old
+%@; data %@ min old

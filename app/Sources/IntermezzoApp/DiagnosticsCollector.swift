@@ -50,6 +50,9 @@ enum DiagnosticsCollector {
             ("Focus modes", yesNo(WorkDetector.focusSnapshot() != nil, "readable", "not readable (Full Disk Access)")),
             ("BetterDisplay", String(describing: BetterDisplayLight.shared.link)),
             ("Light", yesNo(defaults.bool(forKey: LightKeys.enabled), "on", "off")),
+            ("Weather on the break screen", WeatherController.shared.snapshot.map {
+                "\(WeatherController.shared.lastStatus); data \(Int(Date().timeIntervalSince($0.fetchedAt) / 60)) min old"
+            } ?? WeatherController.shared.lastStatus),
         ]
         let unsupported = LightController.shared.unsupportedDisplays
         if !unsupported.isEmpty { features.append(("Displays without colour control", unsupported.joined(separator: ", "))) }
