@@ -61,3 +61,4 @@ approximate location (typed in or from the time zone)
  (build 
  (build %@)
  (or System Events is not running)
+[Log excerpt: light, media, sensors, location, weather, BetterDisplay]
