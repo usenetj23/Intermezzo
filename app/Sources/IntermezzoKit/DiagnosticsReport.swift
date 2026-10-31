@@ -39,7 +39,7 @@ public struct DiagnosticsReport: Equatable, Sendable {
             out.append("")
         }
         if !logLines.isEmpty {
-            out.append("[Log excerpt: light, media, sensors, BetterDisplay]")
+            out.append("[Log excerpt: light, media, sensors, location, weather, BetterDisplay]")
             out.append(contentsOf: logLines)
             out.append("")
         }
@@ -51,7 +51,7 @@ public struct DiagnosticsReport: Equatable, Sendable {
     // MARK: Privacy
 
     /// Topics a log line may belong to; everything else (Wi-Fi and VPN names, calendar, places, rules) stays out.
-    static let allowedLogPrefixes = ["light", "media:", "ambient", "betterdisplay", "permission"]
+    static let allowedLogPrefixes = ["light", "media:", "ambient", "betterdisplay", "permission", "location:", "weather:"]
 
     private static let logLine = try! NSRegularExpression(
         pattern: #"^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2} [+-]\d{4} (.*)$"#)

@@ -37,8 +37,11 @@ enum DiagnosticsCollector {
             let notch = screen.safeAreaInsets.top > 0 ? ", notch" : ""
             return ("#\(index + 1)", "\(screen.localizedName), \(size)\(notch)")
         }
-        let permissions: [(name: String, value: String)] = PermissionKind.allCases.map {
-            ($0.title, String(describing: PermissionCenter.shared.status($0)))
+        let permissions: [(name: String, value: String)] = PermissionKind.allCases.map { kind in
+            let status = PermissionCenter.shared.status(kind)
+            // Automation can only be asked of a running System Events: "not determined" may just mean it is not running.
+            let note = kind == .automation && status == .notDetermined ? " (or System Events is not running)" : ""
+            return (kind.title, String(describing: status) + note)
         }
         let coordinator = AppDelegate.shared?.coordinator
         let idleMethod = defaults.string(forKey: "idleDetectionMethod") ?? "source"

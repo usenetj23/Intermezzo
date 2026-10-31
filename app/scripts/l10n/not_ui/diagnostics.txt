@@ -60,3 +60,4 @@ approximate location (typed in or from the time zone)
  (approximate location)
  (build 
  (build %@)
+ (or System Events is not running)

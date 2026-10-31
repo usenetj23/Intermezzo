@@ -24,11 +24,15 @@ final class DiagnosticsReportTests: XCTestCase {
             "\(stamp) media: pausing for the break (Music)",
             "not a log line light",
             "\(stamp) light.123 write (fade): #1=6400 K",
+            "\(stamp) location: one-shot failed (kCLErrorDomain 0)",
+            "\(stamp) weather: refresh requested",
         ]
-        let lines = DiagnosticsReport.safeLogLines(raw, home: "/Users/anna", limit: 2)
-        XCTAssertEqual(lines.count, 2)
+        let lines = DiagnosticsReport.safeLogLines(raw, home: "/Users/anna", limit: 4)
+        XCTAssertEqual(lines.count, 4)
         XCTAssertTrue(lines[0].contains("media:"))
         XCTAssertTrue(lines[1].contains("light.123"))
+        XCTAssertTrue(lines[2].contains("location:"))
+        XCTAssertTrue(lines[3].contains("weather:"))
         XCTAssertFalse(lines.joined().contains("HomeNetwork"))
     }
 
