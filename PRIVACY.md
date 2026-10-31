@@ -53,4 +53,4 @@ You can switch each feature and permission off in Settings and in System Setting
 
 If this changes, the change will appear in this file and in the release notes. Questions: open an issue at https://github.com/usenetj23/Intermezzo/issues.
 
-*Last updated: 2026-10-31, for version 1.42.0.*
+*Last updated: 2026-10-31, for version 1.42.1.*

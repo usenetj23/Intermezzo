@@ -64,3 +64,7 @@ approximate location (typed in or from the time zone)
 [Log excerpt: light, media, sensors, location, weather, BetterDisplay]
 Place for sun and weather
 approximate location (from the time zone)
+Wi-Fi
+on
+off (a Mac finds its position by Wi-Fi, so there is usually none)
+no interface

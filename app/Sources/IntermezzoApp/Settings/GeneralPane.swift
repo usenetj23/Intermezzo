@@ -304,6 +304,12 @@ struct GeneralPane: View {
                                            : (work.geoMatch
                                               ? String(localized: "\(Int(work.geoDistanceM.rounded())) m from saved place — inside zone")
                                               : String(localized: "\(Int(work.geoDistanceM.rounded())) m from saved place — outside zone")))
+                            if work.geoDistanceM < 0, WorkDetector.wifiState() == .off {
+                                Label("Mac nie ma GPS i ustala pozycję po Wi-Fi, a ono jest wyłączone, więc to miejsce pracy nie zadziała. Użyj sieci LAN, VPN, kalendarza albo godzin pracy.",
+                                      systemImage: "wifi.slash")
+                                    .font(.caption)
+                                    .foregroundStyle(.orange)
+                            }
                         }
                     }
                 }

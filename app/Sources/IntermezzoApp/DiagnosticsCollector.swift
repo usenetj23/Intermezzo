@@ -53,6 +53,11 @@ enum DiagnosticsCollector {
             ("Now Playing (MediaRemote)", yesNo(MediaPauser.mediaRemoteLoaded, "loaded", "not available")),
             ("Focus modes", yesNo(WorkDetector.focusSnapshot() != nil, "readable", "not readable (Full Disk Access)")),
             ("BetterDisplay", String(describing: BetterDisplayLight.shared.link)),
+            ("Wi-Fi", { () -> String in switch WorkDetector.wifiState() {
+                case .on: return "on"
+                case .off: return "off (a Mac finds its position by Wi-Fi, so there is usually none)"
+                case .noInterface: return "no interface"
+                } }()),
             ("Location Services", yesNo(CLLocationManager.locationServicesEnabled(), "on", "off")
                 + ", Mac position " + yesNo(defaults.object(forKey: GlassKeys.lat) != nil, "known", "not known yet")),
             ("Place for sun and weather", PlaceResolver.resolve(defaults: defaults)
