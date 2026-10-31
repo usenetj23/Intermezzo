@@ -75,9 +75,9 @@ final class WeatherController {
             if let s = d.string(forKey: key), let v = Double(s) { return v }
             return nil
         }
-        guard let lat = coord(GlassKeys.lat), let lon = coord(GlassKeys.lon) else {
+        var cached = (lat: coord(GlassKeys.lat), lon: coord(GlassKeys.lon))
+        if cached.lat == nil || cached.lon == nil {
             Trace.log("weather: no cached location, requesting CoreLocation")
-            lastStatus = "no location yet (Location permission needed or no fix)"
             if !locationRequested {
                 locationRequested = true
                 locationFetcher.onLocation = { [weak self] lat, lon in
@@ -87,10 +87,21 @@ final class WeatherController {
                         self?.refreshIfNeeded(force: true)
                     }
                 }
+                locationFetcher.onFailure = { [weak self] in
+                    Task { @MainActor in self?.locationRequested = false }   // try again at the next refresh
+                }
                 locationFetcher.requestOnce()
             }
-            return
+            // A fix may never come (no signal, a denied permission): the city of the time zone, or the place typed
+            // in Light settings, is accurate enough for the weather.
+            if let point = LightController.shared.bestKnownPoint() {
+                cached = (point.latitude, point.longitude)
+                lastStatus = "approximate location (typed in or from the time zone)"
+            } else {
+                lastStatus = "no location yet (Location permission needed or no fix)"
+            }
         }
+        guard let lat = cached.lat, let lon = cached.lon else { return }
         fetching = true
         Task { [weak self] in
             defer { self?.fetching = false }
@@ -116,7 +127,8 @@ final class WeatherController {
                                                  windKmh: wind, windDirDeg: windDir,
                                                  fetchedAt: Date(), uvIndex: uv,
                                                  cloudCover: current["cloud_cover"] as? Double)
-                self?.lastStatus = "ok, \(WeatherEffect.from(wmoCode: code).rawValue)"
+                let approximate = d.object(forKey: GlassKeys.lat) == nil
+                self?.lastStatus = "ok, \(WeatherEffect.from(wmoCode: code).rawValue)" + (approximate ? " (approximate location)" : "")
                 Trace.log("weather: code=\(code) effect=\(WeatherEffect.from(wmoCode: code).rawValue) \(temp)°C wiatr \(Int(wind)) km/h")
             } catch {
                 Trace.log("weather: fetch failed \(error.localizedDescription)")
@@ -131,6 +143,8 @@ final class WeatherController {
 final class LocationOneShot: NSObject, CLLocationManagerDelegate {
     private let manager = CLLocationManager()
     var onLocation: ((Double, Double) -> Void)?
+    /// Called when no fix came, so that the owner may ask again later.
+    var onFailure: (() -> Void)?
 
     override init() {
         super.init()
@@ -157,6 +171,8 @@ final class LocationOneShot: NSObject, CLLocationManagerDelegate {
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         // Bez lokalizacji — pogody po prostu nie ma; zero crashy.
+        Trace.log("location: one-shot failed (\((error as NSError).domain) \((error as NSError).code))")
+        onFailure?()
     }
 }
 

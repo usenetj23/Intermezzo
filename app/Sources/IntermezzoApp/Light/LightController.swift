@@ -458,6 +458,13 @@ final class LightController: ObservableObject {
         return snapshot.cloudCover
     }
 
+    /// Where the Mac is, as well as it is known (typed in, the Mac's own fix, or the time zone's city): for the weather.
+    /// nil when nothing is known.
+    func bestKnownPoint() -> GeoPoint? {
+        let (point, _) = resolveLocation()
+        return point.latitude == 0 && point.longitude == 0 ? nil : point
+    }
+
     private func resolveLocation() -> (GeoPoint, String) {
         if let manual = defaults.string(forKey: LightKeys.manualLocation), !manual.isEmpty,
            let point = LightLocation.parse(manual) {
@@ -494,6 +501,9 @@ final class LightController: ObservableObject {
                 self?.defaults.set(lon, forKey: GlassKeys.lon)
                 self?.tick()
             }
+        }
+        locationFetcher.onFailure = { [weak self] in
+            Task { @MainActor in self?.requestedLocation = false }   // ask again at a later tick
         }
         locationFetcher.requestOnce()
     }

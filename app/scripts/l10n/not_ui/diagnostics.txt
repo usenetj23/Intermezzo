@@ -50,3 +50,13 @@ fetch failed (%@)
 Weather on the break screen
 data \(Int(Date().timeIntervalSince($0.fetchedAt) / 60)) min old
 %@; data %@ min old
+ on
+, Mac position 
+known
+not known yet
+Location Services
+ approximate location (typed in or from the time zone)
+approximate location (typed in or from the time zone)
+ (approximate location)
+ (build 
+ (build %@)

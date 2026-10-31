@@ -37,9 +37,10 @@ struct AboutPane: View {
             }
             .controlSize(.small)
             Button {
-                DiagnosticsCollector.copyToPasteboard()
-                copied = true
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) { copied = false }
+                DiagnosticsCollector.copyToPasteboard {
+                    copied = true
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) { copied = false }
+                }
             } label: {
                 Label(LocalizedStringKey(copied ? "Skopiowano do schowka" : "Kopiuj diagnostykę"),
                       systemImage: copied ? "checkmark" : "doc.on.clipboard")

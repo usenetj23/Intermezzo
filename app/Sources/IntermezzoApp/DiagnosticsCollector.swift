@@ -1,4 +1,5 @@
 import AppKit
+import CoreLocation
 import IntermezzoKit
 
 /// Gathers what a bug report needs and puts it on the pasteboard. Nothing is sent anywhere.
@@ -25,7 +26,7 @@ enum DiagnosticsCollector {
             ("Theme", defaults.string(forKey: SurfaceTheme.key) ?? "default"),
         ]
         let system: [(name: String, value: String)] = [
-            ("macOS", ProcessInfo.processInfo.operatingSystemVersionString),
+            ("macOS", macOSVersion()),
             ("Mac", sysctlString("hw.model") ?? "?"),
             ("Chip", sysctlString("machdep.cpu.brand_string") ?? "?"),
             ("Cores", "\(ProcessInfo.processInfo.processorCount)"),
@@ -49,6 +50,8 @@ enum DiagnosticsCollector {
             ("Now Playing (MediaRemote)", yesNo(MediaPauser.mediaRemoteLoaded, "loaded", "not available")),
             ("Focus modes", yesNo(WorkDetector.focusSnapshot() != nil, "readable", "not readable (Full Disk Access)")),
             ("BetterDisplay", String(describing: BetterDisplayLight.shared.link)),
+            ("Location Services", yesNo(CLLocationManager.locationServicesEnabled(), "on", "off")
+                + ", Mac position " + yesNo(defaults.object(forKey: GlassKeys.lat) != nil, "known", "not known yet")),
             ("Light", yesNo(defaults.bool(forKey: LightKeys.enabled), "on", "off")),
             ("Weather on the break screen", WeatherController.shared.snapshot.map {
                 "\(WeatherController.shared.lastStatus); data \(Int(Date().timeIntervalSince($0.fetchedAt) / 60)) min old"
@@ -65,10 +68,23 @@ enum DiagnosticsCollector {
             logLines: DiagnosticsReport.safeLogLines(raw, home: NSHomeDirectory()))
     }
 
-    static func copyToPasteboard() {
-        let text = report().markdown()
-        NSPasteboard.general.clearContents()
-        NSPasteboard.general.setString(text, forType: .string)
-        Trace.log("diagnostics copied to the pasteboard (\(text.count) characters)")
+    /// "27.2 (build 26B123)" in English whatever the system language is.
+    private static func macOSVersion() -> String {
+        let v = ProcessInfo.processInfo.operatingSystemVersion
+        let build = sysctlString("kern.osversion").map { " (build \($0))" } ?? ""
+        return "\(v.majorVersion).\(v.minorVersion)" + (v.patchVersion > 0 ? ".\(v.patchVersion)" : "") + build
+    }
+
+    /// Reads the permission states first: they are only refreshed while the Permissions list is on screen, and the
+    /// notification and automation answers arrive a moment later.
+    static func copyToPasteboard(then done: @escaping () -> Void = {}) {
+        PermissionCenter.shared.refresh()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+            let text = report().markdown()
+            NSPasteboard.general.clearContents()
+            NSPasteboard.general.setString(text, forType: .string)
+            Trace.log("diagnostics copied to the pasteboard (\(text.count) characters)")
+            done()
+        }
     }
 }
