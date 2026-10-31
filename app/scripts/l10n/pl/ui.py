@@ -740,4 +740,10 @@ STRINGS = {
         "Byłeś nieobecny %lld min: zaliczone jako długa przerwa, timer zaczyna od nowa.",
     "Byłeś nieobecny %lld min: zaliczone jako krótka przerwa, timer zaczyna od nowa.":
         "Byłeś nieobecny %lld min: zaliczone jako krótka przerwa, timer zaczyna od nowa.",
+    "Kopiuj diagnostykę":
+        "Kopiuj diagnostykę",
+    "Skopiowano do schowka":
+        "Skopiowano do schowka",
+    "Kopiuje do schowka wersję aplikacji i macOS, model Maca, monitory, stan uprawnień i funkcje, które się wycofały, oraz kilka linii dziennika o świetle i multimediach. Bez nazw sieci, tytułów z kalendarza, miejsc i nazwy użytkownika. Nic nie jest wysyłane: wklej to do zgłoszenia na GitHubie.":
+        "Kopiuje do schowka wersję aplikacji i macOS, model Maca, monitory, stan uprawnień i funkcje, które się wycofały, oraz kilka linii dziennika o świetle i multimediach. Bez nazw sieci, tytułów z kalendarza, miejsc i nazwy użytkownika. Nic nie jest wysyłane: wklej to do zgłoszenia na GitHubie.",
 }

@@ -64,6 +64,8 @@ enum SettingsSearch {
         .init(.breaks, "Break Scripts", words: "skrypty"),
         // Focus / Pomodoro
         .init(.focus, "Enable Pomodoro mode", words: "pomodoro"),
+        // About
+        .init(.about, "Kopiuj diagnostykę", words: "diagnostics diagnostyka raport zgłoszenie błąd bug github issue schowek clipboard"),
         // Light
         .init(.light, "Dostosowuj barwę ekranu do pory dnia", words: "night shift true tone"),
         .init(.light, "Lampy w pokoju (dom i reszta miejsc)", words: "lamp light room"),

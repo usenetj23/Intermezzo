@@ -11,7 +11,9 @@ A break reminder for macOS that lives in the menu bar. It reminds you to step aw
 
 The interface is available in **English** and **Polish**.
 
-> Intermezzo is a personal project, built and tested on one Mac. It is not notarised and has no Developer ID signature, so macOS asks for confirmation on first launch (see [Installation](#installation)).
+> **First launch:** Intermezzo is not notarised, so macOS blocks it the first time. Open **System Settings › Privacy & Security**, scroll to the message about Intermezzo and click **Open Anyway** (you do this once). Details and a Terminal alternative are under [Installation](#installation).
+>
+> Intermezzo is a personal project, tested on a MacBook Pro (M5, 128 GB), a MacBook Air (M4, 16 GB) and a Mac Studio (M3 Ultra, 96 GB). It has no Developer ID signature because that needs a paid Apple Developer membership; the release zip carries a signed build provenance attestation instead (see [Installation](#installation)). It has not been tried on Intel Macs, on other macOS versions or on many monitor models, so reports are welcome: **Settings › About › Copy diagnostics** puts the details a bug report needs on your clipboard (nothing is sent anywhere).
 
 <p align="center">
   <img src="docs/screenshots/break-screen.png" alt="The break screen: a countdown, an exercise to do, and a trend of recent breaks over the desktop" width="860">

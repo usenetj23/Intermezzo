@@ -278,6 +278,9 @@ final class MediaPauser {
     }
 
     private typealias SendCommand = @convention(c) (UInt32, CFDictionary?) -> Bool
+    /// For the diagnostics: the private MediaRemote symbol was found.
+    static var mediaRemoteLoaded: Bool { sendCommandFunction != nil }
+
     private static let sendCommandFunction: SendCommand? = {
         guard let handle = dlopen("/System/Library/PrivateFrameworks/MediaRemote.framework/MediaRemote", RTLD_NOW),
               let symbol = dlsym(handle, "MRMediaRemoteSendCommand") else { return nil }

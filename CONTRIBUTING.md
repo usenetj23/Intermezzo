@@ -1,6 +1,6 @@
 # Contributing to Intermezzo
 
-Thanks for your interest. Intermezzo is a personal project built and tested on one Mac, so bug reports and suggestions from other setups are especially useful. Please be patient: replies may take a few days.
+Thanks for your interest. Intermezzo is a personal project tested on three Macs (MacBook Pro M5, MacBook Air M4, Mac Studio M3 Ultra), so bug reports and suggestions from other setups are especially useful. Settings › About › **Copy diagnostics** puts the details a bug report needs on your clipboard. Please be patient: replies may take a few days.
 
 By taking part you agree to follow the [code of conduct](CODE_OF_CONDUCT.md). Contributions are accepted under the project's [MIT licence](LICENSE).
 

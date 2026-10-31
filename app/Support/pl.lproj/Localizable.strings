@@ -475,6 +475,8 @@
 "Kontrast i rozmiar czcionki" = "Kontrast i rozmiar czcionki";
 "Kopia trafia do każdego zaznaczonego folderu; przy odczycie liczy się najnowszy plik każdego Maca." = "Kopia trafia do każdego zaznaczonego folderu; przy odczycie liczy się najnowszy plik każdego Maca.";
 "Kopiuj" = "Kopiuj";
+"Kopiuj diagnostykę" = "Kopiuj diagnostykę";
+"Kopiuje do schowka wersję aplikacji i macOS, model Maca, monitory, stan uprawnień i funkcje, które się wycofały, oraz kilka linii dziennika o świetle i multimediach. Bez nazw sieci, tytułów z kalendarza, miejsc i nazwy użytkownika. Nic nie jest wysyłane: wklej to do zgłoszenia na GitHubie." = "Kopiuje do schowka wersję aplikacji i macOS, model Maca, monitory, stan uprawnień i funkcje, które się wycofały, oraz kilka linii dziennika o świetle i multimediach. Bez nazw sieci, tytułów z kalendarza, miejsc i nazwy użytkownika. Nic nie jest wysyłane: wklej to do zgłoszenia na GitHubie.";
 "Kot – krowa przy biurku" = "Kot – krowa przy biurku";
 "Krótka (z ustawień)" = "Krótka (z ustawień)";
 "Krótka przerwa" = "Krótka przerwa";
@@ -1012,6 +1014,7 @@
 "Skip »" = "Pomiń »";
 "Skip!" = "Pomiń!";
 "Skipped break" = "Pominięta przerwa";
+"Skopiowano do schowka" = "Skopiowano do schowka";
 "Skopiuj" = "Skopiuj";
 "Skrypt (AppleScript)" = "Skrypt (AppleScript)";
 "Skrypt jest poprawny." = "Skrypt jest poprawny.";
