@@ -20,7 +20,19 @@ struct HoldToSkipButton: NSViewRepresentable {
 }
 
 final class HoldButtonView: NSView {
-    static let size = NSSize(width: 170, height: 44)
+    /// Wide enough for the longer of its two labels in the current language ("Przytrzymaj, aby pominąć" is far
+    /// longer than "Hold to skip"), never narrower than 170 pt.
+    static let size: NSSize = {
+        let widest = [String(localized: "Hold to skip"), String(localized: "Skip!")]
+            .map { NSAttributedString(string: $0, attributes: [.font: labelFont]).size().width }
+            .max() ?? 0
+        return NSSize(width: max(170, ceil(widest) + 44), height: 44)
+    }()
+
+    private static var labelFont: NSFont {
+        let base = NSFont.systemFont(ofSize: 15, weight: .semibold)
+        return base.fontDescriptor.withDesign(.rounded).flatMap { NSFont(descriptor: $0, size: 15) } ?? base
+    }
 
     var onSkip: () -> Void
     private let duration: TimeInterval
@@ -93,9 +105,7 @@ final class HoldButtonView: NSView {
         shape.lineWidth = 1
         shape.stroke()
 
-        let base = NSFont.systemFont(ofSize: 15, weight: .semibold)
-        let font = base.fontDescriptor.withDesign(.rounded)
-            .flatMap { NSFont(descriptor: $0, size: 15) } ?? base
+        let font = Self.labelFont
         let text = NSAttributedString(
             string: progress < 1 ? String(localized: "Hold to skip") : String(localized: "Skip!"),
             attributes: [.font: font, .foregroundColor: NSColor.white.withAlphaComponent(0.9)])
