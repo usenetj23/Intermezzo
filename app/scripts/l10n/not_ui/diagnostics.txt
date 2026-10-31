@@ -41,3 +41,4 @@ diagnostics diagnostyka raport zgłoszenie błąd bug github issue schowek clipb
 , startingAt: 0))  %@
 [Log excerpt: light, media, sensors, BetterDisplay]
 ### Intermezzo diagnostics
+, count: 3)) Intermezzo diagnostics
