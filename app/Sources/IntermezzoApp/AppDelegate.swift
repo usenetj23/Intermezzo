@@ -63,6 +63,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, UNUs
         }
         SyncController.shared.start()
         LightController.shared.start()
+        UpdateChecker.shared.startAutomaticChecks()
         KeepAwakeController.shared.start()
         if coordinator == nil {
             coordinator = BreakCoordinator(modelContainer: Store.container)

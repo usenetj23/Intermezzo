@@ -757,4 +757,32 @@ STRINGS = {
         "Pozycja",
     "Ustawienia miejsca pracy…":
         "Ustawienia miejsca pracy…",
+    "Aktualizacje":
+        "Aktualizacje",
+    "Sprawdzaj raz na dobę, czy jest nowa wersja":
+        "Sprawdzaj raz na dobę, czy jest nowa wersja",
+    "Sprawdź teraz":
+        "Sprawdź teraz",
+    "Aplikacja pyta GitHub o najnowsze wydanie zwykłym zapytaniem HTTPS, bez identyfikatora i bez danych o Twoim Macu (GitHub widzi Twój adres IP). Niczego nie pobiera ani nie instaluje: nową wersję pobierasz sam ze strony wydań.":
+        "Aplikacja pyta GitHub o najnowsze wydanie zwykłym zapytaniem HTTPS, bez identyfikatora i bez danych o Twoim Macu (GitHub widzi Twój adres IP). Niczego nie pobiera ani nie instaluje: nową wersję pobierasz sam ze strony wydań.",
+    "Sprawdzam…":
+        "Sprawdzam…",
+    "Masz najnowszą wersję (%@)":
+        "Masz najnowszą wersję (%@)",
+    "Dostępna wersja %@":
+        "Dostępna wersja %@",
+    "Otwórz stronę wydania":
+        "Otwórz stronę wydania",
+    "Pomiń tę wersję":
+        "Pomiń tę wersję",
+    "Nie udało się sprawdzić: %@":
+        "Nie udało się sprawdzić: %@",
+    "nieoczekiwana odpowiedź GitHub":
+        "nieoczekiwana odpowiedź GitHub",
+    "Dostępna nowa wersja":
+        "Dostępna nowa wersja",
+    "Intermezzo %@ czeka na stronie wydań. Nic nie jest pobierane ani instalowane samo.":
+        "Intermezzo %@ czeka na stronie wydań. Nic nie jest pobierane ani instalowane samo.",
+    "Zobacz":
+        "Zobacz",
 }

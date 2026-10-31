@@ -18,7 +18,7 @@ final class SyncTests: XCTestCase {
                     "permissionAsked.accessibility", "syncFolderPath", "screenTimeSeconds", "lastDuplicateAlertDate",
                     "relaxAudioPath.long", "breakStartScriptPath", "imageThemeItems",
                     "pomodoroLedger", "snoozeBudget", "tickProfile", "fxNoImg", "hydrationLog", "autostart",
-                    "lightDisabledUntil", "lightDebugLog", "weatherLat", "weatherLon", "awakeMode", "awakeUntil",
+                    "lightDisabledUntil", "lightDebugLog", "updateLastCheck", "updateSkippedVersion", "updateNotifiedVersion", "weatherLat", "weatherLon", "awakeMode", "awakeUntil",
                     "lightMonitors", "betterDisplayDim", "betterDisplayDimPercent", "betterDisplayTrueTone", "betterDisplayState", "betterDisplayUnlinkGroup"] {
             XCTAssertFalse(SyncPolicy.isSynced(key: key), key)
         }

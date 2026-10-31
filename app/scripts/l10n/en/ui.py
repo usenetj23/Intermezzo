@@ -753,4 +753,32 @@ STRINGS = {
         "Position",
     "Ustawienia miejsca pracy…":
         "Work place settings…",
+    "Aktualizacje":
+        "Updates",
+    "Sprawdzaj raz na dobę, czy jest nowa wersja":
+        "Check once a day for a new version",
+    "Sprawdź teraz":
+        "Check now",
+    "Aplikacja pyta GitHub o najnowsze wydanie zwykłym zapytaniem HTTPS, bez identyfikatora i bez danych o Twoim Macu (GitHub widzi Twój adres IP). Niczego nie pobiera ani nie instaluje: nową wersję pobierasz sam ze strony wydań.":
+        "The app asks GitHub for the newest release with a plain HTTPS request, with no identifier and nothing about your Mac (GitHub sees your IP address). It downloads and installs nothing: you get the new version yourself from the releases page.",
+    "Sprawdzam…":
+        "Checking…",
+    "Masz najnowszą wersję (%@)":
+        "You have the latest version (%@)",
+    "Dostępna wersja %@":
+        "Version %@ is available",
+    "Otwórz stronę wydania":
+        "Open the release page",
+    "Pomiń tę wersję":
+        "Skip this version",
+    "Nie udało się sprawdzić: %@":
+        "Could not check: %@",
+    "nieoczekiwana odpowiedź GitHub":
+        "unexpected answer from GitHub",
+    "Dostępna nowa wersja":
+        "A new version is available",
+    "Intermezzo %@ czeka na stronie wydań. Nic nie jest pobierane ani instalowane samo.":
+        "Intermezzo %@ is waiting on the releases page. Nothing is downloaded or installed by itself.",
+    "Zobacz":
+        "View",
 }

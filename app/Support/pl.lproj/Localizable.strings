@@ -89,6 +89,7 @@
 "Akcje" = "Akcje";
 "Akcje i skrypty na przerwach" = "Akcje i skrypty na przerwach";
 "Akcje przerw: na każdym etapie przerwy (przed, po, przy kliknięciu przycisku)\nmożesz: pokazać powiadomienie, zagrać lub wygasić dźwięk, rozjaśnić ekran,\nwyciszyć system (z zapamiętaniem stanu), pauzować muzykę, uruchomić AppleScript.\n\nDo tego własne teksty na przerwie, slajdy zdjęć i filmy z YouTube\njako tapeta przerwy. Wszystko offline, wszystko Twoje." = "Akcje przerw: na każdym etapie przerwy (przed, po, przy kliknięciu przycisku)\nmożesz: pokazać powiadomienie, zagrać lub wygasić dźwięk, rozjaśnić ekran,\nwyciszyć system (z zapamiętaniem stanu), wstrzymać muzykę, uruchomić AppleScript.\n\nDo tego własne teksty na przerwie, slajdy zdjęć i filmy z YouTube\njako tapeta przerwy. Wszystko offline, wszystko Twoje.";
+"Aktualizacje" = "Aktualizacje";
 "Aktywnie" = "Aktywnie";
 "Aktywnie przy komputerze" = "Aktywnie przy komputerze";
 "Aktywny czas przy ekranie dziś" = "Aktywny czas przy ekranie dziś";
@@ -103,6 +104,7 @@
 "Aplikacja" = "Aplikacja";
 "Aplikacja na pierwszym planie" = "Aplikacja na pierwszym planie";
 "Aplikacja otwarta" = "Aplikacja otwarta";
+"Aplikacja pyta GitHub o najnowsze wydanie zwykłym zapytaniem HTTPS, bez identyfikatora i bez danych o Twoim Macu (GitHub widzi Twój adres IP). Niczego nie pobiera ani nie instaluje: nową wersję pobierasz sam ze strony wydań." = "Aplikacja pyta GitHub o najnowsze wydanie zwykłym zapytaniem HTTPS, bez identyfikatora i bez danych o Twoim Macu (GitHub widzi Twój adres IP). Niczego nie pobiera ani nie instaluje: nową wersję pobierasz sam ze strony wydań.";
 "Aplikacja z przodu" = "Aplikacja z przodu";
 "Aplikacje" = "Aplikacje";
 "Aplikacje bez zmiany barw" = "Aplikacje bez zmiany barw";
@@ -301,6 +303,8 @@
 "Done" = "Gotowe";
 "Dostawca" = "Dostawca";
 "Dostosowuj barwę ekranu do pory dnia" = "Dostosowuj barwę ekranu do pory dnia";
+"Dostępna nowa wersja" = "Dostępna nowa wersja";
+"Dostępna wersja %@" = "Dostępna wersja %@";
 "Dostępne modele" = "Dostępne modele";
 "Dotyczy tylko tego monitora, na którym okno zajmuje cały ekran (film, gra, prezentacja). Pozostałe monitory zostają ocieplone." = "Dotyczy tylko tego monitora, na którym okno zajmuje cały ekran (film, gra, prezentacja). Pozostałe monitory zostają ocieplone.";
 "Drink some water" = "Napij się wody";
@@ -434,6 +438,7 @@
 "Instalacja nie powiodła się." = "Instalacja nie powiodła się.";
 "Install" = "Zainstaluj";
 "Intermezzo" = "Intermezzo";
+"Intermezzo %@ czeka na stronie wydań. Nic nie jest pobierane ani instalowane samo." = "Intermezzo %@ czeka na stronie wydań. Nic nie jest pobierane ani instalowane samo.";
 "Intermezzo Intelligence" = "Intermezzo Intelligence";
 "Intermezzo nic nie wysyła: zero analityki, zero powiadomień od wydawcy, zero kontaktów z siecią. Cała diagnostyka zostaje na tym Macu." = "Intermezzo nie zbiera analityki ani danych osobowych. Jedyne zapytanie sieciowe to anonimowe sprawdzenie pogody, jeśli je włączysz; synchronizacja zapisuje dane tylko w wybranym przez Ciebie folderze. Cała diagnostyka zostaje na tym Macu.";
 "Intermezzo przypomina Ci o przerwach, ale nie walczy z Tobą.\n\n• Mikropauzy co kilkanaście minut — oczy, kark, nadgarstki.\n• Długie przerwy co 45 minut — wstań, przejdź się, napij wody.\n• Reguły — pauza nie wyskoczy w środku spotkania, prezentacji czy filmu.\n• Skróty i adresy intermezzo:// — steruj pauzami z dowolnej aplikacji i automatyzacji.\n\nNajważniejsza zasada: pauza ma być odpoczynkiem od EKRANU, nie zmianą ekranu." = "Intermezzo przypomina Ci o przerwach, ale nie walczy z Tobą.\n\n• Mikroprzerwy co kilkanaście minut — oczy, kark, nadgarstki.\n• Długie przerwy co 45 minut — wstań, przejdź się, napij wody.\n• Reguły — przerwa nie wyskoczy w środku spotkania, prezentacji czy filmu.\n• Skróty i adresy intermezzo:// — steruj przerwami z dowolnej aplikacji i automatyzacji.\n\nNajważniejsza zasada: przerwa ma być odpoczynkiem od EKRANU, nie zmianą ekranu.";
@@ -526,6 +531,7 @@
 "Mac nie ma GPS i ustala pozycję po Wi-Fi, a ono jest wyłączone, więc to miejsce pracy nie zadziała. Użyj sieci LAN, VPN, kalendarza albo godzin pracy." = "Mac nie ma GPS i ustala pozycję po Wi-Fi, a ono jest wyłączone, więc to miejsce pracy nie zadziała. Użyj sieci LAN, VPN, kalendarza albo godzin pracy.";
 "Mac nie zaśnie" = "Mac nie zaśnie";
 "Mapa jest niedostępna, ale współrzędne możesz wpisać ręcznie." = "Mapa jest niedostępna, ale współrzędne możesz wpisać ręcznie.";
+"Masz najnowszą wersję (%@)" = "Masz najnowszą wersję (%@)";
 "Match the break to the session you just finished" = "Dopasuj przerwę do właśnie zakończonej sesji";
 "Mean disruptions" = "Średnia zakłóceń";
 "Mean disruptions per pomodoro: %@ %@, %@ %@ (difference %@)" = "Średnia liczba zakłóceń na pomodoro: %@ %@, %@ %@ (różnica %@)";
@@ -629,6 +635,7 @@
 "Nie teraz" = "Nie teraz";
 "Nie udało się odczytać propozycji. Spróbuj opisać to inaczej." = "Nie udało się odczytać propozycji. Spróbuj opisać to inaczej.";
 "Nie udało się odczytać skryptu." = "Nie udało się odczytać skryptu.";
+"Nie udało się sprawdzić: %@" = "Nie udało się sprawdzić: %@";
 "Nie udało się zapisać pliku testowego." = "Nie udało się zapisać pliku testowego.";
 "Nie widać jeszcze innych Maców w tym folderze." = "Nie widać jeszcze innych Maców w tym folderze.";
 "Nie wiem" = "Nie wiem";
@@ -711,6 +718,7 @@
 "Otwiera panel z paska menu" = "Otwiera panel z paska menu";
 "Otwórz klatkę piersiową" = "Otwórz klatkę piersiową";
 "Otwórz logi…" = "Otwórz logi…";
+"Otwórz stronę wydania" = "Otwórz stronę wydania";
 "Otwórz ustawienia prywatności" = "Otwórz ustawienia prywatności";
 "Otwórz – zaciśnij" = "Otwórz – zaciśnij";
 "Otwórz: %@" = "Otwórz: %@";
@@ -785,6 +793,7 @@
 "Pomiń" = "Pomiń";
 "Pomiń najbliższą" = "Pomiń najbliższą";
 "Pomiń przerwę" = "Pomiń przerwę";
+"Pomiń tę wersję" = "Pomiń tę wersję";
 "Pomodoro Technique" = "Technika Pomodoro";
 "Pomodoro i projekty" = "Pomodoro i projekty";
 "Pomodoro mode is off, so the experiment is paused. Your settings stay at the last rhythm until you stop it." = "Tryb Pomodoro jest wyłączony, więc eksperyment jest wstrzymany. Ustawienia zostają przy ostatnim rytmie, dopóki go nie zatrzymasz.";
@@ -1049,9 +1058,12 @@
 "Spotkanie w przeglądarce (Meet / Teams / Whereby)" = "Spotkanie w przeglądarce (Meet / Teams / Whereby)";
 "Spotkanie, film, prezentacja?" = "Spotkanie, film, prezentacja?";
 "Sprawdza, czy któryś klient wideokonferencji ma otwarte aktywne okno. Nie pomija przerw tylko dlatego, że aplikacja działa w tle." = "Sprawdza, czy któryś klient wideokonferencji ma otwarte aktywne okno. Nie pomija przerw tylko dlatego, że aplikacja działa w tle.";
+"Sprawdzaj raz na dobę, czy jest nowa wersja" = "Sprawdzaj raz na dobę, czy jest nowa wersja";
+"Sprawdzam…" = "Sprawdzam…";
 "Sprawdź" = "Sprawdź";
 "Sprawdź ponownie" = "Sprawdź ponownie";
 "Sprawdź połączenie" = "Sprawdź połączenie";
+"Sprawdź teraz" = "Sprawdź teraz";
 "Sprawdź, czy okno lub lampa nie odbija się w ekranie. Dopasuj jasność ekranu do jasności pokoju." = "Sprawdź, czy okno lub lampa nie odbija się w ekranie. Dopasuj jasność ekranu do jasności pokoju.";
 "Spójrz na licznik czasu przy ekranie w Statusie. Dłuższa przerwa pomoże." = "Spójrz na licznik czasu przy ekranie w Statusie. Dłuższa przerwa pomoże.";
 "Stal nierdzewna (inox)" = "Stal nierdzewna (inox)";
@@ -1462,6 +1474,7 @@
 "Znajdź za oknem trzy obiekty: bliski, średni i daleki. Patrz na każdy po 7 sekund, bez mrużenia oczu." = "Znajdź za oknem trzy obiekty: bliski, średni i daleki. Patrz na każdy po 7 sekund, bez mrużenia oczu.";
 "Znaleziono drugą kopię Intermezzo" = "Znaleziono drugą kopię Intermezzo";
 "Znaleziono: %@" = "Znaleziono: %@";
+"Zobacz" = "Zobacz";
 "Zostaję 15 minut" = "Jeszcze 15 minut";
 "Zostaw tylko jedną (sprawdź też Kosz)." = "Zostaw tylko jedną (sprawdź też Kosz).";
 "Zresetuj cykl" = "Zresetuj cykl";
@@ -1541,6 +1554,7 @@
 "nazwa aplikacji / tekst" = "nazwa aplikacji / tekst";
 "nie wstrzymano" = "nie wstrzymano";
 "nie zainstalowany" = "nie zainstalowany";
+"nieoczekiwana odpowiedź GitHub" = "nieoczekiwana odpowiedź GitHub";
 "nieznana (wpisz współrzędne)" = "nieznana (wpisz współrzędne)";
 "nieznane ustawienie" = "nieznane ustawienie";
 "no VPN connection detected" = "nie wykryto połączenia VPN";

@@ -89,6 +89,7 @@
 "Akcje" = "Actions";
 "Akcje i skrypty na przerwach" = "Actions and scripts during breaks";
 "Akcje przerw: na każdym etapie przerwy (przed, po, przy kliknięciu przycisku)\nmożesz: pokazać powiadomienie, zagrać lub wygasić dźwięk, rozjaśnić ekran,\nwyciszyć system (z zapamiętaniem stanu), pauzować muzykę, uruchomić AppleScript.\n\nDo tego własne teksty na przerwie, slajdy zdjęć i filmy z YouTube\njako tapeta przerwy. Wszystko offline, wszystko Twoje." = "Break actions: at every stage of a break (before, after, on a button click)\nyou can show a notification, play or fade out a sound, brighten the screen,\nmute the system (remembering its state), pause music, run an AppleScript.\n\nOn top of that: your own break texts, photo slideshows and YouTube videos\nas the break backdrop. All offline, all yours.";
+"Aktualizacje" = "Updates";
 "Aktywnie" = "Active";
 "Aktywnie przy komputerze" = "Active at the computer";
 "Aktywny czas przy ekranie dziś" = "Active screen time today";
@@ -103,6 +104,7 @@
 "Aplikacja" = "App";
 "Aplikacja na pierwszym planie" = "App in front";
 "Aplikacja otwarta" = "App is running";
+"Aplikacja pyta GitHub o najnowsze wydanie zwykłym zapytaniem HTTPS, bez identyfikatora i bez danych o Twoim Macu (GitHub widzi Twój adres IP). Niczego nie pobiera ani nie instaluje: nową wersję pobierasz sam ze strony wydań." = "The app asks GitHub for the newest release with a plain HTTPS request, with no identifier and nothing about your Mac (GitHub sees your IP address). It downloads and installs nothing: you get the new version yourself from the releases page.";
 "Aplikacja z przodu" = "Frontmost app";
 "Aplikacje" = "Apps";
 "Aplikacje bez zmiany barw" = "Apps without colour change";
@@ -301,6 +303,8 @@
 "Done" = "Done";
 "Dostawca" = "Provider";
 "Dostosowuj barwę ekranu do pory dnia" = "Adjust the screen colour to the time of day";
+"Dostępna nowa wersja" = "A new version is available";
+"Dostępna wersja %@" = "Version %@ is available";
 "Dostępne modele" = "Available models";
 "Dotyczy tylko tego monitora, na którym okno zajmuje cały ekran (film, gra, prezentacja). Pozostałe monitory zostają ocieplone." = "This applies only to the monitor on which the window fills the whole screen (a film, a game, a presentation). The other monitors stay warmed.";
 "Drink some water" = "Drink some water";
@@ -434,6 +438,7 @@
 "Instalacja nie powiodła się." = "Installation failed.";
 "Install" = "Install";
 "Intermezzo" = "Intermezzo";
+"Intermezzo %@ czeka na stronie wydań. Nic nie jest pobierane ani instalowane samo." = "Intermezzo %@ is waiting on the releases page. Nothing is downloaded or installed by itself.";
 "Intermezzo Intelligence" = "Intermezzo Intelligence";
 "Intermezzo nic nie wysyła: zero analityki, zero powiadomień od wydawcy, zero kontaktów z siecią. Cała diagnostyka zostaje na tym Macu." = "Intermezzo collects no analytics and no personal data. Its only network request is an anonymous weather lookup, if you turn it on; sync writes only to the folder you choose. All diagnostics stay on this Mac.";
 "Intermezzo przypomina Ci o przerwach, ale nie walczy z Tobą.\n\n• Mikropauzy co kilkanaście minut — oczy, kark, nadgarstki.\n• Długie przerwy co 45 minut — wstań, przejdź się, napij wody.\n• Reguły — pauza nie wyskoczy w środku spotkania, prezentacji czy filmu.\n• Skróty i adresy intermezzo:// — steruj pauzami z dowolnej aplikacji i automatyzacji.\n\nNajważniejsza zasada: pauza ma być odpoczynkiem od EKRANU, nie zmianą ekranu." = "Intermezzo reminds you to take breaks, but it doesn't fight you.\n\n• Micro breaks every dozen or so minutes — eyes, neck, wrists.\n• Long breaks every 45 minutes — stand up, walk around, drink some water.\n• Rules — a break won't pop up in the middle of a meeting, presentation or film.\n• Shortcuts and intermezzo:// links — control breaks from any app or automation.\n\nThe golden rule: a break should be a rest from the SCREEN, not a change of screen.";
@@ -526,6 +531,7 @@
 "Mac nie ma GPS i ustala pozycję po Wi-Fi, a ono jest wyłączone, więc to miejsce pracy nie zadziała. Użyj sieci LAN, VPN, kalendarza albo godzin pracy." = "A Mac has no GPS and finds its position by Wi-Fi, which is off, so this work place cannot work. Use the LAN, a VPN, the calendar or working hours instead.";
 "Mac nie zaśnie" = "The Mac will not sleep";
 "Mapa jest niedostępna, ale współrzędne możesz wpisać ręcznie." = "The map is unavailable, but you can type the coordinates by hand.";
+"Masz najnowszą wersję (%@)" = "You have the latest version (%@)";
 "Match the break to the session you just finished" = "Match the break to the session you just finished";
 "Mean disruptions" = "Mean disruptions";
 "Mean disruptions per pomodoro: %@ %@, %@ %@ (difference %@)" = "Mean disruptions per pomodoro: %@ %@, %@ %@ (difference %@)";
@@ -629,6 +635,7 @@
 "Nie teraz" = "Not now";
 "Nie udało się odczytać propozycji. Spróbuj opisać to inaczej." = "Could not read a proposal. Try describing it differently.";
 "Nie udało się odczytać skryptu." = "Couldn't read the script.";
+"Nie udało się sprawdzić: %@" = "Could not check: %@";
 "Nie udało się zapisać pliku testowego." = "Couldn't write the test file.";
 "Nie widać jeszcze innych Maców w tym folderze." = "No other Macs in this folder yet.";
 "Nie wiem" = "I don't know";
@@ -711,6 +718,7 @@
 "Otwiera panel z paska menu" = "Opens the menu-bar panel";
 "Otwórz klatkę piersiową" = "Open your chest";
 "Otwórz logi…" = "Open logs…";
+"Otwórz stronę wydania" = "Open the release page";
 "Otwórz ustawienia prywatności" = "Open privacy settings";
 "Otwórz – zaciśnij" = "Open – clench";
 "Otwórz: %@" = "Open: %@";
@@ -785,6 +793,7 @@
 "Pomiń" = "Skip";
 "Pomiń najbliższą" = "Skip the next one";
 "Pomiń przerwę" = "Skip the break";
+"Pomiń tę wersję" = "Skip this version";
 "Pomodoro Technique" = "Pomodoro Technique";
 "Pomodoro i projekty" = "Pomodoro and projects";
 "Pomodoro mode is off, so the experiment is paused. Your settings stay at the last rhythm until you stop it." = "Pomodoro mode is off, so the experiment is paused. Your settings stay at the last rhythm until you stop it.";
@@ -1049,9 +1058,12 @@
 "Spotkanie w przeglądarce (Meet / Teams / Whereby)" = "Meeting in the browser (Meet / Teams / Whereby)";
 "Spotkanie, film, prezentacja?" = "A meeting, a film, a presentation?";
 "Sprawdza, czy któryś klient wideokonferencji ma otwarte aktywne okno. Nie pomija przerw tylko dlatego, że aplikacja działa w tle." = "Checks whether a video-call client has an active window open. It doesn't skip breaks just because the app runs in the background.";
+"Sprawdzaj raz na dobę, czy jest nowa wersja" = "Check once a day for a new version";
+"Sprawdzam…" = "Checking…";
 "Sprawdź" = "Check";
 "Sprawdź ponownie" = "Check again";
 "Sprawdź połączenie" = "Check the connection";
+"Sprawdź teraz" = "Check now";
 "Sprawdź, czy okno lub lampa nie odbija się w ekranie. Dopasuj jasność ekranu do jasności pokoju." = "Check that no window or lamp reflects in the screen. Match the screen brightness to the room.";
 "Spójrz na licznik czasu przy ekranie w Statusie. Dłuższa przerwa pomoże." = "Check the screen-time counter in Status. A longer break will help.";
 "Stal nierdzewna (inox)" = "Stainless steel (inox)";
@@ -1462,6 +1474,7 @@
 "Znajdź za oknem trzy obiekty: bliski, średni i daleki. Patrz na każdy po 7 sekund, bez mrużenia oczu." = "Find three objects outside the window: near, medium and far. Look at each for 7 seconds, without squinting.";
 "Znaleziono drugą kopię Intermezzo" = "A second copy of Intermezzo was found";
 "Znaleziono: %@" = "Found: %@";
+"Zobacz" = "View";
 "Zostaję 15 minut" = "15 more minutes";
 "Zostaw tylko jedną (sprawdź też Kosz)." = "Keep only one (check the Trash too).";
 "Zresetuj cykl" = "Reset cycle";
@@ -1541,6 +1554,7 @@
 "nazwa aplikacji / tekst" = "app name / text";
 "nie wstrzymano" = "not paused";
 "nie zainstalowany" = "not installed";
+"nieoczekiwana odpowiedź GitHub" = "unexpected answer from GitHub";
 "nieznana (wpisz współrzędne)" = "unknown (enter coordinates)";
 "nieznane ustawienie" = "unknown setting";
 "no VPN connection detected" = "no VPN connection detected";
