@@ -329,8 +329,8 @@ final class BreakCoordinator: ObservableObject {
         notify: { [weak self] title, body in self?.notify(title: title, body: body) },
         flashPulse: { [weak self] hex in self?.flash.pulse(colorHex: hex) })
     private var awaySince: Date?
-    /// The timer was held for this away spell (a locked or asleep screen, or a long stretch without input).
-    private var awayPaused = false
+    /// How long there had been no input when the timer stopped for this spell.
+    private var awayIdleAtStart: TimeInterval = 0
     /// A sign of really leaving was seen during this spell: the screen locked, asleep or on the screen saver.
     private var awayConfirmed = false
 
@@ -701,31 +701,29 @@ final class BreakCoordinator: ObservableObject {
         let threshold = TimeInterval(max(10, d.integer(forKey: Keys.idleThresholdSeconds)))
             if idle > threshold && !ignoreNaturalBreak {
                 if awaySince == nil {
+                    // The timer stops once the threshold has passed; the stretch that had to pass first is given
+                    // back on return (the timer is not to run while nobody was working).
                     awaySince = now
                     awayConfirmed = false
-                    awayPaused = false
-                }
-                // No input can be reading: hold the timer only with a sign of leaving or after a long stretch.
-                if !awayConfirmed, Self.screenIsAway() { awayConfirmed = true }
-                let unconfirmed = TimeInterval(max(2, d.object(forKey: "awayUnconfirmedMinutes") as? Int ?? 10) * 60)
-                if !awayPaused, AwayPolicy.shouldPause(idleSeconds: idle, confirmed: awayConfirmed, unconfirmedSeconds: unconfirmed) {
-                    awayPaused = true
+                    awayIdleAtStart = idle
                     engine.pause(reason: .userAway, now: now)
-                    Trace.log("idle: away confirmed (\(awayConfirmed ? "screen locked or asleep" : "long stretch without input")), timer held")
                 }
-            } else if awaySince != nil, !awayPaused {
-                // A short stretch without input and nothing showing the person left: they were reading or thinking.
-                awaySince = nil
+                // A sign of really leaving: the screen locked, asleep or on the screen saver.
+                if !awayConfirmed, Self.screenIsAway() { awayConfirmed = true }
             } else if awaySince != nil {
                 let awayFor = now.timeIntervalSince(awaySince!)
                 awaySince = nil
-                awayPaused = false
                 let resetAfter = TimeInterval(max(1, d.integer(forKey: Keys.idleResetAfterMinutes)) * 60)
-                logNaturalBreak(away: awayFor, now: now)
-                // The time without input also includes the idle threshold that had to pass before "away" began.
-                let withoutInput = awayFor + threshold
+                // The time without input also includes the idle threshold that had to pass before the timer stopped.
+                let withoutInput = awayFor + awayIdleAtStart
+                // No input can also be reading: only a locked, asleep or screen-saver screen, or a long stretch
+                // without input, counts as having been away.
+                let unconfirmed = TimeInterval(max(2, d.object(forKey: "awayUnconfirmedMinutes") as? Int ?? 10) * 60)
+                let realAbsence = AwayPolicy.isRealAbsence(idleSeconds: withoutInput, confirmed: awayConfirmed,
+                                                           unconfirmedSeconds: unconfirmed)
+                if realAbsence { logNaturalBreak(away: awayFor, now: now) }
                 let creditEnabled = d.object(forKey: "awayCreditsBreak") as? Bool ?? true
-                let credit = creditEnabled
+                let credit = creditEnabled && realAbsence
                     ? AwayCredit.kind(awaySeconds: withoutInput, nextKind: engine.previewNextKind(config: config), config: config)
                     : nil
                 if let credit {
@@ -737,24 +735,28 @@ final class BreakCoordinator: ObservableObject {
                             ? L("Byłeś nieobecny %lld min: zaliczone jako długa przerwa, timer zaczyna od nowa.", Int(withoutInput / 60))
                             : L("Byłeś nieobecny %lld min: zaliczone jako krótka przerwa, timer zaczyna od nowa.", Int(withoutInput / 60)),
                          symbol: "hand.wave.fill")
-                } else if awayFor > resetAfter {
+                } else if realAbsence && awayFor > resetAfter {
                     // "Timer Reset Logic": restart the work cycle at
                     // FULL length — returning never triggers an instant break.
                     engine.resetCycle(now: now, config: config)
                     PomodoroController.shared.abandon(at: now)
-                } else if awayFor > config.breakDuration(for: .short) + 30 {
-                    post(title: "Witaj z powrotem",
-                         body: L("Byłeś nieobecny %lld min — zaliczyć to jako przerwę?", Int(awayFor / 60)),
-                         symbol: "hand.wave.fill",
-                         actions: [ToastAction(title: "Zalicz przerwę") { [weak self] in
-                             self?.creditBreak(away: awayFor)
-                         }])
+                } else {
+                    // Back after a short stretch (or reading): the time before the timer stopped is given back.
+                    engine.refundWorkTime(seconds: awayIdleAtStart, config: config)
+                    Trace.log("idle: back after \(Int(withoutInput)) s, \(Int(awayIdleAtStart)) s given back to the timer")
+                    if awayFor > config.breakDuration(for: .short) + 30 {
+                        post(title: "Witaj z powrotem",
+                             body: L("Byłeś nieobecny %lld min — zaliczyć to jako przerwę?", Int(awayFor / 60)),
+                             symbol: "hand.wave.fill",
+                             actions: [ToastAction(title: "Zalicz przerwę") { [weak self] in
+                                 self?.creditBreak(away: awayFor)
+                             }])
+                    }
                 }
                 engine.resume(reason: .userAway, now: now)
             }
         } else if awaySince != nil {
             awaySince = nil
-            awayPaused = false
             engine.resume(reason: .userAway, now: now)
         }
 

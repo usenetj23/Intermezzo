@@ -188,6 +188,13 @@ public struct BreakEngine {
         resetCycle(now: now, config: config)
     }
 
+    /// Gives time back to a work period that was stopped for being idle: the stretch without input that had to
+    /// pass before the timer stopped. Works on the frozen remainder of a paused engine, never beyond a full cycle.
+    public mutating func refundWorkTime(seconds: TimeInterval, config: BreakConfig) {
+        guard case .paused = state, let frozen = frozenRemaining else { return }
+        frozenRemaining = min(frozen + max(0, seconds), TimeInterval(config.cycleMinutes * 60))
+    }
+
     // MARK: - Pause / resume
 
     public mutating func pause(reason: PauseReason, now: Date = Date()) {

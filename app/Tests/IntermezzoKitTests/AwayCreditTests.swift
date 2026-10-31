@@ -37,10 +37,44 @@ final class AwayCreditTests: XCTestCase {
         XCTAssertEqual(engine.timeUntilBreak(now: now), TimeInterval(config.cycleMinutes * 60))
     }
 
-    func testReadingIsNotAwayUntilALongStretchOrAConfirmedLeave() {
-        XCTAssertFalse(AwayPolicy.shouldPause(idleSeconds: 90, confirmed: false, unconfirmedSeconds: 600))
-        XCTAssertFalse(AwayPolicy.shouldPause(idleSeconds: 599, confirmed: false, unconfirmedSeconds: 600))
-        XCTAssertTrue(AwayPolicy.shouldPause(idleSeconds: 600, confirmed: false, unconfirmedSeconds: 600))
-        XCTAssertTrue(AwayPolicy.shouldPause(idleSeconds: 61, confirmed: true, unconfirmedSeconds: 600))
+    func testOnlyALockedScreenOrALongStretchCountsAsAnAbsence() {
+        XCTAssertFalse(AwayPolicy.isRealAbsence(idleSeconds: 90, confirmed: false, unconfirmedSeconds: 600))
+        XCTAssertFalse(AwayPolicy.isRealAbsence(idleSeconds: 599, confirmed: false, unconfirmedSeconds: 600))
+        XCTAssertTrue(AwayPolicy.isRealAbsence(idleSeconds: 600, confirmed: false, unconfirmedSeconds: 600))
+        XCTAssertTrue(AwayPolicy.isRealAbsence(idleSeconds: 61, confirmed: true, unconfirmedSeconds: 600))
+    }
+
+    func testTheStretchBeforeTheTimerStoppedIsGivenBack() {
+        var c = BreakConfig()
+        c.cycleMinutes = 10
+        let t0 = Date(timeIntervalSince1970: 1_000_000)
+        let stop = t0.addingTimeInterval(60)         // 1 min without input: the timer stops with 9:00 left
+        let back = stop.addingTimeInterval(300)
+
+        var plain = BreakEngine()
+        plain.start(now: t0, config: c)
+        plain.pause(reason: .userAway, now: stop)
+        _ = plain.resume(reason: .userAway, now: back)
+        XCTAssertEqual(plain.timeUntilBreak(now: back) ?? -1, 540, accuracy: 0.5)
+
+        var refunded = BreakEngine()
+        refunded.start(now: t0, config: c)
+        refunded.pause(reason: .userAway, now: stop)
+        refunded.refundWorkTime(seconds: 60, config: c)      // that minute is given back
+        _ = refunded.resume(reason: .userAway, now: back)
+        XCTAssertEqual(refunded.timeUntilBreak(now: back) ?? -1, 600, accuracy: 0.5)
+    }
+
+    func testRefundNeverGoesBeyondAFullCycle() {
+        var c = BreakConfig()
+        c.cycleMinutes = 10
+        var engine = BreakEngine()
+        let t0 = Date(timeIntervalSince1970: 1_000_000)
+        engine.start(now: t0, config: c)
+        let stop = t0.addingTimeInterval(5)
+        engine.pause(reason: .userAway, now: stop)
+        engine.refundWorkTime(seconds: 3600, config: c)
+        _ = engine.resume(reason: .userAway, now: stop)
+        XCTAssertEqual(engine.timeUntilBreak(now: stop) ?? -1, 600, accuracy: 0.5)
     }
 }

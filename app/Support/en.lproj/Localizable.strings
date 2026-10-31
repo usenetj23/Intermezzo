@@ -137,7 +137,7 @@
 "BetterDisplay" = "BetterDisplay";
 "BetterDisplay nie jest uruchomiony" = "BetterDisplay is not running";
 "BetterDisplay nie wyłączył True Tone (ta funkcja wymaga wersji Pro)." = "BetterDisplay did not turn True Tone off (this feature needs the Pro version).";
-"Bez blokady ekranu: nieobecność od %lld min" = "Without a locked screen: away from %lld min";
+"Bez blokady ekranu: zalicz jako nieobecność od %lld min" = "Without a locked screen: counts as away from %lld min";
 "Bez klucza (zwykle tak jest przy lokalnym serwerze)." = "No key (usual for a local server).";
 "Bez odroczeń, bez przycisku Skip i bez Esc na ekranie przerwy. Awaryjnie przerwę kończysz z paska menu." = "No postponements, no Skip button and no Esc on the break screen. In an emergency you end the break from the menu bar.";
 "Bez wpływu teraz" = "No effect right now";
@@ -159,7 +159,6 @@
 "Brak innych kopii na tym Macu." = "No other copies on this Mac.";
 "Brak odcinków tego dnia." = "No intervals on this day.";
 "Brak przerw z ostatnich dni." = "No breaks from the last few days.";
-"Brak ruchu myszą i klawiaturą przy odblokowanym ekranie może być czytaniem. Timer zatrzymuje się, a nieobecność zalicza jako przerwa dopiero po tylu minutach albo od razu, gdy ekran zostanie zablokowany, uśpiony lub włączy się wygaszacz." = "No mouse or keyboard input with an unlocked screen may just be reading. The timer is held, and the absence counts as a break, only after this many minutes, or at once when the screen is locked, asleep or on the screen saver.";
 "Brak uprawnień do nagrywania ekranu" = "No screen recording permission";
 "Brak wschodu lub zachodu Słońca w tym miejscu (dzień lub noc polarna)." = "The Sun neither rises nor sets here (polar day or night).";
 "Brak wyników" = "No results";
@@ -727,7 +726,7 @@
 "Patrz 20 sekund w dal. Zamrugaj. Wróć do pracy." = "Look into the distance for 20 seconds. Blink. Back to work.";
 "Pause / resume timer" = "Pause / resume timer";
 "Pause all indefinitely" = "Pause all indefinitely";
-"Pause timer after %lld min" = "No input counts as idle after %lld min";
+"Pause timer after %lld min" = "Pause timer after %lld min";
 "Paused" = "Paused";
 "Pauza" = "Pause";
 "Pauza teraz" = "Break now";
@@ -1149,6 +1148,7 @@
 "Timer rusza, gdy nic go nie blokuje. W strefie pracy wystarczy jedno dopasowanie: kalendarz, VPN, Wi-Fi, miejsce albo LAN i karta z Rejestru pracy." = "The timer runs when nothing blocks it. In the work zone one match is enough: calendar, VPN, Wi-Fi, place, or the LAN and adapter from the Work log.";
 "Timer wstrzymany" = "Timer paused";
 "Timer wstrzymany: %lld %@" = "Timer paused: %lld %@";
+"Timer zatrzymuje się po bezczynności, a ten czas wraca do timera po Twoim powrocie. Brak ruchu przy odblokowanym ekranie może być czytaniem, więc jako przerwę zalicza się go dopiero po tylu minutach albo od razu, gdy ekran zostanie zablokowany, uśpiony lub włączy się wygaszacz." = "The timer stops after the idle time and that time is given back when you return. No input with an unlocked screen may be reading, so it counts as a break only after this many minutes, or at once when the screen is locked, asleep or on the screen saver.";
 "Tip: with Calendar detection ON in Intermezzo Intelligence, calendar events REPLACE these fixed hours — a vacation or day off without a matching event keeps breaks asleep." = "Tip: with Calendar detection ON in Intermezzo Intelligence, calendar events REPLACE these fixed hours — a vacation or day off without a matching event keeps breaks asleep.";
 "Title" = "Title";
 "Title of the frontmost window of the frontmost app. Needs Automation for System Events and Accessibility." = "Title of the frontmost window of the frontmost app. Needs Automation for System Events and Accessibility.";
