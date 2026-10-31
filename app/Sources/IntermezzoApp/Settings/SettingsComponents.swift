@@ -131,7 +131,9 @@ struct PermissionRow: View {
             }
             Spacer()
             switch status {
-            case .granted: EmptyView()
+            case .granted:
+                // Location and notifications cannot be reset from here: their switches live in System Settings.
+                if kind.tccService == nil { Button("Open Settings…", action: action).controlSize(.small) }
             case .notDetermined: Button("Allow…", action: action).controlSize(.small)
             case .denied: Button("Open Settings…", action: action).controlSize(.small)
             }

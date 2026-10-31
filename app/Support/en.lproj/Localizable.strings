@@ -584,6 +584,7 @@
 "Najcieplejszy kolor: %lld K" = "Warmest colour: %lld K";
 "Najczęstsze odstępy między propozycjami z tej reguły" = "Shortest interval between suggestions from this rule";
 "Najgorsza pozycja to kolejna" = "The best position is the next one";
+"Najpierw kliknij Uruchom ponownie: macOS pokaże okno z pytaniem dopiero po ponownym uruchomieniu aplikacji." = "Click Restart first: macOS shows the question only after the app is started again.";
 "Najważniejszy nawyk przy monitorze" = "The most important habit at the screen";
 "Najzdrowsza odległość od monitora: 50–70 cm, górna krawędź ekranu na wysokości oczu." = "The healthiest distance from the monitor: 50–70 cm, the top edge of the screen at eye level.";
 "Name" = "Name";

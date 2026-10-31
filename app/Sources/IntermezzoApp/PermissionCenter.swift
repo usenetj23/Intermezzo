@@ -92,6 +92,27 @@ final class PermissionCenter: ObservableObject {
 
     // MARK: - Reading
 
+    /// Reads every state and calls `done` once the slow answers (notifications, automation) are in too.
+    func refresh(then done: @escaping @MainActor () -> Void) {
+        refresh()
+        let group = DispatchGroup()
+        group.enter()
+        if Bundle.main.bundleURL.pathExtension == "app" {
+            UNUserNotificationCenter.current().getNotificationSettings { settings in
+                let value = Self.notifications(settings.authorizationStatus)
+                Task { @MainActor in self.statuses[.notifications] = value; group.leave() }
+            }
+        } else {
+            group.leave()
+        }
+        group.enter()
+        DispatchQueue.global(qos: .utility).async {
+            let value = Self.automation(ask: false)
+            Task { @MainActor in self.statuses[.automation] = value; group.leave() }
+        }
+        group.notify(queue: .main) { MainActor.assumeIsolated { done() } }
+    }
+
     func refresh() {
         var next = statuses
         next[.inputMonitoring] = Self.inputMonitoring()
@@ -102,7 +123,8 @@ final class PermissionCenter: ObservableObject {
         next[.location] = Self.location(CLLocationManager().authorizationStatus)
         next[.calendar] = Self.calendar(EKEventStore.authorizationStatus(for: .event))
         next[.fullDiskAccess] = Self.fullDiskAccess()
-        for kind in resetThisRun where kind != .automation { next[kind] = .notDetermined }
+        // Full Disk Access is read from a file each time, so it never lags behind like the system prompts do.
+        for kind in resetThisRun where kind != .automation && kind != .fullDiskAccess { next[kind] = .notDetermined }
         statuses = next
 
         if Bundle.main.bundleURL.pathExtension == "app" {
@@ -184,6 +206,12 @@ final class PermissionCenter: ObservableObject {
     // MARK: - Asking / opening
 
     func request(_ kind: PermissionKind) {
+        // After a reset the system keeps answering from its cache until the app is started again, so it shows
+        // no question now: say so instead of doing nothing.
+        if resetThisRun.contains(kind), kind != .automation, kind != .fullDiskAccess, status(kind) != .granted {
+            lastMessage = String(localized: "Najpierw kliknij Uruchom ponownie: macOS pokaże okno z pytaniem dopiero po ponownym uruchomieniu aplikacji.")
+            return
+        }
         switch (kind, status(kind)) {
         case (_, .granted):
             return

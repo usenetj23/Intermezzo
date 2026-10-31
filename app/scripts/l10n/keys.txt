@@ -1668,3 +1668,4 @@ runtime	-	Byłeś nieobecny %lld min: zaliczone jako krótka przerwa, timer zacz
 compiler	IntermezzoApp/Settings/AboutPane.swift:44	Kopiuj diagnostykę
 compiler	IntermezzoApp/Settings/AboutPane.swift:44	Skopiowano do schowka
 compiler	IntermezzoApp/Settings/AboutPane.swift:48	Kopiuje do schowka wersję aplikacji i macOS, model Maca, monitory, stan uprawnień i funkcje, które się wycofały, oraz kilka linii dziennika o świetle i multimediach. Bez nazw sieci, tytułów z kalendarza, miejsc i nazwy użytkownika. Nic nie jest wysyłane: wklej to do zgłoszenia na GitHubie.
+compiler	IntermezzoApp/PermissionCenter.swift:211	Najpierw kliknij Uruchom ponownie: macOS pokaże okno z pytaniem dopiero po ponownym uruchomieniu aplikacji.

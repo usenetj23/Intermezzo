@@ -24,4 +24,6 @@ STRINGS = {
         "Wykrywanie spotkań i świąt, przerwy dopasowane do kalendarza",
     "Reading Focus modes (work zone and pausing by Focus); optional":
         "Odczyt trybów Skupienia (strefa pracy i pauza przez Skupienie); opcjonalne",
+    "Najpierw kliknij Uruchom ponownie: macOS pokaże okno z pytaniem dopiero po ponownym uruchomieniu aplikacji.":
+        "Najpierw kliknij Uruchom ponownie: macOS pokaże okno z pytaniem dopiero po ponownym uruchomieniu aplikacji.",
 }

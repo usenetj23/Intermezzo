@@ -76,10 +76,9 @@ enum DiagnosticsCollector {
     }
 
     /// Reads the permission states first: they are only refreshed while the Permissions list is on screen, and the
-    /// notification and automation answers arrive a moment later.
+    /// notification and automation answers arrive a moment later (the report waits for them).
     static func copyToPasteboard(then done: @escaping () -> Void = {}) {
-        PermissionCenter.shared.refresh()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+        PermissionCenter.shared.refresh {
             let text = report().markdown()
             NSPasteboard.general.clearContents()
             NSPasteboard.general.setString(text, forType: .string)
