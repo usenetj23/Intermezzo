@@ -1675,3 +1675,4 @@ compiler	IntermezzoApp/Settings/LightPane.swift:314	Pozycja
 compiler	IntermezzoApp/Settings/LightPane.swift:331	To jedna pozycja dla Światła (wschód i zachód słońca), pogody na ekranie przerwy i słońca na jego obrazie. Najpierw liczą się wpisane współrzędne, potem lokalizacja Maca, na końcu przybliżone miejsce ze strefy czasowej. Wschód i zachód liczy lokalnie, bez internetu. Miejsce pracy dla strefy pracy ustawiasz osobno w Ogólne.
 compiler	IntermezzoApp/Settings/LightPane.swift:333	Ustawienia miejsca pracy…
 compiler	IntermezzoApp/Settings/GeneralPane.swift:270	Promień: %lld m
+compiler	IntermezzoApp/Settings/GeneralPane.swift:308	Mac nie ma GPS i ustala pozycję po Wi-Fi, a ono jest wyłączone, więc to miejsce pracy nie zadziała. Użyj sieci LAN, VPN, kalendarza albo godzin pracy.

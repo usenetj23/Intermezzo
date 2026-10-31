@@ -523,6 +523,7 @@
 "Mac i ekran" = "The Mac and the screen";
 "Mac i ekran nie zasną" = "The Mac and the screen will not sleep";
 "Mac mocno się nagrzał, więc czuwanie zostało wyłączone." = "The Mac got very hot, so keep awake was turned off.";
+"Mac nie ma GPS i ustala pozycję po Wi-Fi, a ono jest wyłączone, więc to miejsce pracy nie zadziała. Użyj sieci LAN, VPN, kalendarza albo godzin pracy." = "A Mac has no GPS and finds its position by Wi-Fi, which is off, so this work place cannot work. Use the LAN, a VPN, the calendar or working hours instead.";
 "Mac nie zaśnie" = "The Mac will not sleep";
 "Mapa jest niedostępna, ale współrzędne możesz wpisać ręcznie." = "The map is unavailable, but you can type the coordinates by hand.";
 "Match the break to the session you just finished" = "Match the break to the session you just finished";

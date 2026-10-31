@@ -405,6 +405,15 @@ final class WorkDetector: NSObject, ObservableObject, CLLocationManagerDelegate 
             .filter { $0.duration > 0 }
     }
 
+    enum WifiState { case noInterface, off, on }
+
+    /// Whether the Mac's Wi-Fi is switched on. A Mac has no GPS: its position comes from the Wi-Fi networks around,
+    /// so with Wi-Fi off there is usually no position at all.
+    static func wifiState() -> WifiState {
+        guard let interface = CWWiFiClient.shared().interface() else { return .noInterface }
+        return interface.powerOn() ? .on : .off
+    }
+
     /// Which Focus modes exist and which are on, from the files macOS keeps for Focus.
     /// nil when they cannot be read (macOS asks for Full Disk Access for that folder).
     struct FocusSnapshot: Equatable {
