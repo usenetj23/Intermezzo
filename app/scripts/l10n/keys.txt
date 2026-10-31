@@ -1654,3 +1654,6 @@ runtime	-	Full Disk Access
 runtime	-	Reading Focus modes (work zone and pausing by Focus); optional
 compiler	IntermezzoApp/Settings/SettingsView.swift	Szukaj w ustawieniach
 compiler	IntermezzoApp/Settings/SettingsSearch.swift	Brak wyników
+compiler	IntermezzoApp/Settings/AboutPane.swift:44	Kopiuj diagnostykę
+compiler	IntermezzoApp/Settings/AboutPane.swift:44	Skopiowano do schowka
+compiler	IntermezzoApp/Settings/AboutPane.swift:48	Kopiuje do schowka wersję aplikacji i macOS, model Maca, monitory, stan uprawnień i funkcje, które się wycofały, oraz kilka linii dziennika o świetle i multimediach. Bez nazw sieci, tytułów z kalendarza, miejsc i nazwy użytkownika. Nic nie jest wysyłane: wklej to do zgłoszenia na GitHubie.

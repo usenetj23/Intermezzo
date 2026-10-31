@@ -331,5 +331,6 @@ extension SettingsSearch {
         .init(.ai, "Dostępne modele", anchor: "ai-dostepne-modele", expert: true),
         .init(.about, "Otwórz logi…", anchor: "about-otworz-logi"),
         .init(.about, "Ustawienia systemowe…", anchor: "about-ustawienia-systemowe"),
+        .init(.about, "Kopiuje do schowka wersję aplikacji i macOS, model Maca, monitory, stan uprawnień i funkcje, które się wycofały, oraz kilka linii dziennika o świetle i multimediach. Bez nazw sieci, tytułów z kalendarza, miejsc i nazwy użytkownika. Nic nie jest wysyłane: wklej to do zgłoszenia na GitHubie.", anchor: "about-kopiuje-do-schowka-wersje-aplikacji"),
     ]
 }

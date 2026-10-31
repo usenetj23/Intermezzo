@@ -14,3 +14,30 @@ Status#pause
 Advanced#idle
 ModeConfigurations.json
 Assertions.json
+# Diagnostics report text (English on purpose, pasted into GitHub issues) and search words
+Version
+] as? String ?? 
+] as? String ?? 
+Language
+Chip
+Cores
+Memory
+, notch
+Idle detection
+Event Monitor
+Event Monitor requested, fell back to Event Source
+Ambient light sensor
+no reading
+Now Playing (MediaRemote)
+not available
+Focus modes
+not readable (Full Disk Access)
+Displays without colour control
+App
+Displays
+Features and fallbacks
+diagnostics diagnostyka raport zgłoszenie błąd bug github issue schowek clipboard
+### Intermezzo diagnostics
+, startingAt: 0))  %@
+[Log excerpt: light, media, sensors, BetterDisplay]
+### Intermezzo diagnostics

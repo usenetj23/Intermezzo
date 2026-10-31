@@ -724,4 +724,10 @@ STRINGS = {
         "Resume playback after the break",
     "Szukaj w ustawieniach": "Search settings",
     "Brak wyników": "No results",
+    "Kopiuj diagnostykę":
+        "Copy diagnostics",
+    "Skopiowano do schowka":
+        "Copied to the clipboard",
+    "Kopiuje do schowka wersję aplikacji i macOS, model Maca, monitory, stan uprawnień i funkcje, które się wycofały, oraz kilka linii dziennika o świetle i multimediach. Bez nazw sieci, tytułów z kalendarza, miejsc i nazwy użytkownika. Nic nie jest wysyłane: wklej to do zgłoszenia na GitHubie.":
+        "Copies the app and macOS versions, the Mac model, the displays, the permission states and the features that fell back, plus a few log lines about light and media, to the clipboard. No network names, calendar titles, places or user name. Nothing is sent: paste it into a GitHub issue.",
 }

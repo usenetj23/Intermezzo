@@ -25,6 +25,10 @@ Each of these needs a permission you grant in macOS, and the app works without a
 - **Accessibility and Automation:** used by AppleScript rules and gallery scripts that ask System Events about running apps and window titles. Scripts run on your Mac.
 - **Notifications:** to show break reminders.
 
+## Diagnostics you copy yourself
+
+Settings › About › **Copy diagnostics** puts a text on your clipboard: the app and macOS versions, the Mac model and chip, the displays, the permission states, which features fell back (for example no light sensor) and a few log lines about light, media and sensors. It has no Wi-Fi or VPN names, calendar titles, places or user name. The app sends it nowhere; you decide whether to paste it into a GitHub issue.
+
 ## Network requests
 
 All of these are optional and off unless you use the feature.

@@ -9,6 +9,8 @@ import IOKit.hidsystem
 import IntermezzoKit
 
 struct AboutPane: View {
+    @State private var copied = false
+
     var body: some View {
         let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.1"
         VStack(spacing: 12) {
@@ -34,6 +36,19 @@ struct AboutPane: View {
                 }.settingsAnchor("about-ustawienia-systemowe")
             }
             .controlSize(.small)
+            Button {
+                DiagnosticsCollector.copyToPasteboard()
+                copied = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) { copied = false }
+            } label: {
+                Label(LocalizedStringKey(copied ? "Skopiowano do schowka" : "Kopiuj diagnostykę"),
+                      systemImage: copied ? "checkmark" : "doc.on.clipboard")
+            }
+            .controlSize(.small)
+            Text("Kopiuje do schowka wersję aplikacji i macOS, model Maca, monitory, stan uprawnień i funkcje, które się wycofały, oraz kilka linii dziennika o świetle i multimediach. Bez nazw sieci, tytułów z kalendarza, miejsc i nazwy użytkownika. Nic nie jest wysyłane: wklej to do zgłoszenia na GitHubie.")
+                .settingsNote().settingsAnchor("about-kopiuje-do-schowka-wersje-aplikacji")
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 40)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }

@@ -728,4 +728,10 @@ STRINGS = {
         "Wznawiaj odtwarzanie po przerwie",
     "Szukaj w ustawieniach": "Szukaj w ustawieniach",
     "Brak wyników": "Brak wyników",
+    "Kopiuj diagnostykę":
+        "Kopiuj diagnostykę",
+    "Skopiowano do schowka":
+        "Skopiowano do schowka",
+    "Kopiuje do schowka wersję aplikacji i macOS, model Maca, monitory, stan uprawnień i funkcje, które się wycofały, oraz kilka linii dziennika o świetle i multimediach. Bez nazw sieci, tytułów z kalendarza, miejsc i nazwy użytkownika. Nic nie jest wysyłane: wklej to do zgłoszenia na GitHubie.":
+        "Kopiuje do schowka wersję aplikacji i macOS, model Maca, monitory, stan uprawnień i funkcje, które się wycofały, oraz kilka linii dziennika o świetle i multimediach. Bez nazw sieci, tytułów z kalendarza, miejsc i nazwy użytkownika. Nic nie jest wysyłane: wklej to do zgłoszenia na GitHubie.",
 }
