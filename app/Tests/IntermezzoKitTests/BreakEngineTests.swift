@@ -261,4 +261,105 @@ final class BreakEngineTests: XCTestCase {
         _ = engine.tick(now: t0.addingTimeInterval(61 + 601), config: c)
         XCTAssertEqual(engine.completedShortBreaks, 0)   // a long break resets the count of short ones
     }
+
+    // MARK: Skipped breaks pile up
+
+    private var skipConfig: BreakConfig {
+        var c = BreakConfig()
+        c.cycleMinutes = 1
+        c.shortBreakSeconds = 180
+        c.longBreakSeconds = 600
+        c.longBreakEvery = 4
+        return c
+    }
+
+    /// Runs the engine to the next break and returns when it started.
+    private func startNextBreak(_ engine: inout BreakEngine, at time: Date, _ c: BreakConfig) -> (Date, BreakKind) {
+        let due = time.addingTimeInterval(TimeInterval(c.cycleMinutes * 60) + 1)
+        let events = engine.tick(now: due, config: c)
+        guard case .breakStarted(let kind)? = events.first else { fatalError("no break started") }
+        return (due, kind)
+    }
+
+    func testSkippingAShortBreakAddsItsTimeToTheNextShortOneUntilTheLongLength() {
+        let c = skipConfig
+        var engine = BreakEngine()
+        var now = Date(timeIntervalSince1970: 1_000_000)
+        engine.start(now: now, config: c)
+        var planned: [TimeInterval] = []
+        for _ in 0..<2 {   // two skips, each on a short break
+            let (due, kind) = startNextBreak(&engine, at: now, c)
+            XCTAssertEqual(kind, .short)
+            planned.append(engine.activeBreakTotal)
+            _ = engine.skipBreak(now: due, config: c)
+            now = due
+        }
+        XCTAssertEqual(planned, [180, 360])
+        XCTAssertEqual(engine.plannedDuration(for: .short, config: c), 540)
+        XCTAssertEqual(engine.plannedDuration(for: .long, config: c), 600)   // the long break never grows
+    }
+
+    func testThePileNeverGrowsPastTheLongBreakAndAFinishedBreakClearsIt() {
+        var c = skipConfig
+        c.longBreakEvery = 12
+        var engine = BreakEngine()
+        var now = Date(timeIntervalSince1970: 1_000_000)
+        engine.start(now: now, config: c)
+        for _ in 0..<6 {
+            let (due, _) = startNextBreak(&engine, at: now, c)
+            _ = engine.skipBreak(now: due, config: c)
+            now = due
+        }
+        XCTAssertEqual(engine.plannedDuration(for: .short, config: c), 600)
+        let (due, kind) = startNextBreak(&engine, at: now, c)
+        XCTAssertEqual(kind, .short)
+        XCTAssertEqual(engine.activeBreakTotal, 600)
+        _ = engine.tick(now: due.addingTimeInterval(601), config: c)     // it runs to its end
+        XCTAssertEqual(engine.skippedShortExtra, 0)
+        XCTAssertEqual(engine.plannedDuration(for: .short, config: c), 180)
+    }
+
+    func testASkippedLongBreakIsStillDueNextTime() {
+        let c = skipConfig
+        var engine = BreakEngine()
+        var now = Date(timeIntervalSince1970: 1_000_000)
+        engine.start(now: now, config: c)
+        for _ in 0..<3 {   // three short breaks completed
+            let (due, kind) = startNextBreak(&engine, at: now, c)
+            XCTAssertEqual(kind, .short)
+            _ = engine.tick(now: due.addingTimeInterval(181), config: c)
+            now = due.addingTimeInterval(181)
+        }
+        XCTAssertEqual(engine.previewNextKind(config: c), .long)
+        let (due, kind) = startNextBreak(&engine, at: now, c)
+        XCTAssertEqual(kind, .long)
+        XCTAssertEqual(engine.activeBreakTotal, 600)
+        _ = engine.skipBreak(now: due, config: c)
+        XCTAssertEqual(engine.previewNextKind(config: c), .long)             // still long, not a short one
+        let (due2, kind2) = startNextBreak(&engine, at: due, c)
+        XCTAssertEqual(kind2, .long)
+        XCTAssertEqual(engine.activeBreakTotal, 600)                        // and no longer than its setting
+        _ = engine.tick(now: due2.addingTimeInterval(601), config: c)
+        XCTAssertEqual(engine.previewNextKind(config: c), .short)           // a finished long break starts over
+    }
+
+    func testSkippingFromTheReminderCardCountsLikeSkippingTheBreakOnScreen() {
+        let c = skipConfig
+        var engine = BreakEngine()
+        let now = Date(timeIntervalSince1970: 1_000_000)
+        engine.start(now: now, config: c)
+        XCTAssertEqual(engine.skipUpcoming(now: now, config: c), .short)
+        XCTAssertEqual(engine.plannedDuration(for: .short, config: c), 360)
+        XCTAssertEqual(engine.completedShortBreaks, 1)
+    }
+
+    func testAPlusOneMinuteExtensionIsPartOfTheBreakLength() {
+        let c = skipConfig
+        var engine = BreakEngine()
+        let now = Date(timeIntervalSince1970: 1_000_000)
+        engine.start(now: now, config: c)
+        let (due, _) = startNextBreak(&engine, at: now, c)
+        engine.extendBreak(minutes: 1, now: due)
+        XCTAssertEqual(engine.activeBreakTotal, 240)
+    }
 }

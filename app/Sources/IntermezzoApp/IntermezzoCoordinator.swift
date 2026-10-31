@@ -885,7 +885,7 @@ final class BreakCoordinator: ObservableObject {
                 rec.wasSkipped = true
                 rec.outcomeRaw = BreakOutcome.ruleSkipped.rawValue
                 context.insert(rec)
-                engine.resetCycle(now: now, config: config)
+                _ = engine.skipUpcoming(now: now, config: config)
                 PomodoroController.shared.complete(at: now)
                 breakActions.fireNow(when: .afterPostpone)
                 Trace.log("rule '\(rule.kind.rawValue)/\(rule.text)' matched -> auto skip")
@@ -1126,7 +1126,7 @@ final class BreakCoordinator: ObservableObject {
                 // Before our own sound starts: only other apps' media is paused.
                 MediaPauser.shared.breakWillStart()
                 overlay?.show(kind: kind,
-                             duration: config.breakDuration(for: kind),
+                             duration: engine.activeBreakTotal > 0 ? engine.activeBreakTotal : config.breakDuration(for: kind),
                              progressText: BreakStyleSettings.motivation.progressText(breakNumber: max(1, done)),
                              headline: L(content.headline),
                              detail: L(content.detail),
@@ -1216,7 +1216,7 @@ final class BreakCoordinator: ObservableObject {
             statusSymbol = "cup.and.saucer.fill"
             headlineText = kind == .long ? String(localized: "Long break ends in") : String(localized: "Break ends in")
             countdownText = leftStr
-            let total = config.breakDuration(for: kind)
+            let total = engine.activeBreakTotal > 0 ? engine.activeBreakTotal : config.breakDuration(for: kind)
             setRing(1 - engine.remainingBreakTime(now: now) / max(total, 1))
             setPauseReason("")
             // The fullscreen overlay owns the screen during a break —
@@ -1449,7 +1449,7 @@ final class BreakCoordinator: ObservableObject {
             rec.wasSkipped = true
             rec.outcomeRaw = BreakOutcome.skippedAhead.rawValue
             context.insert(rec)
-            engine.resetCycle(now: now, config: config)
+            _ = engine.skipUpcoming(now: now, config: config)
             PomodoroController.shared.complete(at: now)
             breakActions.fireNow(when: .afterPostpone)
             Trace.log("skip upcoming break from reminder card (kind=\(kind == .long ? "long" : "short")) via \(source) — next reminder in \(config.cycleMinutes) min")

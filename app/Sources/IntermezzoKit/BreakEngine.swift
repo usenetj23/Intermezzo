@@ -62,6 +62,9 @@ public struct BreakConfig: Equatable {
         seconds > shortBreakSeconds && seconds >= longBreakSeconds ? .long : .short
     }
 
+    /// The longest a short break may grow to by piling up skipped ones.
+    var shortBreakCeiling: TimeInterval { TimeInterval(max(shortBreakSeconds, longBreakSeconds)) }
+
     public func breakDuration(for kind: BreakKind) -> TimeInterval {
         switch kind {
         case .short: return TimeInterval(shortBreakSeconds)
@@ -75,6 +78,12 @@ public struct BreakConfig: Equatable {
 public struct BreakEngine {
     public private(set) var state: EngineState = .paused(reasons: [.manual])
     public private(set) var completedShortBreaks: Int = 0
+    /// Time added to the next short break by short breaks that were skipped: it piles up (a skipped break of 3 min
+    /// makes the next one 6, then 9) until the short break is as long as the long one. A finished break clears it.
+    /// The long break never grows.
+    public private(set) var skippedShortExtra: TimeInterval = 0
+    /// Length of the break that is on screen (its planned length plus any "+1 min" added since).
+    public private(set) var activeBreakTotal: TimeInterval = 0
     /// Remaining time frozen at the moment of pausing (working phase only).
     private var frozenRemaining: TimeInterval?
     /// Pause reasons raised while a break was live. A break is never
@@ -100,12 +109,15 @@ public struct BreakEngine {
         case .working(let until):
             if now >= until {
                 let kind = startKind ?? previewNextKind(config: config)
-                state = .onBreak(kind: kind, until: now.addingTimeInterval(config.breakDuration(for: kind)))
+                let planned = plannedDuration(for: kind, config: config)
+                activeBreakTotal = planned
+                state = .onBreak(kind: kind, until: now.addingTimeInterval(planned))
                 events.append(.breakStarted(kind))
             }
         case .onBreak(let kind, let until):
             if now >= until {
                 if kind == .short { completedShortBreaks += 1 } else { completedShortBreaks = 0 }
+                skippedShortExtra = 0
                 leaveBreak(remaining: TimeInterval(config.cycleMinutes * 60), now: now)
                 events.append(.breakCompleted)
             }
@@ -117,7 +129,7 @@ public struct BreakEngine {
 
     public mutating func skipBreak(now: Date, config: BreakConfig) -> EngineEvent? {
         guard case .onBreak(let kind, _) = state else { return nil }
-        if kind == .short { completedShortBreaks += 1 } else { completedShortBreaks = 0 }
+        recordSkip(kind: kind, planned: activeBreakTotal, config: config)
         leaveBreak(remaining: TimeInterval(config.cycleMinutes * 60), now: now)
         return .breakSkipped(kind)
     }
@@ -129,7 +141,9 @@ public struct BreakEngine {
         // a break always restarts the work cycle at full length.
         if case .paused(let reasons) = state { pendingReasons = reasons }
         frozenRemaining = nil
-        state = .onBreak(kind: kind, until: now.addingTimeInterval(config.breakDuration(for: kind)))
+        let planned = plannedDuration(for: kind, config: config)
+        activeBreakTotal = planned
+        state = .onBreak(kind: kind, until: now.addingTimeInterval(planned))
         return .breakStarted(kind)
     }
 
@@ -163,6 +177,7 @@ public struct BreakEngine {
     /// you keep resting longer, the countdown to its end is pushed out).
     public mutating func extendBreak(minutes: Int, now: Date) {
         guard case .onBreak(let kind, let until) = state else { return }
+        activeBreakTotal += TimeInterval(minutes * 60)
         state = .onBreak(kind: kind, until: until.addingTimeInterval(TimeInterval(minutes * 60)))
     }
 
@@ -185,6 +200,7 @@ public struct BreakEngine {
     /// break and restarts the work period at full length.
     public mutating func creditAway(kind: BreakKind, now: Date, config: BreakConfig) {
         if kind == .short { completedShortBreaks += 1 } else { completedShortBreaks = 0 }
+        skippedShortExtra = 0
         resetCycle(now: now, config: config)
     }
 
@@ -266,6 +282,36 @@ public struct BreakEngine {
     }
 
     // MARK: - Cycle maths
+
+    /// How long a break of `kind` lasts now: the long one always its set length, the short one its set length plus
+    /// what skipped short breaks piled up, never beyond the long break's length.
+    public func plannedDuration(for kind: BreakKind, config: BreakConfig) -> TimeInterval {
+        switch kind {
+        case .long: return config.breakDuration(for: .long)
+        case .short: return min(config.breakDuration(for: .short) + skippedShortExtra, config.shortBreakCeiling)
+        }
+    }
+
+    /// A skipped break (on screen, from the reminder card or by a rule). A skipped short break moves the cycle
+    /// on and adds its time to the next short one; a skipped long break stays due: the next one is long again.
+    private mutating func recordSkip(kind: BreakKind, planned: TimeInterval, config: BreakConfig) {
+        switch kind {
+        case .short:
+            completedShortBreaks += 1
+            skippedShortExtra = min(max(0, planned), max(0, config.shortBreakCeiling - config.breakDuration(for: .short)))
+        case .long:
+            break
+        }
+    }
+
+    /// Skips the break that is coming (card "skip", an automatic skip by a rule): same accounting as skipping
+    /// the one on screen, and the work period starts again at full length.
+    public mutating func skipUpcoming(now: Date, config: BreakConfig) -> BreakKind {
+        let kind = previewNextKind(config: config)
+        recordSkip(kind: kind, planned: plannedDuration(for: kind, config: config), config: config)
+        resetCycle(now: now, config: config)
+        return kind
+    }
 
     /// Kind of the next break given the current cycle position.
     public func previewNextKind(config: BreakConfig) -> BreakKind {
