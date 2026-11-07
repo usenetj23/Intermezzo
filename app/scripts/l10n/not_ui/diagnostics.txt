@@ -68,3 +68,8 @@ Wi-Fi
 on
 off (a Mac finds its position by Wi-Fi, so there is usually none)
 no interface
+VPN (macOS says)
+scutil gave no answer
+no VPN connections
+Network tunnels
+none

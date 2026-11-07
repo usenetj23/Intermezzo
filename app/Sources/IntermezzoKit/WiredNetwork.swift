@@ -126,6 +126,18 @@ public enum WiredNetwork {
 /// Connected VPN services from `scutil --nc list`: system IPSec/L2TP and Network Extension VPNs
 /// alike (the WireGuard app shows up as `VPN (com.wireguard.macos) "Home"`).
 public enum VPNList {
+    /// Every connection scutil lists with its state, e.g. ("Home", "Disconnected"): for the diagnostics, to see what
+    /// macOS itself says when the app thinks a VPN is (not) connected.
+    public static func states(fromScutil text: String) -> [(name: String, state: String)] {
+        text.split(separator: "\n").compactMap { rawLine in
+            let line = rawLine.trimmingCharacters(in: .whitespaces)
+            guard let open = line.firstIndex(of: "("), let close = line.firstIndex(of: ")"), open < close else { return nil }
+            let parts = line.components(separatedBy: "\"")
+            guard parts.count >= 2, !parts[1].isEmpty else { return nil }
+            return (parts[1], String(line[line.index(after: open)..<close]))
+        }
+    }
+
     public static func connectedNames(fromScutil text: String) -> [String] {
         var names: [String] = []
         for rawLine in text.split(separator: "\n") {

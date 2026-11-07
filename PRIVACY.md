@@ -34,6 +34,7 @@ Settings › About › **Copy diagnostics** puts a text on your clipboard: the a
 All of these are optional and off unless you use the feature.
 
 - **Weather effect on the break screen.** The app asks [Open-Meteo](https://open-meteo.com) for the current weather. The request contains the latitude and longitude of the Mac's location (the app asks for about 100 m accuracy), or the cached location. If the Mac gives no position, the place you typed in Light settings or the city of your time zone is used instead. Open-Meteo sees your IP address like any web server does. See its own privacy policy.
+- **Update check (off by default).** If you switch on Settings › About › "Check once a day for a new version" (or click "Check now"), the app asks GitHub (`api.github.com`) for the description of the newest release of this project. It is a plain HTTPS request with no identifier, cookie or information about your Mac, and the app's name as the only header. GitHub sees your IP address like any web server does; see GitHub's own privacy statement. The app only reads the version number and the release page address, never downloads or installs anything, and opens the release page only when you click. Which version you skipped and when the last check ran stay on this Mac.
 - **YouTube background theme.** If you choose a YouTube video as the break background, the app loads that video from YouTube in an embedded web view, and YouTube sees the request. By default this is not used.
 - **AI features** (settings assistant, rule-script author, weekly summary). Off by default. A request is sent only when you click one of the features:
   - With the **Apple on-device model** nothing leaves your Mac.
@@ -53,4 +54,4 @@ You can switch each feature and permission off in Settings and in System Setting
 
 If this changes, the change will appear in this file and in the release notes. Questions: open an issue at https://github.com/usenetj23/Intermezzo/issues.
 
-*Last updated: 2026-10-31, for version 1.42.1.*
+*Last updated: 2026-11-07, for version 1.43.0.*

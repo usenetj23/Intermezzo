@@ -1600,7 +1600,6 @@ runtime	-	LAN i karta z Rejestru pracy
 runtime	-	rejestr pracy wyłączony
 runtime	-	%@: liczy się do strefy przerw
 runtime	-	rejestr pracy też nie widzi strefy pracy
-runtime	-	co najmniej jedno źródło pasuje
 runtime	-	żadne źródło nie pasuje, ale trwają godziny pracy
 runtime	-	żadne źródło nie pasuje i są poza godzinami pracy
 runtime	-	wszystkie źródła wyłączone: przerwy działają wszędzie
@@ -1676,3 +1675,26 @@ compiler	IntermezzoApp/Settings/LightPane.swift:331	To jedna pozycja dla Świat�
 compiler	IntermezzoApp/Settings/LightPane.swift:333	Ustawienia miejsca pracy…
 compiler	IntermezzoApp/Settings/GeneralPane.swift:270	Promień: %lld m
 compiler	IntermezzoApp/Settings/GeneralPane.swift:308	Mac nie ma GPS i ustala pozycję po Wi-Fi, a ono jest wyłączone, więc to miejsce pracy nie zadziała. Użyj sieci LAN, VPN, kalendarza albo godzin pracy.
+compiler	IntermezzoApp/Settings/GeneralPane.swift:110	Bez blokady ekranu: zalicz jako nieobecność od %lld min
+compiler	IntermezzoApp/Settings/GeneralPane.swift:111	Timer zatrzymuje się po bezczynności, a ten czas wraca do timera po Twoim powrocie. Brak ruchu przy odblokowanym ekranie może być czytaniem, więc jako przerwę zalicza się go dopiero po tylu minutach albo od razu, gdy ekran zostanie zablokowany, uśpiony lub włączy się wygaszacz.
+compiler	IntermezzoApp/Settings/AboutPane.swift:42	Aktualizacje
+compiler	IntermezzoApp/Settings/AboutPane.swift:43	Sprawdzaj raz na dobę, czy jest nowa wersja
+compiler	IntermezzoApp/Settings/AboutPane.swift:47	Sprawdź teraz
+compiler	IntermezzoApp/Settings/AboutPane.swift:52	Aplikacja pyta GitHub o najnowsze wydanie zwykłym zapytaniem HTTPS, bez identyfikatora i bez danych o Twoim Macu (GitHub widzi Twój adres IP). Niczego nie pobiera ani nie instaluje: nową wersję pobierasz sam ze strony wydań.
+compiler	IntermezzoApp/Settings/AboutPane.swift:80	Sprawdzam…
+compiler	IntermezzoApp/Settings/AboutPane.swift:82	Masz najnowszą wersję (%@)
+compiler	IntermezzoApp/Settings/AboutPane.swift:86	Dostępna wersja %@
+compiler	IntermezzoApp/Settings/AboutPane.swift:88	Otwórz stronę wydania
+compiler	IntermezzoApp/Settings/AboutPane.swift:89	Pomiń tę wersję
+compiler	IntermezzoApp/Settings/AboutPane.swift:92	Nie udało się sprawdzić: %@
+runtime	-	nieoczekiwana odpowiedź GitHub
+runtime	-	Dostępna nowa wersja
+runtime	-	Intermezzo %@ czeka na stronie wydań. Nic nie jest pobierane ani instalowane samo.
+runtime	-	Zobacz
+runtime	-	kalendarz: %@
+runtime	-	VPN: %@
+runtime	-	Wi-Fi: %@
+runtime	-	zapisane miejsce
+runtime	-	LAN z Rejestru pracy
+runtime	-	Skupienie jako praca
+runtime	-	pasuje: %@

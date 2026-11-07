@@ -753,4 +753,36 @@ STRINGS = {
         "Position",
     "Ustawienia miejsca pracy…":
         "Work place settings…",
+    "Bez blokady ekranu: zalicz jako nieobecność od %lld min":
+        "Without a locked screen: counts as away from %lld min",
+    "Timer zatrzymuje się po bezczynności, a ten czas wraca do timera po Twoim powrocie. Brak ruchu przy odblokowanym ekranie może być czytaniem, więc jako przerwę zalicza się go dopiero po tylu minutach albo od razu, gdy ekran zostanie zablokowany, uśpiony lub włączy się wygaszacz.":
+        "The timer stops after the idle time and that time is given back when you return. No input with an unlocked screen may be reading, so it counts as a break only after this many minutes, or at once when the screen is locked, asleep or on the screen saver.",
+    "Aktualizacje":
+        "Updates",
+    "Sprawdzaj raz na dobę, czy jest nowa wersja":
+        "Check once a day for a new version",
+    "Sprawdź teraz":
+        "Check now",
+    "Aplikacja pyta GitHub o najnowsze wydanie zwykłym zapytaniem HTTPS, bez identyfikatora i bez danych o Twoim Macu (GitHub widzi Twój adres IP). Niczego nie pobiera ani nie instaluje: nową wersję pobierasz sam ze strony wydań.":
+        "The app asks GitHub for the newest release with a plain HTTPS request, with no identifier and nothing about your Mac (GitHub sees your IP address). It downloads and installs nothing: you get the new version yourself from the releases page.",
+    "Sprawdzam…":
+        "Checking…",
+    "Masz najnowszą wersję (%@)":
+        "You have the latest version (%@)",
+    "Dostępna wersja %@":
+        "Version %@ is available",
+    "Otwórz stronę wydania":
+        "Open the release page",
+    "Pomiń tę wersję":
+        "Skip this version",
+    "Nie udało się sprawdzić: %@":
+        "Could not check: %@",
+    "nieoczekiwana odpowiedź GitHub":
+        "unexpected answer from GitHub",
+    "Dostępna nowa wersja":
+        "A new version is available",
+    "Intermezzo %@ czeka na stronie wydań. Nic nie jest pobierane ani instalowane samo.":
+        "Intermezzo %@ is waiting on the releases page. Nothing is downloaded or installed by itself.",
+    "Zobacz":
+        "View",
 }

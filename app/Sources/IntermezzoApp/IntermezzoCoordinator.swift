@@ -329,6 +329,18 @@ final class BreakCoordinator: ObservableObject {
         notify: { [weak self] title, body in self?.notify(title: title, body: body) },
         flashPulse: { [weak self] hex in self?.flash.pulse(colorHex: hex) })
     private var awaySince: Date?
+    /// How long there had been no input when the timer stopped for this spell.
+    private var awayIdleAtStart: TimeInterval = 0
+    /// A sign of really leaving was seen during this spell: the screen locked, asleep or on the screen saver.
+    private var awayConfirmed = false
+
+    /// The screen is locked, asleep or showing the screen saver: the person is not reading it.
+    private static func screenIsAway() -> Bool {
+        if CGDisplayIsAsleep(CGMainDisplayID()) != 0 { return true }
+        if let session = CGSessionCopyCurrentDictionary() as? [String: Any],
+           (session["CGSSessionScreenIsLocked"] as? Bool) == true { return true }
+        return NSWorkspace.shared.runningApplications.contains { $0.bundleIdentifier == "com.apple.ScreenSaver.Engine" }
+    }
     private var clockOutOverlay: ClockOutController?
     private var clockOutAcknowledgedAt: Date?
     private var tickCount: Int = 0
@@ -612,6 +624,14 @@ final class BreakCoordinator: ObservableObject {
             || (geoOn && workDetector.geoMatch)
             || lanMatch
             || focusAtWork
+        // Which sources match, by name: the Work zone card says what opened the zone instead of "one matches".
+        var matchedSources: [String] = []
+        if calOn && workDetector.calendarMatch { matchedSources.append(L("kalendarz: %@", workDetector.calendarMatchSummary)) }
+        if vpnOn && workDetector.vpnMatch { matchedSources.append(L("VPN: %@", workDetector.vpnConnectedNames.joined(separator: ", "))) }
+        if wifiOn && workDetector.wifiMatch { matchedSources.append(L("Wi-Fi: %@", workDetector.currentSSID)) }
+        if geoOn && workDetector.geoMatch { matchedSources.append(L("zapisane miejsce")) }
+        if lanMatch { matchedSources.append(L("LAN z Rejestru pracy")) }
+        if focusAtWork { matchedSources.append(L("Skupienie jako praca")) }
         // Working hours and the work zone are alternatives, not both required: the timer runs inside the
         // hours OR while the Mac is at work (overtime, an outage, a day off), and holds only when neither holds.
         let inHoursNow = hoursMode == 3 && !outsideHours
@@ -623,7 +643,7 @@ final class BreakCoordinator: ObservableObject {
             let zoneBlock = !atWorkNow && !inHoursNow
             if zoneBlock { desired.insert(.outsideWorkZone) }
             gate("zone", .zone, "Strefa pracy", zoneBlock ? .blocking : .passing,
-                 atWorkNow ? "co najmniej jedno źródło pasuje"
+                 atWorkNow ? L("pasuje: %@", matchedSources.joined(separator: ", "))
                            : (inHoursNow ? "żadne źródło nie pasuje, ale trwają godziny pracy"
                                          : "żadne źródło nie pasuje i są poza godzinami pracy"))
             if atWorkNow != lastZoneState {
@@ -689,18 +709,29 @@ final class BreakCoordinator: ObservableObject {
         let threshold = TimeInterval(max(10, d.integer(forKey: Keys.idleThresholdSeconds)))
             if idle > threshold && !ignoreNaturalBreak {
                 if awaySince == nil {
+                    // The timer stops once the threshold has passed; the stretch that had to pass first is given
+                    // back on return (the timer is not to run while nobody was working).
                     awaySince = now
+                    awayConfirmed = false
+                    awayIdleAtStart = idle
                     engine.pause(reason: .userAway, now: now)
                 }
+                // A sign of really leaving: the screen locked, asleep or on the screen saver.
+                if !awayConfirmed, Self.screenIsAway() { awayConfirmed = true }
             } else if awaySince != nil {
                 let awayFor = now.timeIntervalSince(awaySince!)
                 awaySince = nil
                 let resetAfter = TimeInterval(max(1, d.integer(forKey: Keys.idleResetAfterMinutes)) * 60)
-                logNaturalBreak(away: awayFor, now: now)
-                // The time without input also includes the idle threshold that had to pass before "away" began.
-                let withoutInput = awayFor + threshold
+                // The time without input also includes the idle threshold that had to pass before the timer stopped.
+                let withoutInput = awayFor + awayIdleAtStart
+                // No input can also be reading: only a locked, asleep or screen-saver screen, or a long stretch
+                // without input, counts as having been away.
+                let unconfirmed = TimeInterval(max(2, d.object(forKey: "awayUnconfirmedMinutes") as? Int ?? 10) * 60)
+                let realAbsence = AwayPolicy.isRealAbsence(idleSeconds: withoutInput, confirmed: awayConfirmed,
+                                                           unconfirmedSeconds: unconfirmed)
+                if realAbsence { logNaturalBreak(away: awayFor, now: now) }
                 let creditEnabled = d.object(forKey: "awayCreditsBreak") as? Bool ?? true
-                let credit = creditEnabled
+                let credit = creditEnabled && realAbsence
                     ? AwayCredit.kind(awaySeconds: withoutInput, nextKind: engine.previewNextKind(config: config), config: config)
                     : nil
                 if let credit {
@@ -712,18 +743,23 @@ final class BreakCoordinator: ObservableObject {
                             ? L("Byłeś nieobecny %lld min: zaliczone jako długa przerwa, timer zaczyna od nowa.", Int(withoutInput / 60))
                             : L("Byłeś nieobecny %lld min: zaliczone jako krótka przerwa, timer zaczyna od nowa.", Int(withoutInput / 60)),
                          symbol: "hand.wave.fill")
-                } else if awayFor > resetAfter {
+                } else if realAbsence && awayFor > resetAfter {
                     // "Timer Reset Logic": restart the work cycle at
                     // FULL length — returning never triggers an instant break.
                     engine.resetCycle(now: now, config: config)
                     PomodoroController.shared.abandon(at: now)
-                } else if awayFor > config.breakDuration(for: .short) + 30 {
-                    post(title: "Witaj z powrotem",
-                         body: L("Byłeś nieobecny %lld min — zaliczyć to jako przerwę?", Int(awayFor / 60)),
-                         symbol: "hand.wave.fill",
-                         actions: [ToastAction(title: "Zalicz przerwę") { [weak self] in
-                             self?.creditBreak(away: awayFor)
-                         }])
+                } else {
+                    // Back after a short stretch (or reading): the time before the timer stopped is given back.
+                    engine.refundWorkTime(seconds: awayIdleAtStart, config: config)
+                    Trace.log("idle: back after \(Int(withoutInput)) s, \(Int(awayIdleAtStart)) s given back to the timer")
+                    if awayFor > config.breakDuration(for: .short) + 30 {
+                        post(title: "Witaj z powrotem",
+                             body: L("Byłeś nieobecny %lld min — zaliczyć to jako przerwę?", Int(awayFor / 60)),
+                             symbol: "hand.wave.fill",
+                             actions: [ToastAction(title: "Zalicz przerwę") { [weak self] in
+                                 self?.creditBreak(away: awayFor)
+                             }])
+                    }
                 }
                 engine.resume(reason: .userAway, now: now)
             }
@@ -885,7 +921,7 @@ final class BreakCoordinator: ObservableObject {
                 rec.wasSkipped = true
                 rec.outcomeRaw = BreakOutcome.ruleSkipped.rawValue
                 context.insert(rec)
-                engine.resetCycle(now: now, config: config)
+                _ = engine.skipUpcoming(now: now, config: config)
                 PomodoroController.shared.complete(at: now)
                 breakActions.fireNow(when: .afterPostpone)
                 Trace.log("rule '\(rule.kind.rawValue)/\(rule.text)' matched -> auto skip")
@@ -1126,7 +1162,7 @@ final class BreakCoordinator: ObservableObject {
                 // Before our own sound starts: only other apps' media is paused.
                 MediaPauser.shared.breakWillStart()
                 overlay?.show(kind: kind,
-                             duration: config.breakDuration(for: kind),
+                             duration: engine.activeBreakTotal > 0 ? engine.activeBreakTotal : config.breakDuration(for: kind),
                              progressText: BreakStyleSettings.motivation.progressText(breakNumber: max(1, done)),
                              headline: L(content.headline),
                              detail: L(content.detail),
@@ -1216,7 +1252,7 @@ final class BreakCoordinator: ObservableObject {
             statusSymbol = "cup.and.saucer.fill"
             headlineText = kind == .long ? String(localized: "Long break ends in") : String(localized: "Break ends in")
             countdownText = leftStr
-            let total = config.breakDuration(for: kind)
+            let total = engine.activeBreakTotal > 0 ? engine.activeBreakTotal : config.breakDuration(for: kind)
             setRing(1 - engine.remainingBreakTime(now: now) / max(total, 1))
             setPauseReason("")
             // The fullscreen overlay owns the screen during a break —
@@ -1449,7 +1485,7 @@ final class BreakCoordinator: ObservableObject {
             rec.wasSkipped = true
             rec.outcomeRaw = BreakOutcome.skippedAhead.rawValue
             context.insert(rec)
-            engine.resetCycle(now: now, config: config)
+            _ = engine.skipUpcoming(now: now, config: config)
             PomodoroController.shared.complete(at: now)
             breakActions.fireNow(when: .afterPostpone)
             Trace.log("skip upcoming break from reminder card (kind=\(kind == .long ? "long" : "short")) via \(source) — next reminder in \(config.cycleMinutes) min")

@@ -18,4 +18,15 @@ final class VPNListTests: XCTestCase {
         let idle = list.replacingOccurrences(of: "(Connected)", with: "(Disconnected)")
         XCTAssertEqual(VPNList.connectedNames(fromScutil: idle), [])
     }
+
+    func testStatesListEveryConnectionWithItsState() {
+        let text = """
+        Available network connection services in the current set (*=enabled):
+        * (Connected)      A1B2 VPN (com.wireguard.macos) "WETECH"   [VPN:com.wireguard.macos]
+        * (Disconnected)   C3D4 VPN (com.wireguard.macos) "Home"   [VPN:com.wireguard.macos]
+        """
+        let states = VPNList.states(fromScutil: text)
+        XCTAssertEqual(states.map(\.name), ["WETECH", "Home"])
+        XCTAssertEqual(states.map(\.state), ["Connected", "Disconnected"])
+    }
 }

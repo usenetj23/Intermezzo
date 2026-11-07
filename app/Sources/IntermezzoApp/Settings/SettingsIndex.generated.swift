@@ -19,6 +19,7 @@ extension SettingsSearch {
         .init(.general, "Detect inactivity", anchor: "general-detect-inactivity"),
         .init(.general, "Zalicz nieobecność jako przerwę (krótką albo długą)", anchor: "general-zalicz-nieobecnosc-jako-przerwe-krot"),
         .init(.general, "Gdy czas bez ruchu myszą i klawiaturą jest co najmniej tak długi jak następna zaplanowana przerwa, timer zaczyna od nowa tak, jakby przerwa się odbyła. Jeśli następna miała być krótka, a nieobecność trwała tyle co długa przerwa albo dłużej, liczy się jako długa. Krótsze nieobecności nadal obsługuje ustawienie poniżej.", anchor: "general-gdy-czas-bez-ruchu-mysza-i-klawiatur"),
+        .init(.general, "Timer zatrzymuje się po bezczynności, a ten czas wraca do timera po Twoim powrocie. Brak ruchu przy odblokowanym ekranie może być czytaniem, więc jako przerwę zalicza się go dopiero po tylu minutach albo od razu, gdy ekran zostanie zablokowany, uśpiony lub włączy się wygaszacz.", anchor: "general-brak-ruchu-mysza-i-klawiatura-przy-o"),
         .init(.general, "Zapisuj dłuższą nieobecność jako przerwę naturalną", anchor: "general-zapisuj-dluzsza-nieobecnosc-jako-prz"),
         .init(.general, "Obiad, kawa czy spacer to nie ta sama przerwa co przypomnienie z aplikacji. Takie wpisy są liczone osobno w Statystykach (nie zaliczają passy ani nie wchodzą do wykresu) i widać je w historii z ikoną spaceru. Nieobecność powyżej 6 godzin traktuję jako koniec dnia i jej nie zapisuję.", anchor: "general-obiad-kawa-czy-spacer-to-nie-ta-sama"),
         .init(.general, "Working Hours", anchor: "hours"),
@@ -343,6 +344,11 @@ extension SettingsSearch {
         .init(.ai, "Dostępne modele", anchor: "ai-dostepne-modele", expert: true),
         .init(.about, "Otwórz logi…", anchor: "about-otworz-logi"),
         .init(.about, "Ustawienia systemowe…", anchor: "about-ustawienia-systemowe"),
+        .init(.about, "Sprawdzaj raz na dobę, czy jest nowa wersja", anchor: "about-sprawdzaj-raz-na-dobe-czy-jest-nowa"),
+        .init(.about, "Sprawdź teraz", anchor: "about-sprawdz-teraz"),
+        .init(.about, "Aplikacja pyta GitHub o najnowsze wydanie zwykłym zapytaniem HTTPS, bez identyfikatora i bez danych o Twoim Macu (GitHub widzi Twój adres IP). Niczego nie pobiera ani nie instaluje: nową wersję pobierasz sam ze strony wydań.", anchor: "about-aplikacja-pyta-github-o-najnowsze-wy"),
         .init(.about, "Kopiuje do schowka wersję aplikacji i macOS, model Maca, monitory, stan uprawnień i funkcje, które się wycofały, oraz kilka linii dziennika o świetle i multimediach. Bez nazw sieci, tytułów z kalendarza, miejsc i nazwy użytkownika. Nic nie jest wysyłane: wklej to do zgłoszenia na GitHubie.", anchor: "about-kopiuje-do-schowka-wersje-aplikacji"),
+        .init(.about, "Otwórz stronę wydania", anchor: "about-otworz-strone-wydania"),
+        .init(.about, "Pomiń tę wersję", anchor: "about-pomin-te-wersje"),
     ]
 }

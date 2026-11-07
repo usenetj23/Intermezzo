@@ -198,7 +198,7 @@ struct BreaksPane: View {
                     Text("After Any End").tag(BreakActionWhen.afterAnyEnd)
                     Text("When Button Clicked").tag(BreakActionWhen.buttonClicked)
                 }
-                .frame(width: 190)
+                .frame(minWidth: 130, idealWidth: 190, maxWidth: 190)
                 if actionItems[i].when != .buttonClicked {
                     // Editable seconds field — the stepper was too slow for
                     // e.g. "fire 180 s before due" and clipped the row.
@@ -212,6 +212,9 @@ struct BreaksPane: View {
                              ? "s przed" : "s po")
                             .font(.callout)
                             .foregroundStyle(.secondary)
+                            // One line, whatever the width: a squeezed row used to stack the letters.
+                            .lineLimit(1)
+                            .fixedSize()
                     }
                 }
                 Spacer(minLength: 8)

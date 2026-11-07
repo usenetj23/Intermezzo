@@ -145,7 +145,8 @@ The script signs the app ad hoc with a designated requirement based on the bundl
 
 1. Download `Intermezzo-<version>.zip` from [Releases](https://github.com/usenetj23/Intermezzo/releases), or build the app yourself. Move `Intermezzo.app` to `/Applications`.
 2. The app is not notarised, so macOS blocks the first launch. Open System Settings › Privacy & Security and click **Open Anyway** next to Intermezzo. In Terminal you can instead run `xattr -dr com.apple.quarantine /Applications/Intermezzo.app`.
-3. Grant only the permissions you want to use. Intermezzo works without any of them, and Settings › Advanced › Permissions shows what each one is for:
+3. Updates: Intermezzo never updates itself. Optionally, Settings › About can check GitHub once a day and tell you when a newer release exists (off by default; see the privacy notes); you then download it from the releases page yourself.
+4. Grant only the permissions you want to use. Intermezzo works without any of them, and Settings › Advanced › Permissions shows what each one is for:
    - Calendar: meeting and holiday detection.
    - Location: weather, sun position, the saved-place work zone and the Wi-Fi network name.
    - Input Monitoring: detecting a natural pause in typing.
@@ -157,12 +158,12 @@ The script signs the app ad hoc with a designated requirement based on the bundl
 Release zips are built on GitHub's servers from the tagged source by the [Release workflow](.github/workflows/release.yml), not on a personal machine. Each zip carries a signed [build provenance attestation](https://docs.github.com/en/actions/security-for-github-actions/using-artifact-attestations) that ties it to the exact commit and workflow run. To check a download with the [GitHub CLI](https://cli.github.com):
 
 ```bash
-gh attestation verify Intermezzo-1.42.1.zip -R usenetj23/Intermezzo
+gh attestation verify Intermezzo-1.43.0.zip -R usenetj23/Intermezzo
 ```
 
 Other checks:
 - Every push is scanned by [CodeQL](https://github.com/usenetj23/Intermezzo/security/code-scanning), GitHub's static security analysis, and the unit tests run on each change.
-- Each release lists the zip's SHA-256 checksum. Compare it with `shasum -a 256 Intermezzo-1.42.1.zip`.
+- Each release lists the zip's SHA-256 checksum. Compare it with `shasum -a 256 Intermezzo-1.43.0.zip`.
 - The release notes link a [VirusTotal](https://www.virustotal.com) report for the zip.
 - You can always build the app yourself from source (see [Building](#building)).
 

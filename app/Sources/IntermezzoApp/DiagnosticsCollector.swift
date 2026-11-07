@@ -53,6 +53,12 @@ enum DiagnosticsCollector {
             ("Now Playing (MediaRemote)", yesNo(MediaPauser.mediaRemoteLoaded, "loaded", "not available")),
             ("Focus modes", yesNo(WorkDetector.focusSnapshot() != nil, "readable", "not readable (Full Disk Access)")),
             ("BetterDisplay", String(describing: BetterDisplayLight.shared.link)),
+            ("VPN (macOS says)", { () -> String in
+                guard let out = WorkDetector.runProcess("/usr/sbin/scutil", ["--nc", "list"]) else { return "scutil gave no answer" }
+                let states = VPNList.states(fromScutil: out)
+                return states.isEmpty ? "no VPN connections" : states.map { "\($0.name): \($0.state)" }.joined(separator: ", ")
+            }()),
+            ("Network tunnels", WorkZoneProbe.interfaces().tunnels.isEmpty ? "none" : WorkZoneProbe.interfaces().tunnels),
             ("Wi-Fi", { () -> String in switch WorkDetector.wifiState() {
                 case .on: return "on"
                 case .off: return "off (a Mac finds its position by Wi-Fi, so there is usually none)"
