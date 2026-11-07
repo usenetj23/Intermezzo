@@ -25,6 +25,15 @@ Each of these needs a permission you grant in macOS, and the app works without a
 - **Accessibility and Automation:** used by AppleScript rules and gallery scripts that ask System Events about running apps and window titles. Scripts run on your Mac.
 - **Notifications:** to show break reminders.
 
+## State for automation (off by default)
+
+If you switch on Settings › General › "Publish the state and events for other programs", the app keeps a small JSON file
+(`~/Library/Application Support/Intermezzo/state.json`, readable only by you) with its state: the timer, the break, whether
+you are in the work zone, in a meeting or in Focus, idle or locked, VPN, Light and keep-awake. It also posts system
+notifications for events (such as a break starting) that other programs on the Mac can listen to. It holds no event
+titles, network names or places, and nothing leaves the Mac. Switching it off removes the file. Break Actions that run
+your own Shortcuts on events work without it; the Shortcut then receives the same state as its input.
+
 ## Diagnostics you copy yourself
 
 Settings › About › **Copy diagnostics** puts a text on your clipboard: the app and macOS versions, the Mac model and chip, the displays, the permission states, which features fell back (for example no light sensor) and a few log lines about light, media and sensors. It has no Wi-Fi or VPN names, calendar titles, places or user name. The app sends it nowhere; you decide whether to paste it into a GitHub issue.
@@ -54,4 +63,4 @@ You can switch each feature and permission off in Settings and in System Setting
 
 If this changes, the change will appear in this file and in the release notes. Questions: open an issue at https://github.com/usenetj23/Intermezzo/issues.
 
-*Last updated: 2026-11-07, for version 1.43.0.*
+*Last updated: 2026-11-07, for version 1.44.0.*

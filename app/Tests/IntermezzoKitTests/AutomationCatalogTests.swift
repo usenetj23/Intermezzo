@@ -78,7 +78,7 @@ final class AutomationCatalogTests: XCTestCase {
         let all: [AutomationCommand] = [.startShort, .startLong, .postpone(minutes: 1), .skip, .pause, .resume, .reset,
                                         .stopSound, .flash, .notify, .openPanel, .closePanel, .button(title: "x"),
                                         .settings(pane: nil), .lightOn, .lightOff, .lightPause(minutes: 1),
-                                        .awakeOn, .awakeOff, .awakeToggle, .awakeFor(minutes: 1)]
+                                        .awakeOn, .awakeOff, .awakeToggle, .awakeFor(minutes: 1), .state]
         XCTAssertEqual(inCatalog, Set(all.map(kind)))
     }
 

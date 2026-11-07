@@ -19,6 +19,8 @@ public enum BreakActionKind: String, Codable, CaseIterable, Sendable {
     /// Apple Health). Typical setup: when=buttonClicked, title="Water".
     case logDrink
     case script
+    /// Runs one of the person's own Shortcuts, handing it the event and the state as JSON input.
+    case runShortcut
 }
 
 public enum BreakActionWhen: String, Codable, CaseIterable, Sendable {
@@ -38,6 +40,23 @@ public enum BreakActionWhen: String, Codable, CaseIterable, Sendable {
     case afterAnyEnd
     /// Run only when the user clicks the named button in the control panel.
     case buttonClicked
+    // Triggers that are not tied to a break: they run when the thing happens (see `AutomationEvent`).
+    case timerPaused, timerResumed
+    case zoneEntered, zoneLeft
+    case meetingBegan, meetingEnded
+    case focusOn, focusOff
+    case awayBegan, awayEnded
+    case screenLocked, screenUnlocked
+    case vpnConnected, vpnDisconnected
+
+    /// Runs when something happens, not around a break.
+    public var isEventTrigger: Bool {
+        switch self {
+        case .beforeDue, .afterStart, .afterFadeIn, .beforeFadeOut, .beforeFinish, .afterFinish, .afterPostpone,
+             .afterAnyEnd, .buttonClicked: return false
+        default: return true
+        }
+    }
 }
 
 /// How long the overlay takes to fade in or out; both the UI and the
@@ -67,13 +86,17 @@ public struct BreakActionItem: Codable, Equatable, Identifiable {
     /// logDrink: how much, millilitres.
     public var amountMl: Int = 250
     public var enabled: Bool = true
+    /// runShortcut: the name exactly as `shortcuts list` prints it.
+    public var shortcutName: String = ""
+    /// When the action may run (any kind): zone, meeting, lock screen, pause between runs.
+    public var conditions = ActionConditions()
 
     public init() {}
 
     private enum CodingKeys: String, CodingKey {
         case id, kind, when, offsetSeconds, title, message, soundName,
              fadeSeconds, colorHex, speakText, volumeMode, volumePercent,
-             scriptPath, drinkKind, amountMl, enabled
+             scriptPath, drinkKind, amountMl, enabled, shortcutName, conditions
     }
 
     /// Tolerant decoding: fields added in later versions may be missing
@@ -99,6 +122,8 @@ public struct BreakActionItem: Codable, Equatable, Identifiable {
         drinkKind = or(.drinkKind, "woda")
         amountMl = or(.amountMl, 250)
         enabled = or(.enabled, true)
+        shortcutName = or(.shortcutName, "")
+        conditions = or(.conditions, ActionConditions())
     }
 }
 

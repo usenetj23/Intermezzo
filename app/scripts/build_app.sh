@@ -7,10 +7,13 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 SCRATCH="${INTERMEZZO_SCRATCH:-$HOME/.cache/intermezzo-build}"
 CONFIG_DIR="$ROOT/Support"
 
-echo "==> swift build (release, arm64)"
-swift build -c release --scratch-path "$SCRATCH"
+# Stałe wartości kompilatora (*.swiftconstvalues) są potrzebne do metadanych App Intents (akcje w aplikacji Skróty).
+CONST_FLAGS=(-Xswiftc -emit-const-values -Xswiftc -Xfrontend -Xswiftc -const-gather-protocols-file -Xswiftc -Xfrontend -Xswiftc "$ROOT/scripts/appintents_protocols.json")
 
-BIN="$(swift build -c release --scratch-path "$SCRATCH" --show-bin-path)/Intermezzo"
+echo "==> swift build (release, arm64)"
+swift build -c release --scratch-path "$SCRATCH" "${CONST_FLAGS[@]}"
+
+BIN="$(swift build -c release --scratch-path "$SCRATCH" "${CONST_FLAGS[@]}" --show-bin-path)/Intermezzo"
 echo "==> binary: $BIN"
 file "$BIN"
 
@@ -42,6 +45,11 @@ for lproj in "$CONFIG_DIR"/*.lproj; do
   [[ -d "$lproj" ]] && cp -R "$lproj" "$APP/Contents/Resources/"
 done
 printf 'APPL????' > "$APP/Contents/PkgInfo"
+
+# Akcje Intermezzo w aplikacji Skróty: SwiftPM nie generuje Metadata.appintents, więc robi to osobny skrypt
+# (miękko: bez metadanych aplikacja działa, tylko Skróty nie widzą jej akcji).
+echo "==> metadane App Intents"
+"$ROOT/scripts/generate_app_intents_metadata.sh" "$APP/Contents/Resources" "$SCRATCH" || echo "UWAGA: metadane App Intents nie powstały"
 
 # Bez symboli debugowania: zawierają ścieżki budowania (nazwę użytkownika) i nie są potrzebne do działania.
 strip -S -x "$APP/Contents/MacOS/Intermezzo"

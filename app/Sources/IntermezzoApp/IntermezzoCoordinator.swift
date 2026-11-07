@@ -269,10 +269,24 @@ final class BreakCoordinator: ObservableObject {
         "zone-focus": "General#focus",
     ]
     private func gate(_ id: String, _ group: GateGroup, _ title: String, _ verdict: GateVerdict,
-                      _ detail: String, info: Bool = false) {
+                      _ detail: String, info: Bool = false, link: String? = nil) {
         // Plain texts are looked up here; texts with values arrive already built by L("… %@", value).
         gateFactors.append(GateFactor(id: id, group: group, title: L(title), verdict: verdict,
-                                      detail: L(detail), informational: info, link: Self.gateLinks[id]))
+                                      detail: L(detail), informational: info, link: link ?? Self.gateLinks[id]))
+    }
+
+    /// Where the Work zone card leads: to the source that matches (the VPN row when the VPN opened the zone), or to the
+    /// work-zone note when none does. It used to always open the calendar, which looked like a calendar match.
+    private static func zoneLink(firstMatch source: String?) -> String {
+        switch source {
+        case "calendar": return "General#zone-calendar"
+        case "vpn": return "General#zone-vpn"
+        case "wifi": return "General#zone-wifi"
+        case "place": return "General#zone-geo"
+        case "lan": return "Work log#lan"
+        case "focus": return "General#general-focus-oznaczony-jako-praca-liczy-sie"
+        default: return "General#general-work-zone-with-any-option-below-on-b"
+        }
     }
     private static func clock(_ minutes: Int) -> String { String(format: "%02d:%02d", minutes / 60, minutes % 60) }
     @Published private(set) var statusSymbol: String = "timer"
@@ -328,6 +342,20 @@ final class BreakCoordinator: ObservableObject {
     private lazy var breakActions: BreakActionController = BreakActionController(
         notify: { [weak self] title, body in self?.notify(title: title, body: body) },
         flashPulse: { [weak self] hex in self?.flash.pulse(colorHex: hex) })
+    /// What the automation state takes from each tick, filled in where the tick works it out.
+    private struct AutomationInputs {
+        var zoneKnown = false
+        var atWork = false
+        var zoneSources: [String] = []
+        var inWorkingHours: Bool?
+        var inMeeting = false
+        var watchingVideo = false
+        var focusActive = false
+        var focusModes: [String] = []
+    }
+    private var autoInputs = AutomationInputs()
+    private var automationHooked = false
+
     private var awaySince: Date?
     /// How long there had been no input when the timer stopped for this spell.
     private var awayIdleAtStart: TimeInterval = 0
@@ -498,6 +526,8 @@ final class BreakCoordinator: ObservableObject {
              inMeeting ? intelligence.meetingReason : (meetingOn ? "brak spotkania" : "wykrywanie wyłączone"))
         let videoOn = d.integer(forKey: Keys.videoDetection) != 0
         let watchingVideo = videoOn && intelligence.videoInProgress()
+        autoInputs.inMeeting = inMeeting
+        autoInputs.watchingVideo = watchingVideo
         if watchingVideo { desired.insert(.watchingVideo) }
         gate("video", .detection, "Wideo", watchingVideo ? .blocking : (videoOn ? .passing : .inactive),
              watchingVideo ? "oglądasz wideo" : (videoOn ? "brak wideo" : "wykrywanie wyłączone"))
@@ -626,15 +656,20 @@ final class BreakCoordinator: ObservableObject {
             || focusAtWork
         // Which sources match, by name: the Work zone card says what opened the zone instead of "one matches".
         var matchedSources: [String] = []
-        if calOn && workDetector.calendarMatch { matchedSources.append(L("kalendarz: %@", workDetector.calendarMatchSummary)) }
-        if vpnOn && workDetector.vpnMatch { matchedSources.append(L("VPN: %@", workDetector.vpnConnectedNames.joined(separator: ", "))) }
-        if wifiOn && workDetector.wifiMatch { matchedSources.append(L("Wi-Fi: %@", workDetector.currentSSID)) }
-        if geoOn && workDetector.geoMatch { matchedSources.append(L("zapisane miejsce")) }
-        if lanMatch { matchedSources.append(L("LAN z Rejestru pracy")) }
-        if focusAtWork { matchedSources.append(L("Skupienie jako praca")) }
+        var matchedIDs: [String] = []
+        if calOn && workDetector.calendarMatch { matchedSources.append(L("kalendarz: %@", workDetector.calendarMatchSummary)); matchedIDs.append("calendar") }
+        if vpnOn && workDetector.vpnMatch { matchedSources.append(L("VPN: %@", workDetector.vpnConnectedNames.joined(separator: ", "))); matchedIDs.append("vpn") }
+        if wifiOn && workDetector.wifiMatch { matchedSources.append(L("Wi-Fi: %@", workDetector.currentSSID)); matchedIDs.append("wifi") }
+        if geoOn && workDetector.geoMatch { matchedSources.append(L("zapisane miejsce")); matchedIDs.append("place") }
+        if lanMatch { matchedSources.append(L("LAN z Rejestru pracy")); matchedIDs.append("lan") }
+        if focusAtWork { matchedSources.append(L("Skupienie jako praca")); matchedIDs.append("focus") }
+        autoInputs.zoneKnown = workDetector.hasActivators
+        autoInputs.atWork = atWorkNow
+        autoInputs.zoneSources = matchedIDs
         // Working hours and the work zone are alternatives, not both required: the timer runs inside the
         // hours OR while the Mac is at work (overtime, an outage, a day off), and holds only when neither holds.
         let inHoursNow = hoursMode == 3 && !outsideHours
+        autoInputs.inWorkingHours = hoursMode == 3 ? !outsideHours : nil
         gate("zone-lan", .zone, "LAN i karta z Rejestru pracy", lanMatch ? .passing : .inactive,
              !workLog.isEnabled ? "rejestr pracy wyłączony"
                                 : (lanMatch ? L("%@: liczy się do strefy przerw", workLog.zone.reason)
@@ -645,7 +680,8 @@ final class BreakCoordinator: ObservableObject {
             gate("zone", .zone, "Strefa pracy", zoneBlock ? .blocking : .passing,
                  atWorkNow ? L("pasuje: %@", matchedSources.joined(separator: ", "))
                            : (inHoursNow ? "żadne źródło nie pasuje, ale trwają godziny pracy"
-                                         : "żadne źródło nie pasuje i są poza godzinami pracy"))
+                                         : "żadne źródło nie pasuje i są poza godzinami pracy"),
+                 link: Self.zoneLink(firstMatch: matchedIDs.first))
             if atWorkNow != lastZoneState {
                 lastZoneState = atWorkNow
                 Trace.log("work-zone: \(atWorkNow ? "IN — breaks active" : "OUT — breaks held")")
@@ -654,7 +690,8 @@ final class BreakCoordinator: ObservableObject {
         let hoursBlock = outsideHours && !atWorkNow
         if hoursBlock { desired.insert(.outsideWorkingHours) }
         if !workDetector.hasActivators {
-            gate("zone", .zone, "Strefa pracy", .inactive, "wszystkie źródła wyłączone: przerwy działają wszędzie")
+            gate("zone", .zone, "Strefa pracy", .inactive, "wszystkie źródła wyłączone: przerwy działają wszędzie",
+                 link: Self.zoneLink(firstMatch: nil))
         }
         switch hoursMode {
         case 2: gate("hours", .schedule, "Godziny pracy", .inactive, "pominięte: urlop lub święto ma pierwszeństwo")
@@ -670,6 +707,8 @@ final class BreakCoordinator: ObservableObject {
         // coarse on/off probe is left.
         let pausingFocus = activeFocus.filter { FocusModes.role(for: $0.id, stored: focusRoles) == .pause }
         let inFocus = focusOn && (focusSnap != nil ? !pausingFocus.isEmpty : focusNow(now))
+        autoInputs.focusActive = !activeFocus.isEmpty || (focusSnap == nil && inFocus)
+        autoInputs.focusModes = activeFocus.map(\.name)
         if inFocus { desired.insert(.inFocusMode) }
         var focusDetail = "wykrywanie wyłączone"
         if focusOn {
@@ -852,6 +891,7 @@ final class BreakCoordinator: ObservableObject {
         }
 
         publishGateReport(now: now)
+        publishAutomationState(now: now, config: config)
         // Fetch the weather before the break so its effect is there from the first second.
         if !isOnBreak, let untilBreak = engine.timeUntilBreak(now: now), untilBreak <= 90 {
             WeatherController.shared.refreshIfNeeded()
@@ -1096,11 +1136,72 @@ final class BreakCoordinator: ObservableObject {
         NotificationCenter.default.post(name: .openMessage, object: id)
     }
 
+    // MARK: Automation state
+
+    /// Builds the state other programs, Shortcuts and the Break Actions read.
+    private func makeAutomationState(now: Date, config: BreakConfig) -> AutomationState {
+        func at(_ seconds: TimeInterval) -> Date { Date(timeIntervalSince1970: (now.timeIntervalSince1970 + seconds).rounded()) }
+        var s = AutomationState()
+        s.appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
+        if let kind = engine.activeBreakKind {
+            s.timer = "onBreak"
+            s.breakKind = kind == .long ? "long" : "short"
+            s.breakEndsAt = at(engine.remainingBreakTime(now: now))
+        } else if engine.isPaused {
+            s.timer = "paused"
+            if case .paused(let reasons) = engine.state { s.pauseReasons = reasons.map(\.rawValue).sorted() }
+        } else {
+            s.timer = "running"
+            if let left = engine.timeUntilBreak(now: now) { s.nextBreakAt = at(left) }
+        }
+        s.nextBreakKind = engine.previewNextKind(config: config) == .long ? "long" : "short"
+        s.inWorkZone = autoInputs.zoneKnown ? autoInputs.atWork : nil
+        s.inWorkingHours = autoInputs.inWorkingHours
+        s.workZoneSources = autoInputs.zoneSources
+        s.inMeeting = autoInputs.inMeeting
+        s.watchingVideo = autoInputs.watchingVideo
+        s.focusActive = autoInputs.focusActive
+        s.focusModes = autoInputs.focusModes
+        s.away = awaySince != nil
+        s.screenLocked = Self.screenIsAway()
+        // A named VPN while that detection is on; otherwise any VPN-like tunnel that is up.
+        s.vpnConnected = !workDetector.vpnConnectedNames.isEmpty || !WorkZoneProbe.interfaces().tunnels.isEmpty
+        s.lightOn = LightController.shared.isEnabled
+        if s.lightOn { s.lightKelvin = Int(LightController.shared.appliedKelvin.rounded()) }
+        s.keepAwake = KeepAwakeController.shared.holding != nil
+        s.updatedAt = now
+        return s
+    }
+
+    private func publishAutomationState(now: Date, config: BreakConfig) {
+        if !automationHooked {
+            automationHooked = true
+            AutomationBus.shared.onEvent = { [weak self] event, state in
+                self?.breakActions.handle(event: event, state: state)
+            }
+        }
+        AutomationBus.shared.update(makeAutomationState(now: now, config: config))
+    }
+
+    /// Break events come from the engine (the rest are read from changes of the state).
+    private func emitBreakEvent(_ event: EngineEvent, now: Date) {
+        let named: AutomationEvent
+        switch event {
+        case .breakStarted: named = .breakBegan
+        case .breakCompleted: named = .breakCompleted
+        case .breakSkipped: named = .breakSkipped
+        case .breakPostponed: named = .breakPostponed
+        case .resumed: return
+        }
+        AutomationBus.shared.emit(named, state: makeAutomationState(now: now, config: currentConfig()))
+    }
+
     /// Shared handler for every event source (heartbeat or a panel button).
     private func process(events: [EngineEvent], now: Date, config: BreakConfig) {
         for event in events {
             log.info("event: \(String(describing: event), privacy: .public)")
             FocusShortcuts.handle(event)
+            emitBreakEvent(event, now: now)
             switch event {
             case .breakStarted(let kind):
                 seamGate.reset()

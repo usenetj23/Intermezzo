@@ -141,6 +141,12 @@ Build outside folders synced by OneDrive or iCloud (the default scratch path is 
 
 The script signs the app ad hoc with a designated requirement based on the bundle identifier, so macOS keeps granted permissions across rebuilds.
 
+## Automation
+
+Intermezzo can be driven and read by other tools: `intermezzo://` addresses, an optional state file and event
+notifications, Break Actions that run your Shortcuts (with triggers and conditions), and its own actions in the Shortcuts
+app. See [docs/AUTOMATION.md](docs/AUTOMATION.md).
+
 ## Installation
 
 1. Download `Intermezzo-<version>.zip` from [Releases](https://github.com/usenetj23/Intermezzo/releases), or build the app yourself. Move `Intermezzo.app` to `/Applications`.
@@ -158,12 +164,12 @@ The script signs the app ad hoc with a designated requirement based on the bundl
 Release zips are built on GitHub's servers from the tagged source by the [Release workflow](.github/workflows/release.yml), not on a personal machine. Each zip carries a signed [build provenance attestation](https://docs.github.com/en/actions/security-for-github-actions/using-artifact-attestations) that ties it to the exact commit and workflow run. To check a download with the [GitHub CLI](https://cli.github.com):
 
 ```bash
-gh attestation verify Intermezzo-1.43.0.zip -R usenetj23/Intermezzo
+gh attestation verify Intermezzo-1.44.0.zip -R usenetj23/Intermezzo
 ```
 
 Other checks:
 - Every push is scanned by [CodeQL](https://github.com/usenetj23/Intermezzo/security/code-scanning), GitHub's static security analysis, and the unit tests run on each change.
-- Each release lists the zip's SHA-256 checksum. Compare it with `shasum -a 256 Intermezzo-1.43.0.zip`.
+- Each release lists the zip's SHA-256 checksum. Compare it with `shasum -a 256 Intermezzo-1.44.0.zip`.
 - The release notes link a [VirusTotal](https://www.virustotal.com) report for the zip.
 - You can always build the app yourself from source (see [Building](#building)).
 

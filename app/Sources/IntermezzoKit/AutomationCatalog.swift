@@ -11,6 +11,8 @@ public enum AutomationCommand: Equatable, Sendable {
     case lightPause(minutes: Int)
     case awakeOn, awakeOff, awakeToggle
     case awakeFor(minutes: Int)
+    /// Hands the current state back through `x-success`, as `intermezzo://state?x-success=<url>`.
+    case state
 }
 
 /// Reads the public automation addresses. The `debug` host is deliberately not handled here.
@@ -44,6 +46,7 @@ public enum AutomationURL {
         case "panel": return .openPanel
         case "panel-close": return .closePanel
         case "settings": return .settings(pane: next)
+        case "state": return .state
         case "light":
             switch next?.lowercased() {
             case "on": return .lightOn
@@ -61,6 +64,23 @@ public enum AutomationURL {
             }
         default: return nil
         }
+    }
+
+    /// The address `intermezzo://state` was asked to call back (`x-success`), when it may be called: any scheme but
+    /// the web and file ones (a page that opens `intermezzo://state` must not be able to send the state to a server).
+    public static func stateCallback(in url: URL) -> URL? {
+        guard let raw = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems?
+            .first(where: { $0.name == "x-success" })?.value,
+            let callback = URL(string: raw), let scheme = callback.scheme?.lowercased(), !scheme.isEmpty,
+            !["http", "https", "file", "ftp", "ftps", "ws", "wss", "javascript", "data"].contains(scheme) else { return nil }
+        return callback
+    }
+
+    /// `callback` with the state added as the `state` query item.
+    public static func callbackURL(_ callback: URL, state: String) -> URL? {
+        guard var parts = URLComponents(url: callback, resolvingAgainstBaseURL: false) else { return nil }
+        parts.queryItems = (parts.queryItems ?? []).filter { $0.name != "state" } + [URLQueryItem(name: "state", value: state)]
+        return parts.url
     }
 
     /// `break/<kind>/postpone/<time>`: the kind is not used, the next break is postponed.
@@ -143,6 +163,8 @@ public enum AutomationCatalog {
                            summary: kitL("Wyłącza czuwanie")),
         AutomationURLEntry(display: "awake/toggle", example: "awake/toggle",
                            summary: kitL("Przełącza czuwanie")),
+        AutomationURLEntry(display: "state?x-success=<url>", example: "state",
+                           summary: kitL("Oddaje bieżący stan jako JSON w parametrze state adresu x-success (np. shortcuts://); wymaga włączonej publikacji stanu")),
     ] }
 
     public static var shortcuts: [AutomationShortcut] { [

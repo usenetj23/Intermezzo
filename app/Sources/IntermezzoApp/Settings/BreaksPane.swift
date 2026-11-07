@@ -112,7 +112,7 @@ struct BreaksPane: View {
                     actionItems.append(BreakActionItem())
                     persistActions()
                 }.settingsAnchor("breaks-add-action")
-                Text("Actions run at three points: Before Due (offset seconds before the break), After Start, and After Any End — completed, postponed or skipped.")
+                Text("Actions run at a point of the break (Before Due, After Start, After Any End…) or when something happens (the work zone, a meeting, Focus, the lock screen…). The filter icon sets conditions: only in the work zone, not in a meeting, only with the screen unlocked, a pause between runs.")
                     .settingsNote().settingsAnchor("breaks-actions-run-at-three-points-before-d")
             }
             .expertOnly()
@@ -171,6 +171,7 @@ struct BreaksPane: View {
         .musicPlay: String(localized: "Music Play"),
         .logDrink: String(localized: "Zapisz napój (Nawodnienie)"),
         .script: String(localized: "Run Script"),
+        .runShortcut: String(localized: "Run Shortcut"),
     ]
 
     private static let systemSounds = ["Glass", "Funk", "Bell", "Ping", "Tink",
@@ -197,6 +198,21 @@ struct BreaksPane: View {
                     Text("After Postpone/Skip").tag(BreakActionWhen.afterPostpone)
                     Text("After Any End").tag(BreakActionWhen.afterAnyEnd)
                     Text("When Button Clicked").tag(BreakActionWhen.buttonClicked)
+                    Divider()
+                    Text("When timer pauses").tag(BreakActionWhen.timerPaused)
+                    Text("When timer resumes").tag(BreakActionWhen.timerResumed)
+                    Text("When entering work zone").tag(BreakActionWhen.zoneEntered)
+                    Text("When leaving work zone").tag(BreakActionWhen.zoneLeft)
+                    Text("When a meeting starts").tag(BreakActionWhen.meetingBegan)
+                    Text("When a meeting ends").tag(BreakActionWhen.meetingEnded)
+                    Text("When Focus turns on").tag(BreakActionWhen.focusOn)
+                    Text("When Focus turns off").tag(BreakActionWhen.focusOff)
+                    Text("When you go idle").tag(BreakActionWhen.awayBegan)
+                    Text("When you return").tag(BreakActionWhen.awayEnded)
+                    Text("When the screen locks").tag(BreakActionWhen.screenLocked)
+                    Text("When the screen unlocks").tag(BreakActionWhen.screenUnlocked)
+                    Text("When a VPN connects").tag(BreakActionWhen.vpnConnected)
+                    Text("When a VPN disconnects").tag(BreakActionWhen.vpnDisconnected)
                 }
                 .frame(minWidth: 130, idealWidth: 190, maxWidth: 190)
                 if actionItems[i].when != .buttonClicked {
@@ -218,6 +234,7 @@ struct BreaksPane: View {
                     }
                 }
                 Spacer(minLength: 8)
+                ActionConditionsButton(conditions: itemBinding(i, \.conditions))
                 Toggle("On", isOn: itemBinding(i, \.enabled)).settingsAnchor("breaks-on")
                     .toggleStyle(.switch)
                     .labelsHidden()
@@ -313,6 +330,11 @@ struct BreaksPane: View {
                     .settingsNote().settingsAnchor("breaks-music-resumes-only-if-it-was-playing")
             case .script:
                 scriptPathRowForItem(i)
+            case .runShortcut:
+                RunShortcutRow(name: itemBinding(i, \.shortcutName), trigger: actionItems[i].when)
+            }
+            if let summary = ActionConditionsSummary.text(actionItems[i].conditions) {
+                Text(summary).settingsNote()
             }
             if actionItems[i].when == .buttonClicked {
                 HStack {

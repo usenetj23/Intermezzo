@@ -486,8 +486,8 @@ STRINGS = {
     "Could not find a video or playlist ID in that URL.": "Could not find a video or playlist ID in that URL.",
     "Break Actions": "Break Actions",
     "＋ Add Action": "＋ Add Action",
-    "Actions run at three points: Before Due (offset seconds before the break), After Start, and After Any End — completed, postponed or skipped.":
-        "Actions run at three points: Before Due (offset seconds before the break), After Start, and After Any End — completed, postponed or skipped.",
+    "Actions run at a point of the break (Before Due, After Start, After Any End…) or when something happens (the work zone, a meeting, Focus, the lock screen…). The filter icon sets conditions: only in the work zone, not in a meeting, only with the screen unlocked, a pause between runs.":
+        "Actions run at a point of the break (Before Due, After Start, After Any End…) or when something happens (the work zone, a meeting, Focus, the lock screen…). The filter icon sets conditions: only in the work zone, not in a meeting, only with the screen unlocked, a pause between runs.",
     "Break Scripts": "Break Scripts",
     "Run scripts when breaks start and end": "Run scripts when breaks start and end",
     "When break starts:": "When break starts:",
@@ -785,4 +785,198 @@ STRINGS = {
         "Intermezzo %@ is waiting on the releases page. Nothing is downloaded or installed by itself.",
     "Zobacz":
         "View",
+    "Automatyzacja: stan i zdarzenia":
+        "Automation: state and events",
+    "Publikuj stan i zdarzenia dla innych programów":
+        "Publish the state and events for other programs",
+    "Zapisuje stan (timer, przerwa, strefa pracy, spotkanie, Skupienie, bezczynność) do pliku i wysyła powiadomienia systemowe przy zdarzeniach, żeby narzędzia takie jak autoMate nie musiały go odczytywać co kilka sekund. Dane zostają na tym Macu, a w stanie nie ma tytułów wydarzeń ani nazw sieci. Akcje przerw reagujące na zdarzenia działają także przy wyłączonym przełączniku.":
+        "Writes the state (timer, break, work zone, meeting, Focus, idle) to a file and posts system notifications for events, so tools like autoMate do not have to poll it every few seconds. The data stays on this Mac, and the state has no event titles or network names. Break Actions that react to events also work with this switch off.",
+    "Plik stanu":
+        "State file",
+    "Kopiuj ścieżkę":
+        "Copy path",
+    "Kopiuj przykład odczytu":
+        "Copy a reading example",
+    "Powiadomienia systemowe (DistributedNotificationCenter) przy każdej zmianie stanu i przy każdym zdarzeniu; userInfo zawiera event i json. Nazwy i lista zdarzeń są poniżej. Adres intermezzo://state?x-success=<adres> oddaje stan innej aplikacji, np. Skrótom.":
+        "System notifications (DistributedNotificationCenter) for each change of the state and for every event; userInfo holds event and json. The names and the list of events are below. The address intermezzo://state?x-success=<address> hands the state to another app, e.g. Shortcuts.",
+    "Warunki uruchomienia":
+        "Conditions to run",
+    "Bez znaczenia":
+        "Does not matter",
+    "Tylko w strefie pracy":
+        "Only in the work zone",
+    "Tylko poza strefą pracy":
+        "Only outside the work zone",
+    "Nie podczas spotkania":
+        "Not during a meeting",
+    "Tylko gdy ekran nie jest zablokowany":
+        "Only when the screen is not locked",
+    "Odstęp między uruchomieniami: %lld s":
+        "Pause between runs: %lld s",
+    "Warunki są sprawdzane w chwili uruchomienia akcji. Strefa pracy wymaga włączonego co najmniej jednego źródła w Ogólne; bez tego nie wiadomo, czy jesteś w niej, i warunek nie jest spełniony.":
+        "Conditions are checked when the action is about to run. The work zone needs at least one source switched on in General; without it it is not known whether you are in it, and the condition is not met.",
+    "Wyczyść warunki":
+        "Clear conditions",
+    "tylko w strefie pracy":
+        "only in the work zone",
+    "tylko poza strefą pracy":
+        "only outside the work zone",
+    "nie podczas spotkania":
+        "not during a meeting",
+    "tylko przy odblokowanym ekranie":
+        "only with the screen unlocked",
+    "odstęp co najmniej %lld s":
+        "at least %lld s apart",
+    "Shortcut:":
+        "Shortcut:",
+    "Skrót dostaje jako dane wejściowe plik JSON: nazwę wyzwalacza, zdarzenie i stan Intermezzo (timer, strefa pracy, spotkanie, Skupienie, bezczynność). W skrócie użyj „Pobierz słownik z danych wejściowych”, a potem „Pobierz wartość słownika”.":
+        "The shortcut receives a JSON file as its input: the trigger name, the event and Intermezzo's state (timer, work zone, meeting, Focus, idle). In the shortcut use “Get Dictionary from Input”, then “Get Dictionary Value”.",
+    "When timer pauses":
+        "When timer pauses",
+    "When timer resumes":
+        "When timer resumes",
+    "When entering work zone":
+        "When entering work zone",
+    "When leaving work zone":
+        "When leaving work zone",
+    "When a meeting starts":
+        "When a meeting starts",
+    "When a meeting ends":
+        "When a meeting ends",
+    "When Focus turns on":
+        "When Focus turns on",
+    "When Focus turns off":
+        "When Focus turns off",
+    "When you go idle":
+        "When you go idle",
+    "When you return":
+        "When you return",
+    "When the screen locks":
+        "When the screen locks",
+    "When the screen unlocks":
+        "When the screen unlocks",
+    "When a VPN connects":
+        "When a VPN connects",
+    "When a VPN disconnects":
+        "When a VPN disconnects",
+    "Oddaje bieżący stan jako JSON w parametrze state adresu x-success (np. shortcuts://); wymaga włączonej publikacji stanu":
+        "Hands the current state back as JSON in the state parameter of the x-success address (e.g. shortcuts://); needs state publishing switched on",
+    "Czy Mac jest bezczynny":
+        "Is the Mac idle",
+    "Czy Mac jest w strefie pracy":
+        "Is the Mac in the work zone",
+    "Czy timer przerw działa":
+        "Is the break timer running",
+    "Czy trwa przerwa":
+        "Is a break on",
+    "Czy trwa spotkanie":
+        "Is a meeting on",
+    "Czy włączone jest Skupienie":
+        "Is Focus on",
+    "Długa":
+        "Long",
+    "Intermezzo jeszcze się nie uruchomiło":
+        "Intermezzo has not started yet",
+    "Krótka":
+        "Short",
+    "Minuty":
+        "Minutes",
+    "Odpowiada, czy Intermezzo wykrywa trwające spotkanie (Zoom, Teams, Webex).":
+        "Answers whether Intermezzo detects a meeting in progress (Zoom, Teams, Webex).",
+    "Odpowiada, czy na ekranie jest teraz przerwa Intermezzo.":
+        "Answers whether an Intermezzo break is on the screen now.",
+    "Odpowiada, czy od dłuższego czasu nie było ruchu myszą ani klawiaturą i timer jest wstrzymany.":
+        "Answers whether there has been no mouse or keyboard input for a while and the timer is held.",
+    "Odpowiada, czy pasuje któreś ze źródeł strefy pracy (kalendarz, VPN, Wi-Fi, miejsce, LAN, Skupienie). Bez włączonych źródeł odpowiedź to nie.":
+        "Answers whether any work-zone source matches (calendar, VPN, Wi-Fi, place, LAN, Focus). With no source switched on the answer is no.",
+    "Odpowiada, czy timer przerw odlicza (nie jest wstrzymany ani na przerwie).":
+        "Answers whether the break timer is counting down (not held and not on a break).",
+    "Odpowiada, czy włączony jest jakikolwiek tryb Skupienia (wymaga Pełnego dostępu do dysku).":
+        "Answers whether any Focus mode is on (needs Full Disk Access).",
+    "Odracza najbliższą przerwę o podaną liczbę minut.":
+        "Postpones the next break by the given number of minutes.",
+    "Odrocz przerwę":
+        "Postpone the break",
+    "Pełny stan Intermezzo (JSON)":
+        "Full Intermezzo state (JSON)",
+    "Pomija bieżącą lub najbliższą przerwę.":
+        "Skips the current or the next break.",
+    "Rodzaj następnej przerwy":
+        "Kind of the next break",
+    "Rodzaj przerwy":
+        "Kind of break",
+    "Rozpocznij przerwę":
+        "Start a break",
+    "Rozpoczyna krótką albo długą przerwę teraz.":
+        "Starts a short or a long break now.",
+    "Sekundy do następnej przerwy":
+        "Seconds until the next break",
+    "Stan timera Intermezzo":
+        "Intermezzo timer state",
+    "Sterowanie":
+        "Control",
+    "Wstrzymaj timer przerw":
+        "Pause the break timer",
+    "Wstrzymuje timer przerw do wznowienia.":
+        "Pauses the break timer until it is resumed.",
+    "Wznawia timer przerw.":
+        "Resumes the break timer.",
+    "Wznów timer przerw":
+        "Resume the break timer",
+    "Włącz lub wyłącz czuwanie":
+        "Turn keep-awake on or off",
+    "Włącz lub wyłącz Światło":
+        "Turn Light on or off",
+    "Włącza albo wyłącza czuwanie: Mac nie zaśnie, dopóki jest włączone.":
+        "Turns keep-awake on or off: the Mac does not sleep while it is on.",
+    "Włącza albo wyłącza dopasowanie barwy ekranu do pory dnia.":
+        "Turns the screen colour following the time of day on or off.",
+    "Włączone":
+        "On",
+    "Zeruje cykl i liczy do następnej przerwy od nowa.":
+        "Resets the cycle and counts to the next break from the start.",
+    "Zresetuj timer przerw":
+        "Reset the break timer",
+    "Zwraca cały stan jako tekst JSON, do użycia z akcją „Pobierz słownik z danych wejściowych”.":
+        "Returns the whole state as JSON text, to use with the “Get Dictionary from Input” action.",
+    "Zwraca liczbę sekund do następnej przerwy albo -1, gdy timer nie odlicza.":
+        "Returns the number of seconds until the next break, or -1 when the timer is not counting down.",
+    "Stan timera":
+        "Timer state",
+    "Odlicza":
+        "Counting down",
+    "Wstrzymany":
+        "Held",
+    "Źródło strefy pracy":
+        "Work-zone source",
+    "Stan Intermezzo":
+        "Intermezzo state",
+    "Timer":
+        "Timer",
+    "W strefie pracy":
+        "In the work zone",
+    "Źródła strefy pracy":
+        "Work-zone sources",
+    "Trwa spotkanie":
+        "A meeting is on",
+    "Włączone Skupienie":
+        "Focus is on",
+    "Bezczynność":
+        "Idle",
+    "Ekran zablokowany":
+        "Screen locked",
+    "Połączony VPN":
+        "VPN connected",
+    "Początek następnej przerwy":
+        "Start of the next break",
+    "Koniec trwającej przerwy":
+        "End of the current break",
+    "Pobierz stan Intermezzo":
+        "Get Intermezzo state",
+    "Zwraca cały stan Intermezzo jako jedną rzecz: w skrócie wybierzesz z listy jej właściwości (timer, strefa pracy, spotkanie, Skupienie, VPN…), tak jak przy akcji VPN.":
+        "Returns the whole Intermezzo state as one thing: in the shortcut you pick its properties from a list (timer, work zone, meeting, Focus, VPN…), as with the VPN action.",
+    "Zwraca stan timera: odlicza, wstrzymany albo trwa przerwa. W „Jeśli” wybierzesz wartość z listy.":
+        "Returns the timer state: counting down, held or on a break. In “If” you pick the value from a list.",
+    "Zwraca rodzaj następnej przerwy: krótka albo długa.":
+        "Returns the kind of the next break: short or long.",
 }

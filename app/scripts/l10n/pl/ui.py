@@ -491,8 +491,8 @@ STRINGS = {
         "Nie znaleziono identyfikatora wideo ani playlisty w tym adresie.",
     "Break Actions": "Akcje przerw",
     "＋ Add Action": "＋ Dodaj akcję",
-    "Actions run at three points: Before Due (offset seconds before the break), After Start, and After Any End — completed, postponed or skipped.":
-        "Akcje uruchamiają się w trzech momentach: Przed terminem (offset w sekundach przed przerwą), Po starcie i Po dowolnym zakończeniu: ukończonym, odroczonym lub pominiętym.",
+    "Actions run at a point of the break (Before Due, After Start, After Any End…) or when something happens (the work zone, a meeting, Focus, the lock screen…). The filter icon sets conditions: only in the work zone, not in a meeting, only with the screen unlocked, a pause between runs.":
+        "Akcje działają w punkcie przerwy (Przed terminem, Po starcie, Po dowolnym końcu…) albo gdy coś się wydarzy (strefa pracy, spotkanie, Skupienie, blokada ekranu…). Ikona filtra ustawia warunki: tylko w strefie pracy, nie podczas spotkania, tylko przy odblokowanym ekranie, odstęp między uruchomieniami.",
     "Break Scripts": "Skrypty przerw",
     "Run scripts when breaks start and end": "Uruchamiaj skrypty na starcie i końcu przerw",
     "When break starts:": "Gdy przerwa się zaczyna:",
@@ -789,4 +789,198 @@ STRINGS = {
         "Intermezzo %@ czeka na stronie wydań. Nic nie jest pobierane ani instalowane samo.",
     "Zobacz":
         "Zobacz",
+    "Automatyzacja: stan i zdarzenia":
+        "Automatyzacja: stan i zdarzenia",
+    "Publikuj stan i zdarzenia dla innych programów":
+        "Publikuj stan i zdarzenia dla innych programów",
+    "Zapisuje stan (timer, przerwa, strefa pracy, spotkanie, Skupienie, bezczynność) do pliku i wysyła powiadomienia systemowe przy zdarzeniach, żeby narzędzia takie jak autoMate nie musiały go odczytywać co kilka sekund. Dane zostają na tym Macu, a w stanie nie ma tytułów wydarzeń ani nazw sieci. Akcje przerw reagujące na zdarzenia działają także przy wyłączonym przełączniku.":
+        "Zapisuje stan (timer, przerwa, strefa pracy, spotkanie, Skupienie, bezczynność) do pliku i wysyła powiadomienia systemowe przy zdarzeniach, żeby narzędzia takie jak autoMate nie musiały go odczytywać co kilka sekund. Dane zostają na tym Macu, a w stanie nie ma tytułów wydarzeń ani nazw sieci. Akcje przerw reagujące na zdarzenia działają także przy wyłączonym przełączniku.",
+    "Plik stanu":
+        "Plik stanu",
+    "Kopiuj ścieżkę":
+        "Kopiuj ścieżkę",
+    "Kopiuj przykład odczytu":
+        "Kopiuj przykład odczytu",
+    "Powiadomienia systemowe (DistributedNotificationCenter) przy każdej zmianie stanu i przy każdym zdarzeniu; userInfo zawiera event i json. Nazwy i lista zdarzeń są poniżej. Adres intermezzo://state?x-success=<adres> oddaje stan innej aplikacji, np. Skrótom.":
+        "Powiadomienia systemowe (DistributedNotificationCenter) przy każdej zmianie stanu i przy każdym zdarzeniu; userInfo zawiera event i json. Nazwy i lista zdarzeń są poniżej. Adres intermezzo://state?x-success=<adres> oddaje stan innej aplikacji, np. Skrótom.",
+    "Warunki uruchomienia":
+        "Warunki uruchomienia",
+    "Bez znaczenia":
+        "Bez znaczenia",
+    "Tylko w strefie pracy":
+        "Tylko w strefie pracy",
+    "Tylko poza strefą pracy":
+        "Tylko poza strefą pracy",
+    "Nie podczas spotkania":
+        "Nie podczas spotkania",
+    "Tylko gdy ekran nie jest zablokowany":
+        "Tylko gdy ekran nie jest zablokowany",
+    "Odstęp między uruchomieniami: %lld s":
+        "Odstęp między uruchomieniami: %lld s",
+    "Warunki są sprawdzane w chwili uruchomienia akcji. Strefa pracy wymaga włączonego co najmniej jednego źródła w Ogólne; bez tego nie wiadomo, czy jesteś w niej, i warunek nie jest spełniony.":
+        "Warunki są sprawdzane w chwili uruchomienia akcji. Strefa pracy wymaga włączonego co najmniej jednego źródła w Ogólne; bez tego nie wiadomo, czy jesteś w niej, i warunek nie jest spełniony.",
+    "Wyczyść warunki":
+        "Wyczyść warunki",
+    "tylko w strefie pracy":
+        "tylko w strefie pracy",
+    "tylko poza strefą pracy":
+        "tylko poza strefą pracy",
+    "nie podczas spotkania":
+        "nie podczas spotkania",
+    "tylko przy odblokowanym ekranie":
+        "tylko przy odblokowanym ekranie",
+    "odstęp co najmniej %lld s":
+        "odstęp co najmniej %lld s",
+    "Shortcut:":
+        "Skrót:",
+    "Skrót dostaje jako dane wejściowe plik JSON: nazwę wyzwalacza, zdarzenie i stan Intermezzo (timer, strefa pracy, spotkanie, Skupienie, bezczynność). W skrócie użyj „Pobierz słownik z danych wejściowych”, a potem „Pobierz wartość słownika”.":
+        "Skrót dostaje jako dane wejściowe plik JSON: nazwę wyzwalacza, zdarzenie i stan Intermezzo (timer, strefa pracy, spotkanie, Skupienie, bezczynność). W skrócie użyj „Pobierz słownik z danych wejściowych”, a potem „Pobierz wartość słownika”.",
+    "When timer pauses":
+        "Gdy timer się zatrzyma",
+    "When timer resumes":
+        "Gdy timer zostanie wznowiony",
+    "When entering work zone":
+        "Po wejściu do strefy pracy",
+    "When leaving work zone":
+        "Po wyjściu ze strefy pracy",
+    "When a meeting starts":
+        "Gdy zacznie się spotkanie",
+    "When a meeting ends":
+        "Gdy spotkanie się skończy",
+    "When Focus turns on":
+        "Gdy włączy się Skupienie",
+    "When Focus turns off":
+        "Gdy wyłączy się Skupienie",
+    "When you go idle":
+        "Gdy przestaniesz pracować (bezczynność)",
+    "When you return":
+        "Gdy wrócisz do komputera",
+    "When the screen locks":
+        "Gdy ekran się zablokuje",
+    "When the screen unlocks":
+        "Gdy ekran się odblokuje",
+    "When a VPN connects":
+        "Gdy połączy się VPN",
+    "When a VPN disconnects":
+        "Gdy VPN się rozłączy",
+    "Oddaje bieżący stan jako JSON w parametrze state adresu x-success (np. shortcuts://); wymaga włączonej publikacji stanu":
+        "Oddaje bieżący stan jako JSON w parametrze state adresu x-success (np. shortcuts://); wymaga włączonej publikacji stanu",
+    "Czy Mac jest bezczynny":
+        "Czy Mac jest bezczynny",
+    "Czy Mac jest w strefie pracy":
+        "Czy Mac jest w strefie pracy",
+    "Czy timer przerw działa":
+        "Czy timer przerw działa",
+    "Czy trwa przerwa":
+        "Czy trwa przerwa",
+    "Czy trwa spotkanie":
+        "Czy trwa spotkanie",
+    "Czy włączone jest Skupienie":
+        "Czy włączone jest Skupienie",
+    "Długa":
+        "Długa",
+    "Intermezzo jeszcze się nie uruchomiło":
+        "Intermezzo jeszcze się nie uruchomiło",
+    "Krótka":
+        "Krótka",
+    "Minuty":
+        "Minuty",
+    "Odpowiada, czy Intermezzo wykrywa trwające spotkanie (Zoom, Teams, Webex).":
+        "Odpowiada, czy Intermezzo wykrywa trwające spotkanie (Zoom, Teams, Webex).",
+    "Odpowiada, czy na ekranie jest teraz przerwa Intermezzo.":
+        "Odpowiada, czy na ekranie jest teraz przerwa Intermezzo.",
+    "Odpowiada, czy od dłuższego czasu nie było ruchu myszą ani klawiaturą i timer jest wstrzymany.":
+        "Odpowiada, czy od dłuższego czasu nie było ruchu myszą ani klawiaturą i timer jest wstrzymany.",
+    "Odpowiada, czy pasuje któreś ze źródeł strefy pracy (kalendarz, VPN, Wi-Fi, miejsce, LAN, Skupienie). Bez włączonych źródeł odpowiedź to nie.":
+        "Odpowiada, czy pasuje któreś ze źródeł strefy pracy (kalendarz, VPN, Wi-Fi, miejsce, LAN, Skupienie). Bez włączonych źródeł odpowiedź to nie.",
+    "Odpowiada, czy timer przerw odlicza (nie jest wstrzymany ani na przerwie).":
+        "Odpowiada, czy timer przerw odlicza (nie jest wstrzymany ani na przerwie).",
+    "Odpowiada, czy włączony jest jakikolwiek tryb Skupienia (wymaga Pełnego dostępu do dysku).":
+        "Odpowiada, czy włączony jest jakikolwiek tryb Skupienia (wymaga Pełnego dostępu do dysku).",
+    "Odracza najbliższą przerwę o podaną liczbę minut.":
+        "Odracza najbliższą przerwę o podaną liczbę minut.",
+    "Odrocz przerwę":
+        "Odrocz przerwę",
+    "Pełny stan Intermezzo (JSON)":
+        "Pełny stan Intermezzo (JSON)",
+    "Pomija bieżącą lub najbliższą przerwę.":
+        "Pomija bieżącą lub najbliższą przerwę.",
+    "Rodzaj następnej przerwy":
+        "Rodzaj następnej przerwy",
+    "Rodzaj przerwy":
+        "Rodzaj przerwy",
+    "Rozpocznij przerwę":
+        "Rozpocznij przerwę",
+    "Rozpoczyna krótką albo długą przerwę teraz.":
+        "Rozpoczyna krótką albo długą przerwę teraz.",
+    "Sekundy do następnej przerwy":
+        "Sekundy do następnej przerwy",
+    "Stan timera Intermezzo":
+        "Stan timera Intermezzo",
+    "Sterowanie":
+        "Sterowanie",
+    "Wstrzymaj timer przerw":
+        "Wstrzymaj timer przerw",
+    "Wstrzymuje timer przerw do wznowienia.":
+        "Wstrzymuje timer przerw do wznowienia.",
+    "Wznawia timer przerw.":
+        "Wznawia timer przerw.",
+    "Wznów timer przerw":
+        "Wznów timer przerw",
+    "Włącz lub wyłącz czuwanie":
+        "Włącz lub wyłącz czuwanie",
+    "Włącz lub wyłącz Światło":
+        "Włącz lub wyłącz Światło",
+    "Włącza albo wyłącza czuwanie: Mac nie zaśnie, dopóki jest włączone.":
+        "Włącza albo wyłącza czuwanie: Mac nie zaśnie, dopóki jest włączone.",
+    "Włącza albo wyłącza dopasowanie barwy ekranu do pory dnia.":
+        "Włącza albo wyłącza dopasowanie barwy ekranu do pory dnia.",
+    "Włączone":
+        "Włączone",
+    "Zeruje cykl i liczy do następnej przerwy od nowa.":
+        "Zeruje cykl i liczy do następnej przerwy od nowa.",
+    "Zresetuj timer przerw":
+        "Zresetuj timer przerw",
+    "Zwraca cały stan jako tekst JSON, do użycia z akcją „Pobierz słownik z danych wejściowych”.":
+        "Zwraca cały stan jako tekst JSON, do użycia z akcją „Pobierz słownik z danych wejściowych”.",
+    "Zwraca liczbę sekund do następnej przerwy albo -1, gdy timer nie odlicza.":
+        "Zwraca liczbę sekund do następnej przerwy albo -1, gdy timer nie odlicza.",
+    "Stan timera":
+        "Stan timera",
+    "Odlicza":
+        "Odlicza",
+    "Wstrzymany":
+        "Wstrzymany",
+    "Źródło strefy pracy":
+        "Źródło strefy pracy",
+    "Stan Intermezzo":
+        "Stan Intermezzo",
+    "Timer":
+        "Timer",
+    "W strefie pracy":
+        "W strefie pracy",
+    "Źródła strefy pracy":
+        "Źródła strefy pracy",
+    "Trwa spotkanie":
+        "Trwa spotkanie",
+    "Włączone Skupienie":
+        "Włączone Skupienie",
+    "Bezczynność":
+        "Bezczynność",
+    "Ekran zablokowany":
+        "Ekran zablokowany",
+    "Połączony VPN":
+        "Połączony VPN",
+    "Początek następnej przerwy":
+        "Początek następnej przerwy",
+    "Koniec trwającej przerwy":
+        "Koniec trwającej przerwy",
+    "Pobierz stan Intermezzo":
+        "Pobierz stan Intermezzo",
+    "Zwraca cały stan Intermezzo jako jedną rzecz: w skrócie wybierzesz z listy jej właściwości (timer, strefa pracy, spotkanie, Skupienie, VPN…), tak jak przy akcji VPN.":
+        "Zwraca cały stan Intermezzo jako jedną rzecz: w skrócie wybierzesz z listy jej właściwości (timer, strefa pracy, spotkanie, Skupienie, VPN…), tak jak przy akcji VPN.",
+    "Zwraca stan timera: odlicza, wstrzymany albo trwa przerwa. W „Jeśli” wybierzesz wartość z listy.":
+        "Zwraca stan timera: odlicza, wstrzymany albo trwa przerwa. W „Jeśli” wybierzesz wartość z listy.",
+    "Zwraca rodzaj następnej przerwy: krótka albo długa.":
+        "Zwraca rodzaj następnej przerwy: krótka albo długa.",
 }

@@ -25,6 +25,15 @@ jobs:
         working-directory: app
         run: ./scripts/build_app.sh
 
+      # The Shortcuts actions need Metadata.appintents (SwiftPM does not make it); the build log lists what it found.
+      - name: App Intents metadata
+        working-directory: app
+        continue-on-error: true
+        run: |
+          B=dist/Intermezzo.app/Contents/Resources/Metadata.appintents
+          ls -la "$B" || { echo "::warning::the app has no Metadata.appintents"; exit 1; }
+          python3 -c "import json,sys; d=json.load(open('$B/extract.actionsdata')); print(sorted(d.keys())); print(len(d.get('actions', {})), 'actions')"
+
       - name: Zip
         working-directory: app
         run: |

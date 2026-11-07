@@ -73,3 +73,5 @@ scutil gave no answer
 no VPN connections
 Network tunnels
 none
+General#general-focus-oznaczony-jako-praca-liczy-sie
+General#general-work-zone-with-any-option-below-on-b

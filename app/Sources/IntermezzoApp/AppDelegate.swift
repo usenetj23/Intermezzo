@@ -243,7 +243,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, UNUs
     /// `debug/report` runs one export at a time, with a cooldown after it.
     private var reportGate = ExclusiveRun(cooldown: 2)
 
-    private func run(_ command: AutomationCommand) {
+    func run(_ command: AutomationCommand) {
         switch command {
         case .startShort: coordinator.takeShortNow(source: "url")
         case .startLong: coordinator.takeLongNow(source: "url")
@@ -265,6 +265,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, UNUs
         case .lightOn: LightController.shared.setEnabled(true)
         case .lightOff: LightController.shared.setEnabled(false)
         case .lightPause(let minutes): LightController.shared.disable(forMinutes: minutes)
+        case .state: break   // answered in handleAutomationURL, which has the address
         case .settings(let link):
             // intermezzo://settings/workLog opens a given pane.
             if let link, let pane = SettingsPane(link: link) { SettingsPane.pending = pane }
@@ -273,10 +274,29 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, UNUs
         }
     }
 
+    /// `intermezzo://state?x-success=<url>`: hands the state to that address (a Shortcut, for example) as the
+    /// `state` query item. Only while publishing is on, and never to a web address.
+    private func replyWithState(to url: URL) {
+        guard AutomationBus.shared.publishing, let state = AutomationBus.shared.state else {
+            Trace.log("state request refused: publishing for automation is off or there is no state yet")
+            return
+        }
+        guard let callback = AutomationURL.stateCallback(in: url),
+              let target = AutomationURL.callbackURL(callback, state: state.jsonString(pretty: false)) else {
+            Trace.log("state request ignored: no usable x-success address")
+            return
+        }
+        NSWorkspace.shared.open(target)
+    }
+
     private func handleAutomationURL(_ url: URL) {
         let parts = url.path.split(separator: "/").map(String.init)
         let next = parts.isEmpty ? nil : parts.first
 
+        if url.host?.lowercased() == "state" {
+            replyWithState(to: url)
+            return
+        }
         if url.host?.lowercased() != "debug", let command = AutomationURL.parse(host: url.host, path: parts) {
             run(command)
             return

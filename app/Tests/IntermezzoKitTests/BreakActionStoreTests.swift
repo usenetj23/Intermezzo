@@ -29,7 +29,11 @@ final class BreakActionStoreTests: XCTestCase {
         // The full set of timing points must exist and survive JSON.
         let all: [BreakActionWhen] = [.beforeDue, .afterStart, .afterFadeIn,
                                        .beforeFadeOut, .beforeFinish, .afterFinish,
-                                       .afterPostpone, .afterAnyEnd, .buttonClicked]
+                                       .afterPostpone, .afterAnyEnd, .buttonClicked,
+                                       // Triggers that are not tied to a break.
+                                       .timerPaused, .timerResumed, .zoneEntered, .zoneLeft, .meetingBegan,
+                                       .meetingEnded, .focusOn, .focusOff, .awayBegan, .awayEnded,
+                                       .screenLocked, .screenUnlocked, .vpnConnected, .vpnDisconnected]
         XCTAssertEqual(Set(all.map { $0.rawValue }),
                      Set(BreakActionWhen.allCases.map { $0.rawValue }))
         var items: [BreakActionItem] = []

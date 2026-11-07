@@ -229,19 +229,23 @@ struct SettingsView: View {
 
     var body: some View {
         NavigationSplitView {
-            List(selection: $selection) {
-                ForEach(SettingsPane.groups, id: \.title) { group in
-                    Section(LocalizedStringKey(group.title)) {
-                        ForEach(group.panes.filter { showAll || !$0.isExpert }) { pane in
-                            NavigationLink(value: pane) {
-                                Label(LocalizedStringKey(pane.title), systemImage: pane.symbol)
+            // The search field, the list and the level switch sit one above the other, not on top of each other:
+            // with safe-area insets the list scrolled beneath the translucent bars and showed through them.
+            VStack(spacing: 0) {
+                SettingsSearchField(query: $query, showAll: showAll, open: openResult)
+                List(selection: $selection) {
+                    ForEach(SettingsPane.groups, id: \.title) { group in
+                        Section(LocalizedStringKey(group.title)) {
+                            ForEach(group.panes.filter { showAll || !$0.isExpert }) { pane in
+                                NavigationLink(value: pane) {
+                                    Label(LocalizedStringKey(pane.title), systemImage: pane.symbol)
+                                }
                             }
                         }
                     }
                 }
-            }
-            .safeAreaInset(edge: .top, spacing: 0) {
-                SettingsSearchField(query: $query, showAll: showAll, open: openResult)
+                .scrollContentBackground(.hidden)
+                SettingsLevelPicker()
             }
             .overlay(alignment: .top) {
                 if !query.trimmingCharacters(in: .whitespaces).isEmpty {
@@ -250,8 +254,6 @@ struct SettingsView: View {
                         .padding(.top, 46)
                 }
             }
-            .scrollContentBackground(.hidden)
-            .safeAreaInset(edge: .bottom) { SettingsLevelPicker() }
             .background(SettingsBackdrop(theme: theme, tintHex: tintHex.isEmpty ? nil : tintHex))
             .onChange(of: showAll) { _, all in
                 // Leaving an expert pane that just disappeared from the sidebar.

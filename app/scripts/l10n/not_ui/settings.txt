@@ -88,3 +88,4 @@ screen locked or asleep
 long stretch without input
 Accept
 Intermezzo-update-check
+cat "%@"

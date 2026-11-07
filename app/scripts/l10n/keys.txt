@@ -56,7 +56,6 @@ compiler	IntermezzoApp/Settings/PomodoroPlanSection.swift:180	A pomodoro counts 
 compiler	IntermezzoApp/Settings/FlashPane.swift:34	A subtle flash reminds you to check your posture. Skipped during breaks and pauses.
 compiler	IntermezzoApp/Settings/FocusPane.swift:34	Work one pomodoro, then take the suggested break fully. Pick a task and log interruptions from the menu-bar panel.
 compiler	IntermezzoApp/Settings/GeneralPane.swift:190	Access to Calendar not granted — enabling it here also requests it
-compiler	IntermezzoApp/Settings/BreaksPane.swift:111	Actions run at three points: Before Due (offset seconds before the break), After Start, and After Any End — completed, postponed or skipped.
 compiler	IntermezzoApp/Settings/PomodoroPlanSection.swift:35	Add
 compiler	IntermezzoApp/Settings/ExercisesPane.swift:52	Add Exercise
 compiler	IntermezzoApp/Settings/ProjectSensorsSection.swift:110	Add rule
@@ -1698,3 +1697,101 @@ runtime	-	zapisane miejsce
 runtime	-	LAN z Rejestru pracy
 runtime	-	Skupienie jako praca
 runtime	-	pasuje: %@
+compiler	IntermezzoApp/Settings/AutomationSection.swift:13	Automatyzacja: stan i zdarzenia
+compiler	IntermezzoApp/Settings/AutomationSection.swift:14	Publikuj stan i zdarzenia dla innych programów
+compiler	IntermezzoApp/Settings/AutomationSection.swift:15	Zapisuje stan (timer, przerwa, strefa pracy, spotkanie, Skupienie, bezczynność) do pliku i wysyła powiadomienia systemowe przy zdarzeniach, żeby narzędzia takie jak autoMate nie musiały go odczytywać co kilka sekund. Dane zostają na tym Macu, a w stanie nie ma tytułów wydarzeń ani nazw sieci. Akcje przerw reagujące na zdarzenia działają także przy wyłączonym przełączniku.
+compiler	IntermezzoApp/Settings/AutomationSection.swift:18	Plik stanu
+compiler	IntermezzoApp/Settings/AutomationSection.swift:29	Kopiuj ścieżkę
+compiler	IntermezzoApp/Settings/AutomationSection.swift:33	Kopiuj przykład odczytu
+compiler	IntermezzoApp/Settings/AutomationSection.swift:39	Powiadomienia systemowe (DistributedNotificationCenter) przy każdej zmianie stanu i przy każdym zdarzeniu; userInfo zawiera event i json. Nazwy i lista zdarzeń są poniżej. Adres intermezzo://state?x-success=<adres> oddaje stan innej aplikacji, np. Skrótom.
+compiler	IntermezzoApp/Settings/ActionConditionsView.swift:13	Warunki uruchomienia
+compiler	IntermezzoApp/Settings/ActionConditionsView.swift:29	Bez znaczenia
+compiler	IntermezzoApp/Settings/ActionConditionsView.swift:30	Tylko w strefie pracy
+compiler	IntermezzoApp/Settings/ActionConditionsView.swift:31	Tylko poza strefą pracy
+compiler	IntermezzoApp/Settings/ActionConditionsView.swift:33	Nie podczas spotkania
+compiler	IntermezzoApp/Settings/ActionConditionsView.swift:34	Tylko gdy ekran nie jest zablokowany
+compiler	IntermezzoApp/Settings/ActionConditionsView.swift:35	Odstęp między uruchomieniami: %lld s
+compiler	IntermezzoApp/Settings/ActionConditionsView.swift:37	Warunki są sprawdzane w chwili uruchomienia akcji. Strefa pracy wymaga włączonego co najmniej jednego źródła w Ogólne; bez tego nie wiadomo, czy jesteś w niej, i warunek nie jest spełniony.
+compiler	IntermezzoApp/Settings/ActionConditionsView.swift:41	Wyczyść warunki
+compiler	IntermezzoApp/Settings/ActionConditionsView.swift:49	tylko w strefie pracy
+compiler	IntermezzoApp/Settings/ActionConditionsView.swift:55	tylko poza strefą pracy
+compiler	IntermezzoApp/Settings/ActionConditionsView.swift:49	nie podczas spotkania
+compiler	IntermezzoApp/Settings/ActionConditionsView.swift:58	tylko przy odblokowanym ekranie
+compiler	IntermezzoApp/Settings/ActionConditionsView.swift:59	odstęp co najmniej %lld s
+compiler	IntermezzoApp/Settings/ActionConditionsView.swift:74	Shortcut:
+compiler	IntermezzoApp/Settings/ActionConditionsView.swift:89	Skrót dostaje jako dane wejściowe plik JSON: nazwę wyzwalacza, zdarzenie i stan Intermezzo (timer, strefa pracy, spotkanie, Skupienie, bezczynność). W skrócie użyj „Pobierz słownik z danych wejściowych”, a potem „Pobierz wartość słownika”.
+compiler	IntermezzoApp/Settings/BreaksPane.swift:202	When timer pauses
+compiler	IntermezzoApp/Settings/BreaksPane.swift:203	When timer resumes
+compiler	IntermezzoApp/Settings/BreaksPane.swift:204	When entering work zone
+compiler	IntermezzoApp/Settings/BreaksPane.swift:205	When leaving work zone
+compiler	IntermezzoApp/Settings/BreaksPane.swift:206	When a meeting starts
+compiler	IntermezzoApp/Settings/BreaksPane.swift:207	When a meeting ends
+compiler	IntermezzoApp/Settings/BreaksPane.swift:208	When Focus turns on
+compiler	IntermezzoApp/Settings/BreaksPane.swift:209	When Focus turns off
+compiler	IntermezzoApp/Settings/BreaksPane.swift:210	When you go idle
+compiler	IntermezzoApp/Settings/BreaksPane.swift:211	When you return
+compiler	IntermezzoApp/Settings/BreaksPane.swift:212	When the screen locks
+compiler	IntermezzoApp/Settings/BreaksPane.swift:213	When the screen unlocks
+compiler	IntermezzoApp/Settings/BreaksPane.swift:214	When a VPN connects
+compiler	IntermezzoApp/Settings/BreaksPane.swift:215	When a VPN disconnects
+compiler	IntermezzoApp/Settings/BreaksPane.swift:115	Actions run at a point of the break (Before Due, After Start, After Any End…) or when something happens (the work zone, a meeting, Focus, the lock screen…). The filter icon sets conditions: only in the work zone, not in a meeting, only with the screen unlocked, a pause between runs.
+runtime	-	Oddaje bieżący stan jako JSON w parametrze state adresu x-success (np. shortcuts://); wymaga włączonej publikacji stanu
+compiler	IntermezzoApp/Intents/IntermezzoIntents.swift:88	Czy Mac jest bezczynny
+compiler	IntermezzoApp/Intents/IntermezzoIntents.swift:61	Czy Mac jest w strefie pracy
+compiler	IntermezzoApp/Intents/IntermezzoIntents.swift:52	Czy timer przerw działa
+compiler	IntermezzoApp/Intents/IntermezzoIntents.swift:43	Czy trwa przerwa
+compiler	IntermezzoApp/Intents/IntermezzoIntents.swift:70	Czy trwa spotkanie
+compiler	IntermezzoApp/Intents/IntermezzoIntents.swift:79	Czy włączone jest Skupienie
+compiler	IntermezzoApp/Intents/IntermezzoIntents.swift:36	Długa
+compiler	IntermezzoApp/Intents/IntermezzoIntents.swift:25	Intermezzo jeszcze się nie uruchomiło
+compiler	IntermezzoApp/Intents/IntermezzoIntents.swift:35	Krótka
+compiler	IntermezzoApp/Intents/IntermezzoIntents.swift:163	Minuty
+compiler	IntermezzoApp/Intents/IntermezzoIntents.swift:71	Odpowiada, czy Intermezzo wykrywa trwające spotkanie (Zoom, Teams, Webex).
+compiler	IntermezzoApp/Intents/IntermezzoIntents.swift:44	Odpowiada, czy na ekranie jest teraz przerwa Intermezzo.
+compiler	IntermezzoApp/Intents/IntermezzoIntents.swift:89	Odpowiada, czy od dłuższego czasu nie było ruchu myszą ani klawiaturą i timer jest wstrzymany.
+compiler	IntermezzoApp/Intents/IntermezzoIntents.swift:62	Odpowiada, czy pasuje któreś ze źródeł strefy pracy (kalendarz, VPN, Wi-Fi, miejsce, LAN, Skupienie). Bez włączonych źródeł odpowiedź to nie.
+compiler	IntermezzoApp/Intents/IntermezzoIntents.swift:53	Odpowiada, czy timer przerw odlicza (nie jest wstrzymany ani na przerwie).
+compiler	IntermezzoApp/Intents/IntermezzoIntents.swift:80	Odpowiada, czy włączony jest jakikolwiek tryb Skupienia (wymaga Pełnego dostępu do dysku).
+compiler	IntermezzoApp/Intents/IntermezzoIntents.swift:161	Odracza najbliższą przerwę o podaną liczbę minut.
+compiler	IntermezzoApp/Intents/IntermezzoIntents.swift:160	Odrocz przerwę
+compiler	IntermezzoApp/Intents/IntermezzoIntents.swift:127	Pełny stan Intermezzo (JSON)
+compiler	IntermezzoApp/Intents/IntermezzoIntents.swift:151	Pomija bieżącą lub najbliższą przerwę.
+compiler	IntermezzoApp/Intents/IntermezzoIntents.swift:118	Rodzaj następnej przerwy
+compiler	IntermezzoApp/Intents/IntermezzoIntents.swift:33	Rodzaj przerwy
+compiler	IntermezzoApp/Intents/IntermezzoIntents.swift:138	Rozpocznij przerwę
+compiler	IntermezzoApp/Intents/IntermezzoIntents.swift:139	Rozpoczyna krótką albo długą przerwę teraz.
+compiler	IntermezzoApp/Intents/IntermezzoIntents.swift:108	Sekundy do następnej przerwy
+compiler	IntermezzoApp/Intents/IntermezzoIntents.swift:99	Stan timera Intermezzo
+compiler	IntermezzoApp/Intents/IntermezzoIntents.swift:139	Sterowanie
+compiler	IntermezzoApp/Intents/IntermezzoIntents.swift:172	Wstrzymaj timer przerw
+compiler	IntermezzoApp/Intents/IntermezzoIntents.swift:173	Wstrzymuje timer przerw do wznowienia.
+compiler	IntermezzoApp/Intents/IntermezzoIntents.swift:183	Wznawia timer przerw.
+compiler	IntermezzoApp/Intents/IntermezzoIntents.swift:182	Wznów timer przerw
+compiler	IntermezzoApp/Intents/IntermezzoIntents.swift:214	Włącz lub wyłącz czuwanie
+compiler	IntermezzoApp/Intents/IntermezzoIntents.swift:202	Włącz lub wyłącz Światło
+compiler	IntermezzoApp/Intents/IntermezzoIntents.swift:215	Włącza albo wyłącza czuwanie: Mac nie zaśnie, dopóki jest włączone.
+compiler	IntermezzoApp/Intents/IntermezzoIntents.swift:203	Włącza albo wyłącza dopasowanie barwy ekranu do pory dnia.
+compiler	IntermezzoApp/Intents/IntermezzoIntents.swift:205	Włączone
+compiler	IntermezzoApp/Intents/IntermezzoIntents.swift:193	Zeruje cykl i liczy do następnej przerwy od nowa.
+compiler	IntermezzoApp/Intents/IntermezzoIntents.swift:192	Zresetuj timer przerw
+compiler	IntermezzoApp/Intents/IntermezzoIntents.swift:128	Zwraca cały stan jako tekst JSON, do użycia z akcją „Pobierz słownik z danych wejściowych”.
+compiler	IntermezzoApp/Intents/IntermezzoIntents.swift:109	Zwraca liczbę sekund do następnej przerwy albo -1, gdy timer nie odlicza.
+compiler	IntermezzoApp/Intents/IntermezzoIntents.swift:44	Stan timera
+compiler	IntermezzoApp/Intents/IntermezzoIntents.swift:46	Odlicza
+compiler	IntermezzoApp/Intents/IntermezzoIntents.swift:47	Wstrzymany
+compiler	IntermezzoApp/Intents/IntermezzoIntents.swift:56	Źródło strefy pracy
+compiler	IntermezzoApp/Intents/IntermezzoIntents.swift:70	Stan Intermezzo
+compiler	IntermezzoApp/Intents/IntermezzoIntents.swift:78	Timer
+compiler	IntermezzoApp/Intents/IntermezzoIntents.swift:80	W strefie pracy
+compiler	IntermezzoApp/Intents/IntermezzoIntents.swift:81	Źródła strefy pracy
+compiler	IntermezzoApp/Intents/IntermezzoIntents.swift:82	Trwa spotkanie
+compiler	IntermezzoApp/Intents/IntermezzoIntents.swift:83	Włączone Skupienie
+compiler	IntermezzoApp/Intents/IntermezzoIntents.swift:84	Bezczynność
+compiler	IntermezzoApp/Intents/IntermezzoIntents.swift:85	Ekran zablokowany
+compiler	IntermezzoApp/Intents/IntermezzoIntents.swift:86	Połączony VPN
+compiler	IntermezzoApp/Intents/IntermezzoIntents.swift:89	Początek następnej przerwy
+compiler	IntermezzoApp/Intents/IntermezzoIntents.swift:90	Koniec trwającej przerwy
+compiler	IntermezzoApp/Intents/IntermezzoIntents.swift:124	Pobierz stan Intermezzo
+compiler	IntermezzoApp/Intents/IntermezzoIntents.swift:125	Zwraca cały stan Intermezzo jako jedną rzecz: w skrócie wybierzesz z listy jej właściwości (timer, strefa pracy, spotkanie, Skupienie, VPN…), tak jak przy akcji VPN.
+compiler	IntermezzoApp/Intents/IntermezzoIntents.swift:192	Zwraca stan timera: odlicza, wstrzymany albo trwa przerwa. W „Jeśli” wybierzesz wartość z listy.
+compiler	IntermezzoApp/Intents/IntermezzoIntents.swift:211	Zwraca rodzaj następnej przerwy: krótka albo długa.

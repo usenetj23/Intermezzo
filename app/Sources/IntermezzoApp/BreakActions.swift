@@ -19,6 +19,8 @@ final class BreakActionController {
     private var playingSounds: [NSSound] = []
     private var rememberedVolume: (percent: Int, muted: Bool)?
     private var musicWasPlayingByUs = false
+    /// When each action last ran, for its cooldown.
+    private var lastRun: [UUID: Date] = [:]
 
     private let notify: (String, String) -> Void
     private let flashPulse: (String) -> Void
@@ -100,6 +102,18 @@ final class BreakActionController {
         beforeDue.reset()
     }
 
+    /// A trigger that is not tied to a break (the zone, a meeting, Focus, the lock screen...): the actions set to it
+    /// run after their offset, when their conditions allow.
+    func handle(event: AutomationEvent, state: AutomationState) {
+        guard let trigger = event.trigger else { return }
+        items = loadItems()
+        for item in items where item.enabled && item.when == trigger {
+            schedule(after: TimeInterval(max(0, item.offsetSeconds))) { [weak self] in
+                self?.fire(item, event: event)
+            }
+        }
+    }
+
     /// Fire every enabled action registered at one timing point right away
     /// (used by the Rules engine when a rule skips a break → afterPostpone).
     func fireNow(when point: BreakActionWhen) {
@@ -153,7 +167,18 @@ final class BreakActionController {
         }
     }
 
-    private func fire(_ item: BreakActionItem) {
+    /// Runs the action if its conditions and its cooldown allow it now.
+    private func fire(_ item: BreakActionItem, event: AutomationEvent? = nil) {
+        let now = Date()
+        guard item.conditions.allows(state: AutomationBus.shared.state, lastRun: lastRun[item.id], now: now) else {
+            Trace.log("action skipped (conditions): kind=\(item.kind.rawValue) when=\(item.when.rawValue)")
+            return
+        }
+        lastRun[item.id] = now
+        perform(item, event: event)
+    }
+
+    private func perform(_ item: BreakActionItem, event: AutomationEvent?) {
         Trace.log("FIRE kind=\(item.kind.rawValue) when=\(item.when.rawValue) mode=\(item.volumeMode)")
         switch item.kind {
         case .notification:
@@ -194,6 +219,9 @@ final class BreakActionController {
 
         case .script:
             runScript(item.scriptPath)
+
+        case .runShortcut:
+            AutomationShortcutRunner.run(name: item.shortcutName, trigger: item.when.rawValue, event: event)
         }
     }
 
