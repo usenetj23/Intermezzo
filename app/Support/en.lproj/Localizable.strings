@@ -39,6 +39,8 @@
 "%lld m od miejsca" = "%lld m from the place";
 "%lld min" = "%lld min";
 "%lld min · %@" = "%lld min · %@";
+"%lld nit" = "%lld nits";
+"%lld nit z %lld" = "%lld nits of %lld";
 "%lld of %lld pomodoros fit before the end of working hours (meetings and breaks included); %lld move to another day" = "Pomodoros that fit before the end of working hours (meetings and breaks included): %lld of %lld; moving to another day: %lld";
 "%lld s" = "%lld s";
 "%lld 🍅" = "%lld 🍅";
@@ -120,9 +122,12 @@
 "Asystent ustawień, autor skryptów i podsumowanie tygodnia" = "The settings assistant, the script author and the weekly summary";
 "Asystent ustawień, autor skryptów reguł i podsumowanie tygodnia. Funkcje działają tylko wtedy, gdy je klikniesz, a bez włączenia tego przełącznika program niczego nie wysyła." = "The settings assistant, the rule script author and the weekly summary. The features run only when you click them, and with this switch off the program sends nothing.";
 "Asystent ustawień…" = "Settings assistant…";
+"Automat: monitory podążają za wbudowanym ekranem (nity)" = "Automatic: monitors follow the built-in screen (nits)";
 "Automation (System Events)" = "Automation (System Events)";
 "Automatycznie" = "Automatically";
 "Automatycznie (jesienią liście, wiosną płatki)" = "Automatic (leaves in autumn, petals in spring)";
+"Automatycznie (korektor albo macOS w automacie)" = "Automatic (equaliser, or macOS in the automatic mode)";
+"Automatycznie (korektor albo nity w automacie)" = "Automatic (equaliser, or nits in the automatic mode)";
 "Automatycznie pomiń" = "Skip automatically";
 "Automatyzacja dla leniwych (czyli mądrych)" = "Automation for the lazy (that is, the smart)";
 "Automatyzacja: adresy intermezzo://" = "Automation: intermezzo:// addresses";
@@ -163,6 +168,7 @@
 "Brak aktywności" = "No activity";
 "Brak innych kopii na tym Macu." = "No other copies on this Mac.";
 "Brak odcinków tego dnia." = "No intervals on this day.";
+"Brak odczytu z macOS: przyjmuję %lld nit." = "No reading from macOS: %lld nits is assumed.";
 "Brak przerw z ostatnich dni." = "No breaks from the last few days.";
 "Brak uprawnień do nagrywania ekranu" = "No screen recording permission";
 "Brak wschodu lub zachodu Słońca w tym miejscu (dzień lub noc polarna)." = "The Sun neither rises nor sets here (polar day or night).";
@@ -313,6 +319,7 @@
 "Done" = "Done";
 "Dostawca" = "Provider";
 "Dostosowuj barwę ekranu do pory dnia" = "Adjust the screen colour to the time of day";
+"Dostosowuj jasność ekranu do pory dnia i światła w pokoju" = "Adjust the screen brightness to the time of day and the room's light";
 "Dostępna nowa wersja" = "A new version is available";
 "Dostępna wersja %@" = "Version %@ is available";
 "Dostępne modele" = "Available models";
@@ -459,6 +466,11 @@
 "Intermezzo report.pdf" = "Intermezzo report.pdf";
 "Jak nie wypalić się do zera" = "How not to burn out completely";
 "Jasna stal z połyskiem" = "Bright steel with a sheen";
+"Jasność" = "Brightness";
+"Jasność = wartość z wykresu godzin × mnożnik z wykresu światła w pokoju, nie mniej niż 5%. Bez odczytu czujnika (brak czujnika, zamknięta klapa, czujnik wyłączony) liczy się sam wykres godzin. Gdy sam zmienisz jasność, korektor odpuszcza na godzinę; po wyłączeniu, wstrzymaniu Światła albo zamknięciu aplikacji jasność wraca do pierwotnej." = "Brightness = the value from the hours chart × the multiplier from the room light chart, never below 5%. Without a sensor reading (no sensor, lid closed, sensor turned off) the hours chart alone counts. When you change the brightness yourself, the equaliser backs off for an hour; when it is turned off, Light is paused or the app quits, the brightness goes back to what it was.";
+"Jasność ekranu" = "Screen brightness";
+"Jasność monitora zmieniam przez BetterDisplay, którego tu nie ma: te ustawienia na razie nic nie zmieniają." = "A monitor's brightness is changed through BetterDisplay, which is not installed here: these settings do nothing for now.";
+"Jasność wbudowanego ekranu zmieniono ręcznie: wracam do korektora po godzinie." = "The built-in screen's brightness was changed by hand: the equaliser takes over again in an hour.";
 "Jazda" = "Driving";
 "Jeden obraz rozpięty na wszystkie monitory" = "One picture spanning all monitors";
 "Jeśli łatwo się rozpraszasz: włącz Pomodoro — krótsze cykle (25 minut),\ndługa pauza (15–20 minut) co cztery pomidorki.\n\nZasada: w trakcie pomodoro nie zmieniasz zadania. Pauza jest nagrodą\nza zamknięty cykl, nie wymówką." = "If you get distracted easily, turn on Pomodoro — shorter cycles (25 minutes),\na long break (15–20 minutes) after every four pomodoros.\n\nThe rule: during a pomodoro you don't switch tasks. The break is a reward\nfor a finished cycle, not an excuse.";
@@ -469,10 +481,12 @@
 "Kark i barki" = "Neck and shoulders";
 "Kark i ramiona" = "Neck and shoulders";
 "Każdy kwadrat to jeden dzień, każda kolumna to tydzień (od najstarszego po lewej do bieżącego po prawej, poniedziałek u góry). Im ciemniejszy, tym więcej ukończonych przerw: 1–2, 3–4, 5–7, 8 i więcej. Najedź na kwadrat, by zobaczyć dzień. %lld dni z przerwą w ostatnich %lld tygodniach; pominięte przerwy nie przyciemniają pola." = "Each square is one day, each column a week (oldest on the left, current on the right, Monday at the top). The darker, the more completed breaks: 1–2, 3–4, 5–7, 8 or more. Hover a square to see the day. Days with a break: %lld (last %lld weeks); skipped breaks do not darken a square.";
+"Każdy słupek to jedna godzina doby, a wysokość to jasność ekranu (100% to pełna). Przeciągaj jak po wykresie barwy powyżej." = "Each bar is one hour of the day and its height is the screen brightness (100% is full). Drag across it like the colour chart above.";
 "Key %lld" = "Key %lld";
 "Keyboard Shortcuts" = "Keyboard Shortcuts";
 "Kiedy odkładać lub pomijać przerwy" = "When to postpone or skip breaks";
 "Kiedy przerwa ma zostać odłożona lub pominięta?" = "When should a break be postponed or skipped?";
+"Klapa zamknięta: brak odniesienia dla automatu, monitory wracają do korektora." = "Lid closed: the automatic mode has no reference, the monitors go back to the equaliser.";
 "Klapa zamknięta: czujnik nie widzi pokoju, działa sam harmonogram." = "Lid closed: the sensor cannot see the room, the schedule alone is used.";
 "Klasyczna" = "Classic";
 "Klasyczne" = "Classic";
@@ -498,6 +512,8 @@
 "Kopiuj przykład odczytu" = "Copy a reading example";
 "Kopiuj ścieżkę" = "Copy path";
 "Kopiuje do schowka wersję aplikacji i macOS, model Maca, monitory, stan uprawnień i funkcje, które się wycofały, oraz kilka linii dziennika o świetle i multimediach. Bez nazw sieci, tytułów z kalendarza, miejsc i nazwy użytkownika. Nic nie jest wysyłane: wklej to do zgłoszenia na GitHubie." = "Copies the app and macOS versions, the Mac model, the displays, the permission states and the features that fell back, plus a few log lines about light and media, to the clipboard. No network names, calendar titles, places or user name. Nothing is sent: paste it into a GitHub issue.";
+"Korektor (wykresy godzin i pokoju)" = "Equaliser (hours and room charts)";
+"Korektor jasności zastępuje teraz przyciemnianie monitorów wieczorem z sekcji BetterDisplay." = "The brightness equaliser now replaces the evening monitor dimming from the BetterDisplay section.";
 "Kot – krowa przy biurku" = "Cat – cow at the desk";
 "Krótka" = "Short";
 "Krótka (z ustawień)" = "Short (from settings)";
@@ -548,6 +564,7 @@
 "Mac mocno się nagrzał, więc czuwanie zostało wyłączone." = "The Mac got very hot, so keep awake was turned off.";
 "Mac nie ma GPS i ustala pozycję po Wi-Fi, a ono jest wyłączone, więc to miejsce pracy nie zadziała. Użyj sieci LAN, VPN, kalendarza albo godzin pracy." = "A Mac has no GPS and finds its position by Wi-Fi, which is off, so this work place cannot work. Use the LAN, a VPN, the calendar or working hours instead.";
 "Mac nie zaśnie" = "The Mac will not sleep";
+"Maksymalnie %lld nit" = "At most %lld nits";
 "Mapa jest niedostępna, ale współrzędne możesz wpisać ręcznie." = "The map is unavailable, but you can type the coordinates by hand.";
 "Masz najnowszą wersję (%@)" = "You have the latest version (%@)";
 "Match the break to the session you just finished" = "Match the break to the session you just finished";
@@ -566,6 +583,7 @@
 "Minęło już trochę czasu. Zrób %@ przerwę albo ją odłóż." = "It's been a while. Take the %@ break or postpone it.";
 "Miękka przerwa: przyciemnienie przepuszcza kliknięcia" = "Soft break: the dimming lets clicks through";
 "Mleczna szyba z ziarnem" = "Milky glass with grain";
+"Mnożnik dla światła w pokoju: w ciemnym pokoju ekran jest ciemniejszy, w jasnym jaśniejszy (powyżej 100% podnosi przyciemnioną godzinę, ale nigdy ponad pełną jasność). Między słupkami wartość przechodzi płynnie na skali logarytmicznej, a pionowa kreska pokazuje bieżący odczyt czujnika." = "Multiplier for the room's light: in a dark room the screen is darker, in a bright one brighter (above 100% it lifts a dimmed hour, but never past full brightness). Between the bars the value blends smoothly on a logarithmic scale, and the vertical line shows the sensor's current reading.";
 "Mode:" = "Mode:";
 "Model" = "Model";
 "Model jest niedostępny: %@" = "The model is unavailable: %@";
@@ -577,6 +595,8 @@
 "Moja reguła" = "My rule";
 "Moje przypomnienie" = "My reminder";
 "Mon" = "Mon";
+"Monitor nie podaje maksymalnej jasności: przyjmuję %lld nit. Wpisz wartość z jego specyfikacji, żeby automat był dokładniejszy." = "The monitor does not report its maximum brightness: %lld nits is assumed. Enter the value from its specification to make the automatic mode more accurate.";
+"Monitor podaje w EDID: %lld nit." = "The monitor reports in its EDID: %lld nits.";
 "Monitory" = "Monitors";
 "Monospaced" = "Monospaced";
 "Motyw, powiadomienia i wygląd ekranu przerwy" = "Theme, notifications and the look of the break screen";
@@ -607,9 +627,11 @@
 "Nagrywanie ekranu" = "Screen recording";
 "Nagrywanie ekranu / streaming" = "Screen recording / streaming";
 "Nagrywanie ekranu przyznane — Glass działa" = "Screen recording granted — the Glass effect works";
+"Najciemniej: %lld%%" = "Darkest: %lld%%";
 "Najcieplejszy kolor: %lld K" = "Warmest colour: %lld K";
 "Najczęstsze odstępy między propozycjami z tej reguły" = "Shortest interval between suggestions from this rule";
 "Najgorsza pozycja to kolejna" = "The best position is the next one";
+"Najjaśniej: %lld%%" = "Brightest: %lld%%";
 "Najpierw kliknij Uruchom ponownie: macOS pokaże okno z pytaniem dopiero po ponownym uruchomieniu aplikacji." = "Click Restart first: macOS shows the question only after the app is started again.";
 "Najważniejszy nawyk przy monitorze" = "The most important habit at the screen";
 "Najzdrowsza odległość od monitora: 50–70 cm, górna krawędź ekranu na wysokości oczu." = "The healthiest distance from the monitor: 50–70 cm, the top edge of the screen at eye level.";
@@ -645,6 +667,7 @@
 "New project…" = "New project…";
 "Next break in" = "Next break in";
 "Nie ma jednej „zdrowej” pozycji siedzącej — zdrowa to NASTĘPNA.\n\nWyprost w staniu: ręce na biodra, delikatne odchylenie do tyłu, 10 s.\nNa siedząco: kolano do klatki, 20 s na stronę (rozciąganie gruszkowatego).\n\nUstaw monitor na wysokość oczu. Jeśli patrzysz w dół — szyja płaci rachunek." = "There is no single “healthy” sitting position — the healthy one is the NEXT one.\n\nStanding back extension: hands on hips, lean gently backwards, 10 s.\nSeated: knee to chest, 20 s per side (piriformis stretch).\n\nSet the screen at eye level. If you look down, your neck pays the bill.";
+"Nie mogę odczytać jasności wbudowanego ekranu: monitory używają korektora." = "The built-in screen's brightness cannot be read: the monitors use the equaliser.";
 "Nie mogę odczytać trybów Focus. macOS chroni ten folder: dodaj Intermezzo w Prywatność i ochrona → Pełny dostęp do dysku, potem uruchom aplikację ponownie." = "I cannot read the Focus modes. macOS protects that folder: add Intermezzo under Privacy & Security → Full Disk Access, then restart the app.";
 "Nie może być dłuższa niż długa przerwa (%@)." = "Cannot be longer than the long break (%@).";
 "Nie może być krótsza niż krótka przerwa (%@)." = "Cannot be shorter than the short break (%@).";
@@ -663,6 +686,7 @@
 "Nie wyłączaj przy niskiej baterii" = "Don't turn off on a low battery";
 "Nie zarządzaj tym monitorem (np. telewizorem)" = "Don’t manage this monitor (e.g. a TV)";
 "Nie zmieniaj barw w aplikacjach pełnoekranowych" = "Don't change colours in full-screen apps";
+"Nie zmieniaj jasności" = "Do not change the brightness";
 "Nieaktywność liczy się od: %lld min" = "Inactivity counts from: %lld min";
 "Niebieskie światło i koniec dnia" = "Blue light and the end of the day";
 "Niebieskie światło: mit czy fakt?" = "Blue light: myth or fact?";
@@ -695,6 +719,8 @@
 "Od – do" = "From – to";
 "Odchylenie do tyłu z rękami na biodrach. 10 sekund. Drugie ćwiczenie: kolano do klatki." = "Lean back with your hands on your hips for 10 seconds. Then: knee to chest.";
 "Odcień całego okna, panelu i powiadomień. Dół jest zawsze ciemniejszy." = "The tint of the whole window, panel and notifications. The bottom is always darker.";
+"Odczyt z macOS: %lld nit (maks. SDR)." = "Read from macOS: %lld nits (max SDR).";
+"Odczyt z macOS: %lld nit (maks. SDR; do %lld przy mocnym świetle)." = "Read from macOS: %lld nits (max SDR; up to %lld in bright light).";
 "Oddaje bieżący stan jako JSON w parametrze state adresu x-success (np. shortcuts://); wymaga włączonej publikacji stanu" = "Hands the current state back as JSON in the state parameter of the x-success address (e.g. shortcuts://); needs state publishing switched on";
 "Oddal" = "Zoom out";
 "Oddech" = "Breathing";
@@ -887,6 +913,7 @@
 "Profil" = "Profile";
 "Profil ustawia rytm pracy i długość przerw. Dowody są ograniczone (małe próby, konsensus) — dobierz to, co pasuje do Twojej pracy; suwaki poniżej nadal działają." = "A preset sets the work rhythm and break lengths. The evidence is limited (small samples, consensus) — pick what suits your work; the sliders below still work.";
 "Profil „Własne (wg zegara)” nie korzysta z czujnika: wybierz „Własne (wg Słońca)” albo gotowy profil." = "The “Custom (by the clock)” profile does not use the sensor: choose “Custom (by the Sun)” or a ready-made profile.";
+"Profil „Własne (wg zegara)” nie zmienia barwy według czujnika: odczyt służy tylko korektorowi jasności." = "The “Custom (by the clock)” profile does not change the colour by the sensor: the reading is used only by the brightness equaliser.";
 "Project" = "Project";
 "Project sensors" = "Project sensors";
 "Project ‘%@’?" = "Project ‘%@’?";
@@ -1181,6 +1208,8 @@
 "Telefon przełącza Focus po lokalizacji GPS i synchronizuje go z Makiem, więc tryb oznaczony jako praca mówi, że jesteś w pracy: liczy się do strefy przerw i do Rejestru pracy (bez sieci biura jako praca zdalna). Pozostałe tryby domyślnie wstrzymują przerwy (jeśli włączone jest wykrywanie Focus)." = "The iPhone switches Focus by GPS location and syncs it to the Mac, so a mode marked as work says you are at work: it counts toward the break work zone and the Work log (as remote work without the office network). Other modes hold breaks by default (if Focus detection is on).";
 "Temperatura barwowa ekranu na wieczór poniżej 3400 K poprawia zasypianie (tryb nocny istnieje nie bez powodu)." = "An evening screen colour temperature below 3400 K helps you fall asleep (Night Shift exists for a reason).";
 "Tempo zmiany barwy: najwyżej %lld K na minutę" = "Colour change speed: at most %lld K per minute";
+"Ten Mac nie ma wbudowanego ekranu: automat (nity) jest niedostępny, monitory używają korektora." = "This Mac has no built-in screen: the automatic (nits) mode is not available, the monitors use the equaliser.";
+"Ten Mac nie pozwala zmieniać jasności wbudowanego ekranu: działa tylko na monitorach przez BetterDisplay." = "This Mac does not allow changing the built-in screen's brightness: it works only on monitors through BetterDisplay.";
 "Ten Mac nie udostępnia czujnika światła: działa sam harmonogram." = "This Mac does not provide a light sensor: the schedule alone is used.";
 "Ten adres jest poza Twoją siecią: wysyłane dane opuszczą ten komputer." = "This address is outside your network: the data sent will leave this computer.";
 "Ten skrypt nie ma nastaw. Dodaj na początku kodu linię „property nazwa : wartość”, a pojawi się tutaj jako pole." = "This script has no settings. Add a line “property name : value” at the top of the code and it appears here as a field.";
@@ -1308,6 +1337,8 @@
 "Video detection: pause when watching video" = "Video detection: pause when watching video";
 "Voided" = "Voided";
 "Volume — set to 0 to keep it muted" = "Volume — set to 0 to keep it muted";
+"W automacie jasność tego ekranu ustawia macOS; mnożnik i limity działają, gdy automat jest wyłączony." = "In the automatic mode macOS sets this screen's brightness; the multiplier and limits apply when the automatic mode is off.";
+"W automacie jasność wbudowanego ekranu ustawia macOS (włącz „Automatycznie dostosowuj jasność” w Ustawieniach systemowych → Ekrany), a aplikacja tylko ją odczytuje i przelicza na nity. Monitor dostaje jasność = nity wbudowanego ÷ maksymalne nity monitora, z jego własnym mnożnikiem i limitami (Monitory poniżej); sprawdzane co ok. 30 s. Maksimum monitora pochodzi z EDID, z wpisu ręcznego albo przyjmuję 350 nitów. Przy zamkniętej klapie albo bez odczytu monitory wracają do korektora (wykresy poniżej). Monitor z wyborem „Korektor” zostaje przy wykresach." = "In the automatic mode macOS sets the built-in screen's brightness (turn on “Automatically adjust brightness” in System Settings → Displays); the app only reads it and converts it to nits. A monitor gets brightness = the built-in screen's nits ÷ the monitor's maximum nits, with its own multiplier and limits (Monitors below); checked about every 30 s. The monitor's maximum comes from its EDID, from a typed value, or 350 nits is assumed. With the lid closed or without a reading the monitors go back to the equaliser (charts below). A monitor set to “Equaliser” stays with the charts.";
 "W dzień jasne, chłodniejsze światło (o wysokiej temperaturze barwowej) sprzyja czujności, a wieczorem ciepłe światło wiąże się z łagodniejszym spadkiem aktywności organizmu. Dowody pochodzą jednak głównie z małych, krótkich badań.\n\nPrzykłady: w badaniu biurowym Millsa i in. (2007) światło o wyższej temperaturze barwowej poprawiło samopoczucie i część wskaźników pracy; w laboratoryjnym badaniu Kozakiego i in. światło o barwie 6700 K przed snem osłabiło głęboki sen bardziej niż 3000 K (7 mężczyzn).\n\nRano pomaga światło dzienne: wyjdź na zewnątrz albo usiądź przy oknie. Ekran go nie zastąpi, bo na zewnątrz jest wielokrotnie jaśniej.\n\nW Intermezzo: w dzień ekran zostaje neutralny (6500 K), po zachodzie ociepla się, a przed snem robi się najcieplejszy. Profil „Zalecane” to nasz kompromis oparty na tym kierunku badań, nie zalecenie lekarskie.\n\nSiła dowodów: małe próby i różne metody; traktuj to jako wskazówkę do własnego eksperymentu, nie receptę.\n\nŹródła: Mills, Tomkins, Schlangen 2007, J. Circadian Rhythms 5:2; Kozaki i in., J. Physiol. Anthropol. (wpływ temperatury barwowej na sen wolnofalowy)." = "By day, bright, cooler light (a high colour temperature) supports alertness, while in the evening warm light goes with a gentler drop in the body's activity. The evidence, however, comes mostly from small, short studies.\n\nExamples: in an office study by Mills et al. (2007) light of a higher colour temperature improved well-being and some measures of work; in a laboratory study by Kozaki et al. light of 6700 K before bed weakened deep sleep more than 3000 K (7 men).\n\nIn the morning, daylight helps: go outside or sit by a window. A screen cannot replace it, because outdoors it is many times brighter.\n\nIn Intermezzo: by day the screen stays neutral (6500 K), it warms after sunset and is warmest before bed. The “Recommended” profile is our compromise based on this direction of research, not medical advice.\n\nStrength of evidence: small samples and different methods; treat it as a hint for your own experiment, not a prescription.\n\nSources: Mills, Tomkins, Schlangen 2007, J. Circadian Rhythms 5:2; Kozaki et al., J. Physiol. Anthropol. (effect of colour temperature on slow-wave sleep).";
 "W godzinach obiadu przerwy nie są potrzebne: i tak odchodzisz od komputera. Traktuje tę godzinę jak naturalną przerwę. Godziny zmienisz w edytorze skryptu." = "Breaks aren't needed at lunchtime: you walk away from the computer anyway. It treats this hour as a natural break. Change the hours in the script editor.";
 "W jasnym pokoju ocieplanie ekranu jest słabsze, a przyciemnianie przez BetterDisplay mniejsze; w ciemnym działa w pełni. Czujnik jest tylko w MacBooku, odczyt idzie przez prywatny interfejs macOS (może przestać działać po aktualizacji) i znika przy zamkniętej klapie, wtedy działa sam harmonogram. Mac nie mierzy barwy światła, więc kolor lamp wybierasz ręcznie: wieczorem ekran nie będzie wtedy dużo zimniejszy niż lampy." = "In a bright room the screen warming is weaker and the BetterDisplay dimming smaller; in a dark one it works in full. The sensor exists only in a MacBook, the reading goes through a private macOS interface (it may stop working after an update) and disappears with the lid closed, when the schedule alone is used. The Mac does not measure the colour of light, so you choose the lamp colour by hand: in the evening the screen will then not be much cooler than the lamps.";
@@ -1322,6 +1353,9 @@
 "Warunek nie jest teraz spełniony: reguła nic nie zrobi." = "The condition is not true right now: the rule does nothing.";
 "Warunki są sprawdzane w chwili uruchomienia akcji. Strefa pracy wymaga włączonego co najmniej jednego źródła w Ogólne; bez tego nie wiadomo, czy jesteś w niej, i warunek nie jest spełniony." = "Conditions are checked when the action is about to run. The work zone needs at least one source switched on in General; without it it is not known whether you are in it, and the condition is not met.";
 "Warunki uruchomienia" = "Conditions to run";
+"Wbudowany ekran jest wyłączony (np. zamknięta klapa): jasność zmieniam tylko na monitorach przez BetterDisplay." = "The built-in screen is off (e.g. the lid is closed): only the monitors' brightness is changed, through BetterDisplay.";
+"Wbudowany ekran teraz" = "Built-in screen now";
+"Wbudowany ekran zmieniam przez prywatny interfejs macOS (może przestać działać po aktualizacji), zewnętrzne monitory przez BetterDisplay. Bez automatu wyłącz „Automatycznie dostosowuj jasność” w Ustawieniach systemowych → Ekrany, bo macOS będzie poprawiał jasność po swojemu. Każdy ekran, także wbudowany, ma własne ustawienia jasności w sekcji Monitory (źródło, mnożnik, limity, nity); monitory „bez zarządzania” i okna-wyjątki zostają przy swojej jasności. Profil „Własne (wg zegara)” nie zmienia barwy według czujnika, ale korektor jasności korzysta z niego, gdy czujnik jest włączony." = "The built-in screen is changed through a private macOS interface (it may stop working after an update), external monitors through BetterDisplay. Without the automatic mode, turn off “Automatically adjust brightness” in System Settings → Displays, or macOS will correct the brightness its own way. Every screen, the built-in one too, has its own brightness settings in the Monitors section (source, multiplier, limits, nits); unmanaged monitors and excluded windows keep their own brightness. The “Custom (by the clock)” profile does not change the colour by the sensor, but the brightness equaliser uses it when the sensor is on.";
 "Wdech 4 s — zatrzymanie 4 s — wydech 4 s — pauza 4 s. Cztery rundy obniżają puls i kortyzol." = "Inhale 4 s — hold 4 s — exhale 4 s — hold 4 s. Four rounds lower your pulse and cortisol.";
 "Wdech 4 s — zatrzymanie 4 s — wydech 4 s — zatrzymanie 4 s. Pięć rund.\n\nTo technika z treningu pilotów i sportowców: obniża tętno i wycisza\ntryb „walcz albo uciekaj”, w który wpadasz przy deadline'ach.\n\nNajlepiej robić to na długiej przerwie, zanim znowu usiądziesz do pracy." = "Breathe in 4 s — hold 4 s — breathe out 4 s — hold 4 s. Four rounds.\n\nIt's a technique from pilot and athlete training: it lowers your heart rate and calms\nthe “fight or flight” mode you slip into around deadlines.\n\nBest done during a long break, before you sit back down to work.";
 "Wdech 4 s, zatrzymanie 4, wydech 4, zatrzymanie 4. Pięć rund." = "Breathe in 4 s, hold 4, breathe out 4, hold 4. Four rounds.";
@@ -1420,6 +1454,8 @@
 "Wyjątki" = "Exceptions";
 "Wykres barwy ekranu w ciągu doby" = "Chart of the screen colour over the day";
 "Wykres barwy: zacznij od profilu…" = "Colour chart: start from a profile…";
+"Wykres jasności ekranu w ciągu doby" = "Chart of the screen brightness over the day";
+"Wykres mnożnika jasności według światła w pokoju" = "Chart of the brightness multiplier by the room's light";
 "Wykres w sekcji „Teraz” zaczęto od profilu „%@”. Możesz go dalej poprawiać palcem po wykresie." = "The chart in the “Now” section was started from the “%@” profile. You can keep adjusting it by dragging across the chart.";
 "Wykrok – biodra" = "Lunge for the hips";
 "Wykrywa tryb slajdów Keynote lub PowerPointa — publiczność patrzy na Ciebie, nie na Twój nadgarstek. Przerwa poczeka do końca prezentacji." = "Detects Keynote or PowerPoint slideshow mode — the audience is looking at you, not at your wrist. The break waits until the presentation ends.";
@@ -1457,6 +1493,7 @@
 "Wznów wszystkie przerwy" = "Resume all breaks";
 "Wzrok w dal" = "Look into the distance";
 "Wzrok: zasada 20-20-20" = "Eyes: the 20-20-20 rule";
+"Własna maksymalna jasność (nity)" = "Own maximum brightness (nits)";
 "Własna…" = "Custom…";
 "Własne (wg Słońca)" = "Custom (by the Sun)";
 "Własne (wg zegara)" = "Custom (by the clock)";
@@ -1467,7 +1504,9 @@
 "Własny czas" = "Custom length";
 "Własny czas pasuje do przerwy śniadaniowej (9:00, 15 min) albo obiadu (12:30, 30 min). Startuje w podanej minucie, o ile aplikacja nie jest wstrzymana (spotkanie, poza godzinami pracy). Z opcją „Zapytaj” dostaniesz powiadomienie z przyciskiem Zacznij." = "A custom length suits a breakfast break (9:00, 15 min) or lunch (12:30, 30 min). It starts in the given minute unless the app is paused (meeting, outside working hours). With “Ask” you get a notification with a Start button.";
 "Własny limit koloru" = "Own colour limit";
+"Własny mnożnik: %lld%%" = "Own multiplier: %lld%%";
 "Włącz" = "Turn on";
+"Włącz czujnik światła w pokoju" = "Turn on the room light sensor";
 "Włącz funkcje AI" = "Turn on the AI features";
 "Włącz lub wyłącz czuwanie" = "Turn keep-awake on or off";
 "Włącz lub wyłącz Światło" = "Turn Light on or off";
@@ -1478,6 +1517,7 @@
 "Włącza dopasowanie barwy ekranu do pory dnia" = "Turns on adjusting the screen colour to the time of day";
 "Włączone" = "On";
 "Włączone Skupienie" = "Focus is on";
+"Włączony korektor jasności (sekcja „Jasność ekranu”) zastępuje to przyciemnianie: jasność monitorów ustawia wtedy korektor." = "The brightness equaliser (the “Screen brightness” section) is on and replaces this dimming: the equaliser sets the monitors' brightness.";
 "Włączony teraz" = "On now";
 "Włączyć funkcje AI?" = "Turn on the AI features?";
 "Włączył się tryb niskiego zużycia energii, więc Mac może już zasnąć." = "Low Power Mode came on, so the Mac may sleep now.";
@@ -1620,6 +1660,8 @@
 "długa" = "long";
 "e.g. Water" = "e.g. Water";
 "focus time" = "focus time";
+"godzina %lld%% × pokój %lld%%" = "hour %lld%% × room %lld%%";
+"godzina %lld%%, bez czujnika" = "hour %lld%%, no sensor";
 "godziny pracy bez żadnego dnia pracy wyłączyłyby przerwy" = "working hours with no working day would switch the breaks off";
 "gotowy" = "ready";
 "herbata" = "tea";
@@ -1627,6 +1669,11 @@
 "inne" = "other";
 "intermezzo-przerwy.csv" = "intermezzo-breaks.csv";
 "isn't (odwrócone)" = "isn't (inverted)";
+"jasność %lld%% · korektor" = "brightness %lld%% · equaliser";
+"jasność %lld%% · za wbudowanym, %lld nit" = "brightness %lld%% · follows built-in, %lld nits";
+"jasność bez zmian" = "brightness unchanged";
+"jasność bez zmian (wyjątek)" = "brightness unchanged (exception)";
+"jasność: macOS (automat)" = "brightness: macOS (automatic)";
 "jeszcze nie" = "not yet";
 "kalendarz: %@" = "calendar: %@";
 "karta / stacja" = "adapter / dock";
@@ -1648,6 +1695,7 @@
 "na Twoje życzenie" = "on your request";
 "na godzinę" = "for an hour";
 "nazwa aplikacji / tekst" = "app name / text";
+"nie działa (Światło wyłączone lub wstrzymane)" = "not running (Light is off or paused)";
 "nie podczas spotkania" = "not during a meeting";
 "nie wstrzymano" = "not paused";
 "nie zainstalowany" = "not installed";
@@ -1738,6 +1786,7 @@
 "wyłączone" = "off";
 "wyłączone: przerwy działają całą dobę" = "off: breaks run around the clock";
 "wyłączony" = "off";
+"własna jasność" = "own brightness";
 "włączone" = "on";
 "włączony: %@ (nie jako praca)" = "on: %@ (not as work)";
 "włączony: %@ (nie wstrzymuje)" = "on: %@ (does not hold)";

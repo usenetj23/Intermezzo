@@ -30,6 +30,7 @@ FILES = {
     "AppearancePane": ("appearance", False), "LanguageSection": ("appearance", False),
     "BreakLookSections": ("appearance", False),
     "LightPane": ("light", False), "LightMonitorsSection": ("light", False),
+    "LightBrightnessSection": ("light", False), "MonitorBrightnessControls": ("light", False),
     "StatisticsPane": ("statistics", False),
     "RulesPane": ("rules", True), "FlashPane": ("flash", True), "AwakePane": ("awake", False),
     "ClockOutPane": ("clockOut", False), "MessagesPane": ("messages", False), "ExercisesPane": ("exercises", False),

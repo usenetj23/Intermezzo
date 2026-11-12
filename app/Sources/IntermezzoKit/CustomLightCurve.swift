@@ -25,15 +25,7 @@ public struct CustomLightCurve: Equatable, Sendable {
 
     /// Colour at a moment of the day, `minute` in 0..<1440 (values outside wrap around).
     public func kelvin(atMinuteOfDay minute: Double) -> Double {
-        var m = minute.truncatingRemainder(dividingBy: 1440)
-        if m < 0 { m += 1440 }
-        let position = (m - 30) / 60               // band centres are at h:30
-        let lower = Int(floor(position))
-        let fraction = position - Double(lower)
-        let a = hourly[((lower % Self.bands) + Self.bands) % Self.bands]
-        let b = hourly[(((lower + 1) % Self.bands) + Self.bands) % Self.bands]
-        let t = fraction * fraction * (3 - 2 * fraction)
-        return a + (b - a) * t
+        EqualizerBands.dayValue(hourly, atMinuteOfDay: minute)
     }
 
     public mutating func set(hour: Int, kelvin: Double) {
@@ -44,12 +36,7 @@ public struct CustomLightCurve: Equatable, Sendable {
     /// A drag from one point to another sets every band in between on a straight line, so that a fast
     /// stroke leaves no gaps. Positions are in bands (0..<24, fractions allowed).
     public mutating func paint(fromBand a: Double, kelvin ka: Double, toBand b: Double, kelvin kb: Double) {
-        let first = Int(floor(min(a, b))), last = Int(floor(max(a, b)))
-        for band in first...last where (0..<Self.bands).contains(band) {
-            let t = abs(b - a) < 1e-9 ? 1 : (Double(band) + 0.5 - a) / (b - a)
-            let k = ka + (kb - ka) * min(max(t, 0), 1)
-            set(hour: band, kelvin: k)
-        }
+        hourly = EqualizerBands.painted(hourly, fromBand: a, value: ka, toBand: b, value: kb, snap: Self.snap)
     }
 
     // MARK: Storage ("6500,6500,…")

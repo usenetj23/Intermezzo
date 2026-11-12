@@ -29,8 +29,15 @@ final class BetterDisplayLight: ObservableObject {
     private let defaults = UserDefaults.standard
     private var state: BetterDisplayState
     private var busy = false
-    /// Displays whose brightness the user changed by hand; left alone until the evening ends.
-    private var yielded: Set<String> = []
+    /// A display whose brightness the user changed by hand: left alone until the evening ends (evening
+    /// dimming) or for `ScreenBrightness.manualHoldSeconds` (brightness equaliser), see `ManualHold`.
+    private struct Hold {
+        let since: Date
+        let kind: ManualHold.Kind
+    }
+    private var yielded: [String: Hold] = [:]
+    /// Most an equaliser pass moves a monitor (DDC writes are slow; the rest follows on the next pass).
+    private static let maxLevelStep = 0.1
     /// What the last pass worked out; an identical pass is skipped for a while (every query is a round trip
     /// to BetterDisplay and often a DDC read on the monitor).
     private var lastPassKey = ""
@@ -113,16 +120,21 @@ final class BetterDisplayLight: ObservableObject {
 
     // MARK: Driving
 
-    /// Called from the light schedule every 30 s. `active` is false while Light is off or paused.
+    /// Called from the light schedule every 30 s (not during a colour preview: the brightness is frozen then).
+    /// `active` is false while Light is off or paused; `paused` keeps the equaliser's manual holds through a pause.
     /// `neutral` are displays an exception keeps untouched for now; `untouched` the ones the user left alone for good.
-    /// `factorFor` gives each display's brightness factor (1 = no dimming), the room's light included.
-    func update(active: Bool, neutral: Set<UInt32>, untouched: Set<UInt32>, factorFor: @escaping (UInt32) -> Double) {
+    /// `equalizer`: the brightness equaliser is on, and replaces the evening dimming.
+    /// `goalFor` gives each display's brightness goal (evening factor or equaliser level), the room's light included.
+    func update(active: Bool, paused: Bool, equalizer: Bool, neutral: Set<UInt32>, untouched: Set<UInt32>,
+                goalFor: @escaping (UInt32) -> DisplayBrightnessGoal) {
         guard Self.isInstalled, !busy else { return }
-        let wantsDim = dimEnabled && active
+        let wantsDim = (dimEnabled || equalizer) && active
         let wantsTrueTone = trueToneEnabled && active
+        // Turned off (not paused): no manual hold outlives the feature.
+        if !wantsDim, !paused, !yielded.isEmpty { yielded = [:] }
         guard wantsDim || wantsTrueTone || !state.isEmpty else { return }
         guard isRunning else { return }
-        let factors = devices.map { "\($0.displayID):\(Int((factorFor(UInt32($0.displayID)) * 100).rounded()))" }
+        let factors = devices.map { "\($0.displayID):\(Self.describe(goalFor(UInt32($0.displayID))))" }
         let key = "\(wantsDim)|\(wantsTrueTone)|\(factors)|\(neutral.sorted())|\(untouched.sorted())"
         if key == lastPassKey, Date().timeIntervalSince(lastPassAt) < Self.recheckInterval { return }
         LightLog.detail("betterdisplay pass: dim \(wantsDim), true tone off \(wantsTrueTone), factors \(factors), neutral \(neutral.sorted())")
@@ -132,9 +144,11 @@ final class BetterDisplayLight: ObservableObject {
         busy = true
         Task {
             defer { busy = false }
-            if !wantsDim, !(state.originalBrightness.isEmpty && state.disabledGroups.isEmpty) { await restoreBrightness() }
+            if !wantsDim, !(state.originalBrightness.isEmpty && state.disabledGroups.isEmpty) {
+                await restoreBrightness(keepEqualizerHolds: paused)
+            }
             if !wantsTrueTone, state.trueToneWasOn { await restoreTrueTone() }
-            if wantsDim { await dim(factorFor: factorFor, neutral: neutral, untouched: untouched) }
+            if wantsDim { await dim(goalFor: goalFor, neutral: neutral, untouched: untouched) }
             if wantsTrueTone { await switchTrueToneOff() }
         }
     }
@@ -176,18 +190,57 @@ final class BetterDisplayLight: ObservableObject {
         return await send("set", [("displayID", String(id)), ("brightness", String(format: "%.3f", clamped))])?.result == true
     }
 
-    private func dim(factorFor: (UInt32) -> Double, neutral: Set<UInt32>, untouched: Set<UInt32>) async {
+    /// A short text of a goal, for the "same pass" key and for spotting displays that must differ.
+    private static func describe(_ goal: DisplayBrightnessGoal) -> String {
+        switch goal {
+        case .original: return "o"
+        case .factor(let f): return "f\(Int((f * 100).rounded()))"
+        case .level(let l): return "l\(Int((l * 100).rounded()))"
+        case .elsewhere: return "e"
+        }
+    }
+
+    /// A display another mechanism now owns (the built-in screen through DisplayServices): forget it here
+    /// without writing, so two mechanisms never drive it at once, and hand its real original brightness to
+    /// the equaliser (what the equaliser read itself may already be dimmed).
+    private func release(_ id: Int) async {
+        let key = String(id)
+        guard state.originalBrightness[key] != nil || state.lastSetBrightness[key] != nil || yielded[key] != nil else { return }
+        LightLog.detail("betterdisplay: #\(key) is driven elsewhere now, forgotten here")
+        if let current = await brightness(of: id),
+           let original = BrightnessHandover.originalToHandOver(original: state.originalBrightness[key],
+                                                                lastSet: state.lastSetBrightness[key], current: current,
+                                                                takerLastSet: ScreenBrightnessController.shared.lastWritten) {
+            ScreenBrightnessController.shared.adopt(original: original)
+        }
+        state.originalBrightness[key] = nil
+        state.lastSetBrightness[key] = nil
+        yielded[key] = nil
+    }
+
+    /// After the screens wake or change, a monitor may come back at another brightness: what was set last no
+    /// longer tells a manual change apart.
+    func displaysChanged() {
+        guard !state.lastSetBrightness.isEmpty else { return }
+        LightLog.detail("betterdisplay: displays woke or changed, last values forgotten")
+        state.lastSetBrightness = [:]
+        save()
+    }
+
+    private func dim(goalFor: (UInt32) -> DisplayBrightnessGoal, neutral: Set<UInt32>, untouched: Set<UInt32>) async {
         if devices.isEmpty { await checkConnection() }
+        let elsewhere = Set(devices.map(\.displayID).filter { goalFor(UInt32($0)) == .elsewhere })
+        for id in elsewhere { await release(id) }
         // Linked displays move together, so a display that must stay different needs the group switched off.
         // Only while the evening is dimming: otherwise the group would be switched off and on every pass.
-        let evening = devices.contains { factorFor(UInt32($0.displayID)) < 0.995 }
-        let differing = Set(devices.filter { !untouched.contains(UInt32($0.displayID)) }
-            .map { Int((factorFor(UInt32($0.displayID)) * 100).rounded()) }).count > 1
+        let evening = devices.contains { goalFor(UInt32($0.displayID)).drives }
+        let differing = Set(devices.filter { !untouched.contains(UInt32($0.displayID)) && !elsewhere.contains($0.displayID) }
+            .map { Self.describe(goalFor(UInt32($0.displayID))) }).count > 1
         if unlinkEnabled, evening, !neutral.isEmpty || !untouched.isEmpty || differing, state.disabledGroups.isEmpty {
             await disableGroups()
         }
         // Displays that BetterDisplay keeps in step with another one are left to that one.
-        let managed = devices.filter { state.followerOf[String($0.displayID)] == nil }
+        let managed = devices.filter { state.followerOf[String($0.displayID)] == nil && !elsewhere.contains($0.displayID) }
         // Read everything first: a set on one display can move its linked partner.
         var snapshot: [Int: Double] = [:]
         for device in managed {
@@ -197,34 +250,48 @@ final class BetterDisplayLight: ObservableObject {
             if let value = await brightness(of: device.displayID) { snapshot[device.displayID] = value }
         }
         var handled = Set<Int>()
+        var rampPending = false
         for device in managed {
             let id = device.displayID
             let key = String(id)
             guard !handled.contains(id), let current = snapshot[id] else { continue }
-            let target = neutral.contains(UInt32(id)) || untouched.contains(UInt32(id)) ? 1 : factorFor(UInt32(id))
+            let goal = neutral.contains(UInt32(id)) || untouched.contains(UInt32(id)) ? .original : goalFor(UInt32(id))
+            let original = state.originalBrightness[key] ?? current
 
-            if target >= 0.995 {
-                yielded.remove(key)
-                if let original = state.originalBrightness[key] {
+            let now = Date()
+            if let hold = yielded[key] {
+                // An exception, a pause or a preview does not end the equaliser's hold (see ManualHold).
+                if ManualHold.decision(kind: hold.kind, since: hold.since, goal: goal, now: now) == .keep { continue }
+                yielded[key] = nil
+            }
+            guard let target = goal.wanted(original: original) else {
+                if let saved = state.originalBrightness[key] {
                     let last = state.lastSetBrightness[key] ?? current
                     if !EveningDimming.userChanged(current: current, lastSet: last) {
-                        _ = await setBrightness(original, of: id)
+                        _ = await setBrightness(saved, of: id)
                     }
                     state.originalBrightness[key] = nil
                     state.lastSetBrightness[key] = nil
                 }
                 continue
             }
-            if yielded.contains(key) { continue }
             if let last = state.lastSetBrightness[key], EveningDimming.userChanged(current: current, lastSet: last) {
                 // Someone changed the brightness by hand: do not fight them.
                 state.originalBrightness[key] = nil
                 state.lastSetBrightness[key] = nil
-                yielded.insert(key)
+                if case .level = goal {
+                    yielded[key] = Hold(since: now, kind: .equalizer)
+                } else {
+                    yielded[key] = Hold(since: now, kind: .evening)
+                }
                 continue
             }
-            let original = state.originalBrightness[key] ?? current
-            let wanted = original * target
+            var wanted = target
+            if case .level = goal {
+                // The equaliser glides: one step per pass, the next pass comes soon.
+                wanted = ScreenBrightness.ramp(from: state.lastSetBrightness[key] ?? current, to: target, maxStep: Self.maxLevelStep)
+                if abs(wanted - target) > 0.001 { rampPending = true }
+            }
             guard EveningDimming.needsUpdate(target: wanted, lastSet: state.lastSetBrightness[key]) else { continue }
             if state.originalBrightness[key] == nil { state.originalBrightness[key] = original }
             guard await setBrightness(wanted, of: id) else { continue }
@@ -249,6 +316,8 @@ final class BetterDisplayLight: ObservableObject {
             state.followerOf = [:]
             await releaseGroups()
         }
+        // Still on the way: let the next pass run instead of waiting for the slow recheck.
+        if rampPending { lastPassKey = "" }
         save()
     }
 
@@ -284,7 +353,7 @@ final class BetterDisplayLight: ObservableObject {
         state.disabledGroups = []
     }
 
-    private func restoreBrightness() async {
+    private func restoreBrightness(keepEqualizerHolds: Bool) async {
         for (key, original) in state.originalBrightness {
             guard let id = Int(key), let current = await brightness(of: id) else { continue }
             let last = state.lastSetBrightness[key] ?? current
@@ -295,7 +364,10 @@ final class BetterDisplayLight: ObservableObject {
         state.originalBrightness = [:]
         state.lastSetBrightness = [:]
         state.followerOf = [:]
-        yielded = []
+        // A pause keeps the equaliser's manual holds running; turning the feature off ends them.
+        yielded = keepEqualizerHolds
+            ? yielded.filter { $0.value.kind == .equalizer && ScreenBrightness.holding(since: $0.value.since, now: Date()) }
+            : [:]
         await releaseGroups()
         save()
     }

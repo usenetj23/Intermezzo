@@ -17,6 +17,7 @@ struct LightPane: View {
     @AppStorage(BetterDisplayKeys.dimPercent) private var bdDimPercent = 20
     @AppStorage(BetterDisplayKeys.trueTone) private var bdTrueTone = false
     @AppStorage(BetterDisplayKeys.unlinkGroup) private var bdUnlinkGroup = false
+    @AppStorage(BrightnessKeys.enabled) private var brightnessEQ = false
     @AppStorage(LightKeys.ambient) private var useAmbient = false
     @AppStorage(LightKeys.roomLampK) private var roomLampK = 0
     @AppStorage(LightKeys.roomLampKWork) private var roomLampKWork = -1
@@ -40,6 +41,7 @@ struct LightPane: View {
             }
             if enabled {
                 nowSection
+                LightBrightnessSection()
                 scheduleSection
                 exceptionsSection
                 LightMonitorsSection()
@@ -282,6 +284,10 @@ struct LightPane: View {
             Toggle("Przyciemniaj monitory wieczorem (sprzętowo)", isOn: $bdDim).settingsAnchor("light-przyciemniaj-monitory-wieczorem-sprz")
             if bdDim {
                 Stepper("Przyciemnij maksymalnie o \(bdDimPercent)%", value: $bdDimPercent, in: 5...EveningDimming.maxDimPercent, step: 5)
+                if brightnessEQ {
+                    Label("Włączony korektor jasności (sekcja „Jasność ekranu”) zastępuje to przyciemnianie: jasność monitorów ustawia wtedy korektor.", systemImage: "info.circle")
+                        .font(.caption).foregroundStyle(.secondary)
+                }
             }
             Toggle("Wyłącz True Tone na czas działania Światła", isOn: $bdTrueTone).settingsAnchor("light-wylacz-true-tone-na-czas-dzialania-s")
             Toggle("Rozłączaj grupę ekranów na czas wyjątku", isOn: $bdUnlinkGroup).settingsAnchor("light-rozlaczaj-grupe-ekranow-na-czas-wyja")

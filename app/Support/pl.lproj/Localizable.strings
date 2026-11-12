@@ -39,6 +39,8 @@
 "%lld m od miejsca" = "%lld m od miejsca";
 "%lld min" = "%lld min";
 "%lld min · %@" = "%lld min · %@";
+"%lld nit" = "%lld nit";
+"%lld nit z %lld" = "%lld nit z %lld";
 "%lld of %lld pomodoros fit before the end of working hours (meetings and breaks included); %lld move to another day" = "Przed końcem godzin pracy mieści się %lld z %lld pomodoro (ze spotkaniami i przerwami); na inny dzień: %lld";
 "%lld s" = "%lld s";
 "%lld 🍅" = "%lld 🍅";
@@ -120,9 +122,12 @@
 "Asystent ustawień, autor skryptów i podsumowanie tygodnia" = "Asystent ustawień, autor skryptów i podsumowanie tygodnia";
 "Asystent ustawień, autor skryptów reguł i podsumowanie tygodnia. Funkcje działają tylko wtedy, gdy je klikniesz, a bez włączenia tego przełącznika program niczego nie wysyła." = "Asystent ustawień, autor skryptów reguł i podsumowanie tygodnia. Funkcje działają tylko wtedy, gdy je klikniesz, a bez włączenia tego przełącznika program niczego nie wysyła.";
 "Asystent ustawień…" = "Asystent ustawień…";
+"Automat: monitory podążają za wbudowanym ekranem (nity)" = "Automat: monitory podążają za wbudowanym ekranem (nity)";
 "Automation (System Events)" = "Automatyzacja (System Events)";
 "Automatycznie" = "Automatycznie";
 "Automatycznie (jesienią liście, wiosną płatki)" = "Automatycznie (jesienią liście, wiosną płatki)";
+"Automatycznie (korektor albo macOS w automacie)" = "Automatycznie (korektor albo macOS w automacie)";
+"Automatycznie (korektor albo nity w automacie)" = "Automatycznie (korektor albo nity w automacie)";
 "Automatycznie pomiń" = "Automatycznie pomiń";
 "Automatyzacja dla leniwych (czyli mądrych)" = "Automatyzacja dla leniwych (czyli mądrych)";
 "Automatyzacja: adresy intermezzo://" = "Automatyzacja: adresy intermezzo://";
@@ -163,6 +168,7 @@
 "Brak aktywności" = "Brak aktywności";
 "Brak innych kopii na tym Macu." = "Brak innych kopii na tym Macu.";
 "Brak odcinków tego dnia." = "Brak odcinków tego dnia.";
+"Brak odczytu z macOS: przyjmuję %lld nit." = "Brak odczytu z macOS: przyjmuję %lld nit.";
 "Brak przerw z ostatnich dni." = "Brak przerw z ostatnich dni.";
 "Brak uprawnień do nagrywania ekranu" = "Brak uprawnień do nagrywania ekranu";
 "Brak wschodu lub zachodu Słońca w tym miejscu (dzień lub noc polarna)." = "Brak wschodu lub zachodu Słońca w tym miejscu (dzień lub noc polarna).";
@@ -313,6 +319,7 @@
 "Done" = "Gotowe";
 "Dostawca" = "Dostawca";
 "Dostosowuj barwę ekranu do pory dnia" = "Dostosowuj barwę ekranu do pory dnia";
+"Dostosowuj jasność ekranu do pory dnia i światła w pokoju" = "Dostosowuj jasność ekranu do pory dnia i światła w pokoju";
 "Dostępna nowa wersja" = "Dostępna nowa wersja";
 "Dostępna wersja %@" = "Dostępna wersja %@";
 "Dostępne modele" = "Dostępne modele";
@@ -459,6 +466,11 @@
 "Intermezzo report.pdf" = "Raport Intermezzo.pdf";
 "Jak nie wypalić się do zera" = "Jak nie wypalić się do zera";
 "Jasna stal z połyskiem" = "Jasna stal z połyskiem";
+"Jasność" = "Jasność";
+"Jasność = wartość z wykresu godzin × mnożnik z wykresu światła w pokoju, nie mniej niż 5%. Bez odczytu czujnika (brak czujnika, zamknięta klapa, czujnik wyłączony) liczy się sam wykres godzin. Gdy sam zmienisz jasność, korektor odpuszcza na godzinę; po wyłączeniu, wstrzymaniu Światła albo zamknięciu aplikacji jasność wraca do pierwotnej." = "Jasność = wartość z wykresu godzin × mnożnik z wykresu światła w pokoju, nie mniej niż 5%. Bez odczytu czujnika (brak czujnika, zamknięta klapa, czujnik wyłączony) liczy się sam wykres godzin. Gdy sam zmienisz jasność, korektor odpuszcza na godzinę; po wyłączeniu, wstrzymaniu Światła albo zamknięciu aplikacji jasność wraca do pierwotnej.";
+"Jasność ekranu" = "Jasność ekranu";
+"Jasność monitora zmieniam przez BetterDisplay, którego tu nie ma: te ustawienia na razie nic nie zmieniają." = "Jasność monitora zmieniam przez BetterDisplay, którego tu nie ma: te ustawienia na razie nic nie zmieniają.";
+"Jasność wbudowanego ekranu zmieniono ręcznie: wracam do korektora po godzinie." = "Jasność wbudowanego ekranu zmieniono ręcznie: wracam do korektora po godzinie.";
 "Jazda" = "Jazda";
 "Jeden obraz rozpięty na wszystkie monitory" = "Jeden obraz rozpięty na wszystkie monitory";
 "Jeśli łatwo się rozpraszasz: włącz Pomodoro — krótsze cykle (25 minut),\ndługa pauza (15–20 minut) co cztery pomidorki.\n\nZasada: w trakcie pomodoro nie zmieniasz zadania. Pauza jest nagrodą\nza zamknięty cykl, nie wymówką." = "Jeśli łatwo się rozpraszasz: włącz Pomodoro — krótsze cykle (25 minut),\ndługa przerwa (15–20 minut) co cztery pomodoro.\n\nZasada: w trakcie pomodoro nie zmieniasz zadania. Przerwa jest nagrodą\nza zamknięty cykl, nie wymówką.";
@@ -469,10 +481,12 @@
 "Kark i barki" = "Kark i barki";
 "Kark i ramiona" = "Kark i ramiona";
 "Każdy kwadrat to jeden dzień, każda kolumna to tydzień (od najstarszego po lewej do bieżącego po prawej, poniedziałek u góry). Im ciemniejszy, tym więcej ukończonych przerw: 1–2, 3–4, 5–7, 8 i więcej. Najedź na kwadrat, by zobaczyć dzień. %lld dni z przerwą w ostatnich %lld tygodniach; pominięte przerwy nie przyciemniają pola." = "Każdy kwadrat to jeden dzień, każda kolumna to tydzień (od najstarszego po lewej do bieżącego po prawej, poniedziałek u góry). Im ciemniejszy, tym więcej ukończonych przerw: 1–2, 3–4, 5–7, 8 i więcej. Najedź na kwadrat, by zobaczyć dzień. Dni z przerwą: %lld (ostatnie tygodnie: %lld); pominięte przerwy nie przyciemniają pola.";
+"Każdy słupek to jedna godzina doby, a wysokość to jasność ekranu (100% to pełna). Przeciągaj jak po wykresie barwy powyżej." = "Każdy słupek to jedna godzina doby, a wysokość to jasność ekranu (100% to pełna). Przeciągaj jak po wykresie barwy powyżej.";
 "Key %lld" = "Klawisz %lld";
 "Keyboard Shortcuts" = "Skróty klawiszowe";
 "Kiedy odkładać lub pomijać przerwy" = "Kiedy odraczać lub pomijać przerwy";
 "Kiedy przerwa ma zostać odłożona lub pominięta?" = "Kiedy przerwa ma zostać odłożona lub pominięta?";
+"Klapa zamknięta: brak odniesienia dla automatu, monitory wracają do korektora." = "Klapa zamknięta: brak odniesienia dla automatu, monitory wracają do korektora.";
 "Klapa zamknięta: czujnik nie widzi pokoju, działa sam harmonogram." = "Klapa zamknięta: czujnik nie widzi pokoju, działa sam harmonogram.";
 "Klasyczna" = "Klasyczna";
 "Klasyczne" = "Klasyczne";
@@ -498,6 +512,8 @@
 "Kopiuj przykład odczytu" = "Kopiuj przykład odczytu";
 "Kopiuj ścieżkę" = "Kopiuj ścieżkę";
 "Kopiuje do schowka wersję aplikacji i macOS, model Maca, monitory, stan uprawnień i funkcje, które się wycofały, oraz kilka linii dziennika o świetle i multimediach. Bez nazw sieci, tytułów z kalendarza, miejsc i nazwy użytkownika. Nic nie jest wysyłane: wklej to do zgłoszenia na GitHubie." = "Kopiuje do schowka wersję aplikacji i macOS, model Maca, monitory, stan uprawnień i funkcje, które się wycofały, oraz kilka linii dziennika o świetle i multimediach. Bez nazw sieci, tytułów z kalendarza, miejsc i nazwy użytkownika. Nic nie jest wysyłane: wklej to do zgłoszenia na GitHubie.";
+"Korektor (wykresy godzin i pokoju)" = "Korektor (wykresy godzin i pokoju)";
+"Korektor jasności zastępuje teraz przyciemnianie monitorów wieczorem z sekcji BetterDisplay." = "Korektor jasności zastępuje teraz przyciemnianie monitorów wieczorem z sekcji BetterDisplay.";
 "Kot – krowa przy biurku" = "Kot – krowa przy biurku";
 "Krótka" = "Krótka";
 "Krótka (z ustawień)" = "Krótka (z ustawień)";
@@ -548,6 +564,7 @@
 "Mac mocno się nagrzał, więc czuwanie zostało wyłączone." = "Mac mocno się nagrzał, więc czuwanie zostało wyłączone.";
 "Mac nie ma GPS i ustala pozycję po Wi-Fi, a ono jest wyłączone, więc to miejsce pracy nie zadziała. Użyj sieci LAN, VPN, kalendarza albo godzin pracy." = "Mac nie ma GPS i ustala pozycję po Wi-Fi, a ono jest wyłączone, więc to miejsce pracy nie zadziała. Użyj sieci LAN, VPN, kalendarza albo godzin pracy.";
 "Mac nie zaśnie" = "Mac nie zaśnie";
+"Maksymalnie %lld nit" = "Maksymalnie %lld nit";
 "Mapa jest niedostępna, ale współrzędne możesz wpisać ręcznie." = "Mapa jest niedostępna, ale współrzędne możesz wpisać ręcznie.";
 "Masz najnowszą wersję (%@)" = "Masz najnowszą wersję (%@)";
 "Match the break to the session you just finished" = "Dopasuj przerwę do właśnie zakończonej sesji";
@@ -566,6 +583,7 @@
 "Minęło już trochę czasu. Zrób %@ przerwę albo ją odłóż." = "Minęło już trochę czasu. Zrób %@ przerwę albo ją odrocz.";
 "Miękka przerwa: przyciemnienie przepuszcza kliknięcia" = "Miękka przerwa: przyciemnienie przepuszcza kliknięcia";
 "Mleczna szyba z ziarnem" = "Mleczna szyba z ziarnem";
+"Mnożnik dla światła w pokoju: w ciemnym pokoju ekran jest ciemniejszy, w jasnym jaśniejszy (powyżej 100% podnosi przyciemnioną godzinę, ale nigdy ponad pełną jasność). Między słupkami wartość przechodzi płynnie na skali logarytmicznej, a pionowa kreska pokazuje bieżący odczyt czujnika." = "Mnożnik dla światła w pokoju: w ciemnym pokoju ekran jest ciemniejszy, w jasnym jaśniejszy (powyżej 100% podnosi przyciemnioną godzinę, ale nigdy ponad pełną jasność). Między słupkami wartość przechodzi płynnie na skali logarytmicznej, a pionowa kreska pokazuje bieżący odczyt czujnika.";
 "Mode:" = "Tryb:";
 "Model" = "Model";
 "Model jest niedostępny: %@" = "Model jest niedostępny: %@";
@@ -577,6 +595,8 @@
 "Moja reguła" = "Moja reguła";
 "Moje przypomnienie" = "Moje przypomnienie";
 "Mon" = "Pn";
+"Monitor nie podaje maksymalnej jasności: przyjmuję %lld nit. Wpisz wartość z jego specyfikacji, żeby automat był dokładniejszy." = "Monitor nie podaje maksymalnej jasności: przyjmuję %lld nit. Wpisz wartość z jego specyfikacji, żeby automat był dokładniejszy.";
+"Monitor podaje w EDID: %lld nit." = "Monitor podaje w EDID: %lld nit.";
 "Monitory" = "Monitory";
 "Monospaced" = "Stałej szerokości";
 "Motyw, powiadomienia i wygląd ekranu przerwy" = "Motyw, powiadomienia i wygląd ekranu przerwy";
@@ -607,9 +627,11 @@
 "Nagrywanie ekranu" = "Nagrywanie ekranu";
 "Nagrywanie ekranu / streaming" = "Nagrywanie ekranu / streaming";
 "Nagrywanie ekranu przyznane — Glass działa" = "Nagrywanie ekranu przyznane — efekt Szkło działa";
+"Najciemniej: %lld%%" = "Najciemniej: %lld%%";
 "Najcieplejszy kolor: %lld K" = "Najcieplejszy kolor: %lld K";
 "Najczęstsze odstępy między propozycjami z tej reguły" = "Minimalny odstęp między propozycjami z tej reguły";
 "Najgorsza pozycja to kolejna" = "Najlepsza pozycja to następna";
+"Najjaśniej: %lld%%" = "Najjaśniej: %lld%%";
 "Najpierw kliknij Uruchom ponownie: macOS pokaże okno z pytaniem dopiero po ponownym uruchomieniu aplikacji." = "Najpierw kliknij Uruchom ponownie: macOS pokaże okno z pytaniem dopiero po ponownym uruchomieniu aplikacji.";
 "Najważniejszy nawyk przy monitorze" = "Najważniejszy nawyk przy monitorze";
 "Najzdrowsza odległość od monitora: 50–70 cm, górna krawędź ekranu na wysokości oczu." = "Najzdrowsza odległość od monitora: 50–70 cm, górna krawędź ekranu na wysokości oczu.";
@@ -645,6 +667,7 @@
 "New project…" = "Nowy projekt…";
 "Next break in" = "Następna przerwa za";
 "Nie ma jednej „zdrowej” pozycji siedzącej — zdrowa to NASTĘPNA.\n\nWyprost w staniu: ręce na biodra, delikatne odchylenie do tyłu, 10 s.\nNa siedząco: kolano do klatki, 20 s na stronę (rozciąganie gruszkowatego).\n\nUstaw monitor na wysokość oczu. Jeśli patrzysz w dół — szyja płaci rachunek." = "Nie ma jednej „zdrowej” pozycji siedzącej — zdrowa to NASTĘPNA.\n\nWyprost w staniu: ręce na biodra, delikatne odchylenie do tyłu, 10 s.\nNa siedząco: kolano do klatki, 20 s na stronę (rozciąganie gruszkowatego).\n\nUstaw monitor na wysokości oczu. Jeśli patrzysz w dół — szyja płaci rachunek.";
+"Nie mogę odczytać jasności wbudowanego ekranu: monitory używają korektora." = "Nie mogę odczytać jasności wbudowanego ekranu: monitory używają korektora.";
 "Nie mogę odczytać trybów Focus. macOS chroni ten folder: dodaj Intermezzo w Prywatność i ochrona → Pełny dostęp do dysku, potem uruchom aplikację ponownie." = "Nie mogę odczytać trybów Skupienia. macOS chroni ten folder: dodaj Intermezzo w Prywatność i ochrona → Pełny dostęp do dysku, potem uruchom aplikację ponownie.";
 "Nie może być dłuższa niż długa przerwa (%@)." = "Nie może być dłuższa niż długa przerwa (%@).";
 "Nie może być krótsza niż krótka przerwa (%@)." = "Nie może być krótsza niż krótka przerwa (%@).";
@@ -663,6 +686,7 @@
 "Nie wyłączaj przy niskiej baterii" = "Nie wyłączaj przy niskiej baterii";
 "Nie zarządzaj tym monitorem (np. telewizorem)" = "Nie zarządzaj tym monitorem (np. telewizorem)";
 "Nie zmieniaj barw w aplikacjach pełnoekranowych" = "Nie zmieniaj barw w aplikacjach pełnoekranowych";
+"Nie zmieniaj jasności" = "Nie zmieniaj jasności";
 "Nieaktywność liczy się od: %lld min" = "Nieaktywność liczy się od: %lld min";
 "Niebieskie światło i koniec dnia" = "Niebieskie światło i koniec dnia";
 "Niebieskie światło: mit czy fakt?" = "Niebieskie światło: mit czy fakt?";
@@ -695,6 +719,8 @@
 "Od – do" = "Od – do";
 "Odchylenie do tyłu z rękami na biodrach. 10 sekund. Drugie ćwiczenie: kolano do klatki." = "Odchylenie do tyłu z rękami na biodrach. 10 sekund. Drugie ćwiczenie: kolano do klatki.";
 "Odcień całego okna, panelu i powiadomień. Dół jest zawsze ciemniejszy." = "Odcień całego okna, panelu i powiadomień. Dół jest zawsze ciemniejszy.";
+"Odczyt z macOS: %lld nit (maks. SDR)." = "Odczyt z macOS: %lld nit (maks. SDR).";
+"Odczyt z macOS: %lld nit (maks. SDR; do %lld przy mocnym świetle)." = "Odczyt z macOS: %lld nit (maks. SDR; do %lld przy mocnym świetle).";
 "Oddaje bieżący stan jako JSON w parametrze state adresu x-success (np. shortcuts://); wymaga włączonej publikacji stanu" = "Oddaje bieżący stan jako JSON w parametrze state adresu x-success (np. shortcuts://); wymaga włączonej publikacji stanu";
 "Oddal" = "Oddal";
 "Oddech" = "Oddech";
@@ -887,6 +913,7 @@
 "Profil" = "Profil";
 "Profil ustawia rytm pracy i długość przerw. Dowody są ograniczone (małe próby, konsensus) — dobierz to, co pasuje do Twojej pracy; suwaki poniżej nadal działają." = "Profil ustawia rytm pracy i długość przerw. Dowody są ograniczone (małe próby, konsensus) — dobierz to, co pasuje do Twojej pracy; suwaki poniżej nadal działają.";
 "Profil „Własne (wg zegara)” nie korzysta z czujnika: wybierz „Własne (wg Słońca)” albo gotowy profil." = "Profil „Własne (wg zegara)” nie korzysta z czujnika: wybierz „Własne (wg Słońca)” albo gotowy profil.";
+"Profil „Własne (wg zegara)” nie zmienia barwy według czujnika: odczyt służy tylko korektorowi jasności." = "Profil „Własne (wg zegara)” nie zmienia barwy według czujnika: odczyt służy tylko korektorowi jasności.";
 "Project" = "Projekt";
 "Project sensors" = "Czujniki projektu";
 "Project ‘%@’?" = "Projekt „%@”?";
@@ -1181,6 +1208,8 @@
 "Telefon przełącza Focus po lokalizacji GPS i synchronizuje go z Makiem, więc tryb oznaczony jako praca mówi, że jesteś w pracy: liczy się do strefy przerw i do Rejestru pracy (bez sieci biura jako praca zdalna). Pozostałe tryby domyślnie wstrzymują przerwy (jeśli włączone jest wykrywanie Focus)." = "Telefon przełącza tryb Skupienia po lokalizacji GPS i synchronizuje go z Makiem, więc tryb oznaczony jako praca mówi, że jesteś w pracy: liczy się do strefy przerw i do Rejestru pracy (bez sieci biura jako praca zdalna). Pozostałe tryby domyślnie wstrzymują przerwy (jeśli włączone jest wykrywanie Skupienia).";
 "Temperatura barwowa ekranu na wieczór poniżej 3400 K poprawia zasypianie (tryb nocny istnieje nie bez powodu)." = "Temperatura barwowa ekranu na wieczór poniżej 3400 K poprawia zasypianie (Night Shift istnieje nie bez powodu).";
 "Tempo zmiany barwy: najwyżej %lld K na minutę" = "Tempo zmiany barwy: najwyżej %lld K na minutę";
+"Ten Mac nie ma wbudowanego ekranu: automat (nity) jest niedostępny, monitory używają korektora." = "Ten Mac nie ma wbudowanego ekranu: automat (nity) jest niedostępny, monitory używają korektora.";
+"Ten Mac nie pozwala zmieniać jasności wbudowanego ekranu: działa tylko na monitorach przez BetterDisplay." = "Ten Mac nie pozwala zmieniać jasności wbudowanego ekranu: działa tylko na monitorach przez BetterDisplay.";
 "Ten Mac nie udostępnia czujnika światła: działa sam harmonogram." = "Ten Mac nie udostępnia czujnika światła: działa sam harmonogram.";
 "Ten adres jest poza Twoją siecią: wysyłane dane opuszczą ten komputer." = "Ten adres jest poza Twoją siecią: wysyłane dane opuszczą ten komputer.";
 "Ten skrypt nie ma nastaw. Dodaj na początku kodu linię „property nazwa : wartość”, a pojawi się tutaj jako pole." = "Ten skrypt nie ma nastaw. Dodaj na początku kodu linię „property nazwa : wartość”, a pojawi się tutaj jako pole.";
@@ -1308,6 +1337,8 @@
 "Video detection: pause when watching video" = "Wykrywanie wideo: wstrzymuj przerwy podczas oglądania wideo";
 "Voided" = "Unieważnione";
 "Volume — set to 0 to keep it muted" = "Głośność: ustaw 0, by wyciszyć";
+"W automacie jasność tego ekranu ustawia macOS; mnożnik i limity działają, gdy automat jest wyłączony." = "W automacie jasność tego ekranu ustawia macOS; mnożnik i limity działają, gdy automat jest wyłączony.";
+"W automacie jasność wbudowanego ekranu ustawia macOS (włącz „Automatycznie dostosowuj jasność” w Ustawieniach systemowych → Ekrany), a aplikacja tylko ją odczytuje i przelicza na nity. Monitor dostaje jasność = nity wbudowanego ÷ maksymalne nity monitora, z jego własnym mnożnikiem i limitami (Monitory poniżej); sprawdzane co ok. 30 s. Maksimum monitora pochodzi z EDID, z wpisu ręcznego albo przyjmuję 350 nitów. Przy zamkniętej klapie albo bez odczytu monitory wracają do korektora (wykresy poniżej). Monitor z wyborem „Korektor” zostaje przy wykresach." = "W automacie jasność wbudowanego ekranu ustawia macOS (włącz „Automatycznie dostosowuj jasność” w Ustawieniach systemowych → Ekrany), a aplikacja tylko ją odczytuje i przelicza na nity. Monitor dostaje jasność = nity wbudowanego ÷ maksymalne nity monitora, z jego własnym mnożnikiem i limitami (Monitory poniżej); sprawdzane co ok. 30 s. Maksimum monitora pochodzi z EDID, z wpisu ręcznego albo przyjmuję 350 nitów. Przy zamkniętej klapie albo bez odczytu monitory wracają do korektora (wykresy poniżej). Monitor z wyborem „Korektor” zostaje przy wykresach.";
 "W dzień jasne, chłodniejsze światło (o wysokiej temperaturze barwowej) sprzyja czujności, a wieczorem ciepłe światło wiąże się z łagodniejszym spadkiem aktywności organizmu. Dowody pochodzą jednak głównie z małych, krótkich badań.\n\nPrzykłady: w badaniu biurowym Millsa i in. (2007) światło o wyższej temperaturze barwowej poprawiło samopoczucie i część wskaźników pracy; w laboratoryjnym badaniu Kozakiego i in. światło o barwie 6700 K przed snem osłabiło głęboki sen bardziej niż 3000 K (7 mężczyzn).\n\nRano pomaga światło dzienne: wyjdź na zewnątrz albo usiądź przy oknie. Ekran go nie zastąpi, bo na zewnątrz jest wielokrotnie jaśniej.\n\nW Intermezzo: w dzień ekran zostaje neutralny (6500 K), po zachodzie ociepla się, a przed snem robi się najcieplejszy. Profil „Zalecane” to nasz kompromis oparty na tym kierunku badań, nie zalecenie lekarskie.\n\nSiła dowodów: małe próby i różne metody; traktuj to jako wskazówkę do własnego eksperymentu, nie receptę.\n\nŹródła: Mills, Tomkins, Schlangen 2007, J. Circadian Rhythms 5:2; Kozaki i in., J. Physiol. Anthropol. (wpływ temperatury barwowej na sen wolnofalowy)." = "W dzień jasne, chłodniejsze światło (o wysokiej temperaturze barwowej) sprzyja czujności, a wieczorem ciepłe światło wiąże się z łagodniejszym spadkiem aktywności organizmu. Dowody pochodzą jednak głównie z małych, krótkich badań.\n\nPrzykłady: w badaniu biurowym Millsa i in. (2007) światło o wyższej temperaturze barwowej poprawiło samopoczucie i część wskaźników pracy; w laboratoryjnym badaniu Kozakiego i in. światło o barwie 6700 K przed snem osłabiło głęboki sen bardziej niż 3000 K (7 mężczyzn).\n\nRano pomaga światło dzienne: wyjdź na zewnątrz albo usiądź przy oknie. Ekran go nie zastąpi, bo na zewnątrz jest wielokrotnie jaśniej.\n\nW Intermezzo: w dzień ekran zostaje neutralny (6500 K), po zachodzie ociepla się, a przed snem robi się najcieplejszy. Profil „Zalecane” to nasz kompromis oparty na tym kierunku badań, nie zalecenie lekarskie.\n\nSiła dowodów: małe próby i różne metody; traktuj to jako wskazówkę do własnego eksperymentu, nie receptę.\n\nŹródła: Mills, Tomkins, Schlangen 2007, J. Circadian Rhythms 5:2; Kozaki i in., J. Physiol. Anthropol. (wpływ temperatury barwowej na sen wolnofalowy).";
 "W godzinach obiadu przerwy nie są potrzebne: i tak odchodzisz od komputera. Traktuje tę godzinę jak naturalną przerwę. Godziny zmienisz w edytorze skryptu." = "W godzinach obiadu przerwy nie są potrzebne: i tak odchodzisz od komputera. Traktuje tę godzinę jak naturalną przerwę. Godziny zmienisz w edytorze skryptu.";
 "W jasnym pokoju ocieplanie ekranu jest słabsze, a przyciemnianie przez BetterDisplay mniejsze; w ciemnym działa w pełni. Czujnik jest tylko w MacBooku, odczyt idzie przez prywatny interfejs macOS (może przestać działać po aktualizacji) i znika przy zamkniętej klapie, wtedy działa sam harmonogram. Mac nie mierzy barwy światła, więc kolor lamp wybierasz ręcznie: wieczorem ekran nie będzie wtedy dużo zimniejszy niż lampy." = "W jasnym pokoju ocieplanie ekranu jest słabsze, a przyciemnianie przez BetterDisplay mniejsze; w ciemnym działa w pełni. Czujnik jest tylko w MacBooku, odczyt idzie przez prywatny interfejs macOS (może przestać działać po aktualizacji) i znika przy zamkniętej klapie, wtedy działa sam harmonogram. Mac nie mierzy barwy światła, więc kolor lamp wybierasz ręcznie: wieczorem ekran nie będzie wtedy dużo zimniejszy niż lampy.";
@@ -1322,6 +1353,9 @@
 "Warunek nie jest teraz spełniony: reguła nic nie zrobi." = "Warunek nie jest teraz spełniony: reguła nic nie zrobi.";
 "Warunki są sprawdzane w chwili uruchomienia akcji. Strefa pracy wymaga włączonego co najmniej jednego źródła w Ogólne; bez tego nie wiadomo, czy jesteś w niej, i warunek nie jest spełniony." = "Warunki są sprawdzane w chwili uruchomienia akcji. Strefa pracy wymaga włączonego co najmniej jednego źródła w Ogólne; bez tego nie wiadomo, czy jesteś w niej, i warunek nie jest spełniony.";
 "Warunki uruchomienia" = "Warunki uruchomienia";
+"Wbudowany ekran jest wyłączony (np. zamknięta klapa): jasność zmieniam tylko na monitorach przez BetterDisplay." = "Wbudowany ekran jest wyłączony (np. zamknięta klapa): jasność zmieniam tylko na monitorach przez BetterDisplay.";
+"Wbudowany ekran teraz" = "Wbudowany ekran teraz";
+"Wbudowany ekran zmieniam przez prywatny interfejs macOS (może przestać działać po aktualizacji), zewnętrzne monitory przez BetterDisplay. Bez automatu wyłącz „Automatycznie dostosowuj jasność” w Ustawieniach systemowych → Ekrany, bo macOS będzie poprawiał jasność po swojemu. Każdy ekran, także wbudowany, ma własne ustawienia jasności w sekcji Monitory (źródło, mnożnik, limity, nity); monitory „bez zarządzania” i okna-wyjątki zostają przy swojej jasności. Profil „Własne (wg zegara)” nie zmienia barwy według czujnika, ale korektor jasności korzysta z niego, gdy czujnik jest włączony." = "Wbudowany ekran zmieniam przez prywatny interfejs macOS (może przestać działać po aktualizacji), zewnętrzne monitory przez BetterDisplay. Bez automatu wyłącz „Automatycznie dostosowuj jasność” w Ustawieniach systemowych → Ekrany, bo macOS będzie poprawiał jasność po swojemu. Każdy ekran, także wbudowany, ma własne ustawienia jasności w sekcji Monitory (źródło, mnożnik, limity, nity); monitory „bez zarządzania” i okna-wyjątki zostają przy swojej jasności. Profil „Własne (wg zegara)” nie zmienia barwy według czujnika, ale korektor jasności korzysta z niego, gdy czujnik jest włączony.";
 "Wdech 4 s — zatrzymanie 4 s — wydech 4 s — pauza 4 s. Cztery rundy obniżają puls i kortyzol." = "Wdech 4 s — zatrzymanie 4 s — wydech 4 s — zatrzymanie 4 s. Cztery rundy obniżają puls i kortyzol.";
 "Wdech 4 s — zatrzymanie 4 s — wydech 4 s — zatrzymanie 4 s. Pięć rund.\n\nTo technika z treningu pilotów i sportowców: obniża tętno i wycisza\ntryb „walcz albo uciekaj”, w który wpadasz przy deadline'ach.\n\nNajlepiej robić to na długiej przerwie, zanim znowu usiądziesz do pracy." = "Wdech 4 s — zatrzymanie 4 s — wydech 4 s — zatrzymanie 4 s. Cztery rundy.\n\nTo technika z treningu pilotów i sportowców: obniża tętno i wycisza\ntryb „walcz albo uciekaj”, w który wpadasz przy deadline'ach.\n\nNajlepiej robić to na długiej przerwie, zanim znowu usiądziesz do pracy.";
 "Wdech 4 s, zatrzymanie 4, wydech 4, zatrzymanie 4. Pięć rund." = "Wdech 4 s, zatrzymanie 4, wydech 4, zatrzymanie 4. Cztery rundy.";
@@ -1420,6 +1454,8 @@
 "Wyjątki" = "Wyjątki";
 "Wykres barwy ekranu w ciągu doby" = "Wykres barwy ekranu w ciągu doby";
 "Wykres barwy: zacznij od profilu…" = "Wykres barwy: zacznij od profilu…";
+"Wykres jasności ekranu w ciągu doby" = "Wykres jasności ekranu w ciągu doby";
+"Wykres mnożnika jasności według światła w pokoju" = "Wykres mnożnika jasności według światła w pokoju";
 "Wykres w sekcji „Teraz” zaczęto od profilu „%@”. Możesz go dalej poprawiać palcem po wykresie." = "Wykres w sekcji „Teraz” zaczęto od profilu „%@”. Możesz go dalej poprawiać palcem po wykresie.";
 "Wykrok – biodra" = "Wykrok – biodra";
 "Wykrywa tryb slajdów Keynote lub PowerPointa — publiczność patrzy na Ciebie, nie na Twój nadgarstek. Przerwa poczeka do końca prezentacji." = "Wykrywa tryb slajdów Keynote lub PowerPointa — publiczność patrzy na Ciebie, nie na Twój nadgarstek. Przerwa poczeka do końca prezentacji.";
@@ -1457,6 +1493,7 @@
 "Wznów wszystkie przerwy" = "Wznów wszystkie przerwy";
 "Wzrok w dal" = "Wzrok w dal";
 "Wzrok: zasada 20-20-20" = "Wzrok: zasada 20-20-20";
+"Własna maksymalna jasność (nity)" = "Własna maksymalna jasność (nity)";
 "Własna…" = "Własna…";
 "Własne (wg Słońca)" = "Własne (wg Słońca)";
 "Własne (wg zegara)" = "Własne (wg zegara)";
@@ -1467,7 +1504,9 @@
 "Własny czas" = "Własny czas";
 "Własny czas pasuje do przerwy śniadaniowej (9:00, 15 min) albo obiadu (12:30, 30 min). Startuje w podanej minucie, o ile aplikacja nie jest wstrzymana (spotkanie, poza godzinami pracy). Z opcją „Zapytaj” dostaniesz powiadomienie z przyciskiem Zacznij." = "Własny czas pasuje do przerwy śniadaniowej (9:00, 15 min) albo obiadu (12:30, 30 min). Startuje w podanej minucie, o ile aplikacja nie jest wstrzymana (spotkanie, poza godzinami pracy). Z opcją „Zapytaj” dostaniesz powiadomienie z przyciskiem „Zacznij”.";
 "Własny limit koloru" = "Własny limit koloru";
+"Własny mnożnik: %lld%%" = "Własny mnożnik: %lld%%";
 "Włącz" = "Włącz";
+"Włącz czujnik światła w pokoju" = "Włącz czujnik światła w pokoju";
 "Włącz funkcje AI" = "Włącz funkcje AI";
 "Włącz lub wyłącz czuwanie" = "Włącz lub wyłącz czuwanie";
 "Włącz lub wyłącz Światło" = "Włącz lub wyłącz Światło";
@@ -1478,6 +1517,7 @@
 "Włącza dopasowanie barwy ekranu do pory dnia" = "Włącza dopasowanie barwy ekranu do pory dnia";
 "Włączone" = "Włączone";
 "Włączone Skupienie" = "Włączone Skupienie";
+"Włączony korektor jasności (sekcja „Jasność ekranu”) zastępuje to przyciemnianie: jasność monitorów ustawia wtedy korektor." = "Włączony korektor jasności (sekcja „Jasność ekranu”) zastępuje to przyciemnianie: jasność monitorów ustawia wtedy korektor.";
 "Włączony teraz" = "Włączony teraz";
 "Włączyć funkcje AI?" = "Włączyć funkcje AI?";
 "Włączył się tryb niskiego zużycia energii, więc Mac może już zasnąć." = "Włączył się tryb niskiego zużycia energii, więc Mac może już zasnąć.";
@@ -1620,6 +1660,8 @@
 "długa" = "długa";
 "e.g. Water" = "np. Woda";
 "focus time" = "czas skupienia";
+"godzina %lld%% × pokój %lld%%" = "godzina %lld%% × pokój %lld%%";
+"godzina %lld%%, bez czujnika" = "godzina %lld%%, bez czujnika";
 "godziny pracy bez żadnego dnia pracy wyłączyłyby przerwy" = "godziny pracy bez żadnego dnia pracy wyłączyłyby przerwy";
 "gotowy" = "gotowy";
 "herbata" = "herbata";
@@ -1627,6 +1669,11 @@
 "inne" = "inne";
 "intermezzo-przerwy.csv" = "intermezzo-przerwy.csv";
 "isn't (odwrócone)" = "nie jest (odwrócone)";
+"jasność %lld%% · korektor" = "jasność %lld%% · korektor";
+"jasność %lld%% · za wbudowanym, %lld nit" = "jasność %lld%% · za wbudowanym, %lld nit";
+"jasność bez zmian" = "jasność bez zmian";
+"jasność bez zmian (wyjątek)" = "jasność bez zmian (wyjątek)";
+"jasność: macOS (automat)" = "jasność: macOS (automat)";
 "jeszcze nie" = "jeszcze nie";
 "kalendarz: %@" = "kalendarz: %@";
 "karta / stacja" = "karta / stacja";
@@ -1648,6 +1695,7 @@
 "na Twoje życzenie" = "na Twoje życzenie";
 "na godzinę" = "na godzinę";
 "nazwa aplikacji / tekst" = "nazwa aplikacji / tekst";
+"nie działa (Światło wyłączone lub wstrzymane)" = "nie działa (Światło wyłączone lub wstrzymane)";
 "nie podczas spotkania" = "nie podczas spotkania";
 "nie wstrzymano" = "nie wstrzymano";
 "nie zainstalowany" = "nie zainstalowany";
@@ -1738,6 +1786,7 @@
 "wyłączone" = "wyłączone";
 "wyłączone: przerwy działają całą dobę" = "wyłączone: przerwy działają całą dobę";
 "wyłączony" = "wyłączony";
+"własna jasność" = "własna jasność";
 "włączone" = "włączone";
 "włączony: %@ (nie jako praca)" = "włączony: %@ (nie jako praca)";
 "włączony: %@ (nie wstrzymuje)" = "włączony: %@ (nie wstrzymuje)";

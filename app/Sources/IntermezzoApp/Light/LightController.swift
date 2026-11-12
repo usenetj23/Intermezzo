@@ -244,6 +244,8 @@ final class LightController: ObservableObject {
         center.addObserver(forName: NSApplication.didChangeScreenParametersNotification, object: nil, queue: .main) { [weak self] _ in
             MainActor.assumeIsolated {
                 LightLog.detail("event: screen parameters changed")
+                ScreenBrightnessController.shared.displaysChanged()
+                BetterDisplayLight.shared.displaysChanged()
                 MonitorRegistry.shared.refresh()
                 self?.reapply(rereadOriginals: true)
                 // A display that just appeared has no colour of its own yet: give it its goal, not the general one.
@@ -257,6 +259,13 @@ final class LightController: ObservableObject {
                     LightLog.detail("event: \(name.rawValue)")
                     self?.reapply(rereadOriginals: true)
                 }
+            }
+        }
+        // A woken panel may come back at another brightness: that is not a manual change.
+        workspace.addObserver(forName: NSWorkspace.screensDidWakeNotification, object: nil, queue: .main) { _ in
+            MainActor.assumeIsolated {
+                ScreenBrightnessController.shared.displaysChanged()
+                BetterDisplayLight.shared.displaysChanged()
             }
         }
         workspace.addObserver(forName: NSWorkspace.didActivateApplicationNotification, object: nil, queue: .main) { [weak self] _ in
@@ -293,6 +302,7 @@ final class LightController: ObservableObject {
         previewTimer?.invalidate()
         monitorPreviewTimer?.invalidate()
         displays.restore()
+        ScreenBrightnessController.shared.shutdown()
     }
 
     private func installSignalHandlers() {
@@ -302,6 +312,8 @@ final class LightController: ObservableObject {
             source.setEventHandler { [weak self] in
                 MainActor.assumeIsolated {
                     self?.displays.restore()
+                    ScreenBrightnessController.shared.shutdown()
+                    BetterDisplayLight.shared.shutdown()
                     exit(0)
                 }
             }
@@ -354,7 +366,8 @@ final class LightController: ObservableObject {
     private func settingsChanged() {
         let signature = [LightKeys.enabled, LightKeys.profile, LightKeys.dayK, LightKeys.sunsetK, LightKeys.bedtimeK,
                          LightKeys.wakeMinutes, LightKeys.manualLocation, LightKeys.weather, LightKeys.disabledUntil,
-                         LightKeys.ambient, LightKeys.roomLampK, LightKeys.roomLampKWork, LightKeys.customCurve, MonitorKeys.profiles]
+                         LightKeys.ambient, LightKeys.roomLampK, LightKeys.roomLampKWork, LightKeys.customCurve, MonitorKeys.profiles,
+                         BrightnessKeys.enabled, BrightnessKeys.dayCurve, BrightnessKeys.luxCurve, BrightnessKeys.automatic]
             .map { "\(defaults.object(forKey: $0) ?? "")" }.joined(separator: "|")
         guard signature != lastSettingsSignature else { return }
         lastSettingsSignature = signature
@@ -388,7 +401,9 @@ final class LightController: ObservableObject {
         }
         if profile.isCustom, customCurve == nil { startCustomCurve(from: .recommended) }
         let schedule = scheduleState(at: now, point: resolved, cloud: cloudCover())
-        let measured = measureRoom()
+        let roomLux = measureRoom()
+        // The clock-only drawn day ignores the room for its colour (the brightness equaliser still uses it).
+        let measured = profile == .custom ? nil : roomLux
         var current = schedule
         if let measured {
             let lamp = Self.roomLampK(defaults: defaults, atWork: Self.atWork)
@@ -405,18 +420,31 @@ final class LightController: ObservableObject {
         wasActive = active
         refreshExclusions(fade: false)
         startFade(jump: firstTick)
-        let general = current.kelvin
+        driveBrightness(general: current.kelvin, colourLux: measured, roomLux: roomLux)
+        firstTick = false
+    }
+
+    /// Screen brightness: the brightness equaliser when it is on (it replaces the evening dimming),
+    /// otherwise BetterDisplay's evening dimming as before.
+    private func driveBrightness(general: Double, colourLux: Double?, roomLux: Double?) {
+        let eq = ScreenBrightnessController.shared
+        let untouched = MonitorRegistry.shared.untouchedDisplays
+        // Each display's own goal (equaliser, following the built-in screen's nits, or left alone).
+        let plan = eq.update(lightEnabled: isEnabled, paused: pausedUntil != nil,
+                                 frozen: previewing || previewingDisplay != nil, lux: roomLux, leftAlone: neutral)
+        // A colour preview freezes the brightness: no pass at all (not "inactive", which would give everything back).
+        guard !previewing else { return }
         let lightSettings = settings
         BetterDisplayLight.shared.update(
-            active: isEnabled && pausedUntil == nil && !previewing, neutral: neutral,
-            untouched: MonitorRegistry.shared.untouchedDisplays,
-            factorFor: { id in
+            active: isEnabled && pausedUntil == nil, paused: pausedUntil != nil, equalizer: plan.equalizer, neutral: neutral,
+            untouched: untouched,
+            goalFor: { id in
+                if let own = plan.goal(id) { return own }
                 let profile = MonitorRegistry.shared.profile(forDisplay: CGDirectDisplayID(id))
                 let own = MonitorLight.dimFactor(kelvin: general, settings: lightSettings,
                                                  globalPercent: BetterDisplayLight.shared.globalDimPercent, profile: profile)
-                return AmbientLight.scaledDimFactor(own, lux: measured)
+                return .factor(AmbientLight.scaledDimFactor(own, lux: colourLux))
             })
-        firstTick = false
     }
 
     /// Published only when it changed (each publish redraws the Light pane).
@@ -426,12 +454,13 @@ final class LightController: ObservableObject {
     }
 
     /// The room's brightness from the Mac's sensor, when the user asks for it and the lid is open.
+    /// The "Custom (clock)" profile keeps its colour to the clock; the reading then serves only the brightness equaliser.
     private func measureRoom() -> Double? {
         guard isEnabled, defaults.bool(forKey: LightKeys.ambient) else {
             showAmbient(lux: nil, note: "")
             return nil
         }
-        if profile == .custom {
+        if profile == .custom, !ScreenBrightnessController.shared.isEnabled {
             showAmbient(lux: nil, note: String(localized: "Profil „Własne (wg zegara)” nie korzysta z czujnika: wybierz „Własne (wg Słońca)” albo gotowy profil."))
             return nil
         }
@@ -444,7 +473,9 @@ final class LightController: ObservableObject {
             showAmbient(lux: nil, note: String(localized: "Ten Mac nie udostępnia czujnika światła: działa sam harmonogram."))
             return nil
         }
-        showAmbient(lux: value.rounded(), note: "")
+        showAmbient(lux: value.rounded(), note: profile == .custom
+            ? String(localized: "Profil „Własne (wg zegara)” nie zmienia barwy według czujnika: odczyt służy tylko korektorowi jasności.")
+            : "")
         return value
     }
 
@@ -723,34 +754,5 @@ final class LightController: ObservableObject {
         previewTimer = nil
         previewing = false
         startFade(jump: true)
-    }
-}
-
-/// The active window of the frontmost app, read from the window list (no Screen Recording needed for
-/// owner and bounds).
-enum FrontWindowProbe {
-    enum Result {
-        /// Our own window is in front (Settings, break screen): keep what was known.
-        case own
-        case none
-        case window(FrontWindow)
-    }
-
-    static func current() -> Result {
-        guard let app = NSWorkspace.shared.frontmostApplication else { return .none }
-        if app.processIdentifier == ProcessInfo.processInfo.processIdentifier { return .own }
-        let options: CGWindowListOption = [.optionOnScreenOnly, .excludeDesktopElements]
-        guard let list = CGWindowListCopyWindowInfo(options, kCGNullWindowID) as? [[String: Any]] else { return .none }
-        for window in list {
-            guard (window[kCGWindowOwnerPID as String] as? Int32) == app.processIdentifier,
-                  (window[kCGWindowLayer as String] as? Int) == 0,
-                  (window[kCGWindowAlpha as String] as? Double ?? 1) > 0,
-                  let dict = window[kCGWindowBounds as String] as? NSDictionary,
-                  let rect = CGRect(dictionaryRepresentation: dict as CFDictionary) else { continue }
-            let names = [app.localizedName, app.executableURL?.lastPathComponent,
-                         app.bundleURL?.deletingPathExtension().lastPathComponent].compactMap { $0 }
-            return .window(FrontWindow(appNames: names, bounds: rect))
-        }
-        return .none
     }
 }

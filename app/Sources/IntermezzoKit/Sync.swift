@@ -18,6 +18,7 @@ public enum SyncPolicy {
         "surfaceThemeGlassRenamed", "imageThemeItems", "breakStartScriptPath", "breakEndScriptPath",
         "lightDisabledUntil",  // a pause on this Mac only
         "lightDebugLog",       // a debug flag
+        "lightBuiltInOriginal",  // this Mac's own screen brightness before the brightness equaliser
         "updateLastCheck", "updateSkippedVersion", "updateNotifiedVersion",  // what this Mac did
         "awakeMode", "awakeUntil",  // what keeps this Mac awake right now
         "weatherLat", "weatherLon",  // each Mac's own place

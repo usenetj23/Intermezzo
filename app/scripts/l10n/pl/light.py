@@ -240,4 +240,102 @@ STRINGS = {
         "Zapisuje w dzienniku każdą zmianę celu, przejście, zapis koloru na ekran i akcję BetterDisplay, z powodem i czasem co do milisekundy. Włącz, gdy ekran mignie, i wyślij fragment pliku z tą chwilą.",
     "Pokaż plik dziennika":
         "Pokaż plik dziennika",
+    "Jasność ekranu":
+        "Jasność ekranu",
+    "Dostosowuj jasność ekranu do pory dnia i światła w pokoju":
+        "Dostosowuj jasność ekranu do pory dnia i światła w pokoju",
+    "Jasność = wartość z wykresu godzin × mnożnik z wykresu światła w pokoju, nie mniej niż 5%. Bez odczytu czujnika (brak czujnika, zamknięta klapa, czujnik wyłączony) liczy się sam wykres godzin. Gdy sam zmienisz jasność, korektor odpuszcza na godzinę; po wyłączeniu, wstrzymaniu Światła albo zamknięciu aplikacji jasność wraca do pierwotnej.":
+        "Jasność = wartość z wykresu godzin × mnożnik z wykresu światła w pokoju, nie mniej niż 5%. Bez odczytu czujnika (brak czujnika, zamknięta klapa, czujnik wyłączony) liczy się sam wykres godzin. Gdy sam zmienisz jasność, korektor odpuszcza na godzinę; po wyłączeniu, wstrzymaniu Światła albo zamknięciu aplikacji jasność wraca do pierwotnej.",
+    "Każdy słupek to jedna godzina doby, a wysokość to jasność ekranu (100% to pełna). Przeciągaj jak po wykresie barwy powyżej.":
+        "Każdy słupek to jedna godzina doby, a wysokość to jasność ekranu (100% to pełna). Przeciągaj jak po wykresie barwy powyżej.",
+    "Mnożnik dla światła w pokoju: w ciemnym pokoju ekran jest ciemniejszy, w jasnym jaśniejszy (powyżej 100% podnosi przyciemnioną godzinę, ale nigdy ponad pełną jasność). Między słupkami wartość przechodzi płynnie na skali logarytmicznej, a pionowa kreska pokazuje bieżący odczyt czujnika.":
+        "Mnożnik dla światła w pokoju: w ciemnym pokoju ekran jest ciemniejszy, w jasnym jaśniejszy (powyżej 100% podnosi przyciemnioną godzinę, ale nigdy ponad pełną jasność). Między słupkami wartość przechodzi płynnie na skali logarytmicznej, a pionowa kreska pokazuje bieżący odczyt czujnika.",
+    "Wykres jasności ekranu w ciągu doby":
+        "Wykres jasności ekranu w ciągu doby",
+    "Wykres mnożnika jasności według światła w pokoju":
+        "Wykres mnożnika jasności według światła w pokoju",
+    "Włącz czujnik światła w pokoju":
+        "Włącz czujnik światła w pokoju",
+    "Korektor jasności zastępuje teraz przyciemnianie monitorów wieczorem z sekcji BetterDisplay.":
+        "Korektor jasności zastępuje teraz przyciemnianie monitorów wieczorem z sekcji BetterDisplay.",
+    "Wbudowany ekran zmieniam przez prywatny interfejs macOS (może przestać działać po aktualizacji), zewnętrzne monitory przez BetterDisplay. Bez automatu wyłącz „Automatycznie dostosowuj jasność” w Ustawieniach systemowych → Ekrany, bo macOS będzie poprawiał jasność po swojemu. Każdy ekran, także wbudowany, ma własne ustawienia jasności w sekcji Monitory (źródło, mnożnik, limity, nity); monitory „bez zarządzania” i okna-wyjątki zostają przy swojej jasności. Profil „Własne (wg zegara)” nie zmienia barwy według czujnika, ale korektor jasności korzysta z niego, gdy czujnik jest włączony.":
+        "Wbudowany ekran zmieniam przez prywatny interfejs macOS (może przestać działać po aktualizacji), zewnętrzne monitory przez BetterDisplay. Bez automatu wyłącz „Automatycznie dostosowuj jasność” w Ustawieniach systemowych → Ekrany, bo macOS będzie poprawiał jasność po swojemu. Każdy ekran, także wbudowany, ma własne ustawienia jasności w sekcji Monitory (źródło, mnożnik, limity, nity); monitory „bez zarządzania” i okna-wyjątki zostają przy swojej jasności. Profil „Własne (wg zegara)” nie zmienia barwy według czujnika, ale korektor jasności korzysta z niego, gdy czujnik jest włączony.",
+    "godzina %lld%% × pokój %lld%%":
+        "godzina %lld%% × pokój %lld%%",
+    "godzina %lld%%, bez czujnika":
+        "godzina %lld%%, bez czujnika",
+    "nie działa (Światło wyłączone lub wstrzymane)":
+        "nie działa (Światło wyłączone lub wstrzymane)",
+    "Włączony korektor jasności (sekcja „Jasność ekranu”) zastępuje to przyciemnianie: jasność monitorów ustawia wtedy korektor.":
+        "Włączony korektor jasności (sekcja „Jasność ekranu”) zastępuje to przyciemnianie: jasność monitorów ustawia wtedy korektor.",
+    "Jasność wbudowanego ekranu zmieniono ręcznie: wracam do korektora po godzinie.":
+        "Jasność wbudowanego ekranu zmieniono ręcznie: wracam do korektora po godzinie.",
+    "Ten Mac nie pozwala zmieniać jasności wbudowanego ekranu: działa tylko na monitorach przez BetterDisplay.":
+        "Ten Mac nie pozwala zmieniać jasności wbudowanego ekranu: działa tylko na monitorach przez BetterDisplay.",
+    "Wbudowany ekran jest wyłączony (np. zamknięta klapa): jasność zmieniam tylko na monitorach przez BetterDisplay.":
+        "Wbudowany ekran jest wyłączony (np. zamknięta klapa): jasność zmieniam tylko na monitorach przez BetterDisplay.",
+    "Profil „Własne (wg zegara)” nie zmienia barwy według czujnika: odczyt służy tylko korektorowi jasności.":
+        "Profil „Własne (wg zegara)” nie zmienia barwy według czujnika: odczyt służy tylko korektorowi jasności.",
+    "%lld nit":
+        "%lld nit",
+    "%lld nit z %lld":
+        "%lld nit z %lld",
+    "Automat: monitory podążają za wbudowanym ekranem (nity)":
+        "Automat: monitory podążają za wbudowanym ekranem (nity)",
+    "Automatycznie (korektor albo macOS w automacie)":
+        "Automatycznie (korektor albo macOS w automacie)",
+    "Automatycznie (korektor albo nity w automacie)":
+        "Automatycznie (korektor albo nity w automacie)",
+    "Jasność":
+        "Jasność",
+    "Jasność monitora zmieniam przez BetterDisplay, którego tu nie ma: te ustawienia na razie nic nie zmieniają.":
+        "Jasność monitora zmieniam przez BetterDisplay, którego tu nie ma: te ustawienia na razie nic nie zmieniają.",
+    "Klapa zamknięta: brak odniesienia dla automatu, monitory wracają do korektora.":
+        "Klapa zamknięta: brak odniesienia dla automatu, monitory wracają do korektora.",
+    "Korektor (wykresy godzin i pokoju)":
+        "Korektor (wykresy godzin i pokoju)",
+    "Maksymalnie %lld nit":
+        "Maksymalnie %lld nit",
+    "Monitor nie podaje maksymalnej jasności: przyjmuję %lld nit. Wpisz wartość z jego specyfikacji, żeby automat był dokładniejszy.":
+        "Monitor nie podaje maksymalnej jasności: przyjmuję %lld nit. Wpisz wartość z jego specyfikacji, żeby automat był dokładniejszy.",
+    "Monitor podaje w EDID: %lld nit.":
+        "Monitor podaje w EDID: %lld nit.",
+    "Najciemniej: %lld%%":
+        "Najciemniej: %lld%%",
+    "Najjaśniej: %lld%%":
+        "Najjaśniej: %lld%%",
+    "Nie mogę odczytać jasności wbudowanego ekranu: monitory używają korektora.":
+        "Nie mogę odczytać jasności wbudowanego ekranu: monitory używają korektora.",
+    "Nie zmieniaj jasności":
+        "Nie zmieniaj jasności",
+    "Odczyt z macOS: %lld nit (maks. SDR; do %lld przy mocnym świetle).":
+        "Odczyt z macOS: %lld nit (maks. SDR; do %lld przy mocnym świetle).",
+    "Odczyt z macOS: %lld nit (maks. SDR).":
+        "Odczyt z macOS: %lld nit (maks. SDR).",
+    "Brak odczytu z macOS: przyjmuję %lld nit.":
+        "Brak odczytu z macOS: przyjmuję %lld nit.",
+    "Ten Mac nie ma wbudowanego ekranu: automat (nity) jest niedostępny, monitory używają korektora.":
+        "Ten Mac nie ma wbudowanego ekranu: automat (nity) jest niedostępny, monitory używają korektora.",
+    "W automacie jasność tego ekranu ustawia macOS; mnożnik i limity działają, gdy automat jest wyłączony.":
+        "W automacie jasność tego ekranu ustawia macOS; mnożnik i limity działają, gdy automat jest wyłączony.",
+    "W automacie jasność wbudowanego ekranu ustawia macOS (włącz „Automatycznie dostosowuj jasność” w Ustawieniach systemowych → Ekrany), a aplikacja tylko ją odczytuje i przelicza na nity. Monitor dostaje jasność = nity wbudowanego ÷ maksymalne nity monitora, z jego własnym mnożnikiem i limitami (Monitory poniżej); sprawdzane co ok. 30 s. Maksimum monitora pochodzi z EDID, z wpisu ręcznego albo przyjmuję 350 nitów. Przy zamkniętej klapie albo bez odczytu monitory wracają do korektora (wykresy poniżej). Monitor z wyborem „Korektor” zostaje przy wykresach.":
+        "W automacie jasność wbudowanego ekranu ustawia macOS (włącz „Automatycznie dostosowuj jasność” w Ustawieniach systemowych → Ekrany), a aplikacja tylko ją odczytuje i przelicza na nity. Monitor dostaje jasność = nity wbudowanego ÷ maksymalne nity monitora, z jego własnym mnożnikiem i limitami (Monitory poniżej); sprawdzane co ok. 30 s. Maksimum monitora pochodzi z EDID, z wpisu ręcznego albo przyjmuję 350 nitów. Przy zamkniętej klapie albo bez odczytu monitory wracają do korektora (wykresy poniżej). Monitor z wyborem „Korektor” zostaje przy wykresach.",
+    "Wbudowany ekran teraz":
+        "Wbudowany ekran teraz",
+    "Własna maksymalna jasność (nity)":
+        "Własna maksymalna jasność (nity)",
+    "Własny mnożnik: %lld%%":
+        "Własny mnożnik: %lld%%",
+    "jasność %lld%% · korektor":
+        "jasność %lld%% · korektor",
+    "jasność %lld%% · za wbudowanym, %lld nit":
+        "jasność %lld%% · za wbudowanym, %lld nit",
+    "jasność bez zmian":
+        "jasność bez zmian",
+    "jasność bez zmian (wyjątek)":
+        "jasność bez zmian (wyjątek)",
+    "jasność: macOS (automat)":
+        "jasność: macOS (automat)",
+    "własna jasność":
+        "własna jasność",
 }

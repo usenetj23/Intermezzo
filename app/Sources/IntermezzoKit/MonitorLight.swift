@@ -38,16 +38,39 @@ public struct MonitorProfile: Codable, Equatable, Sendable {
     /// Leave this monitor alone: no colour change and no dimming.
     public var untouched: Bool
     public var lastSeen: Date
+    // Brightness equaliser settings of this display (all optional, so older saved profiles still decode;
+    // `dimPercent` above stays the evening dimming used while the equaliser is off).
+    /// Where the brightness comes from; nil = automatic (follow the built-in screen in the nits mode, else the equaliser).
+    public var brightnessSource: BrightnessSource?
+    /// The display's own multiplier on the equaliser or nits level, in percent (nil = 100).
+    public var brightnessScale: Int?
+    /// The display's own limits in percent (nil = 5 and 100).
+    public var brightnessMinPercent: Int?
+    public var brightnessMaxPercent: Int?
+    /// Brightest white of this display in nits, typed by the user (nil = from the EDID or a default).
+    public var maxNits: Int?
 
-    public init(name: String, warmestK: Double? = nil, dimPercent: Int? = nil, untouched: Bool = false, lastSeen: Date) {
+    public init(name: String, warmestK: Double? = nil, dimPercent: Int? = nil, untouched: Bool = false, lastSeen: Date,
+                brightnessSource: BrightnessSource? = nil, brightnessScale: Int? = nil, brightnessMinPercent: Int? = nil,
+                brightnessMaxPercent: Int? = nil, maxNits: Int? = nil) {
         self.name = name
         self.warmestK = warmestK
         self.dimPercent = dimPercent
         self.untouched = untouched
         self.lastSeen = lastSeen
+        self.brightnessSource = brightnessSource
+        self.brightnessScale = brightnessScale
+        self.brightnessMinPercent = brightnessMinPercent
+        self.brightnessMaxPercent = brightnessMaxPercent
+        self.maxNits = maxNits
     }
 
-    public var hasOverrides: Bool { warmestK != nil || dimPercent != nil }
+    /// Settings that "back to general" removes (the typed maximum in nits is a fact about the display and stays).
+    public var hasOverrides: Bool { warmestK != nil || dimPercent != nil || hasBrightnessOverrides }
+
+    public var hasBrightnessOverrides: Bool {
+        brightnessSource != nil || brightnessScale != nil || brightnessMinPercent != nil || brightnessMaxPercent != nil
+    }
 }
 
 /// Every monitor the app has seen, keyed by `MonitorKey.id`. Changes return a new value.
@@ -98,6 +121,17 @@ public enum MonitorLight {
 
     public static func clampedDimPercent(_ percent: Int) -> Int {
         min(max(percent, 0), EveningDimming.maxDimPercent)
+    }
+
+    /// The profile with its brightness settings kept in range.
+    public static func sanitizedBrightness(_ profile: MonitorProfile) -> MonitorProfile {
+        func clamp(_ value: Int?, _ range: ClosedRange<Int>) -> Int? { value.map { min(max($0, range.lowerBound), range.upperBound) } }
+        var result = profile
+        result.brightnessScale = clamp(profile.brightnessScale, PeerBrightness.scaleRange)
+        result.brightnessMinPercent = clamp(profile.brightnessMinPercent, PeerBrightness.percentRange)
+        result.brightnessMaxPercent = clamp(profile.brightnessMaxPercent, PeerBrightness.percentRange)
+        result.maxNits = clamp(profile.maxNits, PeerBrightness.nitsRange)
+        return result
     }
 
     /// What this monitor shows when the general curve asks for `global`: never warmer than its limit,

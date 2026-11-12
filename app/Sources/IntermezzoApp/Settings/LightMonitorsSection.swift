@@ -37,6 +37,8 @@ private struct MonitorRow: View {
     @ObservedObject private var registry = MonitorRegistry.shared
     @ObservedObject private var light = LightController.shared
     @AppStorage(BetterDisplayKeys.dim) private var bdDim = false
+    @AppStorage(BrightnessKeys.enabled) private var brightnessEQ = false
+    @ObservedObject private var brightness = ScreenBrightnessController.shared
     /// The slider's value while it is dragged; the setting is saved when it is let go.
     @State private var draftK: Double?
 
@@ -49,6 +51,7 @@ private struct MonitorRow: View {
         var parts: [String] = []
         if let k = profile.warmestK { parts.append(String(localized: "kolor do \(Int(k)) K")) }
         if let p = profile.dimPercent { parts.append(String(localized: "przyciemnienie \(p)%")) }
+        if profile.hasBrightnessOverrides || profile.maxNits != nil { parts.append(String(localized: "własna jasność")) }
         return parts.isEmpty ? String(localized: "ogólna krzywa") : parts.joined(separator: " · ")
     }
 
@@ -59,7 +62,12 @@ private struct MonitorRow: View {
                 set: { value in registry.update(group.key) { $0.untouched = value } })).settingsAnchor("light-nie-zarzadzaj-tym-monitorem-np-telew")
             if !profile.untouched {
                 colourControls
-                if BetterDisplayLight.isInstalled { dimControls }
+                if brightnessEQ {
+                    // The equaliser replaces the evening dimming: the monitor's own dimming lives in its model.
+                    MonitorBrightnessControls(group: group, profile: profile)
+                } else if BetterDisplayLight.isInstalled {
+                    dimControls
+                }
                 HStack {
                     Button("Podgląd wieczoru") {
                         if let id = group.displayIDs.first { light.previewMonitor(displayID: id) }
@@ -75,9 +83,20 @@ private struct MonitorRow: View {
                 Text(group.name)
                 if group.count > 1 { Text(verbatim: "× \(group.count)").foregroundStyle(.secondary) }
                 Spacer()
-                Text(Self.summary(of: profile)).settingsNote()
+                Text(liveSummary).settingsNote()
             }
         }
+    }
+
+    /// The saved settings, with the brightness the display really gets now while the equaliser runs
+    /// (instead of an evening dimming that the equaliser replaces).
+    private var liveSummary: String {
+        let status = group.displayIDs.lazy.compactMap { brightness.statuses[$0] }.first
+        guard brightnessEQ, !profile.untouched, let live = MonitorBrightnessSummary.text(status) else {
+            return Self.summary(of: profile)
+        }
+        let colour = profile.warmestK.map { String(localized: "kolor do \(Int($0)) K") }
+        return [colour, live].compactMap { $0 }.joined(separator: " · ")
     }
 
     private var colourControls: some View {

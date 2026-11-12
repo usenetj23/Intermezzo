@@ -241,4 +241,102 @@ STRINGS = {
         "Logs every goal change, fade, screen colour write and BetterDisplay action, with the reason and the time to the millisecond. Turn it on, and when the screen blinks send the part of the file from that moment.",
     "Pokaż plik dziennika":
         "Show the log file",
+    "Jasność ekranu":
+        "Screen brightness",
+    "Dostosowuj jasność ekranu do pory dnia i światła w pokoju":
+        "Adjust the screen brightness to the time of day and the room's light",
+    "Jasność = wartość z wykresu godzin × mnożnik z wykresu światła w pokoju, nie mniej niż 5%. Bez odczytu czujnika (brak czujnika, zamknięta klapa, czujnik wyłączony) liczy się sam wykres godzin. Gdy sam zmienisz jasność, korektor odpuszcza na godzinę; po wyłączeniu, wstrzymaniu Światła albo zamknięciu aplikacji jasność wraca do pierwotnej.":
+        "Brightness = the value from the hours chart × the multiplier from the room light chart, never below 5%. Without a sensor reading (no sensor, lid closed, sensor turned off) the hours chart alone counts. When you change the brightness yourself, the equaliser backs off for an hour; when it is turned off, Light is paused or the app quits, the brightness goes back to what it was.",
+    "Każdy słupek to jedna godzina doby, a wysokość to jasność ekranu (100% to pełna). Przeciągaj jak po wykresie barwy powyżej.":
+        "Each bar is one hour of the day and its height is the screen brightness (100% is full). Drag across it like the colour chart above.",
+    "Mnożnik dla światła w pokoju: w ciemnym pokoju ekran jest ciemniejszy, w jasnym jaśniejszy (powyżej 100% podnosi przyciemnioną godzinę, ale nigdy ponad pełną jasność). Między słupkami wartość przechodzi płynnie na skali logarytmicznej, a pionowa kreska pokazuje bieżący odczyt czujnika.":
+        "Multiplier for the room's light: in a dark room the screen is darker, in a bright one brighter (above 100% it lifts a dimmed hour, but never past full brightness). Between the bars the value blends smoothly on a logarithmic scale, and the vertical line shows the sensor's current reading.",
+    "Wykres jasności ekranu w ciągu doby":
+        "Chart of the screen brightness over the day",
+    "Wykres mnożnika jasności według światła w pokoju":
+        "Chart of the brightness multiplier by the room's light",
+    "Włącz czujnik światła w pokoju":
+        "Turn on the room light sensor",
+    "Korektor jasności zastępuje teraz przyciemnianie monitorów wieczorem z sekcji BetterDisplay.":
+        "The brightness equaliser now replaces the evening monitor dimming from the BetterDisplay section.",
+    "Wbudowany ekran zmieniam przez prywatny interfejs macOS (może przestać działać po aktualizacji), zewnętrzne monitory przez BetterDisplay. Bez automatu wyłącz „Automatycznie dostosowuj jasność” w Ustawieniach systemowych → Ekrany, bo macOS będzie poprawiał jasność po swojemu. Każdy ekran, także wbudowany, ma własne ustawienia jasności w sekcji Monitory (źródło, mnożnik, limity, nity); monitory „bez zarządzania” i okna-wyjątki zostają przy swojej jasności. Profil „Własne (wg zegara)” nie zmienia barwy według czujnika, ale korektor jasności korzysta z niego, gdy czujnik jest włączony.":
+        "The built-in screen is changed through a private macOS interface (it may stop working after an update), external monitors through BetterDisplay. Without the automatic mode, turn off “Automatically adjust brightness” in System Settings → Displays, or macOS will correct the brightness its own way. Every screen, the built-in one too, has its own brightness settings in the Monitors section (source, multiplier, limits, nits); unmanaged monitors and excluded windows keep their own brightness. The “Custom (by the clock)” profile does not change the colour by the sensor, but the brightness equaliser uses it when the sensor is on.",
+    "godzina %lld%% × pokój %lld%%":
+        "hour %lld%% × room %lld%%",
+    "godzina %lld%%, bez czujnika":
+        "hour %lld%%, no sensor",
+    "nie działa (Światło wyłączone lub wstrzymane)":
+        "not running (Light is off or paused)",
+    "Włączony korektor jasności (sekcja „Jasność ekranu”) zastępuje to przyciemnianie: jasność monitorów ustawia wtedy korektor.":
+        "The brightness equaliser (the “Screen brightness” section) is on and replaces this dimming: the equaliser sets the monitors' brightness.",
+    "Jasność wbudowanego ekranu zmieniono ręcznie: wracam do korektora po godzinie.":
+        "The built-in screen's brightness was changed by hand: the equaliser takes over again in an hour.",
+    "Ten Mac nie pozwala zmieniać jasności wbudowanego ekranu: działa tylko na monitorach przez BetterDisplay.":
+        "This Mac does not allow changing the built-in screen's brightness: it works only on monitors through BetterDisplay.",
+    "Wbudowany ekran jest wyłączony (np. zamknięta klapa): jasność zmieniam tylko na monitorach przez BetterDisplay.":
+        "The built-in screen is off (e.g. the lid is closed): only the monitors' brightness is changed, through BetterDisplay.",
+    "Profil „Własne (wg zegara)” nie zmienia barwy według czujnika: odczyt służy tylko korektorowi jasności.":
+        "The “Custom (by the clock)” profile does not change the colour by the sensor: the reading is used only by the brightness equaliser.",
+    "%lld nit":
+        "%lld nits",
+    "%lld nit z %lld":
+        "%lld nits of %lld",
+    "Automat: monitory podążają za wbudowanym ekranem (nity)":
+        "Automatic: monitors follow the built-in screen (nits)",
+    "Automatycznie (korektor albo macOS w automacie)":
+        "Automatic (equaliser, or macOS in the automatic mode)",
+    "Automatycznie (korektor albo nity w automacie)":
+        "Automatic (equaliser, or nits in the automatic mode)",
+    "Jasność":
+        "Brightness",
+    "Jasność monitora zmieniam przez BetterDisplay, którego tu nie ma: te ustawienia na razie nic nie zmieniają.":
+        "A monitor's brightness is changed through BetterDisplay, which is not installed here: these settings do nothing for now.",
+    "Klapa zamknięta: brak odniesienia dla automatu, monitory wracają do korektora.":
+        "Lid closed: the automatic mode has no reference, the monitors go back to the equaliser.",
+    "Korektor (wykresy godzin i pokoju)":
+        "Equaliser (hours and room charts)",
+    "Maksymalnie %lld nit":
+        "At most %lld nits",
+    "Monitor nie podaje maksymalnej jasności: przyjmuję %lld nit. Wpisz wartość z jego specyfikacji, żeby automat był dokładniejszy.":
+        "The monitor does not report its maximum brightness: %lld nits is assumed. Enter the value from its specification to make the automatic mode more accurate.",
+    "Monitor podaje w EDID: %lld nit.":
+        "The monitor reports in its EDID: %lld nits.",
+    "Najciemniej: %lld%%":
+        "Darkest: %lld%%",
+    "Najjaśniej: %lld%%":
+        "Brightest: %lld%%",
+    "Nie mogę odczytać jasności wbudowanego ekranu: monitory używają korektora.":
+        "The built-in screen's brightness cannot be read: the monitors use the equaliser.",
+    "Nie zmieniaj jasności":
+        "Do not change the brightness",
+    "Odczyt z macOS: %lld nit (maks. SDR; do %lld przy mocnym świetle).":
+        "Read from macOS: %lld nits (max SDR; up to %lld in bright light).",
+    "Odczyt z macOS: %lld nit (maks. SDR).":
+        "Read from macOS: %lld nits (max SDR).",
+    "Brak odczytu z macOS: przyjmuję %lld nit.":
+        "No reading from macOS: %lld nits is assumed.",
+    "Ten Mac nie ma wbudowanego ekranu: automat (nity) jest niedostępny, monitory używają korektora.":
+        "This Mac has no built-in screen: the automatic (nits) mode is not available, the monitors use the equaliser.",
+    "W automacie jasność tego ekranu ustawia macOS; mnożnik i limity działają, gdy automat jest wyłączony.":
+        "In the automatic mode macOS sets this screen's brightness; the multiplier and limits apply when the automatic mode is off.",
+    "W automacie jasność wbudowanego ekranu ustawia macOS (włącz „Automatycznie dostosowuj jasność” w Ustawieniach systemowych → Ekrany), a aplikacja tylko ją odczytuje i przelicza na nity. Monitor dostaje jasność = nity wbudowanego ÷ maksymalne nity monitora, z jego własnym mnożnikiem i limitami (Monitory poniżej); sprawdzane co ok. 30 s. Maksimum monitora pochodzi z EDID, z wpisu ręcznego albo przyjmuję 350 nitów. Przy zamkniętej klapie albo bez odczytu monitory wracają do korektora (wykresy poniżej). Monitor z wyborem „Korektor” zostaje przy wykresach.":
+        "In the automatic mode macOS sets the built-in screen's brightness (turn on “Automatically adjust brightness” in System Settings → Displays); the app only reads it and converts it to nits. A monitor gets brightness = the built-in screen's nits ÷ the monitor's maximum nits, with its own multiplier and limits (Monitors below); checked about every 30 s. The monitor's maximum comes from its EDID, from a typed value, or 350 nits is assumed. With the lid closed or without a reading the monitors go back to the equaliser (charts below). A monitor set to “Equaliser” stays with the charts.",
+    "Wbudowany ekran teraz":
+        "Built-in screen now",
+    "Własna maksymalna jasność (nity)":
+        "Own maximum brightness (nits)",
+    "Własny mnożnik: %lld%%":
+        "Own multiplier: %lld%%",
+    "jasność %lld%% · korektor":
+        "brightness %lld%% · equaliser",
+    "jasność %lld%% · za wbudowanym, %lld nit":
+        "brightness %lld%% · follows built-in, %lld nits",
+    "jasność bez zmian":
+        "brightness unchanged",
+    "jasność bez zmian (wyjątek)":
+        "brightness unchanged (exception)",
+    "jasność: macOS (automat)":
+        "brightness: macOS (automatic)",
+    "własna jasność":
+        "own brightness",
 }

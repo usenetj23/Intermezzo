@@ -13,6 +13,8 @@ struct MonitorGroup: Identifiable, Equatable {
     let displayIDs: [CGDirectDisplayID]
     var id: String { key.id }
     var count: Int { displayIDs.count }
+    /// The Mac's own screen: a peer of the monitors, with the same settings.
+    var isBuiltIn: Bool { displayIDs.contains { CGDisplayIsBuiltin($0) != 0 } }
 }
 
 /// Which monitors are connected and what the user set for each kind of monitor. The settings are kept
@@ -63,7 +65,10 @@ final class MonitorRegistry: ObservableObject {
             }
         }
         let next = order.compactMap { key in byKey[key].map { MonitorGroup(key: key, name: $0.name, displayIDs: $0.ids) } }
-        if next != groups { groups = next }
+        if next != groups {
+            groups = next
+            DisplayEDID.shared.refresh()
+        }
         remember(next)
     }
 
@@ -92,7 +97,7 @@ final class MonitorRegistry: ObservableObject {
 
     // MARK: Lookup
 
-    private func key(ofDisplay id: CGDirectDisplayID) -> MonitorKey? {
+    func key(ofDisplay id: CGDirectDisplayID) -> MonitorKey? {
         groups.first { $0.displayIDs.contains(id) }?.key
     }
 
@@ -122,7 +127,7 @@ final class MonitorRegistry: ObservableObject {
         change(&profile)
         profile.warmestK = profile.warmestK.map(MonitorLight.clampedWarmest)
         profile.dimPercent = profile.dimPercent.map(MonitorLight.clampedDimPercent)
-        save(profiles.setting(profile, for: key))
+        save(profiles.setting(MonitorLight.sanitizedBrightness(profile), for: key))
         LightController.shared.monitorSettingsChanged()
     }
 
@@ -131,6 +136,10 @@ final class MonitorRegistry: ObservableObject {
         update(key) {
             $0.warmestK = nil
             $0.dimPercent = nil
+            $0.brightnessSource = nil
+            $0.brightnessScale = nil
+            $0.brightnessMinPercent = nil
+            $0.brightnessMaxPercent = nil
         }
     }
 
